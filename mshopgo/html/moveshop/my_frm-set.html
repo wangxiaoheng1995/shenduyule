@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>设置</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        .confirmimg {
+            float: left;
+            width: 1.8rem;
+            display: inline-block;
+            margin: 1rem;
+        }
+
+        .aui-toast {
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            border-radius: 0.25rem;
+            color: #ffffff;
+            position: fixed;
+            z-index: 3;
+            top: 42%;
+            left: 44%;
+            width: 10.5em;
+            min-height: 4.5em;
+            margin-left: -3.75em;
+            margin-top: -4rem;
+            display: none;
+        }
+
+        .aui-toast-content {
+            display: inline-block;
+            position: absolute;
+            left: 43%;
+            top: 35%;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">店铺设置</div>
+</header>
+<div class="aui-content aui-margin-t-10" id="myIndex" v-cloak>
+    <ul class="aui-list aui-list-in aui-margin-t-0">
+        <li class="aui-list-item cart-bg-fff" @click="openActionsheet();">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">店铺logo</div>
+                <img :src="shop.shoplogo" class="aui-list-item-right aui-img-round my-head-width" id="shoplogo"/>
+            </div>
+        </li>
+        <li class="aui-list-item cart-bg-fff" @click="goToSetShopName()">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">店铺名称</div>
+                <div class="aui-list-item-right" id="shopname">{{shop.shopname}}</div>
+            </div>
+        </li>
+    </ul>
+    <ul class="aui-list aui-list-in aui-margin-t-10">
+        <li class="aui-list-item cart-bg-fff">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title">登录账号</div>
+                <div class="aui-list-item-right">{{shop.tel}}</div>
+            </div>
+        </li>
+        <li class="aui-list-item cart-bg-fff">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title">司机ID</div>
+                <div class="aui-list-item-right">{{shop.uid}}</div>
+            </div>
+        </li>
+    </ul>
+    <!--<ul class="aui-list aui-list-in aui-margin-t-10">-->
+        <!--<li class="aui-list-item cart-bg-fff">-->
+            <!--<div class="aui-list-item-inner aui-list-item-arrow">-->
+                <!--<div class="aui-list-item-title">店铺注销</div>-->
+            <!--</div>-->
+        <!--</li>-->
+    <!--</ul>-->
+</div>
+</body>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui/aui-actionsheet.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/vue.js"></script>
+<script type="text/javascript">
+    var user;
+    apiready = function () {
+        user = $api.getStorage('user');
+        var vue = new Vue({
+            el: '#myIndex',
+            data: {
+                shop: ''
+            },
+            methods: {
+                goToSetShopName: function () {
+                    $a.openWin('my_frm-shopname', 'shopId:' + this.shop.shopid + ',shopName:' + this.shop.shopname);
+                },
+                openActionsheet: function () {
+                    var self=this;
+                    var actionsheet = new auiActionsheet();
+                    actionsheet.init({
+                        frameBounces: true,//当前页面是否弹动，（主要针对安卓端）
+                        title: "更换头像",
+                        cancelTitle: '取消',
+                        buttons: ['拍一张', '从手机相册中选择']
+                    }, function (ret) {
+                        if (ret) {
+                            self.getPicture(ret.buttonIndex);
+                        }
+                    });
+                },
+                getPicture: function (sourceType) {
+                    var self=this;
+                    if (sourceType == 1) { // 拍照
+                        //获取一张图片
+                        api.getPicture({
+                            sourceType: 'camera',
+                            encodingType: 'png',
+                            mediaValue: 'pic',
+                            allowEdit: false,
+                            quality: 90,
+                            saveToPhotoAlbum: true
+                        }, function (ret, err) {
+                            if (ret) {
+                                var imgSrc = ret.data;
+                                if (imgSrc != "") {
+                                    $a.openWin('../my/my_frm-clip', 'type:shoplogo,img_url:' + imgSrc+',element_id:'+self.shop.shopid);
+                                }
+                            }
+                        });
+                    }
+                    else if (sourceType == 2) { // 从相机中选择
+                        //UIMediaScanner 是一个多媒体扫描器，可扫描系统的图片、视频等多媒体资源
+                        var UIMediaScanner = api.require('UIMediaScanner');
+                        UIMediaScanner.open({
+                            //返回的资源种类,picture（图片）,video（视频）,all（图片和视频）
+                            type: 'picture',
+                            //（可选项）图片显示的列数，须大于1
+                            column: 4,
+                            max: 1,
+                            //（可选项）图片排序方式,asc（旧->新）,desc（新->旧）
+                            sort: {
+                                key: 'time',
+                                order: 'desc'
+                            },
+                            //（可选项）模块各部分的文字内容
+                            texts: {
+                                stateText: '已选择*项',
+                                cancelText: '取消',
+                                finishText: '完成'
+                            },
+                            styles: {
+                                bg: '#fff',
+                                mark: {
+                                    icon: '',
+                                    position: 'bottom_right',
+                                    size: 20
+                                },
+                                nav: {
+                                    bg: '#eee',
+                                    stateColor: '#000',
+                                    stateSize: 18,
+                                    cancleBg: 'rgba(0,0,0,0)',
+                                    cancelColor: '#000',
+                                    cancelSize: 18,
+                                    finishBg: 'rgba(0,0,0,0)',
+                                    finishColor: '#000',
+                                    finishSize: 18
+                                }
+                            }
+                        }, function (ret) {
+                            if (ret) {
+                                if (getJsonObjLength(ret.list) != 0 && ret.list[0]) {
+                                    var systemType = api.systemType;
+                                    if (systemType == 'ios') {
+                                        UIMediaScanner.transPath({
+                                            path: ret.list[0].path
+                                        }, function (transret, transerr) {
+                                            $a.openWin('../my/my_frm-clip', 'type:shoplogo,img_url:' + transret.path+',element_id:'+self.shop.shopid);
+                                        });
+                                    } else {
+                                        $a.openWin('../my/my_frm-clip', 'type:shoplogo,img_url:' + ret.list[0].path+',element_id:'+self.shop.shopid);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            },
+            mounted: function () {
+                var self = this;
+                api.ajax({
+                    url: PHP_SERVE_URL + "/taxi/getTaxiShopInfo",
+                    method: 'post',
+                    data: {
+                        values: {
+                            openId: user.openId
+                        }
+                    }
+                }, function (ret) {
+                    if (ret.code == 0) {
+                        self.shop = ret.data;
+                    } else {
+                        $a.toast("暂无店铺信息")
+                    }
+                });
+                api.addEventListener({
+                    name: 'refresh_moveshop_shopname'
+                }, function (ret, err) {
+                    $api.text($api.byId('shopname'), ret.value.shopName);
+                });
+                api.addEventListener({
+                    name: 'refresh_moveshop_shoplogo'
+                }, function (res) {
+                    if (res) {
+                        $api.attr($api.byId('shoplogo'), 'src', res.value.shoplogo);
+                    }
+                });
+            }
+        });
+    }
+    function getJsonObjLength(jsonObj) {
+        var Length = 0;
+        for (var item in jsonObj) {
+            Length++;
+        }
+        return Length;
+    }
+
+</script>
+</html>

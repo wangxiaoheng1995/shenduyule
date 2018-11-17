@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>活动专区</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body,html {
+            width: 100%;
+            background: #f6f6f6;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*黑色*/
+        .font-colo-b {
+            color: #212121 !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        /* 分割线*/
+
+        .order {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .order .line {
+            display: inline-block;
+            width: 38%;
+            border-top: 1px solid #ccc;
+        }
+
+        .order .txt {
+            color: #686868;
+            vertical-align: -4px;
+            font-size: 0.7rem;
+            width: 20%;
+        }
+
+        .aui-card-list-footer {
+            font-size: 0.65rem;
+        }
+
+        .activity-list .aui-content .aui-card-list {
+            border-radius: 0.5rem;
+            /*overflow: hidden;*/
+        }
+
+        .activity-pic img {
+            height: 6rem;
+            border: none;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+
+        #activity {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .inner {
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+
+
+        .flex-wrap {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+
+        .flex-vertical {
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+        }
+
+        .flex-con {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        #wrap {
+            height: 100%;
+            background-color: #f6f6f6;
+        }
+    </style>
+</head>
+<body class="">
+<div class="flex-wrap flex-vertical" id="wrap">
+    <header class="aui-bar aui-bar-nav">
+        <a class="aui-pull-left aui-btn" onclick="history.back();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">活动专区</div>
+    </header>
+    <div id="activity" class="flex-con">
+        <div class="aui-padded-l-15 aui-padded-r-15 inner">
+            <div class="activity-list">
+                <div class="aui-content  aui-margin-t-15">
+                    <div class="aui-card-list bg-color aui-margin-b-15" >
+                        <div class="aui-card-list-content activity-pic">
+                            <img src="http://media1.yunlutong.com/YltmallRes/20180706/153084812531035.png?x-oss-process=image/resize,m_fill,h_200,w_200">
+                        </div>
+                        <div class="clearfix">
+                            <div class="aui-card-list-footer aui-pull-left">
+                                <span class="font-colo-b">活动时间</span>
+                                <em class="aui-margin-l-5 aui-margin-r-5">:</em>
+                                <span>2018-7-25 - 2018-9-4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="activity-list">
+                <div class="order">
+                    <span class="line"></span>
+                    <span class="txt">往期活动</span>
+                    <span class="line"></span>
+                </div>
+                <div class="aui-content  aui-margin-t-15">
+                    <div class="aui-card-list bg-color">
+                        <div class="aui-card-list-content " style="width: 3rem;position: absolute;z-index: 9">
+                            <img src="../image/jy_over_image.png">
+                        </div>
+                        <div class="aui-card-list-content activity-pic">
+                            <img src="http://media1.yunlutong.com/YltmallRes/20180706/153084812531035.png?x-oss-process=image/resize,m_fill,h_200,w_200">
+                        </div>
+                        <div class="clearfix">
+                            <div class="aui-card-list-footer aui-pull-left">
+                                <span class="font-colo-b">活动时间</span>
+                                <em class="aui-margin-l-5 aui-margin-r-5">:</em>
+                                <span>2018-7-25 - 2018-8-4</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-content-padded">
+                <p class="aui-font-size-12">温馨提示<em class="aui-margin-l-5 aui-margin-r-5">:</em>投资有风险，入市需谨慎。以上所有活动解释权均归沽海所有。
+                </p>
+            </div>
+        </div>
+        <img src="../image/icon-zw.png" alt="" style="width: 60%;margin:auto;">
+    </div>
+</div>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/vue.js"></script>
+</body>
+</html>

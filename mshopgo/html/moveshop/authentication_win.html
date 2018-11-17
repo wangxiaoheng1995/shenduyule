@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/authentication_win.css"/>
+    <link rel="stylesheet" href="../../css/sm.min.css">
+    <link rel="stylesheet" href="../../css/sm-extend.min.css">
+    <style>
+       .picker-modal-inner.picker-items{
+           font-size: 0.8rem;
+       }
+       .aui-list .aui-list-item:active {
+           background-color: #ffffff;
+       }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav aui-bar-light" id="aui-header">
+    <a class="aui-btn aui-pull-left" tapmode onclick="api.closeWin()">
+        <span class="aui-iconfont aui-icon-left color-black"></span>
+    </a>
+    <div class="aui-title color-black">实名认证</div>
+</header>
+<div class="main">
+    <section class="aui-content" id="content">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">真实姓名</div>
+                    <div class="aui-list-item-input">
+                        <input class="aui-text-right" type="text" placeholder="请输入真实姓名" id="uname" >
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">身份证号</div>
+                    <div class="aui-list-item-input">
+                        <input class="aui-text-right" type="text" maxlength="18" placeholder="请输入真实身份证件" id="card_no" >
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">报名城市</div>
+                    <div class="aui-list-item-input city" >
+                        <input id="city-picker" type="text" class="aui-pull-right aui-text-right" placeholder="点击选择报名城市" readonly >
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">性别</div>
+                    <div class="aui-list-item-input aui-text-right">
+                        <label class="aui-margin-r-15"><input class="aui-radio aui-margin-r-5" type="radio" name="sex"
+                                                              checked value="1">男</label>
+                        <label><input class="aui-radio aui-margin-r-5" type="radio" name="sex"  value="2">女</label>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label" style="width: 20%;">角色</div>
+                    <div class="aui-list-item-input aui-text-right">
+                        <label class="aui-margin-r-15">
+                            <input class="aui-radio aui-margin-r-5" type="radio" name="role" checked value="1">出租车店主</label>
+                        <label><input class="aui-radio aui-margin-r-5" type="radio" name="role"  value="2">网约车店主</label>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">车牌号</div>
+                    <div class="aui-list-item-input">
+                        <div class="aui-pull-right carNum">
+                            <label><input class="aui-text-right" type="text" placeholder="请输入车牌号" id="platenum" ></label>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <p class="aui-text-center color-write btn " onclick="setimg()">提交信息</p>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type='text/javascript' src='../../script/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../../script/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../../script/sm-extend.min.js' charset='utf-8'></script>
+<script type="text/javascript" src="../../script/sm-province-city-picker.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<script type="text/javascript" src="../../script/yltcrypt.js"></script>
+<script type="text/javascript">
+    var user;
+    apiready = function () {
+        user=$api.getStorage("user");
+    };
+    $("#city-picker").cityPicker({
+        toolbarTemplate: '<header class="bar bar-nav">\
+    <button class="button button-link pull-right close-picker color-palered aui-text-right">确定</button>\
+    <h1 class="title">选择报名城市</h1>\
+    </header>'
+    });
+    function setimg(){
+        var uname=$("#uname").val().trim();
+        var card_no=$("#card_no").val();
+        var citypicker=$("#city-picker").val();
+        var province=$("#province").val();
+        var city=$("#city").val();
+        var sex=$("[name=sex]:checked").val();
+        var role=$("[name=role]:checked").val();
+
+        var platenum=$("#platenum").val();
+        var regName =/^[\u4e00-\u9fa5]{2,4}$/;
+        var regCardNo=/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+        var regPlatenum=/^[冀豫云辽黑湘皖鲁苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼渝京津沪新京军空海北沈兰济南广成使领][a-zA-Z][a-zA-Z0-9]{5}$/;//([挂学警港澳])?
+
+        if(!regName.test(uname)){
+            $a.toast("请填写真实姓名");
+            $("#uname").focus();
+            return;
+        }
+        if(!regCardNo.test(card_no)){
+            $a.toast("身份证号格式不正确");
+            $("#card_no").focus();
+            return;
+        }
+        if(citypicker.length==0){
+            $a.toast("请选择报名城市");
+            $("#city-picker").focus();
+            return;
+        }
+        if(!regPlatenum.test(platenum)){
+            $a.toast("请填写正确的车牌号");
+            $("#platenum").focus();
+            return;
+        }
+        var i=citypicker.split(" ");
+        province=i[0];
+        city=i[1];
+        api.ajax({
+            url:PHP_SERVE_URL+"/taxi/setTaxiIdentity",
+            method:'post',
+            data:{
+                values:{
+                    id:0,
+                    openId:user.openId,
+                    uname:uname,
+                    province:province,
+                    city:city,
+                    sex:sex,
+                    role:role,
+                    card_no:card_no,
+                    platenum:platenum,
+                    token:yltcrypt.cpt(user.openId)
+                }
+            }
+        },function(ret,err){
+            if(ret.code==0){
+                $a.toast("已提交成功");
+                api.closeWin();
+            }else{
+                $a.toast("提交失败");
+            }
+        })
+    }
+    function lingSubmit() {
+            $(".s_submitexa").addClass("s_submitok");
+    }
+</script>
+</html>

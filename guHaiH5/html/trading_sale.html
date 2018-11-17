@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        html {
+            height: 100%;
+        }
+
+        /*浅白*/
+        body {
+            background: #f6f6f6;
+            height: 100%;
+        }
+
+        /*最底背景：黑色*/
+        .bg1 {
+            background-color: #171b24;
+
+        }
+
+        /*底背景：半黑色*/
+        .bg2 {
+            background-color: #1c2029;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        /*白色背景*/
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*黑色*/
+        .font-colo-b {
+            color: #212121 !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .aui-tab-item {
+            color: #ffffff;
+        }
+
+        .aui-tab-item.aui-active {
+            color: #de3232;
+            border-bottom: 2px solid #de3232;
+        }
+
+        /*买入*/
+        .aui-grid .aui-col-xs-3 {
+            background-color: #1c2029;
+            color: #ffffff;
+        }
+
+        .aui-grid .aui-col-xs-3, .aui-grid .aui-col-xs-3.aui-active, .aui-grid .aui-col-xs-3:active {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-3.aui-active, .aui-grid .aui-col-xs-3:active {
+            background-color: #de3232;
+        }
+
+        .aui-bar-btn-item {
+            color: #ffffff;
+            border: none;
+        }
+
+        .aui-bar-btn-item.aui-active {
+            background-color: #7e7e8e;
+            color: #000000;
+
+        }
+
+        .aui-bar-btn.aui-bar-btn-round .aui-bar-btn-item:first-child {
+            border-radius: 0.3rem;
+            border: none;
+        }
+
+        .aui-grid .aui-col-xs-4 {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-4 p {
+            font-weight: 700;
+
+        }
+
+        /* 文本框预输入文字颜色：*/
+        :-moz-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        ::-moz-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        input:-ms-input-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        input::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /*撤单*/
+        #revoke .aui-grid .aui-col-xs-3 {
+            font-weight: inherit;
+        }
+
+        #revoke .aui-grid .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+        }
+
+        #revoke .aui-grid .aui-col-xs-3 .revoke {
+            border: 1px solid #de3232;
+            border-radius: 0.1rem;
+            color: #de3232;
+            margin: 0 auto;
+            width: 2.5rem;
+        }
+
+        #revoke ul li {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #revoke .aui-grid {
+            background-color: inherit;
+        }
+
+        /*委托*/
+        #entrust .aui-grid .aui-col-xs-6 {
+            color: #ffffff;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        #entrust .aui-grid .aui-col-xs-6.active {
+            color: #de3232;
+        }
+
+        #entrust ul li {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #entrust .aui-grid {
+            background-color: inherit;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 {
+            font-weight: inherit;
+            background-color: inherit;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 .entrust {
+            border: 1px solid #de3232;
+            border-radius: 0.1rem;
+            color: #de3232;
+            margin: 0 auto;
+            width: 2.5rem;
+        }
+
+        /*持仓*/
+        #mochikura .aui-grid .aui-row .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+            padding: 0.2rem 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body class="bg1">
+<!--卖出-->
+<div class="aui-content tabcontent " id="sell">
+    <div class="aui-grid font-colo-gy " style="background-color: inherit">
+        <div class="aui-row">
+            <div class="aui-col-xs-4" style="width: 25%">
+
+            </div>
+            <div class="aui-col-xs-4" style="width: 50%">
+                <input type="text" placeholder="请输入股票代码" style="text-align: center ;color: #ffffff">
+            </div>
+            <div class="aui-col-xs-4" style="width: 25%">
+            </div>
+        </div>
+    </div>
+
+    <div class="aui-grid font-colo-gy bg2" style="border-bottom: 1px solid rgba(126,126,142,0.2)">
+        <div class="aui-row">
+            <div class="aui-col-xs-4" style="width: 25%">
+                <p>-</p>
+                <p>0.01</p>
+            </div>
+            <div class="aui-col-xs-4 bg1"
+                 style="width: 50%;border-left: 1px solid rgba(126,126,142,0.2);border-right: 1px solid rgba(126,126,142,0.2)">
+                <input type="text" placeholder="卖出价格" style="text-align: center ;color: #ffffff">
+            </div>
+            <div class="aui-col-xs-4" style="width: 25%">
+                <p>+</p>
+                <p>0.01</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="aui-grid font-colo-gy bg2">
+        <div class="aui-row">
+            <div class="aui-col-xs-4" style="width: 25%;">
+                <p>-</p>
+                <p>100</p>
+
+            </div>
+            <div class="aui-col-xs-4 bg1"
+                 style="width: 50% ;border-left: 1px solid rgba(126,126,142,0.2);border-right: 1px solid rgba(126,126,142,0.2)">
+                <input type="text" placeholder="卖出数量" style="text-align: center ;color: #ffffff">
+            </div>
+            <div class="aui-col-xs-4" style="width: 25%">
+                <p>+</p>
+                <p>100</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="aui-content aui-margin-l-15 aui-margin-r-15 aui-margin-t-5 aui-margin-b-5">
+        <div class="aui-info">
+            <div class="aui-info-item">
+                <span class="font-colo-w">最新<i class="aui-margin-l-5 aui-margin-r-5">:</i></span><span
+                    class="font-colo-r">xxxx</span></div>
+            <div class="aui-info-item">
+                <span class="font-colo-w">可买<i class="aui-margin-l-5 aui-margin-r-5">:</i></span><span
+                    class="font-colo-r">xxxx</span></div>
+        </div>
+    </div>
+
+    <div class="aui-grid">
+        <div class="aui-row">
+            <div class="aui-col-xs-3 aui-active">
+                卖出
+            </div>
+            <div class="aui-col-xs-3">
+                刷新
+            </div>
+            <div class="aui-col-xs-3">
+                买/卖
+            </div>
+            <div class="aui-col-xs-3">
+                清空
+            </div>
+        </div>
+    </div>
+
+    <div class="aui-bar aui-bar-btn aui-bar-btn-round aui-margin-l-15 aui-margin-t-15"
+         style="width:35%;background-color: inherit;border: 1px solid #7e7e8e;border-radius: 0.3rem">
+        <div class="aui-bar-btn-item aui-active" tapmode="" data-item-order="0">五档</div>
+        <div class="aui-bar-btn-item" tapmode="" data-item-order="1">分时</div>
+    </div>
+
+    <div class="aui-grid aui-margin-l-15 aui-margin-r-15" style="background-color: inherit">
+        <div class="aui-row">
+            <div class="aui-col-xs-6 aui-padded-b-0" style="text-align: left">
+                <span class="font-colo-w">涨停<i class="aui-margin-l-5 aui-margin-r-5">:</i></span>
+                <span class="font-colo-r">--</span>
+            </div>
+            <div class="aui-col-xs-6 aui-padded-b-0" style="text-align: left">
+                <span class="font-colo-w">跌停<i class="aui-margin-l-5 aui-margin-r-5">:</i></span>
+                <span class="font-colo-g">--</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="aui-grid" style="background-color: inherit">
+        <div class="aui-row">
+            <div class="aui-col-xs-6 aui-padded-t-0">
+                <ul class="aui-row">
+                    <li class="aui-col-xs-4 font-colo-gy">买一</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                </ul>
+                <ul class="aui-row">
+                    <li class="aui-col-xs-4 font-colo-gy">买二</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                </ul>
+                <ul class="aui-row">
+                    <li class="aui-col-xs-4 font-colo-gy">买三</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                </ul>
+                <ul class="aui-row">
+                    <li class="aui-col-xs-4 font-colo-gy">买四</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                </ul>
+                <ul class="aui-row">
+                    <li class="aui-col-xs-4 font-colo-gy">买五</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                </ul>
+            </div>
+            <div class="aui-col-xs-6 aui-padded-t-0">
+                <ul class="aui-row">
+                    <li class="aui-col-xs-4 font-colo-gy">卖一</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                </ul>
+                <ul class="aui-row">
+                    <li class="aui-col-xs-4 font-colo-gy">卖二</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                </ul>
+                <ul class="aui-row">
+                    <li class="aui-col-xs-4 font-colo-gy">卖三</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                </ul>
+                <ul class="aui-row">
+                    <li class="aui-col-xs-4 font-colo-gy">卖四</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                </ul>
+                <ul class="aui-row">
+                    <li class="aui-col-xs-4 font-colo-gy">卖五</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                    <li class="aui-col-xs-4 font-colo-r">xxxx</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

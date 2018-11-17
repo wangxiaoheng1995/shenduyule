@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>客服</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <style>
+        body,
+        html {
+            background: #ebebeb !important;
+        }
+
+        .aui-list .aui-list-item-label {
+            width: 10%;
+        }
+
+        .aui-list .aui-list-item-label img {
+            width: 1rem;
+        }
+        /*输入框预输入字体颜色*/
+
+        input::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #999;
+        }
+
+        input:-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #999;
+        }
+
+        input::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #999;
+        }
+
+        input:-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            color: #999;
+        }
+        /*默认同意协议*/
+
+        .aui-chat .aui-chat-left .aui-chat-content {
+            color: #333333;
+            background-color: white;
+            font-size: 0.7rem;
+        }
+
+        .aui-content {
+            clear: both;
+        }
+
+        .aui-list .aui-list-header {
+            background-color: white;
+            color: #999999;
+            font-size: 0.7rem;
+            border-bottom: #f5f5f5 1px solid;
+        }
+
+        .aui-list .aui-list-item-inner {
+            color: #ebebeb;
+            font-size: 0.8rem;
+            border-bottom: #f5f5f5 1px solid;
+        }
+
+        .aui-chat .aui-chat-left .aui-chat-arrow {
+            background-image: linear-gradient(45deg, #ffffff, #ffffff 50%, transparent 50%);
+        }
+
+        .aui-chat-content img {
+            /*width: 30px;*/
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="aui-chat" id="message-content">
+        <div id="msgList">
+
+        </div>
+    </section>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui/aui-scroll.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/sqlite_db.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/emotion.js"></script>
+<script type="text/javascript" src="../../script/yltcrypt.js"></script>
+<script type="text/javascript" src="../../script/newMsgListen.js"></script>
+<script type="text/javascript" src="../../script/res/layer/mobile/layer.js"></script>
+<script type="text/html/x-dot-template" id="data_message">
+    {{~it.data :value}} {{?value.sendtype==2}}
+        <div class="aui-chat-item aui-chat-right">
+            <div class="aui-chat-media">
+                <img src="{{=it.avatar}}" />
+            </div>
+            <div class="aui-chat-inner">
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    {{=value.info}}
+                </div>
+                <div class="aui-chat-status"></div>
+            </div>
+        </div>
+    {{??}}
+        <div class="aui-chat-item aui-chat-left">
+            <div class="aui-chat-media">
+                <img src="{{=it.targetAvatar}}" />
+            </div>
+            <div class="aui-chat-inner">
+                <div class="aui-chat-content">
+                    <div class="aui-chat-arrow"></div>
+                    {{?value.infotype==1}}
+                        {{=value.info}}
+                    {{??}}
+                        <img src="{{=value.info}}" />
+                    {{?}}
+                </div>
+                <div class="aui-chat-status"></div>
+            </div>
+        </div>
+    {{?}} {{~}}
+</script>
+
+<script type="text/html/x-dot-template" id="data_newmessage">
+    {{?it.messageDirection=='SEND'}}
+    <div class="aui-chat-item aui-chat-right">
+        <div class="aui-chat-media">
+            <img src="{{=it.headImgUrl}}" />
+        </div>
+        <div class="aui-chat-inner">
+            <div class="aui-chat-content">
+                <div class="aui-chat-arrow"></div>
+                {{=it.content.text}}
+            </div>
+            <div class="aui-chat-status"></div>
+        </div>
+    </div>
+    {{??}}
+    <div class="aui-chat-item aui-chat-left">
+        <div class="aui-chat-media">
+            <img src="{{=it.headImgUrl}}" />
+        </div>
+        <div class="aui-chat-inner">
+            <div class="aui-chat-content">
+                <div class="aui-chat-arrow"></div>
+                {{?it.objectName=='RC:TxtMsg'}}
+                    {{=it.content.text}}
+                {{??}}
+                    <img src="{{=it.content.imageUrl}}" />
+                {{?}}
+            </div>
+            <div class="aui-chat-status"></div>
+        </div>
+    </div>
+    {{?}}
+</script>
+<script type="text/javascript">
+    var rong, sqlite, user, pageSize = 10,pageIndex = 0,
+        targetId,headerH,targetUser,chatGoodData;
+    apiready = function() {
+        rong = api.require('rongCloud2');
+        sqlite = api.require('db');
+        ronginit(); //连接融云
+        user = $api.getStorage('user');
+        if (!user)return;
+        targetId = api.pageParam.targetId;
+        chatGoodData = api.pageParam.chatGoodData;
+        targetUser = getTargetInfo(targetId);
+        headerH = api.pageParam.headerH;
+        openUIChatBox();
+        selectMessage(chatGoodData);
+
+        //监听接收到消息
+        NewMsgListen.chatWinReceive();
+        //消息读取通知
+        NewMsgListen.msgReadPush(targetId);
+
+
+        //监听发送成功消息
+        api.addEventListener({
+            name: 'newMessage'
+        }, function(ret, err) {
+            var message = ret.value.message;
+            if ("RC:TxtMsg" == message.objectName) {
+                var interText = doT.template($("#data_newmessage").text());
+                message.headImgUrl=user.avatar;
+                $("#msgList").append(interText(message));
+                goBottom();
+            }
+        });
+    };
+
+    //滚动监听
+    var loadMoreMsg = 1;
+    var scroll = new auiScroll({
+        listen:true, //是否监听滚动高度，开启后将实时返回滚动高度
+        distance:200 //判断到达底部的距离，isToBottom为true
+    },function(ret){
+       if(ret.scrollTop>0 && ret.scrollTop<70 && loadMoreMsg){
+           loadMoreMsg = 0;
+           document.getElementById('message-content').scrollTop = 15;
+           selectMessage({});
+       }
+    });
+</script>
+
+</html>

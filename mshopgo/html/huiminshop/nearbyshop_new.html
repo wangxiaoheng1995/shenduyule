@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>附近店铺</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css" />
+    <style type="text/css">
+    .text-light {
+        color: #999 !important;
+    }
+
+    .shop ul li {
+        padding-bottom: 0.25rem;
+    }
+
+    .shop ul li:last-child {
+        background-image: none!important;
+    }
+
+    .shopname .aui-list-item-title {
+        width: 7rem;
+    }
+
+    .shopname .aui-list-item-title span {
+        display: inline-block;
+        color: #000000;
+        width: 7rem;
+    }
+
+    .shopname img {
+        position: absolute;
+        top: 37%;
+        transform: translateY(-50%);
+        display: inline-block;
+        height: 1.2rem;
+        width: 1.2rem;
+    }
+
+    .consume {
+        color: #333;
+    }
+
+    .consume span {
+        /*margin-left: 0.25rem;*/
+    }
+
+    .consume .aui-icon-star {
+        color: #EEEEEE;
+    }
+
+    .type span {
+        margin-right: 0.25rem;
+    }
+
+    .tab {
+        margin-top: 0.3rem;
+    }
+
+    .tab span {
+        margin-right: 0.25rem;
+        padding: 0.1rem 0.25rem;
+        border: 1px solid #eee;
+        border-radius: 0.2rem;
+    }
+
+    .color-red {
+        color: red;
+    }
+
+    .tab-icon {
+        display: block;
+        width: 1.8rem;
+        height: 1.8rem;
+        border-radius: 50%;
+        margin: 0 auto;
+        line-height: 1.8rem;
+        text-align: center;
+    }
+
+    .bg-white {
+        background: #ffffff;
+    }
+
+    .color-black {
+        color: #000000 !important;
+    }
+
+    .v-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    .stars{
+        overflow: hidden;
+    }
+    .stars img{
+        width: .6rem;
+        float: left;
+    }
+    .hot-servers {
+        margin-left: -.75rem;
+    }
+    .hot-servers li{
+        padding-left: 1.5rem;
+        border-top:1px solid #ddd;
+        padding-top: .4rem;
+        padding-bottom: .4rem!important;
+    }
+    .hot-servers li p{
+        color: #666;
+    }
+
+    .hot-servers li .servers-name .price{
+        color: deeppink;
+    }
+    .hot-servers li .servers-sell-out .sale-num{
+        color: #ff79a9;
+        border:1px solid #ff79a9;
+        padding: 0 3px;
+        border-radius: 2px;
+    }
+
+    </style>
+</head>
+
+<body>
+    <!-- 顶部 -->
+    <header class="header-nav aui-bar aui-bar-nav tit-bar-black back-write border-bot">
+        <a class="aui-pull-left aui-btn" onclick="history.back()">
+        <span class="aui-iconfont aui-icon-left color-gray9"></span>
+    </a>
+        <div class="aui-title color-black">附近店铺</div>
+    </header>
+    <section class="aui-content" style="padding-top:2rem;">
+        <div class="aui-card-list" style="margin-top:0.5rem;">
+            <div class="aui-card-list-content shop">
+                <ul class="aui-list aui-media-list" id="content">
+                    <template>
+                        <li class="aui-list-item" v-for="(v,i) in datas" @click="gotoShop(v.shopInfo.id)">
+                            <div class="aui-media-list-item-inner">
+                                <div class="aui-list-item-media aui-padded-r-10" style="width: 4.25rem;">
+
+                                    <img :src="v.shopInfo.head_pic" />
+                                </div>
+                                <div class="aui-list-item-inner v-center">
+                                    <div class="shopname">
+                                        <div class="aui-list-item-title aui-font-size-16">
+                                            <span class="aui-ellipsis-1">{{v.shopInfo.shop_name}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="consume">
+                                        <!--服务评分：{{v.shop_info.service_score}}-->
+                                        <div class="stars" style="display: inline-block;vertical-align: middle;">
+                                            <template v-for="n in 5">
+                                                <img v-if="n<=parseInt(v.shopInfo.score)" src="../../image/huiminshop/star.png" alt="">
+                                                <img v-if="n>parseInt(v.shopInfo.score)" src="../../image/huiminshop/star_s.png" alt="">
+                                            </template>
+                                        </div>
+                                       <span class="color-gray9 aui-font-size-10">
+                                            ￥{{v.shopInfo.avgprice}}/人
+                                       </span>
+                                    </div>
+                                    <div class="type">
+                                        <span class="aui-font-size-12" style="color: #666;">{{v.shopInfo.type}}</span>
+                                        <span class="aui-font-size-12 aui-pull-right aui-padded-t-5" style="color: #666;">{{v.shopInfo.city}} {{v.shopInfo.distance}}km</span>
+                                    </div>
+                                    <!--<div class="tab aui-font-size-12 text-light ">-->
+                                        <!--<span v-for="v2 in v.shoptab">{{v2.tab_name}}</span>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                            <ul class="hot-servers">
+                                <template v-for="(v2,i2) in v.shopInfo.goods">
+                                    <li v-if="i2<=2">
+                                          <p class="servers-name aui-font-size-14"><span class="price aui-padded-r-5 aui-font-size-18">￥{{v2.gprice}}</span>{{v2.gname}}</p>
+                                          <p class="servers-sell-out aui-font-size-12"><span class="sale-num aui-margin-r-5 aui-font-size-10">最高减5</span><span class="color-gray9">{{v2.gname}}</span></p>
+                                    </li>
+                                </template>
+                            </ul>
+                            <div v-if="i < datas.length-1" class="aui-padded-t-5" style="background: #ddd;margin-left: -.75rem;"></div>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <iframe id="geoPage" width=0 height=0 frameborder=0  style="display:none;" scrolling="no"
+            src="https://apis.map.qq.com/tools/geolocation?key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&referer=myapp">
+    </iframe>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script type="text/javascript">
+var page = 1;
+var totalpage = 1;
+var toast=new auiToast();
+    var vm = new Vue({
+        el: "#content",
+        data: {
+            datas: []
+        },
+        methods: {
+            getDatas: function(data) {
+                var _self = this;
+                $.ajax({
+                    url: PHP_SERVE_URL + '/shop/getNearbyShop',
+                    type: 'post',
+                    data: {
+                      lng:data.lng,
+                      lat:data.lat,
+                      page: page,
+                    },
+                    success: function(ret, err) {
+                        if (ret.code == 0) {
+                            for(var i=0;i<ret.data.length;i++){
+                                _self.datas.push(ret.data[i]);
+                            }
+                            totalpage = ret.totalpage;
+                            page++;
+                        } else {
+                            toast.fail({title:ret.msg,duration:2000});
+                        }
+                    }
+                });
+            },
+            gotoShop:function (shopid) {
+                window.location.href='./nearbyshop_detail_new.html?shop_id='+shopid;
+            }
+        },
+        mounted: function() {
+            var _self = this;
+
+            //添加触底加载数据事件
+            // api.addEventListener({
+            //     name: 'scrolltobottom',
+            //     extra: {
+            //         threshold: 50
+            //     }
+            // }, function() {
+            //     if (page > 1 && page <= totalpage) {
+            //     }
+            // });
+            window.onscroll = function () {
+                var top = this.pageYOffset || this.scrollY;
+                var windowHeight = this.outerHeight || this.innerHeight;
+                var bodyH=document.body.scrollHeight;
+                if ((top+windowHeight) == bodyH) {
+                    if (page > 1 && page <= totalpage) {
+                        _self.getDatas();
+
+                    }
+                }
+            };
+            //页面初始化时加载一次数据
+            var isGet=true
+            window.onmessage=function (res) {
+                if(res.data){
+                    if(isGet){
+                       _self.getDatas(res.data);
+                       isGet=false;
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</html>

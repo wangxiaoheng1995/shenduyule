@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+  <title>门店特权</title>
+  <link rel="stylesheet" href="../../css/aui/aui.css">
+  <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+  <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+  <link rel="stylesheet" href="../../css/base.css">
+</head>
+<style>
+  .color-white {
+    color: #fff;
+  }
+
+  .wui-bg-pink {
+    background: #FE5095;
+  }
+
+  .aui-bar-nav {
+    position: fixed;
+  }
+
+  .content {
+    padding-top: 2rem;
+  }
+
+  .vip-gift-list .aui-list-item-media {
+    width: 8.5rem;
+  }
+
+  .font-size-9 {
+    font-size: .45rem !important;
+  }
+
+  .cart-bg-fff {
+    background-color: #fff !important;
+  }
+
+  .relative {
+    position: relative;
+  }
+
+  .bottom-15 {
+    bottom: .15rem;
+  }
+
+  .btn-pink-to-bpink {
+    display: inline-block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    line-height: 1.75rem;
+    background: linear-gradient(to bottom, #D8085B 0, #FE5095 100%);
+    border-radius: 5px;
+    font-size: 10px;
+    color: #fff !important;
+    margin-top: 7rem;
+  }
+
+  .font-size-15 {
+    font-size: .75rem;
+  }
+
+  .pt20 {
+    padding-top: 1rem;
+  }
+
+  .pt30 {
+    padding-top: 1.5rem;
+  }
+
+  .font-size-11 {
+    font-size: .55rem;
+  }
+
+  .color-666666 {
+    color: #666666;
+  }
+
+  .color-999999 {
+    color: #999999;
+  }
+
+  .text-indent-1 {
+    text-indent: 1.1rem;
+  }
+
+  .line-height-18 {
+    line-height: .9rem;
+  }
+
+  .line-height-24 {
+    line-height: 1.2rem;
+  }
+  .line-height-26 {
+    line-height: 1.3rem;
+  }
+
+  .privilege_bg {
+    background: url("../../image/partner/privilege_bg.png") no-repeat center 0rem / 90% auto;
+  }
+
+  .privilege_list {
+    width: 12rem;
+    margin: 1.2rem auto 0 auto;
+    border: 3px solid #EDCE90;
+  }
+
+  .privilege_list p {
+    box-sizing: border-box;
+    font-size: .6rem;
+    color: #666666;
+    text-align: center;
+    line-height: 1.1rem;
+    border-left: 1px solid #EDCE90;
+    width: 50%;
+    float: left;
+    border-bottom:1px solid #EDCE90;
+  }
+
+  .privilege_list p:first-child {
+    border-left: 0;
+  }
+  .privilege_list li:last-child p {
+    border-bottom: 0;
+  }
+  .bg-F0EEEE{
+    background: #f0eeee;
+  }
+  .border-DCDCDC-1{
+    border: 1px solid #DCDCDC;
+  }
+  .mt40{
+    margin-top: 2rem;
+  }
+  a{
+    font-size: inherit;
+    color: inherit;
+  }
+</style>
+
+<body class="cart-bg-fff">
+<!-- header -->
+<header class="aui-bar aui-bar-nav tit-bar-black wui-bg-pink color-white" id="header">
+  <a class="aui-pull-left aui-btn" onclick="window.history.back();">
+    <span class="aui-iconfont aui-icon-left"></span>
+  </a>
+  <div class="aui-title">门店特权</div>
+</header>
+<div class="main back-write aui-padded-b-15">
+  <div class="content privilege_bg">
+    <div class="aui-text-center">
+      <p class="color-pink aui-font-size-16 pt30">全网商品购买</p>
+      <p class="color-black aui-font-size-14 aui-margin-t-5">100多家实体店铺合作！</p>
+      <p class="color-black font-size-11 aui-margin-t-5">可以购买网上搜到的任何商品，保质保量</p>
+      <p class="color-black font-size-11 aui-padded-t-5">眼见为实的网店价格，买得放心！</p>
+      <p class="color-pink font-size-11 aui-padded-t-15 line-height-26">销拼购，线下服务店<br>目前最专业的O2O实体网购店的先驱者！</p>
+    </div>
+    <div class="bg-F0EEEE aui-padded-t-15 border-DCDCDC-1 mt40"></div>
+    <div>
+      <p class="color-pink aui-padded-t-15 aui-padded-b-15 aui-padded-l-15 border-bot aui-font-size-14">我们的店铺</p>
+      <ul>
+        <li class="color-pink aui-font-size-12 aui-padded-t-15 aui-padded-b-15 aui-padded-l-10 aui-padded-r-10">
+          <a href=""><span><img src="../../image/partner/icon@2x_zuyu.png" class="inline-block aui-margin-r-5" style="width: .8rem;vertical-align: middle" alt="">西谷足浴养生</span></a>
+          <span class="aui-pull-right">进入门店，享受三折优惠！<<</span>
+        </li>
+      </ul>
+    </div>
+    <div class="aui-text-center">
+      <a href="###" class="btn-pink-to-bpink">查看附近店铺</a>
+    </div>
+  </div>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+</script>
+</body>
+
+</html>

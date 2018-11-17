@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        html,body{
+            background: #171b24;
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrap" class="flex-wrap flex-vertical">
+
+    <header class="aui-bar aui-bar-nav">
+        <div class="aui-bar aui-bar-nav">
+            <a class="aui-pull-left aui-btn" onclick="closeWin();">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </a>
+            <div class="aui-title">交易
+            </div>
+        </div>
+    </header>
+    <div id="main" class="flex-con"></div>
+</div>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script>
+  apiready = function () {
+    $api.fixStatusBar($api.dom('header'));
+    api.openFrame({
+      name: 'frm_trade',
+      url: './frm_trade.html',
+      rect: {
+        x: 0,
+        y: $api.dom('header').offsetHeight,
+        w: api.winWidth,
+        h: $api.dom('#main').offsetHeight,
+      },
+      pageParam: {
+        y: $api.dom('header').offsetHeight,
+        actionType: api.pageParam.actionType,
+        bg: api.pageParam.bg,
+        stockid: api.pageParam.stockid,
+        name: api.pageParam.name,
+        sno: api.pageParam.sno,
+      },
+      bounces: false,
+      bgColor: 'rgba(0,0,0,0)',
+      vScrollBarEnabled: true,
+      hScrollBarEnabled: true
+    });
+  };
+</script>
+</body>
+
+</html>

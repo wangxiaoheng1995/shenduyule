@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        html,
+        body {
+            background: transparent !important;
+        }
+
+        #content {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        #select {
+            width: 100%;
+            height: 70%;
+            background-color: #fff;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        .aui-btn-block {
+            border-radius: 0;
+            color: #fff;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 15;
+        }
+
+        .aui-btn-block:active {
+            color: #fff;
+            background-color: #fe3385 !important;
+        }
+
+        #select .row-head {
+            height: 6rem;
+            position: relative;
+            padding: 0.2rem 0.75rem;
+            background-color: #fff !important;
+            z-index: 10;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .row-head .goods-img {
+            width: 6.5rem;
+            height: 6.5rem;
+            position: absolute;
+            left: 0.8rem;
+            bottom: 0.8rem;
+            z-index: 10;
+            background-color: #fff;
+        }
+
+        .row-head .aui-icon-close {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #999;
+        }
+
+        .row-head .goods-info {
+            height: 100%;
+            padding: 0.5rem 0.75rem 0.5rem 7.35rem;
+        }
+
+        .row-head .goods-info .row-info {
+            line-height: 1.6rem;
+            font-size: 0.75rem;
+        }
+
+        .goods-price:before {
+            content: '￥';
+        }
+
+        #select .item-list {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            padding-top: 6rem;
+            margin-top: -6rem;
+            overflow-y: scroll;
+            padding-bottom: 2.5rem;
+            z-index: 9;
+        }
+
+        .row-select {
+            padding: 0.5rem 0.75rem;
+            overflow: hidden;
+        }
+
+        .items-title {
+            font-size: 0.65rem;
+            line-height: 1.5rem;
+            text-align: center;
+        }
+
+        .goods-items {
+            padding: 0 0.25rem;
+        }
+
+        .item {
+            float: left;
+            font-size: 0.65rem;
+            line-height: 1.2rem;
+            padding: 0.1rem 0.75rem;
+            margin: 0.15rem 0.2rem;
+            color: #111;
+            /*border: 1px solid #ccc;*/
+            background-color: #f5f5f5;
+            box-sizing: border-box;
+            border-radius: 0.25rem;
+        }
+
+        .active {
+            background-color: #ff5096 !important;
+            border-color: #ff5096 !important;
+            color: #fff !important;
+        }
+
+        .select-num>li {
+            float: left;
+            height: 1.3rem;
+            line-height: 1.3rem;
+            padding: 0 0.25rem;
+            text-align: center;
+            color: #111;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            /*border-radius: 0.25rem;*/
+        }
+
+        .select-num .count-num {
+            width: 1.8rem;
+            max-width: 1.8rem;
+            min-height: 1.3rem;
+            max-height: 1.3rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #111;
+        }
+
+        .aui-bar-btn-full {
+            padding: 0;
+        }
+
+        .aui-bar-btn-item {
+            border: 0;
+            height: 2.5rem;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content" v-cloak>
+        <div id="select">
+            <div class="row-head">
+              <template v-if="goods.gpicaRes[0]">
+                <img :src="goods.gpicaRes[0].pic" alt="" class="goods-img" id="spec_pic">
+              </template>
+                <i class="aui-iconfont aui-icon-close" onclick="$a.closeFrm()"></i>
+                <div class="goods-info">
+                    <p class="row-info aui-ellipsis-1">价格：<span id="spec_price" class="goods-price color-pink aui-font-size-20">{{show==2?goods.goodRes.groupprice:goods.goodRes.price}}</span></p>
+                    <p class="row-info aui-ellipsis-1">库存：<span id="spec_num">{{goods.goodRes.stock}}</span></p>
+                </div>
+            </div>
+            <div class="item-list">
+                <div class="row-select " v-for="item in goods.goodsFormat">
+                    <div class="aui-col-xs-2 aui-ellipsis-1 color-gray9 items-title">{{item.gfname}}</div>
+                    <ul class="goods-items aui-col-xs-10">
+                        <li class="item" v-for="itemj in item.child" :gftid="itemj.gftid" :gfid="item.gfid" :gfname="item.gfname">{{itemj.gftname}}</li>
+                    </ul>
+                </div>
+                <div class="row-select">
+                    <div class="aui-col-xs-2 aui-ellipsis-1 color-gray9 items-title">数量</div>
+                    <ul class="select-num aui-col-xs-10">
+                        <li class="min"><i class="aui-iconfont aui-icon-minus"></i></li>
+                        <li class="input"><input type="tel" class="count-num" size="4" value="1" id="select_count"></li>
+                        <li class="add"><i class="aui-iconfont aui-icon-plus"></i></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="aui-btn aui-btn-block aui-bar-btn-full">
+            <!--<div class="aui-bar-btn-item back-pinkm" tapmode="" v-show="show!=2&&!isMoveBuy" onclick="addToCart()">加入购物车</div>-->
+            <div class="aui-bar-btn-item back-pink" tapmode="" onclick="quickBuy()" v-show="show!=3">立即购买</div>
+        </div>
+    </div>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/vue.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+
+    <script>
+        var good, show,isMoveBuy,originOId, goodsRes, gpriceRes,id, goodsFormatLen = 0;
+        apiready = function() {
+            var param = $a.getParam();
+            good = param.goods;
+            show = param.stype;
+//            console.log(JSON.stringify(good))
+            isMoveBuy=param.stype==5;
+            originOId = param.originOId;
+            id=param.id;
+            goodsFormatLen = good.goodsFormat.length;
+            goodsRes = good.goodRes;
+            gpriceRes = good.gpriceRes;
+            //$api.text($api.byId('content'), echo($a.getParam()) + ' 选择商品');
+            showGoodsFormat();
+        }
+
+        function showGoodsFormat() {
+
+            new Vue({
+                el: '#content',
+                data: {
+                    goods: good,
+                    show: show,
+                    isMoveBuy:isMoveBuy
+                },
+                methods: {
+
+                },
+                mounted: function() {
+                    var self = this;
+                    $('#select').on('click', '.goods-items .item', function() {
+                        var selectLi = $(this).attr('gftid');
+                        var all = $(this).closest('.goods-items').find('.item').each(function() {
+                            if ($(this).attr('gftid') == selectLi) {
+                                if (!$(this).hasClass('active')) {
+                                    $(this).addClass('active');
+                                }
+                            } else {
+                                $(this).removeClass('active');
+                            }
+                        })
+                        changePrice();
+                    })
+                    $('#select').on('click', '.min', function() {
+                        var num = $('#select_count').val();
+                        if (num > 1) {
+                            $('#select_count').val(--num);
+                        }
+                    })
+                    $('#select').on('click', '.add', function() {
+                        var num = $('#select_count').val();
+                        $('#select_count').val(++num);
+                    })
+                }
+            })
+        }
+
+        //失败提示框
+        function toastFail(msg, time) {
+            api.toast({
+                msg: msg,
+                duration: time,
+                location: 'middle'
+            });
+        }
+
+        //成功提示框
+        function toastSuccess(msg, time) {
+            api.toast({
+                msg: msg,
+                duration: time,
+                location: 'middle'
+            });
+        }
+
+        // 加入购物车
+        function addToCart() {
+            var num = $('#select_count').val();
+            var stock = $('#spec_num').text();
+            if (num > stock) {
+                return;
+            }
+            var carObj = localStorage.getItem('carObjx') ? JSON.parse(localStorage.getItem('carObjx')) : [];
+            var gobj = {};
+            gobj.gid = goodsRes.gid;
+            gobj.gname = goodsRes.gname;
+            gobj.pic=$("#spec_pic").attr("src");
+            gobj.shopId = good.shopRes.uid;
+            gobj.num = num;
+            gobj.postPrice = $('#spec_price').text();
+            gobj.isfee=goodsRes.buytype==1;
+            gobj.selected = false;
+            if (goodsFormatLen > 0) {
+                var allSelected = $('.goods-items .active');
+                var seledNum = allSelected.length;
+                var seledftid = seledfname = seledftnames = '';
+                if (seledNum < goodsFormatLen) {
+                    toastFail('请完成型号选择', 1000);
+                    return;
+                } else {
+                    allSelected.each(function() {
+                        seledftid += ((seledftid == '' ? '' : ',') + $(this).attr('gftid'));
+                        seledftnames += ((seledftnames == '' ? '' : ',') + $(this).text());
+                        seledfname += ((seledfname == '' ? '' : '<br/>') + $(this).attr('gfname') + '：' + $(this).text());
+                    });
+                    gobj.formatIds = seledftid;
+                    gobj.formatName = seledfname;
+                    gobj.formatNames = seledftnames;
+                }
+            } else {
+                gobj.formatIds = '';
+                gobj.formatName = '';
+                gobj.formatNames = '';
+            }
+            if (parseInt(gobj.num) > parseInt($('#spec_num').text())) {
+                toastFail('抱歉，库存不足', 1000);
+                return;
+            }
+            // gobj.price = $('#spec_price').text();
+
+            carObj = formatCar(carObj, gobj);
+            localStorage.setItem('carObjx', JSON.stringify(carObj));
+            toastSuccess('成功加入购物车', 1000);
+            //刷新购物车数量
+            api.sendEvent({
+                name: 'changeCart'
+            });
+            api.closeFrame();
+
+        }
+
+        // 立即购买
+        function quickBuy() {
+            var num = $('#select_count').val();
+            var stock = $('#spec_num').text();
+            if (num > stock) {
+                return;
+            }
+            var carObj = [];
+            var gobj = {};
+            gobj.gid = goodsRes.gid;
+            gobj.gname = goodsRes.gname;
+            gobj.pic=$("#spec_pic").attr("src");
+            gobj.shopId = good.shopRes.uid;
+            gobj.num = num;
+            gobj.postPrice = $('#spec_price').text();
+            gobj.isfee=goodsRes.buytype==1;
+            gobj.selected = true;
+            if (goodsFormatLen > 0) {
+                var allSelected = $('.goods-items .active');
+                var seledNum = allSelected.length;
+                var seledftid = seledfname = seledftnames = '';
+                if (seledNum < goodsFormatLen) {
+                    toastFail('请完成型号选择', 1000);
+                    return;
+                } else {
+                    allSelected.each(function() {
+                        seledftid += ((seledftid == '' ? '' : ',') + $(this).attr('gftid'));
+                        seledftnames += ((seledftnames == '' ? '' : ',') + $(this).text());
+                        seledfname += ((seledfname == '' ? '' : '<br/>') + $(this).attr('gfname') + '：' + $(this).text());
+                    });
+                    gobj.formatIds = seledftid;
+                    gobj.formatName = seledfname;
+                    gobj.formatNames = seledftnames;
+                }
+            } else {
+                gobj.formatIds = '';
+                gobj.formatName = '';
+                gobj.formatNames = '';
+            }
+            if (parseInt(gobj.num) > parseInt($('#spec_num').text())) {
+                toastFail('抱歉，库存不足', 1000);
+                return;
+            }
+            // gobj.price = $('#spec_price').text();
+
+            carObj = formatCar(carObj, gobj);
+            localStorage.setItem('carObjy', JSON.stringify(carObj));
+            setTimeout(function () {
+              api.closeFrame();
+            },200)
+            //进入确认订单页面
+            api.openWin({
+                name: 'pay-confirm',
+                url: '../pay/pay-confirm.html',
+                pageParam: {
+                    ct: 2,
+                    group: show,
+                    originOId: originOId,
+                    id:id
+                }
+            });
+        }
+
+        //格式化购物车，存在相同类型的直接增加数量
+        function formatCar(carObj, gobj) {
+            var haveShop = false;
+            var haveShopGoods = false;
+            var fi = 0;
+            var fj = 0;
+            for (var i = 0; i < carObj.length; i++) {
+                if (carObj[i].shopId == gobj.shopId) {
+                    for (var j = 0; j < carObj[i].child.length; j++) {
+                        if (carObj[i].child[j].gid == gobj.gid && carObj[i].child[j].formatIds == gobj.formatIds) {
+                            haveShopGoods = true;
+                            fj = j;
+                        }
+                    }
+                    fi = i;
+                    haveShop = true;
+                }
+            }
+            if (!haveShop) {
+                var sobj = {};
+                sobj.shopId = good.shopRes.uid;
+                sobj.shopName = good.shopRes.name;
+                sobj.selected = true;
+                sobj.num = gobj.num;
+                sobj.postPrice = parseFloat(gobj.postPrice * gobj.num);
+                sobj.child = [];
+                sobj.child.push(gobj);
+                carObj.push(sobj);
+            } else {
+                if (parseFloat(carObj[fi].postPrice) < parseFloat(goodsRes.post_price)) {
+                    carObj[fi].postPrice = goodsRes.post_price;
+                }
+                if (haveShopGoods) {
+                    var num = parseInt(carObj[fi].child[fj].num) + parseInt(gobj.num);
+                    carObj[fi].child[fj].num = num;
+                } else {
+                    carObj[fi].child.push(gobj);
+                }
+            }
+            return carObj;
+        }
+
+        //根据商品规格展示图片、价格、库存
+        function changePrice() {
+            var allSelected = $('.goods-items .active');
+            if (allSelected.length == goodsFormatLen) {
+                var seledftid = '';
+                allSelected.each(function() {
+                    seledftid += ((seledftid == '' ? '' : ',') + $(this).attr('gftid'));
+                })
+                gpriceRes.forEach(function(value, index) {
+                    if (value.format_ids == seledftid) {
+                        $api.attr($api.byId('spec_pic'), 'src', value.pic);
+                        if (show == 2) {
+                            $api.text($api.byId('spec_price'), value.groupprice);
+                        } else {
+                            $api.text($api.byId('spec_price'), value.price);
+                        }
+                        $api.text($api.byId('spec_num'), value.stock);
+                    }
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>性别</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background-color: #f8f8f8;
+        }
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+        .aui-list-item-right .jw-item-select {
+            width: 1rem;
+            height: 1rem;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav aui-margin-b-15">
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">性别设置</div>
+</header>
+<div style="height:0.5rem;"></div>
+<div class="aui-content aui-margin-b-15">
+    <ul class="aui-list aui-list-in" style="background: #fff;">
+        <li class="aui-list-item" onclick="setSex(1,this);">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title">男</div>
+                <div class="aui-list-item-right" id="sex1">
+                    <img src="../image/zf_btn_normal@3x.png" class="jw-item-select imga "/>
+                    <img src="../image/zf_btn_selected@3x.png" class="jw-item-select imgb aui-hide"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item" onclick="setSex(2,this);">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title">女</div>
+                <div class="aui-list-item-right" id="sex2">
+                    <img src="../image/zf_btn_normal@3x.png" class="jw-item-select imga "/>
+                    <img src="../image/zf_btn_selected@3x.png" class="jw-item-select imgb aui-hide "/>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/yltcrypt.js"></script>
+<script>
+    var sex = 1;
+    apiready = function () {
+        fix_status_bar();
+        var user = $api.getStorage('user');
+        if (user.sex != '' || typeof user.sex != 'undefined') {
+            // todo
+            if (user.sex == '1') {
+                $("#sex1").find('.imga').addClass('aui-hide');
+                $("#sex1").find('.imgb').removeClass('aui-hide');
+            }
+
+            if (user.sex == '2') {
+                $("#sex2").find('.imga').addClass('aui-hide');
+                $("#sex2").find('.imgb').removeClass('aui-hide');
+            }
+        }
+    }
+
+    function setSex(sexvalue, that) {
+        $(".imga").removeClass('aui-hide');
+        $(".imgb").addClass('aui-hide');
+        $(that).find('.imga').addClass('aui-hide');
+        $(that).find('.imgb').removeClass('aui-hide');
+        sex = sexvalue;
+        setCustomerSex();
+    }
+
+    function setCustomerSex() {
+        // 判断输入的值是否合法
+        var user = $api.getStorage('user');
+        // 设置用户性别
+        api.ajax({
+            url: PHP_SERVE_URL + '/customer/setSex',
+            method: 'post',
+            data: {
+                values: {
+                    openId: user.openId,
+                    sex: sex,
+                    token: yltcrypt.cpt(user.openId)
+                }
+            }
+        }, function (json, err) {
+            if (json.code==0) {
+                user.sex = sex;
+                $api.setStorage('user', user);
+//                var historyUser = $api.getStorage('historyUser');
+//                historyUser.forEach(function (item, index) {
+//                    if (item.openId == user.openId) {
+//                        item.sex = user.sex;
+//                    }
+//                });
+//                $api.setStorage("historyUser", historyUser);
+                api.sendEvent({
+                    name: 'refresh_sex',
+                    extra: {
+                        sex:sex
+                    }
+                });
+                var toast = new auiToast();
+                toast.success({
+                    title: json.msg,
+                    duration: 2000
+                });
+                setTimeout('api.closeWin()',1000);
+            } else {
+                var toast = new auiToast();
+                toast.fail({
+                    title: json.msg,
+                    duration: 2000
+                });
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

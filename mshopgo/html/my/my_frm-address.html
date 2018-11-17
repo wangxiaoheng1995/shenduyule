@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <title>收货地址</title>
+    <link rel="stylesheet" href="../../css/sm.min.css">
+    <link rel="stylesheet" href="../../css/sm-extend.min.css">
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/address.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+     [v-cloak] {
+            display: none !important;
+        }
+        .s_headfix,.s_headsec{
+            position: fixed;
+            top:0;
+            width: 100%;
+            z-index: 100;
+        }
+        .editInoutAll input{
+            outline: none;
+        }
+        .add-location{
+            height: 1.5rem;
+            position: absolute;
+            margin: auto;
+            right: 5%;
+            top: 0;
+            bottom: 0;
+        }
+        .plus-btn{
+            border-style: dashed;
+            height: 3rem !important;
+            border-radius: 2rem;
+            padding-top: 3%;
+        }
+        .pay-btn{
+            background: #fff;
+            width: 80%;
+            position: relative;
+            margin: 0 auto;
+            padding-top:3rem;
+        }
+        .bd-radius50 {
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+        .back-color{
+            background: #ff5096;
+            width: 80%;
+            margin: 0 auto;
+            border-radius: 2rem;
+            color: #fff;
+            height: 3rem;
+            line-height: 3rem;
+            font-size: 1rem;
+        }
+        .aui-btn:active {
+            color: #fff;
+            background-color: #fb3483;
+        }
+        .set-check{
+            width: 20%;
+            float: left;
+            padding-left: 0.75rem;
+        }
+        .aui-dialog-btn{
+            color:#fb3483;
+            font-size: 1rem;
+        }
+        .aui-dialog {
+            width: 15.5rem;
+            text-align: center;
+            position: fixed;
+            z-index: 999;
+            left: 45%;
+            margin-left: -6.75rem;
+            margin-top: 0;
+            top: 45%;
+            border-radius: 0.3rem;
+            opacity: 0;
+            background-color: #ffffff;
+            -webkit-transform: translate3d(0, 0, 0) scale(1.2);
+            transform: translate3d(0, 0, 0) scale(1.2);
+            -webkit-transition-property: -webkit-transform, opacity;
+            transition-property: transform, opacity;
+            /* display: none; */
+            padding: 1rem;
+            font-size: 1rem;
+        }
+        .aui-dialog-body {
+            padding: 0.75rem;
+            overflow: hidden;
+            font-size: 1.1rem;
+            color: #212121;
+        }
+        .svalue-add{
+            height: 1.5em;
+            font-size: 1.5em;
+        }
+
+        .button-link{
+            color:#212121 !important;
+            font-size:0.9rem !important;
+            padding-right: 1rem !important;
+        }
+    </style>
+</head>
+<body id="body" class="bg02 s">
+<a name="top"></a>
+<div class="common-wrapper" id="address" v-cloak>
+    <div class="addressblock" style="display: block">
+        <header class="s_headfix">
+            <div class="jd-index-header">
+                <div class="jd-index-header-icon-back"  onclick="window.history.back();">
+                    <span></span>
+                </div>
+                <div class="jd-index-header-title">收货地址</div>
+            </div>
+        </header>
+        <div class="from-sys">
+            <div class="address" style="margin-top: 3.5rem;">
+                <div class="item-addr bdb-1px aui-margin-b-15" v-for="delivery in deliverys">
+                    <div class="ia-m m ia-m78 aui-border-b aui-padded-b-10" :aid="delivery.id" >
+                        <div class="mt_new">
+                            <span >{{delivery.uname}}</span>
+                            <strong>{{delivery.tel}}</strong>
+                        </div>
+                        <div class="mc">
+                            <p style="word-break: break-all;" >
+                                {{delivery.province}}{{delivery.city}}{{delivery.district}}{{delivery.detail}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="aui-info aui-pull-left aui-margin-t-10" style="width: 100%;">
+                        <div class="aui-info-item aui-font-size-20">
+                            <label>
+                            <input class="aui-checkbox bd-radius50" type="radio" :checked="delivery.select==1" :id="delivery.id" @change="setDefault(delivery.id)">
+                            &nbsp;&nbsp;
+                            设为默认
+                            </label>
+                        </div>
+                        <div class="aui-info-item aui-font-size-20" @click="bjadd(delivery.uname,delivery.tel,delivery.province,delivery.city,delivery.district,delivery.detail,delivery.id,delivery.select,delivery.lng,delivery.lat)">
+                            <i class="aui-iconfont aui-icon-edit aui-font-size-20"></i>
+                            &nbsp;&nbsp;
+                            编辑
+                        </div>
+                        <div class="aui-info-item aui-font-size-20" @click="deletedd(delivery.id)" >
+                            <i class="aui-iconfont aui-icon-trash aui-font-size-20">
+                            </i>
+                            &nbsp;&nbsp;
+                            删除
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pay-btn ">
+                <a href="javascript:;" class="aui-font-size-18 plus-btn aui-btn aui-btn-block aui-btn-outlined aui-btn-sm" @click="bjadd()">
+                    <i class="aui-iconfont aui-icon-plus"></i> 新增收货地址
+                </a>
+                <div style="height: 2rem;">
+            </div>
+            </div>
+            <!-- 弹层 -->
+            <div class="popup-w"></div>
+        </div>
+    </div>
+    <div id="bjaddress" style="display: none;padding-top: 72px">
+        <header class="s_headsec">
+            <div class="jd-index-header">
+                <div class="jd-index-header-icon-back" id="reset_btn_back" @click="hidebj">
+                    <span></span>
+                </div>
+                <div class="jd-index-header-title">
+                    {{tit}}
+                </div>
+            </div>
+        </header>
+        <div class="check-page" style="display: block;">
+            <form  id="editAddressForm">
+                <input type="hidden" name="encryptVerifyCode" id="encryptVerifyCode" value="">
+                <div class="common-wrapper ">
+                    <div class="address02" style="margin-top: -1.5rem;">
+                        <div class="editInoutAll">
+                            <div class="fixed-top">
+                                <div class="s-item bdb-1px not-over-see">
+                                    <div class="sitem-l sitem-pad">
+                                        <div class="sattr-add">收货人:</div>
+                                        <div class="svalue"><input type="text" id="uersNameId" name="address.name"
+                                                                   maxlength="25" v-model="name" class="ad-name"></div>
+                                    </div>
+                                    <span class="s-close" id="clearUserName"><i></i></span>
+                                </div>
+
+                                <div class="s-item bdb-1px not-over-see">
+                                    <div class="sitem-l sitem-pad">
+                                        <div class="sattr-add">手机号码:</div>
+                                        <div id="mobileInputDiv" class="svalue">
+                                            <input type="tel" id="mobilePhoneId" maxlength="11" v-model="tel" class="ad-mobile">
+                                        </div>
+                                    </div>
+                                    <span class="s-close"><i></i></span>
+                                </div>
+                            </div>
+
+
+                            <div class="address-big bdb-1px">
+                                <div class="fixed-bottom" id="fixed-bottom" style="width: 100%;">
+                                    <div class="col02" id="selectAddressBtn" >
+                                        <div class="s-item bdb-1px">
+                                            <div class="sitem-l sitem-pad add-box" style="width: 100%;">
+                                                <div class="sattr-add" style="padding-top: 0.5rem;">所在地区:
+                                                </div>
+                                                <div class="svalue-add" >
+                                                    <input type="text" class="svalue-add"  id="city-picker"  placeholder="选择地址"  readonly>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="s-item change-padd" style="position: relative">
+                                        <div class="sitem-l sitem-pad change-wid" >
+                                            <div class="sattr-add change-padding">详细地址:</div>
+                                            <div class="svalue w65 change-po">
+                                                <span class="grey" id="detailedAddressId"></span>
+                                                <textarea class="textauto change-sty not-over-see"  v-model="detaill" placeholder="请选择街道、楼牌号等" maxlength="200" rows="1" data-autosize-on="true"
+                                                          style="overflow: hidden; word-wrap: break-word; height: 19px;" ></textarea>
+                                            </div>
+                                        </div>
+                                        <span class="s-text-close" id="clearAddress"><i></i></span>
+                                    </div>
+                                </div>
+                                <!-- 5.0新增地图入口 -->
+                                <div class="map-inter" onclick="mapLocation()" id="map-inter" style="display: none;">
+                                    <div class="address-position">
+                                        <span></span>
+                                        <i>定位地址</i>
+                                    </div>
+                                </div>
+                                <div style="clear:both"></div>
+                            </div>
+
+                            <div class="s-item bdb-1px over-see">
+                                <div class="sitem-l sitem-pad">
+                                    <div class="sattr-add">固话(选填):</div>
+                                    <div id="" class="svalue"><input type="tel" id="phoneId" name="address.phone" value=""
+                                                                     class="ad-mobile"></div>
+                                </div>
+                                <span class="s-close"><i></i></span>
+                            </div>
+                            <div class="search-result"></div>
+                        </div>
+                        <div class="s-item bdb-1px set-default" style="padding-top: 0.8rem;padding-bottom: 0.2rem;">
+                            <label>
+
+
+                            <div class="aui-input set-check">
+                                <input type="checkbox" class="aui-checkbox bd-radius50" style="width: 1.5rem;height: 1.5rem;" :checked="isActive"  @click="switchmr">
+                            </div>
+                            <div class="sitem-m sitem-pad change-wp" style="padding-left:5rem;">
+                                <div class="sattr change-fl">设为默认</div>
+                            </div>
+                            </label>
+                        </div>
+                        <div style="height: 100px;"></div>
+                    </div>
+
+                </div>
+
+                <div class="popup-w"></div>
+
+                <div class="confirm-w">
+                    <div class="confirm">
+                        <div class="confirm-txt bdb-1px">
+                            是否删除该地址?
+                        </div>
+                        <div class="confirm-btn">
+                            <a href="javascript:;" class="btn2 ctn01" id="cancelDeleteAddress">取消</a>
+                            <a href="javascript:void(0);" id="deleteButton"
+                               action="/norder/delAddress.action?addressId=138726257&amp;addressFrom=del&amp;sid=a3a1cd20d4c557376605d1692fe639cc"
+                               class="btn2 ctn02 cb-ok">确定</a></div>
+                    </div>
+                </div>
+
+                <div class="noaddress-w" id="noAddress">
+                    <div class="noaddress">
+                        <div class="noaddress-txt bdb-1px">
+                            您还没有新建地址哦，赶快去新建一个吧！
+                        </div>
+                        <div class="noaddress-btn">
+                            <a href="javascript:void(0);" class="btn2 ctn01" id="cancelCreate">取消</a>
+                            <a href="javascript:void(0);" class="btn2 ctn02" id="goCreate">去新建</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 弹层_删除成功 -->
+                <div class="delok-w" style=" padding: 1.885em 0px;">
+                    <div class="m delok" style=" padding: 1.885em 0px;">
+                        <div class="mc" id="succesTipId">删除成功</div>
+                    </div>
+                </div>
+                <!-- 弹层_收获信息验证 -->
+                <div class="verify-w" style="left:0;">
+                    <div class="verify">
+                        收件人姓名只能有<br>中文、英文字符或数字组成
+                    </div>
+                </div>
+                <span id="onclickSpan"></span>
+
+                <div class="check-btn-auto">
+                    <div class="check-btn-total"  id="checkBtnTotal">
+                        <div class="aui-btn aui-btn-block back-color" id="submitId" @click="preser">保存收货地址</div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="loading-position">
+            <div class="is-loading">
+                <em></em>
+                <!-- <span>加载中...</span> -->
+            </div>
+        </div>
+
+        <div class="choose-address-page" id="chooseAddressPage" style="display: none; padding-top: 116px">
+            <div class="head-fix">
+                <header>
+                    <div class="jd-index-header">
+                        <div class="jd-index-header-icon-back">
+                            <span id="goBack"></span>
+                        </div>
+                        <div class="jd-index-header-title">地址选择</div>
+                    </div>
+
+                </header>
+                <ul class="head-address-ul" id="headAddressUl">
+                    <li @click="tranlateDiv(0)" >{{areaprovince}}</li>
+                    <li @click="tranlateDiv(1)" style="display: none">{{areacity}}</li>
+                    <li @click="tranlateDiv(2)" style="display: none">{{areaarea}}</li>
+                </ul>
+            </div>
+            <div class="address-container" id="addressContainer">
+                <div class="address-content" id="addressContentDiv">
+                    <ul class="address-ul">
+                        <li v-for="seleprovince in items" @click="switchul(seleprovince.DisplayName,seleprovince.Id,1)">
+                            {{seleprovince.DisplayName}}
+                        </li>
+                    </ul>
+                    <ul class="address-ul">
+                        <li v-for="selecity in selecitys" @click="switchcity(selecity.DisplayName,selecity.Id,2)">
+                            {{selecity.DisplayName}}
+                        </li>
+                    </ul>
+                    <ul class="address-ul">
+                        <li v-for="selearea in seleareas" @click="switchprocity(selearea.DisplayName,selearea.Id)">
+                            {{selearea.DisplayName}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/getData.js"></script>
+<script src="../../script/H5_public.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/aui/aui-dialog.js"></script>
+<script src='../../script/zepto.min.js' charset='utf-8'></script>
+<script src='../../script/sm.min.js' charset='utf-8'></script>
+<script src='../../script/sm-extend.min.js' charset='utf-8'></script>
+<script src="../../script/sm-city-picker.js" charset='utf-8'></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/address.js"></script>
+</html>

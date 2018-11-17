@@ -1,0 +1,176 @@
+html {
+    height: 100%;
+    background: #f6f6f6;
+}
+
+.overflow-x-hidden {
+    overflow-x: hidden;
+}
+
+.aui-bar {
+    background-color: #de3232;
+}
+
+.aui-bar-nav {
+    color: #ffffff;
+}
+
+.index_hidden_top {
+    line-height: 2rem;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+.index_hidden_top div {
+    display: -webkit-box;
+    height: 1.6rem;
+    line-height: 1.6rem;
+}
+
+.index_hidden_top input {
+    height: 1.6rem;
+    min-height: 1.6rem;
+    color: #fff;
+    width: inherit;
+    font-size: 0.7rem;
+}
+
+:-moz-placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.hidden_top1 {
+    float: left;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 0 0.5rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    width: 70%;
+}
+
+.hidden_top1 img {
+    width: 0.9rem;
+    height: 0.9rem;
+    margin-top: 0.3rem;
+    margin-right: 0.5rem;
+    display: block;
+}
+
+.hidden_top2 {
+    float: right;
+}
+
+.hidden_top2 img {
+    height: 1.6rem;
+}
+
+section .nav img {
+    padding: 0 1rem;
+    border-radius: 1rem;
+}
+
+.aui-list {
+    background-image: none;
+}
+
+.aui-list .aui-list-item {
+    padding-left: 0;
+}
+
+.aui-list .aui-list-item-media {
+    width: 28%;
+    padding-right: 0;
+}
+
+.aui-ellipsis-2 {
+    display: -webkit-box !important;
+}
+
+.aui-btn-danger {
+    background-color: #de3232 !important;
+}
+
+.order {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.order .line {
+    display: inline-block;
+    width: 28%;
+    border-top: 1px solid #CECECE;
+}
+
+.order .txt {
+    color: #CECECE;
+    font-size: .6rem;
+    vertical-align: -4px;
+}
+
+#footer.aui-bar-tab .aui-active {
+    color: #de3232;
+}
+
+#footer img {
+    width: 1rem;
+    margin: 0 auto;
+}
+
+.lamp {
+    width: 74%;
+    font-size: 0.7rem;
+    margin-left: 2%;
+    position: relative;
+}
+
+.lamp a {
+    display: inline-block;
+    margin: 0 6px;
+
+}
+
+.nav-btn img {
+    width: 50%;
+    height: 2.3rem;
+    margin: 0 auto;
+}
+
+.index-item-inner {
+    display: block;
+}
+
+.aui-list .index-inner {
+    width: 68%;
+    padding-right: 0;
+}
+
+.index-cover-img {
+    height: 6rem;
+    width: 100%;
+    border-radius: 0.2rem;
+}
+
+.index-btn {
+    height: 1.3rem;
+    line-height: 1.3rem;
+}
+.tradeIndex{
+    width:100%;
+
+}
+

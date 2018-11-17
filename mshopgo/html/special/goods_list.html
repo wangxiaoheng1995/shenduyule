@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>主题</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <style type="text/css" media="screen">
+            html,body{
+              width:100%;
+              height:100%;
+            }
+            #topicList{
+              height:100%;
+              width:100%;
+              display:flex;
+              flex-direction: column;
+              justify-content: space-between;
+            }
+            #main{
+              flex:1;
+              overflow-x: hidden;
+              overflow-y: auto;
+            }
+            .top_pic{
+                width:100vw;
+            }
+            .top_pic img{
+                width:100vw;
+            }
+            .goods_list{
+                width:96vw;
+                margin-left:2vw;
+                font-size: 0.7rem;
+                line-height:1rem;
+            }
+            .goods_title{
+               font-size: .9rem;
+               line-height:3rem;
+               color:black;
+                margin-left: 0.3rem;
+            }
+            .good_single{
+               width:100%;
+               position: relative;
+               padding:1vw 0 1vw 0;
+               margin-bottom:3vw;
+            }
+            .good_pic{
+                width:30vw;
+                height:30vw;
+            }
+            .good_pic img{
+               width:100%;
+               height:100%;
+            }
+            .good_title{
+               max-height:2rem;
+               overflow:hidden;
+            }
+            .good_info{
+                width: 63vw;
+                height:28vw;
+                left: 32vw;
+                position: absolute;
+                top: 2vw;
+            }
+            .good_more{
+                position: absolute;
+                bottom:0;
+                height:1.2rem;
+                width:100%;
+            }
+            .good_more>div{
+                width:50%;
+                position: absolute;
+                top:0;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+            .good_price{
+                left:0;
+                font-weight:bold;
+                color:#fe5095;
+            }
+            .good_sale{
+               right:0;
+               text-align: right;
+               color:#969696;
+               font-size:0.6rem;
+            }
+        </style>
+</head>
+<body>
+    <div id="topicList" v-cloak>
+        <header class="aui-bar aui-bar-nav tit-bar-black back-write ">
+            <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+                <span class="aui-iconfont aui-icon-left color-gray9"></span>
+            </a>
+            <div class="aui-title color-black">销拼购</div></header>
+        <div id="main" class="flex-con">
+            <div class="top_pic">
+                <img src="" alt="" id="top_img"></div>
+                <p class="goods_title">感恩回馈感恩回馈感恩回馈</p>
+            <div class="goods_list" id="goods">
+
+            </div>
+        </div>
+    </div>
+    <script type="text/html/x-dot-template" id="data_goods">
+        {{~it :value}}
+        <div class="good_single" tapmode onclick="openGoodsDetail({{=value.gid}})">
+            <div class="good_pic">
+                <img src="{{=value.pic}}" alt=""></div>
+            <div class="good_info">
+                <div class="good_title">{{=value.gname}}
+                  <div class="good_more">
+                      <div class="good_price">¥{{=value.price}}</div>
+                      <div class="good_sale">销量:
+                          <span>{{=value.sellnum}}</span></div>
+                  </div>
+                </div>
+            </div>
+      </div>
+        {{~}}
+    </script>
+
+
+    <script src="../../script/api.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/vue.js"></script>
+    <script src="../../script/doT.min.js"></script>
+    <script src="../../script/H5_public.js"></script>
+    <script type="text/javascript">
+        var page = 1;
+        var totalpage = 1;
+
+        var id = H5.pageParam().topicId;
+        loadGoods();
+        function openGoodsDetail(gid) {
+            if(gid>0){
+                window.location.href='../goods/goods_win.html?originOId=0&id='+gid;
+            }
+        }
+        //下滑加载数据
+        window.onscroll = function () {
+            var top = this.pageYOffset || this.scrollY;
+            var windowHeight = this.outerHeight || this.innerHeight;
+            var bodyH=document.body.scrollHeight;
+            if ((top+windowHeight) == bodyH) {
+                if (page <= totalpage) {
+                    loadGoods();
+                }
+            }
+        };
+
+        function loadGoods() {
+            $.ajax({
+                url: PHP_SERVE_URL + '/Sg/plate_slider',
+                type:'post',
+                dataType: 'json',
+                data: {
+                    id:id,
+                    page: page
+                },
+                success:function (ret, err) {
+                    if (ret.code == 0) {
+                        var interText = doT.template($api.text($api.byId('data_goods')));
+                        if (page == 1) {
+                            $api.html($api.byId('goods'), interText(ret.data));
+                            $('.aui-title').html(ret.title);
+                            $('.goods_title').html(ret.title);
+                            $('#top_img').attr('src',ret.titlepic);
+                        } else {
+                            $api.append($api.byId('goods'), interText(ret.data));
+                        }
+                        totalpage = ret.totalpage;
+                        page++;
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

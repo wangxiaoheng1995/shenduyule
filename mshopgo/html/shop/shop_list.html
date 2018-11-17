@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>正在拼销</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <header class="aui-bar aui-bar-nav tit-bar-black back-write">
+            <a class="aui-pull-left aui-btn " onclick="api.closeWin();">
+                <span class="aui-iconfont aui-icon-left color-gray9"></span>
+            </a>
+            <div class="aui-title color-black">正在拼销</div>
+        </header>
+        <div id="main" v-cloak>
+            <!--媒体列表-->
+            <ul class="aui-list aui-media-list">
+                <li class="aui-list-item cart-bg-fff">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-left-img">
+                            <img :src="goodRes.pic">
+                        </div>
+                        <div class="aui-list-item-inner aui-margin-l-15">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 color-black">{{goodRes.gname}}</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-15 padding0 aui-font-size-12">
+                                <div class="aui-info-item">
+                                    <span>{{goodRes.groupnum}}人拼团</span>
+                                    <span class="aui-margin-l-5 cart-section-prize color-pink">￥{{goodRes.groupprice}}</span>
+                                </div>
+                            </div>
+                            <div class="aui-info aui-margin-t-10 padding0">
+                                <div class="aui-info-item aui-font-size-12">
+                                    <span>单买价</span>
+                                    <span class="aui-margin-l-5 ">￥{{goodRes.price}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="aui-padded-t-5">
+                <ul class="aui-list aui-media-list">
+                    <li class="aui-list-item aui-list-item-middle cart-bg-fff" v-for="item in groupOrders">
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media cart-list-left">
+                                <img :src="item.avatar" class="aui-img-round">
+                            </div>
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-text">
+                                    <div class="aui-list-item-title aui-font-size-14">{{item.nickname}}
+                                        <span class="aui-margin-l-5 color-pink lefttime" :groupendtime="item.groupendtime">剩余2小时16分30秒</span></div>
+                                    <div class="aui-list-item-right aui-font-size-14 cart-section-go" @click="showGroup(item.oid,item.gid)">去帮TA</div>
+                                </div>
+                                <div class="aui-font-size-12 color-gray9">
+                                    还差 <span class="color-pink">{{item.lessnum}}</span> 单，继续努力中
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="footer">
+        </div>
+    </div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/vue.js"></script>
+<script>
+    var param;
+    var user;
+    apiready = function() {
+        param = $a.getParam();
+        user=$api.getStorage("user");
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                goodRes: {},
+                groupOrders: []
+            },
+            methods: {
+                showGroup: function(oid, gid) {
+                    api.ajax({
+                        url: PHP_SERVE_URL + '/order/getJoinGroupOrderInfo',
+                        method: 'post',
+                        data: {
+                            values: {
+                                openId:user.openId,
+                                goodsId: gid,
+                                oid: oid
+                            }
+                        }
+                    }, function(ret, err) {
+                        if (ret.code == 0) {
+                            $a.openWin('../shop/shop_list-detail',ret.data);
+                        }else{
+                            $a.toast(ret.msg)
+                        }
+                    });
+                },
+                showT:function() {
+                  $(".lefttime").map(function () {
+                      var self = $(this);
+                      var groupendtime = self.attr("groupendtime");
+                      var time = (new Date(groupendtime)).getTime();
+                      var nowtime = (new Date()).getTime();
+                      if (time > nowtime) {
+                          GetRTime(self, time);
+                          setInterval(function () {
+                              GetRTime(self, time);
+                          }, 1000);
+                      }
+                      else{
+                        self.text("");
+                      }
+                  })
+                }
+            },
+            mounted: function() {
+                var self = this;
+                api.ajax({
+                    url: PHP_SERVE_URL + '/order/getOriginNoSuccessOrder',
+                    method: 'post',
+                    data: {
+                        values: {
+                            goodsId: param.gid,
+                            oid: 0,
+                            pernum: 10,
+                            page: 1
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret.code == 0) {
+                        self.groupOrders = ret.data.orderInfo;
+                        self.goodRes = ret.data.goodsInfo;
+                        setTimeout(function () {
+                          self.showT();
+                        }, 100);
+                    }
+                });
+
+            }
+        });
+    }
+    function GetRTime(ele, endtime) {
+        //当前时间
+        var NowTime = (new Date()).getTime();
+        //结束时间减去当前时间剩余的毫秒数
+        var t = endtime - NowTime;
+        // console.log(endtime+"-"+NowTime+'='+t);
+        if(t<1000){
+            ele.text("");
+            return;
+        }
+        var d = Math.floor(t / 1000 / 60 / 60 /24 % 24);//天
+        var h = Math.floor(t / 1000 / 60 / 60 % 60);//时
+        var m = Math.floor(t / 1000 / 60 % 60);//分
+        var s = Math.floor(t / 1000 % 60);//秒
+        ele.text("剩余"+h + "小时" + m + "分" + s + "秒");
+    }
+</script>
+
+</html>

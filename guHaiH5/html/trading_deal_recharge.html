@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>充值余额</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        html {}
+        /*浅白*/
+
+        body {
+            background: #f6f6f6;
+        }
+        /*头部*/
+
+        .aui-bar {
+            background-color: #de3232;
+        }
+        /*内容*/
+
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+        /*清除下划线*/
+
+        .aui-list,
+        .aui-list .aui-list-item-title,
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inner,
+        .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+        /*清除内边距*/
+
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inne,
+        .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        input::-webkit-input-placeholder {
+            /* WebKit browsers */
+            font-size: 0.6rem;
+        }
+
+        input:-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            font-size: 0.6rem;
+        }
+
+        input::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            font-size: 0.6rem;
+        }
+
+        input:-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            font-size: 0.6rem;
+        }
+
+        .aui-media-list .aui-list-item {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+        /* 点击按钮*/
+
+        .aui-btn-success,
+        .aui-btn-success.aui-active,
+        .aui-btn-success:active {
+            background: #de3232;
+        }
+
+        .aui-btn-block.aui-btn-sm {
+            font-size: 1rem;
+            height: 2.3rem;
+            line-height: 2.3rem;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+    <header class="aui-bar aui-bar-nav">
+        <a class="aui-pull-left aui-btn" onclick="history.back();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">充值余额
+        </div>
+    </header>
+
+    <div>
+        <div class="aui-content aui-margin-b-15">
+            <div class="aui-list aui-form-list aui-padded-l-15">
+                <div class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-label">
+                            充值金额:
+                        </div>
+                        <div class="aui-list-item-input" style="width: 50%;margin-right: 0.5rem;">
+                            <input type="number" placeholder="输入充值金额(人民币)" id="amount" name="amount" onkeyup="formatMoney(this)" value="" style="text-align: right;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="aui-list-item aui-font-size-12 aui-margin-l-10 aui-margin-b-10 ">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title color_h">第三方支付</div>
+            </div>
+        </div>
+
+        <div class="aui-content">
+            <ul class="aui-list aui-media-list aui-padded-l-15">
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3rem;">
+                            <img src="../image/deal/zf_weixin_icon.png" class="aui-img-round" />
+                        </div>
+                        <div class="aui-list-item-inner " onclick="setPayType('wxpay',this)">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title aui-font-size-14">微信</div>
+                                <div class="aui-list-item-right" style="width: 1rem">
+                                    <img src="../image/deal/zf_btn_normal.png" class="imga aui-hide" />
+                                    <img src="../image/deal/zf_btn_selected.png" class="imgb" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3rem;">
+                            <img src="../image/deal/zf_zfb_icon.png" class="aui-img-round" />
+                        </div>
+                        <div class="aui-list-item-inner" onclick="setPayType('alipay',this)">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title aui-font-size-14">支付宝</div>
+                                <div class="aui-list-item-right" style="width: 1rem">
+                                    <img src="../image/deal/zf_btn_normal.png" class="imga" />
+                                    <img src="../image/deal/zf_btn_selected.png" class="imgb aui-hide" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <footer>
+            <div class="aui-content-padded" style=" border-radius: 7rem;overflow: hidden;margin: 3rem 2.5rem;">
+                <div onclick="location.href='recharge_success.html'" class="aui-btn aui-btn-success aui-btn-block aui-btn-sm aui-content-padded" id="sub">确认支付</div>
+            </div>
+        </footer>
+
+    </div>
+    <script src="../script/api.js"></script>
+    <script src="../script/config.js"></script>
+    <script src="../script/common.js"></script>
+    <script src="../script/jquery-3.2.1.min.js"></script>
+    <script>
+        var paytype = 'wxpay';
+        function setPayType(type, that) {
+            $(".imga").removeClass('aui-hide');
+            $(".imgb").addClass('aui-hide');
+            $(that).find('.imga').addClass('aui-hide');
+            $(that).find('.imgb').removeClass('aui-hide');
+            paytype = type;
+        }
+    </script>
+</body>
+
+</html>

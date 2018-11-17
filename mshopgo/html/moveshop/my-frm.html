@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>移动店铺-我的</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+    <style type="text/css">
+
+        .bg-white {
+            background-color: #ffffff;
+        }
+        .bg-red {
+            background-color: #ff6666;
+        }
+        .aui-grid [class*=aui-col-] {
+            padding: 0;
+        }
+        .order img{
+            width:1.5rem;
+            margin: 0 auto;
+        }
+        .aui-list-item-label-img {
+            display: inline-block;
+            width: 1.8rem;
+            height: 1.8rem;
+            margin: auto;
+            margin-right: 0.5rem;
+        }
+        .aui-grid-label {
+            color: #666 !important;
+        }
+        .pad-top1{
+            padding-top: 1.5rem;
+        }
+        .pad-bottom1{
+            padding-bottom: 1.5rem;
+        }
+        .imgborder{
+            border: 8px solid rgba(255,255,255,0.2);
+        }
+        .aui-dialog-btn:nth-child(2){
+            color:#3bb316;
+        }
+        .aui-list .aui-list-item:active {
+            background-color: #ff6666;
+        }
+        .ordernum{
+            background: #ff6666;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<!-- 顶部 -->
+<section class="aui-content bg-white aui-margin-b-15">
+    <div class="aui-list aui-media-list bg-red pad-top1 pad-bottom1 aui-list-noborder">
+        <div class="aui-list-item aui-list-item-middle">
+        <div class="aui-media-list-item-inner">
+            <div class="aui-list-item-media" style="width: 4.5rem;" onclick="gotoset();">
+                <img src="" class="aui-img-round imgborder" id="shoplogo">
+            </div>
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-text">
+                    <div class="aui-list-item-title aui-font-size-16 aui-text-white" id="shopname">萌萌哒</div>
+                    <div class="aui-list-item-right" style="width: 1.2rem;" onclick="gotoset();">
+                        <img src="../../image/moveshop/wd_set_icon.png" class="aui-img-round">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="aui-list aui-list-in aui-margin-b-15 ">
+        <div class="aui-list-item">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">进货订单</div>
+                <div class="aui-list-item-right" onclick="$a.openWin('move-order-win',{type:1})">查看全部</div>
+            </div>
+        </div>
+    </div>
+    <div class="aui-grid aui-margin-t-15 aui-margin-b-15 order">
+        <div class="aui-row">
+            <div class="aui-col-5" onclick="$a.openWin('move-order-win',{type:2})">
+                <img src="../../image/moveshop/wd_dfk_icon.png">
+                <div class="aui-grid-label aui-font-size-12">待付款</div>
+                <div class="aui-badge ordernum" id="waitpay"></div>
+            </div>
+            <div class="aui-col-5" onclick="$a.openWin('move-order-win',{type:3})">
+                <img src="../../image/moveshop/wd_dpd_icon.png">
+                <div class="aui-grid-label aui-font-size-12">待发货</div>
+            </div>
+            <div class="aui-col-5" onclick="$a.openWin('move-order-win',{type:4})">
+                <img src="../../image/moveshop/wd_dsh_icon.png">
+                <div class="aui-grid-label aui-font-size-12">待收货</div>
+                <div class="aui-badge ordernum" id="waitreceive"></div>
+            </div>
+            <div class="aui-col-5" onclick="$a.openWin('move-order-win',{type:5})">
+                <img src="../../image/moveshop/wd_dpj_icon.png">
+                <div class="aui-grid-label aui-font-size-12">待评价</div>
+                <div class="aui-badge ordernum" id="waitcomment"></div>
+            </div>
+            <div class="aui-col-5" onclick="$a.openWin('move-order-win',{type:1})">
+                <img src="../../image/moveshop/wd_dfh_icon.png">
+                <div class="aui-grid-label aui-font-size-12">退换/售后</div>
+                <div class="aui-badge ordernum" id="aftersell"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="aui-content">
+    <ul class="aui-list aui-list-in aui-margin-b-15 aui-list-noborder">
+        <li class="aui-list-item" onclick="$a.openWin('move-ranking')">
+            <div class="aui-list-item-label-img">
+                <img src="../../image/moveshop/wd_phb_icon.png">
+            </div>
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">排行榜</div>
+            </div>
+        </li>
+        <li class="aui-list-item" onclick="goToRecord()">
+            <div class="aui-list-item-label-img">
+                <img src="../../image/moveshop/wd_xsjl_icon.png">
+            </div>
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">销售记录</div>
+            </div>
+        </li>
+        <li class="aui-list-item" onclick="goToShopCode();">
+            <div class="aui-list-item-label-img">
+                <img src="../../image/moveshop/wd_ewm_icon.png">
+            </div>
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">店铺二维码</div>
+            </div>
+        </li>
+        <li class="aui-list-item" onclick="$a.openWin('../my/my_frm-address')">
+            <div class="aui-list-item-label-img">
+                <img src="../../image/moveshop/wd_shdz_icon.png">
+            </div>
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">收货地址</div>
+            </div>
+        </li>
+    </ul>
+</section>
+</body>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js" ></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/aui/aui-dialog.js"></script>
+<script type="text/javascript">
+    var user;
+    var shop;
+    var msg;
+    apiready = function () {
+        user=$api.getStorage("user");
+        getShopInfo();
+        api.addEventListener({
+            name:'check-authenticated-4'
+        },function(){
+            checkIsAuthenticated();
+        });
+        api.addEventListener({
+            name: 'refresh_moveshop_shopname'
+        }, function(ret, err) {
+            $api.text($api.byId('shopname'), ret.value.shopName);
+        });
+        api.addEventListener({
+            name: 'refresh_moveshop_shoplogo'
+        }, function(res) {
+            if (res) {
+                $api.attr($api.byId('shoplogo'), 'src', res.value.shoplogo);
+            }
+        });
+//        getOrderNum();
+    }
+    //进货订单数量
+    function getOrderNum(){
+        api.ajax({
+            url: PHP_SERVE_URL + '/order/getStatOrderNum',
+            method: 'post',
+            data: {
+                values: {
+                    openId: user.openId
+                }
+            }
+        }, function (ret, err) {
+            if (ret.code == 0) {
+                if(ret.data.waitpay!=0){
+                    $api.text($api.byId('waitpay'), ret.data.waitpay);
+                    $api.css($api.byId('waitpay'),"display:block");
+                }
+                if(ret.data.waitreceive!=0){
+                    $api.text($api.byId('waitreceive'), ret.data.waitreceive);
+                    $api.css($api.byId('waitreceive'),"display:block");
+                }
+                if(ret.data.waitcomment!=0){
+                    $api.text($api.byId('waitcomment'), ret.data.waitcomment);
+                    $api.css($api.byId('waitcomment'),"display:block");
+                }
+                if(ret.data.aftersell!=0){
+                    $api.text($api.byId('aftersell'), ret.data.aftersell);
+                    $api.css($api.byId('aftersell'),"display:block");
+                }
+            }
+        });
+    }
+    function gotoset(){
+        if(shop==null){
+            $a.toast(msg);
+        }else {
+            $a.openWin('my_frm-set');
+        }
+    }
+    //前往销售记录
+    function goToRecord(){
+        if(shop==null){
+            $a.toast(msg);
+        }else{
+            $a.openWin('move-record','shopId:'+shop.shopid);
+        }
+    }
+    //前往二维码
+    function goToShopCode(){
+        if(shop==null){
+            $a.toast(msg);
+        }else {
+            $a.openWin('shop-code_win', 'shopid:' + shop.shopid + ",shoplogo:" + shop.shoplogo + ",shopname:" + shop.shopname);
+        }
+    }
+    //赋值店铺信息
+    function getShopInfo(){
+        api.ajax({
+            url:PHP_SERVE_URL+"/taxi/getTaxiShopInfo",
+            method:'post',
+            data:{
+                values:{
+                    openId:user.openId
+                }
+            }
+        },function(ret) {
+            if (ret.code == 0) {
+                shop=ret.data;
+                $("#shopname").text(shop.shopname);
+                $("#shoplogo").attr("src",shop.shoplogo);
+            }else{
+                msg=ret.msg;
+                $("#shopname").text(user.nickName);
+                $("#shoplogo").attr("src",user.avatar);
+            }
+        });
+    }
+    //是否实名认证
+    function checkIsAuthenticated() {
+        api.ajax({
+            url: PHP_SERVE_URL + '/taxi/getTaxiIdentity',
+            method: "post",
+            data: {
+                values: {
+                    openId: user.openId
+                }
+            }
+        }, function (ret) {
+            // 已经实名认证有点击动作
+            if(ret.code!=0){
+                if(ret.code==2){
+                    var dialog=new auiDialog();
+                    dialog.alert({
+                        title:"司机实名认证",
+                        msg:'您提交的实名认证，正在等待审核！',
+                        buttons:['取消','确认']
+                    },function(ret){
+                        sendEvent();
+                    });
+                    $(".aui-dialog-close").click(function(){
+                        sendEvent();
+                    });
+                }else{
+                    var dialog=new auiDialog();
+                    dialog.alert({
+                        title:"司机实名认证",
+                        msg:'您还未开通移动店铺，进行司机实名认证后即可开通！',
+                        buttons:['取消','前往认证']
+                    },function(ret){
+                        if(ret.buttonIndex==2){
+                            $a.openWin('authentication_win');
+                            setTimeout(function () {
+                                api.sendEvent({
+                                    name: 'moveshop-index-show',
+                                    extra: {
+                                        index: 0
+                                    }
+                                })
+                            }, 500);
+                        }
+                        if(ret.buttonIndex==1){
+                            sendEvent();
+                        }
+                    });
+                    $(".aui-dialog-close").click(function(){
+                        sendEvent();
+                    });
+                }
+
+            }
+        })
+    }
+    function sendEvent(){
+        setTimeout(function(){
+            api.sendEvent({
+                name:'moveshop-index-show',
+                extra:{
+                    index:0
+                }
+            })
+        },100);
+    }
+</script>
+</html>

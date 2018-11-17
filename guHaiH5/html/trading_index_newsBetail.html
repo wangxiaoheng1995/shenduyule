@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>新闻详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        span {
+            padding: 0rem 0.1rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn" onclick="history.back();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">新闻详情</div>
+</header>
+
+<div id="newDet" class="new-detail">
+    <div class="bg-color aui-content aui-padded-15">
+        <div class="aui-label aui-label-danger aui-padded-t-5 aui-padded-b-5 aui-padded-l-15 aui-padded-r-15 "
+             style="border-radius: 0.1rem;">沽海观点
+        </div>
+        <h3 class="aui-ellipsis-2 aui-margin-t-15 aui-font-size-14  " style="font-weight: 600;">游戏改版的重要通知</h3> <h6
+            class="aui-margin-t-15 aui-font-size-12">来源:
+        <span>沽海APP</span> <span class="color-gray">2018-07-06 11:42:47</span></h6>
+        <div class="aui-card-list aui-margin-t-15 aui-margin-b-15">
+            <div class="aui-card-list-content"><img
+                    src="http://media1.yunlutong.com/YltmallRes/20180706/153084812531035.png"></div>
+            <span class="font-colo-gy"
+                  style="font-size: 0.6rem;"><p><b>因目前本款游戏的粗糙感，本公司已在6月份进行更换了游戏功能和界面。</b></p><p><b><span
+                    style="color: rgb(57, 57, 57); font-size: 13px; display: inline !important;">公司进行更换推行策略，</span>更新概括介绍：</b></p><p><b>一、建造游戏暂缓重新设计，打造首个超级社区概念；</b></p><p><b>二、娱乐交易界面变为视觉保护，可切换交易界面黑白的功能；</b></p><p><b>三、学堂改为学院，增加证券、基金、银行从业考试模拟试题的功能；</b></p><p><b>四、美化“学院”小白入门知识，加入动漫、漫画形式的学习内容；</b></p><p><b>五、完善所有专业指标的功能。</b></p><p><b>以上更换更新完备时间以后续公告为准。</b></p><p><b>其他详情，请咨询公司产品宣传册。</b></p></span>
+        </div>
+    </div>
+</div>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/vue.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/public.js"></script>
+
+</body>
+</html>

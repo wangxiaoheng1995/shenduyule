@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        html {
+            height: 100%;
+        }
+
+        /*浅白*/
+        body {
+            background: #f6f6f6;
+            height: 100%;
+        }
+
+        /*最底背景：黑色*/
+        .bg1 {
+            background-color: #171b24;
+
+        }
+
+        /*底背景：半黑色*/
+        .bg2 {
+            background-color: #1c2029;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        /*白色背景*/
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*黑色*/
+        .font-colo-b {
+            color: #212121 !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .aui-tab-item {
+            color: #ffffff;
+        }
+
+        .aui-tab-item.aui-active {
+            color: #de3232;
+            border-bottom: 2px solid #de3232;
+        }
+
+        /*买入*/
+        .aui-grid .aui-col-xs-3 {
+            background-color: #1c2029;
+            color: #ffffff;
+        }
+
+        .aui-grid .aui-col-xs-3, .aui-grid .aui-col-xs-3.aui-active, .aui-grid .aui-col-xs-3:active {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-3.aui-active, .aui-grid .aui-col-xs-3:active {
+            background-color: #de3232;
+        }
+
+        .aui-bar-btn-item {
+            color: #ffffff;
+            border: none;
+        }
+
+        .aui-bar-btn-item.aui-active {
+            background-color: #7e7e8e;
+            color: #000000;
+
+        }
+
+        .aui-bar-btn.aui-bar-btn-round .aui-bar-btn-item:first-child {
+            border-radius: 0.3rem;
+            border: none;
+        }
+
+        .aui-grid .aui-col-xs-4 {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-4 p {
+            font-weight: 700;
+
+        }
+
+        /* 文本框预输入文字颜色：*/
+        :-moz-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        ::-moz-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        input:-ms-input-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        input::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /*撤单*/
+        #revoke .aui-grid .aui-col-xs-3 {
+            font-weight: inherit;
+        }
+
+        #revoke .aui-grid .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+        }
+
+        #revoke .aui-grid .aui-col-xs-3 .revoke {
+            border: 1px solid #de3232;
+            border-radius: 0.1rem;
+            color: #de3232;
+            margin: 0 auto;
+            width: 2.5rem;
+        }
+
+        #revoke ul li {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #revoke .aui-grid {
+            background-color: inherit;
+        }
+
+        /*委托*/
+        #entrust .aui-grid .aui-col-xs-6 {
+            color: #ffffff;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        #entrust .aui-grid .aui-col-xs-6.active {
+            color: #de3232;
+        }
+
+        #entrust ul li {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #entrust .aui-grid {
+            background-color: inherit;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 {
+            font-weight: inherit;
+            background-color: inherit;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 .entrust {
+            border: 1px solid #de3232;
+            border-radius: 0.1rem;
+            color: #de3232;
+            margin: 0 auto;
+            width: 2.5rem;
+        }
+
+        /*持仓*/
+        #mochikura .aui-grid .aui-row .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+            padding: 0.2rem 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body class="bg1">
+<!--撤单-->
+<div class="aui-content tabcontent " id="revoke">
+    <div class="aui-grid" style="background-color: inherit;color:#7e7e8e;font-size: 0.1rem">
+        <div class="aui-row">
+            <div class="aui-col-xs-4" style="width: 30%">买卖方向</div>
+            <div class="aui-col-xs-4" style="width: 30%">股票名称</div>
+            <div class="aui-col-xs-4" style="width: 40%">委托价/委托数/成交数</div>
+        </div>
+    </div>
+
+    <ul class="aui-grid">
+        <li class="aui-row">
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label">买入</div>
+                <p>09:50:38</p>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label">中设股份</div>
+                <p>002883</p>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label">45.120</div>
+                <p>100|0</p>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label aui-font-size-12 font-colo-gy">已报</div>
+                <p class="revoke">撤单</p>
+            </div>
+        </li>
+        <li class="aui-row">
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label">买入</div>
+                <p>09:50:38</p>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label">中设股份</div>
+                <p>002883</p>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label">45.120</div>
+                <p>100|0</p>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label aui-font-size-12 font-colo-gy">已报</div>
+                <p class="revoke">撤单</p>
+            </div>
+        </li>
+        <li class="aui-row">
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label">买入</div>
+                <p>09:50:38</p>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label">中设股份</div>
+                <p>002883</p>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label">45.120</div>
+                <p>100|0</p>
+            </div>
+            <div class="aui-col-xs-3">
+                <div class="aui-grid-label aui-font-size-12 font-colo-gy">已报</div>
+                <p class="revoke">撤单</p>
+            </div>
+        </li>
+    </ul>
+
+</div>
+</body>
+</html>

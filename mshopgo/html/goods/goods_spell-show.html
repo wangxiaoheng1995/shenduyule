@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <style>
+        html,
+        body,
+        #content {
+            width: 100% !important;
+            height: 100% !important;
+            background-color: #fff;
+        }
+
+        #content {
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+        #content img{
+            width: 100%;
+        }
+        .color-gray3{
+            color: #333333 !important;
+        }
+
+    </style>
+</head>
+
+<body>
+<header id="header" class="aui-bar aui-bar-nav" style="background-color: #ffffff;color: #222;z-index: 1 !important;">
+    <a class="aui-pull-left aui-btn " onclick="window.history.back()">
+        <span class="aui-iconfont aui-icon-left color-gray3"></span>
+    </a>
+    <div class="aui-title" style="background-color: #fff;color: #222;font-size: 0.8rem;">拼团玩法</div>
+</header>
+<div id="content" v-cloak>
+    <section >
+        <img src="../../image/goods/show_1.jpg">
+        <img src="../../image/goods/show_2.jpg">
+        <img src="../../image/goods/show_3.jpg">
+        <img src="../../image/goods/show_4.jpg">
+        <img src="../../image/goods/show_5.jpg">
+        <img src="../../image/goods/show_6.jpg">
+        <img src="../../image/goods/show_7.jpg">
+        <img src="../../image/goods/show_8.jpg">
+    </section>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/base.js"></script>
+<script>
+    apiready = function () {
+    }
+</script>
+</body>
+
+</html>

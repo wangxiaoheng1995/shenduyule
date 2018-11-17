@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>签到</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        .aui-bar-nav {
+            position: fixed;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+        html,body,#wrap{
+            width:100%;
+            height:100%;
+        }
+        #wrap{
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" class="flex-wrap flex-vertical">
+    <header class="aui-bar aui-bar-nav tit-bar-black border-bot">
+        <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">签到</div>
+    </header>
+    <div class="maindiv">
+        <div style="height: 2rem;"></div>
+        <div id="content" class="aui-padded-15 back-write aui-padded-b-10" v-cloak>
+            <h4 class="s-line">今日您已领取 <span class="color-pink cart-section-prize aui-font-size-16" v-text="todayMoney">0</span>
+                元赏金 <!-- <span class="aui-pull-right">签到提醒<input type="checkbox" class="aui-switch aui-margin-l-5" checked></span> --></h4>
+            <div class="sign-flex  aui-padded-t-10 aui-padded-b-10">
+                <template v-for="item,index in signData.settings">
+                    <div class="border sign-flex-line aui-padded-t-5 aui-padded-b-5 aui-margin-t-10"
+                         :class=" !item.isActive ?'s-opacity':''">
+                        <img src="../../image/my/hb_ph_selected.png"/>
+                        <span class="aui-font-size-14">
+                            第{{index+1}}天</span>
+                    </div>
+                </template>
+            </div>
+            <button class="aui-btn padding0 border-no bd-radius  aui-font-size-16 back-pinkm color-write my-margin-t " @click="onceSign();" :class="isSignToday?'s-opacity':''" v-text="isSignToday?'已签到':'签  到'"></button>
+        </div>
+        <section class="cart-bg-fff aui-margin-t-10">
+            <ul class="aui-list aui-list-in">
+                <li class="aui-list-item cart-bg-fff s-no-bgimg">
+                    <div class="aui-list-item-inner aui-list-item-arrow">
+                        <div class="aui-list-item-title order-top-img">每日任务</div>
+                        <div class="aui-list-item-right" onclick="window.location.href='my_sign-everyday.html'">
+                            查看全部
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="aui-list aui-media-list">
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3rem;">
+                            <img src="../../image/my/mrrw_fx_icon.png" class="aui-list-img-sm">
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title aui-font-size-14">分享好物给好友</div>
+
+                            </div>
+                            <div class="aui-list-item-text">
+                                82%的用户已完成
+                                <div class="aui-list-item-right aui-font-size-14 cart-section-go wall-top-margin">去完成
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3rem;">
+                            <img src="../../image/my/mrrw_wszl_icon.png" class="aui-list-img-sm">
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title aui-font-size-14">完善个人资料</div>
+
+                            </div>
+                            <div class="aui-list-item-text">
+                                82%的用户已完成
+                                <div class="aui-list-item-right aui-font-size-14 cart-section-go wall-top-margin" onclick="window.location.href='my_frm-set.html'">去完成
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3rem;">
+                            <img src="../../image/my/mrrw_wxgz_icon.png" class="aui-list-img-sm">
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title aui-font-size-14">关注微信公众号</div>
+                            </div>
+                            <div class="aui-list-item-text">
+                                82%的用户已完成
+                                <div class="aui-list-item-right aui-font-size-14 cart-section-go wall-top-margin">去完成
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/aui/aui-tab.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<script type="text/javascript" src="../../script/yltcrypt.js"></script>
+<script type="text/javascript" src="../../script/aui/aui-toast.js"></script>
+<script>
+    window.onload = function () {
+        // 检测是否已登录
+        var user = $api.getStorage('user');
+        if (typeof user == 'undefined') {// 登录
+            window.location.href='../login_win.html';
+        }
+        var vm = new Vue({
+            el: "#content",
+            data: {
+                signData: "",
+                isSignToday: false,
+                todayMoney: 0
+            },
+            methods: {
+                onceSign: function () {
+                    var self = this;
+                    if (self.isSignToday) {
+                        return false;
+                    } else {
+                        $.ajax({
+                            url: PHP_SERVE_URL + '/customer/sign',
+                            method: 'post',
+                            data: {
+                                // values: {
+                                    openId: user.openId,
+                                    token: yltcrypt.cpt(user.openId)
+                                // }
+                            },
+                            success:function (json, err) {
+                                if (json.code==0) {
+                                    var atoast = new auiToast();
+                                    self.click = true;
+                                    self.todayMoney = json.coin;
+                                    atoast.success({
+                                        title: "恭喜领到赏金" + json.coin,
+                                        duration: 2000
+                                    });
+                                    setTimeout(function () {
+                                        self.getData();
+                                    }, 300);
+                                    self.isSignToday = true;
+                                    // api.sendEvent({
+                                    //     name:'refresh-reward'
+                                    // });
+                                } else {
+                                    atoast.success(json.msg);
+                                }
+                            }
+                        });
+                    }
+                },
+                getData: function () {
+                    var self = this;
+                    $.ajax({
+                        url: PHP_SERVE_URL + '/Customer/GetSignData',
+                        type: 'post',
+                        data: {
+
+                                openId: user.openId,
+
+                        },
+                        success:function (json, err) {
+                            if (json.code == 0) {
+                                self.signData = json;
+                                self.isSignToday = json.isSignToday;
+                                if (json.isSignToday) {
+                                    var days = json.signDays;
+                                    if (days > 8) {
+                                        self.todayMoney = json.nextMoney;
+                                    } else {
+                                        var dayIndex = days - 1;
+                                        self.todayMoney = json.settings[dayIndex].money;
+                                    }
+                                }
+                            } else {
+                                var aToast = new auiToast();
+                                aToast.fail({
+                                    title: json.msg,
+                                    duration: 2000
+                                });
+                            }
+                        }
+                    });
+                }
+            },
+            mounted: function () {
+                var self = this;
+                // 获取签到信息
+                self.getData();
+            }
+        });
+    };
+</script>
+</html>

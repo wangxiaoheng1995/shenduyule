@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>附近店铺</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css" />
+</head>
+<style>
+    .shop-img {
+        position: relative;
+    }
+    .shop-img img{
+        height: 9rem;
+    }
+    .shop-img .go-more-shop-img{
+        position: absolute;
+        bottom:.5rem;
+        right:.5rem;
+        width:2.5rem;
+        height:2.5rem;
+        background: rgba(0, 0, 0, 1);
+        border-radius:50%;
+        opacity:.7;
+        text-align: center;
+        color:#fff;
+    }
+    .shop-info{
+        position:relative;
+        background: #fff;
+        padding:.4rem 0;
+        border-bottom:1px solid #dbdbdb;
+    }
+    .shop-info .shop-info-detail .stars{
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+    .shop-info .shop-info-detail .stars img{
+        width: .6rem;
+        float: left;
+    }
+    .shop-info .shop-info-detail .shop_score{
+        color:#fc9421;
+    }
+    .shop-info .shop-collection-btn{
+        text-align:center;
+        position:absolute;
+        bottom:.4rem;
+        right:.7rem;
+    }
+    .shop-address{
+        background:#fff;
+        padding:.6rem 0;
+    }
+    .shop-address img{
+        display:inline-block;
+    }
+    .shop-product{
+        background:#fff;
+        padding-top: .5rem;
+    }
+    .product-list li{
+        display: flex;
+        padding: .8rem 0;
+        border-bottom:1px solid #dbdbdb;
+    }
+    .product-list li>div{
+        flex: 1;
+    }
+    .product-list li>div.pic{
+        max-width: 3.5rem;
+    }
+    .product-list li>div.product-info .price .sell-price{
+        color: deeppink;
+        position: relative;
+        top:.1rem;
+        margin-right: .1rem;
+    }
+    .product-list li>div.product-info .price .sale-price{
+        color: #ff79a9;
+        border:1px solid #ff79a9;
+        padding: 0 3px;
+        border-radius: 2px;
+    }
+    .product-list li>div.product-info .price .selled-count{
+        position: relative;
+        top:.5rem;
+    }
+    [v-cloak]{
+        display: none;
+    }
+</style>
+
+<body>
+    <div id="content" v-cloak>
+        <!-- 顶部 -->
+        <header class="header-nav aui-bar aui-bar-nav tit-bar-black back-write border-bot">
+            <a class="aui-pull-left aui-btn" onclick="history.back()">
+                <span class="aui-iconfont aui-icon-left color-gray9"></span>
+            </a>
+            <div class="aui-title color-black">{{datas.shop_name}}</div>
+        </header>
+        <section class="aui-content" style="padding-top:2rem;">
+            <div class="shop-img">
+                <img :src="datas.head_pic" width="100%" height="" alt="">
+                <div class="go-more-shop-img">
+                    <a :href="'./nearbyshop_shopimg_new.html?shop_id='+datas.id">
+                        <img src="../../image/huiminshop/img.png" style="width: .8rem;height:.8rem;display: inline-block;margin-top: .5rem;" alt="">
+                        <p class="aui-font-size-10 color-write" style="opacity: .8;margin-top: -.2rem;">{{imgLen}}张</p>
+                    </a>
+                </div>
+            </div>
+            <div class="shop-info aui-padded-l-5 aui-padded-r-5">
+                <p class="shop-name aui-font-size-16 color-black">{{datas.shop_name}}</p>
+                <div class="shop-info-detail">
+                <span class="stars">
+                    <template v-for="n in 5">
+                        <img v-if="n<=parseInt(datas.score)" src="../../image/huiminshop/star.png" alt="">
+                        <img v-if="n>parseInt(datas.score)" src="../../image/huiminshop/star_s.png" alt="">
+                    </template>
+                </span>
+                    <span class="shop_score aui-font-size-12">{{datas.score}}分</span>
+                    <span class="color-gray9 aui-font-size-12">人均 :￥{{datas.avgprice}}</span>
+                </div>
+                <div class="shop-collection-btn"><span class="aui-iconfont aui-icon-star aui-font-size-16"></span><p class="aui-font-size-10">收藏</p></div>
+            </div>
+            <div class="shop-address">
+                <table width="100%">
+                    <tr>
+                        <td class="aui-text-center" width="10%"><img src="../../image/huiminshop/map-marker.png" style="width: 1rem;" alt=""></td>
+                        <td class="aui-font-size-14" width="78%">{{datas.address}}</td>
+                        <td class="aui-text-center"><a :href="'tel:'+datas.tel"><img src="../../image/huiminshop/call.png" style="width: 1rem;" alt=""></a></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="shop-product aui-padded-l-5 aui-padded-r-5 aui-margin-t-5">
+                <div class="product-style">
+                    <div class="aui-font-size-16">商品</div>
+                    <ul class="product-list">
+                        <li v-for="(v,i) in datas.goods">
+                            <div class="pic aui-padded-r-5">
+                                <img src="http://media1.yunlutong.com/YltmallRes/img/xpgDefaultLogo.png" alt="">
+                            </div>
+                            <div class="product-info">
+                                <p class="product-name color-black aui-font-size-16">{{v.gname}}</p>
+                                <p class="sale-time aui-font-size-12">周一至周日 10:00-00:00</p>
+                                <p class="price">
+                                    <span class="sell-price aui-font-size-18">￥118</span>
+                                    <span class="real-price aui-font-size-12">门市价:￥{{v.gprice}}</span>
+                                    <span class="sale-price aui-font-size-10">减5</span>
+                                    <span class="selled-count aui-pull-right aui-font-size-12">已售{{v.sell_num}} <img class="aui-pull-right aui-margin-l-5" style="width: .3rem;margin-top: .1rem;" src="../../image/aftersale/xpg_zk_icon.png" alt=""></span>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/H5_public.js"></script>
+<script>
+    var pageParam=H5.pageParam();
+    var vm = new Vue({
+        el: "#content",
+        data: {
+            datas: [],
+            imgLen:0
+        },
+        methods: {
+            getDatas: function() {
+                var _self = this;
+                $.ajax({
+                    url: PHP_SERVE_URL + '/shop/getGoodsListShopInfo',
+                    type: 'post',
+                    data: {
+                        shop_id:pageParam.shop_id
+                    },
+                    success: function(ret, err) {
+                        if (ret.code == 0) {
+                            _self.datas=ret.data;
+                        } else {
+                            toast.fail({title:ret.msg,duration:2000});
+                        }
+                    }
+                });
+            },
+            getImgDatas: function() {
+                var _self = this;
+                $.ajax({
+                    url: PHP_SERVE_URL + '/shop/getShopPic',
+                    type: 'post',
+                    data: {
+                        shop_id:pageParam.shop_id
+                    },
+                    success: function(ret, err) {
+                        if (ret.code == 0) {
+                            _self.imgLen=ret.data.length;
+                        } else {
+                            toast.fail({title:ret.msg,duration:2000});
+                        }
+                    }
+                });
+            },
+        },
+        mounted: function() {
+            var _self = this;
+            //页面初始化时加载一次数据
+            _self.getDatas();
+            _self.getImgDatas()
+        }
+    });
+
+</script>
+</html>

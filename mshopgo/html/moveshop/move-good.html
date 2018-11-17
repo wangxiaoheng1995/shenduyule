@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>购物车</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        .aui-bar-nav {
+            position: fixed;
+            z-index: 999;
+        }
+
+        #main {
+            margin-top: 3rem;
+        }
+
+        .aui-list .aui-list-item:active {
+            background-color: #fff;
+        }
+
+        .move-add-cart:active {
+            transform: scale(1.3, 1.3);
+            -webkit-transform: scale(1.3, 1.3);
+            transition: .01s transform;
+            -webkit-transition: .01s transform;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="wrap" class="cart">
+    <header class="aui-bar aui-bar-nav aui-bar-light back-palered color-write">
+        <div class="aui-pull-left aui-btn " onclick="$a.closeWin();" id="back">
+            <span class="aui-iconfont aui-icon-left color-write"></span>
+        </div>
+        <div class="aui-title aui-font-size-16  ">好货</div>
+    </header>
+    <div id="main" style="padding-bottom:3rem;">
+        <div class="cart-bg-fff order-section-padd aui-margin-t-10 aui-padded-l-15 aui-padded-r-15">
+            <div class="aui-padded-l-5 aui-padded-r-5 back-write aui-margin-t-10">
+                <h4 class="aui-border-b aui-padded-t-15 aui-padded-b-15">全部商品
+                      <span class="aui-pull-right">
+                        <em id="s1" class="move-em aui-margin-r-15 color-palered" @click="sortPage(1);">推荐
+                            <img src="../../image/moveshop/yddp_px1_icon.png"/>
+                        </em>
+                        <em id="s2" class="move-em" @click="sortPage(2);">库存
+                            <img src="../../image/moveshop/yddp_px2_icon.png"/>
+                        </em>
+                      </span>
+                </h4>
+                <ul class="aui-list aui-media-list">
+                    <li class="aui-list-item aui-padded-l-0 cart-bg-fff" v-for="item in goodsList">
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media cart-left-img">
+                                <img :src="item.pic">
+                            </div>
+                            <div class="aui-list-item-inner aui-padded-r-0 aui-margin-l-10">
+                                <div class="aui-list-item-text cart-text">
+                                    <p class="aui-ellipsis-2 s-color-black aui-font-size-14 line-height color-black">
+                                        {{item.gname}}</p>
+                                </div>
+                                <div class="">
+                                    <!-- <p class="s-color-black">规格218g</p> -->
+                                    <p class="s-color-black">进货价<em class="color-black">￥{{item.supply_price}}</em>
+                                        <span class="aui-margin-l-5">销售价 <em
+                                                class="color-black">￥{{item.price}}</em></span></p>
+                                    <p class="s-color-black">利润 <em class="color-black">￥{{item.profit}}</em></p>
+                                </div>
+                                <div class="aui-info aui-margin-t-10 padding0">
+                                    <div class="aui-info-item"></div>
+                                    <div class="aui-info-item cart-info-item">
+                                        <div class="aui-bar aui-bar-btn aui-margin-r-10" type="count">
+                                            <div class="aui-bar-btn-item " @click="min(item.gid);">
+                                                <i class="aui-iconfont aui-icon-minus color-black"></i>
+                                            </div>
+                                            <div class="aui-bar-btn-item">
+                                                <input :id="'g'+item.gid" type="tel" size="4"
+                                                       class="aui-input aui-text-center goodsnum" value="1">
+                                            </div>
+                                            <div class="aui-bar-btn-item " @click="add(item.gid);">
+                                                <i class="aui-iconfont aui-icon-plus color-black"></i>
+                                            </div>
+                                        </div>
+                                        <img src="../../image/moveshop/yddp_gwc_icon.png" class="move-add-cart"
+                                             @click="addCart(item)"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/vue.js"></script>
+<script>
+    var cartObj;
+    apiready = function () {
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                goodsList: [],
+                page: 1, //当前页
+                total: 1, //总页数
+                sort: 1, //排序
+            },
+            methods: {
+                getGoodsList: function () { //店铺是否认证
+                    var self = this;
+                    if (self.page > self.total) {
+                        return;
+                    }
+                    api.ajax({
+                        url: PHP_SERVE_URL + '/taxi/getGoodGoodsList',
+                        method: 'post',
+                        data: {
+                            values: {
+                                sort: self.sort,
+                                pernum: 10,
+                                page: self.page
+                            }
+                        }
+                    }, function (ret, err) {
+                        if (ret.code == 0) {
+                            self.goodsList = ret.data;
+                        }
+                    });
+                },
+                sortPage: function (s) { //排序
+                    var self = this;
+                    var select = $api.byId('s' + s);
+                    if ($api.hasCls(select, 'color-palered')) {
+                        return;
+                    }
+                    self.sort = s;
+                    self.page = 1;
+                    self.total = 1;
+                    $api.addCls(select, 'color-palered');
+                    $api.attr($api.dom('#s' + s + ' img'), 'src', '../../image/moveshop/yddp_px1_icon.png');
+                    $api.removeCls($api.byId('s' + (3 - s)), 'color-palered');
+                    $api.attr($api.dom('#s' + (3 - s) + ' img'), 'src', '../../image/moveshop/yddp_px2_icon.png');
+                    self.getGoodsList();
+                },
+                min: function (gid) {
+                    var select = $api.byId('g' + gid);
+                    var num = $api.val(select);
+                    if (num > 1) {
+                        $api.val(select, $api.val(select) - 1);
+                    }
+                },
+                add: function (gid) {
+                    var select = $api.byId('g' + gid);
+                    $api.val(select, $api.val(select) * 1 + 1);
+                },
+                addCart: function (good) {
+                    var num = $api.val($api.byId('g' + good.gid));
+                    good.num = num;
+                    formatCart(good);
+                },
+                openGoodsDetail: function (id) {
+                    api.openWin({
+                        name: 'goods_win',
+                        url: 'goods_win.html',
+                        pageParam: {
+                            id: id,
+                            originOId: 0
+                        },
+                        progress: {
+                            type: "default", //加载进度效果类型，默认值为default，取值范围为default|page，default等同于showProgress参数效果；为page时，进度效果为仿浏览器类型，固定在页面的顶部
+                            title: "努力加载中...", //type为default时显示的加载框标题
+                            text: "请稍等..."
+                        }
+                    });
+                }
+            },
+            created: function () {
+
+            },
+            mounted: function () {
+                var self = this;
+                self.getGoodsList();
+                api.addEventListener({
+                    name: 'scrolltobottom',
+                    extra: {
+                        threshold: 50
+                    }
+                }, function (ret, err) {
+                    self.getGoodsList();
+                });
+                cartObj = localStorage.getItem('cartMove') ? JSON.parse(localStorage.getItem('cartMove')) : [];
+            }
+        });
+    };
+    //格式化购物车，存在相同类型的直接增加数量
+    function formatCart(good) {
+        cartObj = localStorage.getItem('cartMove') ? JSON.parse(localStorage.getItem('cartMove')) : [];
+        if (cartObj instanceof Array) {
+            var hasGood = false;
+            for (var i = 0; i < cartObj.length; i++) {
+                if (cartObj[i].gid == good.gid) {
+                    hasGood = true;
+                    cartObj[i].num = cartObj[i].num * 1 + good.num * 1;
+                }
+            }
+            if (!hasGood) {
+                good.select = false;
+                cartObj.push(good);
+            }
+        } else {
+            cartObj = [];
+            good.select = false;
+            cartObj.push(good);
+        }
+        localStorage.setItem('cartMove', JSON.stringify(cartObj));
+        api.sendEvent({
+            name: 'refresh-purchase'
+        });
+    }
+</script>
+</body>
+
+</html>

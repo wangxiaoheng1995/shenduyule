@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 该页面作废 删除 -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        html {
+            height: 100%;
+        }
+        /*浅白*/
+
+        body {
+            background: #f6f6f6;
+            height: 100%;
+        }
+        /*最底背景：黑色*/
+
+        .bg1 {
+            background-color: #171b24;
+        }
+        /*底背景：半黑色*/
+
+        .bg2 {
+            background-color: #1c2029;
+        }
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        /*白色背景*/
+
+        .bg-color {
+            background: #ffffff;
+        }
+        /*红色*/
+
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+        /*绿色*/
+
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+        /*灰色*/
+
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+        /*黑色*/
+
+        .font-colo-b {
+            color: #212121 !important;
+        }
+        /*头部*/
+
+        .aui-bar {
+            background-color: #de3232;
+        }
+        /*内容*/
+
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+        /*清除下划线*/
+
+        .aui-list,
+        .aui-list .aui-list-item-title,
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inner,
+        .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+        /*清除内边距*/
+
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inne,
+        .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .aui-tab-item {
+            color: #ffffff;
+        }
+
+        .aui-tab-item.aui-active {
+            color: #de3232;
+            border-bottom: 2px solid #de3232;
+        }
+        /*买入*/
+
+        .aui-grid .aui-col-xs-3 {
+            background-color: #1c2029;
+            color: #ffffff;
+        }
+
+        .aui-grid .aui-col-xs-3,
+        .aui-grid .aui-col-xs-3.aui-active,
+        .aui-grid .aui-col-xs-3:active {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-3.aui-active,
+        .aui-grid .aui-col-xs-3:active {
+            background-color: #de3232;
+        }
+
+        .aui-bar-btn-item {
+            color: #ffffff;
+            border: none;
+        }
+
+        .aui-bar-btn-item.aui-active {
+            background-color: #7e7e8e;
+            color: #000000;
+        }
+
+        .aui-bar-btn.aui-bar-btn-round .aui-bar-btn-item:first-child {
+            border-radius: 0.3rem;
+            border: none;
+        }
+
+        .aui-grid .aui-col-xs-4 {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-4 p {
+            font-weight: 700;
+        }
+        /* 文本框预输入文字颜色：*/
+
+         :-moz-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+         ::-moz-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        input:-ms-input-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        input::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        /*撤单*/
+
+        #revoke .aui-grid .aui-col-xs-3 {
+            font-weight: inherit;
+        }
+
+        #revoke .aui-grid .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+        }
+
+        #revoke .aui-grid .aui-col-xs-3 .revoke {
+            border: 1px solid #de3232;
+            border-radius: 0.1rem;
+            color: #de3232;
+            margin: 0 auto;
+            width: 2.5rem;
+        }
+
+        #revoke ul li {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #revoke .aui-grid {
+            background-color: inherit;
+        }
+        /*委托*/
+
+        #entrust .aui-grid .aui-col-xs-6 {
+            color: #ffffff;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        #entrust .aui-grid .aui-col-xs-6.active {
+            color: #de3232;
+        }
+
+        #entrust ul li {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #entrust .aui-grid {
+            background-color: inherit;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 {
+            font-weight: inherit;
+            background-color: inherit;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 .entrust {
+            border: 1px solid #de3232;
+            border-radius: 0.1rem;
+            color: #de3232;
+            margin: 0 auto;
+            width: 2.5rem;
+        }
+        /*持仓*/
+
+        #mochikura .aui-grid .aui-row .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+            padding: 0.2rem 0;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden bg1">
+    <header style="padding-top:25px;background-color: #de3232 ">
+        <div class="aui-bar aui-bar-nav">
+            <a class="aui-pull-left aui-btn" onclick="closeWin();">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </a>
+            <div class="aui-title">交易
+            </div>
+        </div>
+    </header>
+
+    <div id="deal">
+        <div class="aui-content">
+            <div class="aui-tab aui-margin-b-15" id="detailstab" style="background-color:#222933">
+                <div class="aui-tab-item aui-active" onclick="randomSwitchBtn(this)">买入</div>
+                <div class="aui-tab-item" onclick="randomSwitchBtn(this)">卖出</div>
+                <div class="aui-tab-item" onclick="randomSwitchBtn(this)">撤单</div>
+                <div class="aui-tab-item" onclick="randomSwitchBtn(this)">委托</div>
+                <div class="aui-tab-item" onclick="randomSwitchBtn(this)">持仓</div>
+            </div>
+            <div id="tabcontent" class="aui-padded-b-10"></div>
+        </div>
+    </div>
+    </div>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+
+<script>
+    var h = $api.dom('body').offsetHeight - $api.byId('detailstab').offsetHeight;
+    $api.css($api.byId('tabcontent'), 'height:' + h + 'px;');
+    var actionType;
+    apiready = function() {
+        actionType = api.pageParam.actionType;
+        api.parseTapmode();
+//        funIniGroup();
+
+        //根据用户点击的入口显示
+        if (actionType > 0) {
+            var eFootLis = $api.domAll('#detailstab>div');
+            $api.removeCls(eFootLis[0], 'aui-active');
+            $api.addCls(eFootLis[actionType], 'aui-active');
+            api.setFrameGroupIndex({
+                name: 'buy',
+                index: actionType
+            });
+        }
+    };
+
+    //打开关闭frame
+    function funIniGroup() {
+        var eHeaderLis = $api.domAll('#detailstab>div'),
+            frames = [],
+            frameName =['trading_buy','trading_sale','trading_revoke','trading_entrust',"trading_position"] ;
+        for (var i = 0, len = eHeaderLis.length; i < len; i++) {
+            frames.push({
+                name: frameName[i],
+                url: frameName[i] + '.html',
+                bgColor: 'rgba(0,0,0,.2)',
+                bounces: false
+            })
+        }
+        api.openFrameGroup({
+            name: 'buy',
+            scrollEnabled: false,
+            rect: {
+                x: 0,
+                y: $api.dom('header').offsetHeight + $api.dom('#detailstab').offsetHeight,
+                w: "auto",
+                h: $api.dom('#tabcontent').offsetHeight,
+                marginBottom: 50,
+            },
+            index: 0,
+            frames: frames
+        }, function(ret, err) {
+
+        });
+    }
+
+    // 随意切换按钮
+    function randomSwitchBtn(tag) {
+        if (tag == $api.dom('#footer .aui-bar-tab-item.aui-active')) return;
+        var eFootLis = $api.domAll('#detailstab>div'),
+            index = 0;
+        for (var i = 0, len = eFootLis.length; i < len; i++) {
+            if (tag == eFootLis[i]) {
+                index = i;
+            } else {
+                $api.removeCls(eFootLis[i], 'aui-active');
+            }
+        }
+        $api.addCls(eFootLis[index], 'aui-active');
+        api.setFrameGroupIndex({
+            name: 'buy',
+            index: index
+        });
+    }
+</script>
+
+</html>

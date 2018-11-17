@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>明细筛选</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0rem 0.75rem;
+            margin-top: 0.75rem;
+            margin-bottom: 0rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .order {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .order .line {
+            display: inline-block;
+            width: 50px;
+            border-top: 1px solid #ccc;
+        }
+
+        .order .txt {
+            color: #686868;
+            vertical-align: -4px;
+        }
+
+        .aui-bar-tab .aui-active {
+            color: #ffffff;
+        }
+
+        .aui-searchbar {
+            background: none;
+        }
+
+        .aui-searchbar-input {
+            background: none;
+            border: 1px solid #ffffff;
+            border-radius: 5rem;
+            background: url("../image/index/home_search_icon.png") no-repeat;
+            background-position: 0.5rem 0.2rem;
+            padding-left: 2rem;
+            background-size: 1rem;
+        }
+
+        .aui-info .aui-info-item span{
+            border: 1px solid #7e7e8e;
+            padding: 0.1rem 0.6rem;
+            border-radius: 7rem;
+            margin-right: 0.75rem;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title" style="left:2rem; right: 0.5rem;">
+        <div class="aui-searchbar" id="search">
+            <div class="aui-searchbar-input aui-border-radius ">
+                <input type="search" placeholder="输入账单相关信息" id="search-input">
+                <div class="aui-searchbar-clear-btn">
+                    <i class="aui-iconfont aui-icon-close"></i>
+                </div>
+            </div>
+            <div class="aui-searchbar-btn">取消</div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="bg-color bg">
+        <div class="font-colo-gy aui-padded-t-15">选择分类</div>
+        <div class="aui-content">
+            <div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10">
+                <div class="aui-info-item">
+                    <span class="aui-margin-l-5">签到金币</span>
+                    <span class="aui-margin-l-5">兑换</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="aui-content" style="margin-top: 3rem;margin-bottom: 1rem">
+            <div class="aui-hr"></div>
+        </div>
+        <div class="aui-content aui-margin-b-15">
+            <ul class="aui-list aui-media-list" style="background-image:none ">
+                <li class="aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 2rem;">
+                            <img src="../image/index/sx_xzsj_icon.png" class=" aui-list-img-sm">
+                        </div>
+                        <div class="aui-list-item-inner aui-list-item-arrow">
+                            选择时间
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>

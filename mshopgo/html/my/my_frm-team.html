@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>我的拼团</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        .aui-bar-nav{
+            position: fixed;
+            border-bottom: 1px solid #dddddd;
+        }
+        html,body,#main{
+            width:100%;
+            height:100%;
+        }
+        #main{
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">我的拼团</div>
+</header>
+<div id="main">
+    <div style="height: 2.2rem;"></div>
+    <div id="empty" class="aui-hide">
+        <!--暂无订单-->
+        <div class="order-if-noshop">
+            <img src="../../image/my/wddd_kong_icon.png" />
+            <dl>
+                <dt>暂无订单</dt>
+                <dd class="aui-font-size-12 color-gray9">再忙也不能忘记买买买</dd>
+            </dl>
+            <span class="aui-font-size-20 cart-section-go my-noshop-btn aui-margin-t-15" onclick="openIndexWin()">去首页逛逛</span>
+        </div>
+        <!--好货推荐-->
+        <div class="order-recommend aui-hide">
+            <h4><span></span>猜你喜欢<span></span></h4>
+            <div class="shop-view aui-slide-node aui-slide-node-middle aui-slide-node-center">
+                <ul class="clearfix aui-padded-l-10 ">
+                    <li class="aui-pull-left border cart-bg-fff aui-margin-r-10">
+                        <img src="../../image/test.jpg" alt="">
+
+                        <p class="aui-padded-l-5 aui-padded-r-5 aui-ellipsis-1">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</p>
+
+                        <div class="cart-section-bottom clearfix aui-padded-l-5 aui-padded-r-5 ">
+                            <p class="aui-pull-left">
+                                <strong class="aui-font-size-14 cart-section-prize color-pink">￥39.9</strong>
+                                <!--<em class="aui-font-size-10 text-line">￥599</em>-->
+                            </p>
+
+                            <p class="aui-pull-right aui-font-size-12"> 已售:68989</p>
+                        </div>
+                    </li>
+                    <li class="aui-pull-left border cart-bg-fff aui-margin-r-10">
+                        <img src="../../image/test.jpg" alt="">
+
+                        <p class="aui-padded-l-5 aui-padded-r-5 aui-ellipsis-1">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</p>
+
+                        <div class="cart-section-bottom clearfix aui-padded-l-5 aui-padded-r-5 ">
+                            <p class="aui-pull-left">
+                                <strong class="aui-font-size-14 cart-section-prize color-pink">￥39.9</strong>
+                                <!--<em class="aui-font-size-10 text-line">￥599</em>-->
+                            </p>
+
+                            <p class="aui-pull-right aui-font-size-12"> 已售:68989</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 待成团-->
+    <div class="" id="content">
+    </div>
+    <script type="text/html-x-dot-template" id="orders_tmpl">
+    {{~it:item}}
+    <section class="cart-bg-fff order-section-padd aui-margin-t-10">
+        <h4 class="aui-border-b aui-padded-t-10 aui-padded-b-10"><span class="order-top-img"><em class="aui-font-size-10 color-gray9">{{=item.orderRes.add_time}}</em>{{=item.orderRes.grouptype}}</span>
+            <span class="aui-pull-right">
+                {{?item.orderRes.groupstate=="拼团成功"}}
+                <em class="color-green aui-padded-r-10">{{=item.orderRes.groupstate}}</em>
+                {{??}}
+                 <em class="color-gray9 aui-padded-r-10">{{=item.orderRes.groupstate}}</em>
+                {{?}}
+            </span>
+        </h4>
+        <ul class="aui-list aui-media-list">
+            {{~item.goodsRes:gitem}}
+            <li class="aui-list-item aui-padded-l-0 cart-bg-fff">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media cart-left-img">
+                        <img src="{{=gitem.skuGoodsJson.pic}}">
+                    </div>
+                    <div class="aui-list-item-inner aui-padded-r-0">
+                        <div class="aui-list-item-text">
+                            <p class="aui-ellipsis-2 s-color-black">{{=gitem.skuGoodsJson.gname}}</p>
+                        </div>
+                        <div class="aui-info aui-margin-t-15" style="padding:0">
+                            <div class="aui-info-item">
+                                <span class="s-color-black">¥{{=gitem.skuGoodsJson.price}}</span>
+                            </div>
+                            <div class="aui-info-item">{{=gitem.goods_count}}人拼单</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {{~}}
+        </ul>
+        <div class="aui-text-right aui-margin-t-15 team-img-margin">
+            {{~item.userRes:uitem}}
+            <img src="{{=uitem.avatar}}" class="aui-img-round aui-pull-left s-img-width"/>
+            {{~}}
+            <span class="aui-font-size-16 cart-section-go s-color-black s-border-gray aui-margin-r-10" onclick="showOrderDetails('{{=item.orderRes.oid}}');">查看详情</span>
+        </div>
+    </section>
+    {{~}}
+</script>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script src="../../script/aui/aui-tab.js"></script>
+<script>
+    var user;
+    var page=1;
+    var totalPages=1;
+    apiready=function(){
+        // user=$api.getStorage("user");
+        user = localStorage.getItem("user");
+        getGroupOrders();
+        api.addEventListener({
+            name:'scrolltobottom'
+        },function(ret){
+            if(page<=totalPages){
+                getGroupOrders();
+            }
+        })
+    }
+    function getGroupOrders(){
+        $.ajax({
+            url:PHP_SERVE_URL+"/order/myGroup",
+            method:"post",
+            data:{
+                // values:{
+                    openId:user.openId,
+                    pernum:10,
+                    page:page
+                // }
+            }
+        },function(ret){
+            if(ret.code==0){
+                totalPages=ret.pages;
+                page++;
+                if (totalPages == 0) {
+                    if ($api.hasCls($api.byId('empty'), 'aui-hide')) {
+                        $api.removeCls($api.byId('empty'), 'aui-hide');
+                    }
+                    $api.addCls($api.byId('content'), 'aui-hide');
+                } else {
+                    $api.addCls($api.byId('empty'), 'aui-hide');
+                    if ($api.hasCls($api.byId('content'), 'aui-hide')) {
+                        $api.removeCls($api.byId('content'), 'aui-hide');
+                    }
+                    var innerText = doT.template($api.text($api.byId("orders_tmpl")));
+                    $api.append($api.byId("content"), innerText(ret.data));
+                }
+            }
+        })
+    }
+    function showOrderDetails(oid) {
+        $.openWin({
+            name: 'orderDetails',
+            url: './my_frm-orderDetail.html',
+            pageParam: {
+                oid: oid
+            }
+        });
+    }
+    function openIndexWin() {
+        $a.sendEvt('index-show');
+        // $a.openWin('../index_win');
+        window.location.href="../index_win.html";
+    }
+</script>
+</html>

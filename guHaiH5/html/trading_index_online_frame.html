@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>在线客服</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        html {
+            height: 100%;
+        }
+
+        .aui-chat .aui-chat-content {
+            font-size: 0.6rem;
+        }
+
+        .aui-chat .aui-chat-left .aui-chat-content {
+            background-color: #ffffff;
+        }
+
+        .aui-chat .aui-chat-left .aui-chat-arrow {
+            background-image: none;
+            background-color: #ffffff;
+        }
+
+        .aui-chat .aui-chat-right .aui-chat-content {
+            background-color: #de3232;
+        }
+
+        .aui-chat .aui-chat-right .aui-chat-arrow {
+            background-image: none;
+            background-color: #de3232;
+        }
+
+        /*浅白*/
+        body {
+            background: #f6f6f6;
+            height: 100%;
+        }
+
+        /*最底背景：黑色*/
+        .bg1 {
+            background-color: #171b24;
+
+        }
+
+        /*底背景：半黑色*/
+        .bg2 {
+            background-color: #1c2029;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        /*白色背景*/
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*黑色*/
+        .font-colo-b {
+            color: #212121 !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        input::-webkit-input-placeholder { /* WebKit browsers */
+            font-size: 0.6rem;
+        }
+
+        input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+            font-size: 0.6rem;
+        }
+
+        input::-moz-placeholder { /* Mozilla Firefox 19+ */
+            font-size: 0.6rem;
+        }
+
+        input:-ms-input-placeholder { /* Internet Explorer 10+ */
+            font-size: 0.6rem;
+        }
+
+        .aui-media-list .aui-list-item {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        /* 头像*/
+        .aui-chat .aui-chat-media img {
+            border-radius: 0.1rem;
+        }
+
+        .aui-chat .aui-chat-right .aui-chat-inner {
+            border-bottom-left-radius: 0.2rem;
+            border-top-left-radius: 0.2rem;
+        }
+
+        .aui-chat .aui-chat-left .aui-chat-inner {
+            border-bottom-right-radius: 0.2rem;
+            border-top-right-radius: 0.2rem;
+        }
+
+        .right {
+            padding-left: 1rem !important;
+            max-width: 100% !important;
+        }
+
+        .left {
+            padding-right: 1rem !important;
+            max-width: 100% !important;
+        }
+
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<section id="section">
+    <section class="aui-chat" id="content">
+        <div class="aui-chat-header" id="time"></div>
+    </section>
+</section>
+<script type="text/html/x-dot-template" id="my_tmpl">
+    <div class="aui-chat-item aui-chat-right">
+        <div class="aui-chat-media">
+            <img src="{{=it.avatar}}"/>
+        </div>
+        <div class="aui-chat-inner">
+            <div class="aui-chat-content right" style="color:#fff;">
+                <div class="aui-chat-arrow"></div>
+                {{=it.msg}}
+            </div>
+        </div>
+    </div>
+</script>
+<script type="text/html/x-dot-template" id="robot_tmpl">
+    <div class="aui-chat-item aui-chat-left">
+        <div class="aui-chat-media">
+            <img src="../image/airlines.png"/>
+        </div>
+        <div class="aui-chat-inner">
+            <div class="aui-chat-content left">
+                <div class="aui-chat-arrow"></div>
+                {{=it}}
+            </div>
+        </div>
+    </div>
+</script>
+</body>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/trading_index_online.js"></script>
+<script src="../script/doT.min.js"></script>
+</html>

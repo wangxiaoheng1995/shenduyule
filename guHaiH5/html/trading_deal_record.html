@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>历史交易</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <script src="../script/common.js"></script>
+    <style>
+        body {
+            background-color: #171b24;
+        }
+        p{
+            font-size: 0.6rem;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            padding-top: 0rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #1c2029;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inner {
+            padding: 0rem;
+        }
+
+        .back {
+            background: url("../image/index/home_zk1_icon.png") no-repeat;
+            background-position: right;
+            background-size: 0.4rem;
+        }
+
+
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">历史交易</div>
+</header>
+
+<section>
+
+    <div class="content aui-content bg-color bg">
+        <div class="aui-list bg-color">
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">
+                        <span style="color: #ffffff">惠民店</span>
+                        <span class=" aui-margin-l-15 aui-font-size-12 font-colo-gy">002883</span>
+                    </div>
+                    <div class="aui-list-item-right font-colo-r">+0.09%<span class="aui-margin-l-15">+13.64</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-hr" style="opacity:0.1;filter:Alpha(opacity=10)"></div>
+
+        <div class="aui-grid aui-margin-t-15 bg-color font-colo-gy">
+            <div class="aui-row">
+                <div class="aui-col-xs-4 ">
+                    <p class=" font-colo-gy">买入均价/元</p>
+                    <p class=" font-colo-w" style="font-size: 1rem">46.36</p>
+                </div>
+                <div class="aui-col-xs-4 ">
+                    <p class=" font-colo-gy">交易数量/股</p>
+                    <p class=" font-colo-w"><img src="../image/home_jt_image.png"></p>
+                    <p class=" font-colo-w" style="font-size: 1rem">1000</p>
+                </div>
+                <div class="aui-col-xs-4 ">
+                    <p class="font-colo-gy">卖出均价/元</p>
+                    <p class=" font-colo-w" style="font-size: 1rem">47.135</p>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="aui-hr" style="opacity:0.1;filter:Alpha(opacity=10)"></div>
+
+
+        <div class="aui-grid aui-margin-t-15 bg-color font-colo-gy">
+            <div class="aui-row">
+                <div class="aui-col-xs-6 " style="text-align: left">
+                    <div style="float: left">
+                        <p class="aui-margin-b-15  font-colo-w">2017-08-01</p>
+                        <p class=" font-colo-w">2017-09-01</p>
+                    </div>
+                    <div class="aui-padded-l-15" style="float: left ;position: relative;top: 0.8rem">
+                        <span class="aui-font-size-12">至</span>
+                    </div>
+                </div>
+                <div class="aui-col-xs-6 aui-ellipsis-1">
+                    <div  style="padding-top: 0.4rem">
+                        <span class="aui-font-size-12" >盈亏/元</span>
+                        <span class=" font-colo-r" style="font-size: 1.2rem;position: relative;top: 0.2rem">+36222.65</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="content aui-content bg-color bg">
+        <div class="aui-list bg-color">
+
+            <div class="font-colo-gy aui-padded-t-15 aui-padded-b-15">
+                <span class="aui-font-size-12">沽海为群众为学生而打造的一款APP，让大家爱学习、爱动脑、爱动手；大家都能通过娱乐游戏中学习到金融的知识常识。
+                </span>
+            </div>
+
+            <div class="aui-list-item aui-padded-b-15">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><p class="font-colo-w" style="font-size: 0.8rem">证券买入</p>
+                        <p style="text-align: center">2017-08-01</p>
+                    </div>
+                    <div class="aui-list-item-right"><p class="font-colo-w" style="font-size:0.8rem">43.56元</p>
+                        <p style="text-align: center">+1000股</p>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-hr" style="opacity:0.1;filter:Alpha(opacity=10)"></div>
+            <div class="aui-list-item aui-padded-t-15">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><p class="font-colo-w" style="font-size: 0.8rem">证券买入</p>
+                        <p style="text-align: center">2017-08-01</p>
+                    </div>
+                    <div class="aui-list-item-right"><p class="font-colo-w" style="font-size:0.8rem">43.56元</p>
+                        <p style="text-align: center">+1000股</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+</body>
+</html>

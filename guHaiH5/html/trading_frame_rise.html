@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>行情主页-自选股-涨幅</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../css/frame1.css">
+
+
+</head>
+<body class="bg1">
+<div id="content">
+    <ul class="dataUl-li">
+        <li v-for="zanAarray in zanAarrays" @click="gopage(zanAarray.zdRang,zanAarray.sid,zanAarray.sname,zanAarray.sno)">
+            <ul class="aui-row aui-padded-t-5 aui-padded-b-5 aui-text-center" style="border-bottom: 1px solid rgba(126,126,142,0.2); ">
+                <li class="aui-col-xs-3">
+                    <p class="font-colo-w">{{zanAarray.sname}}</p>
+                    <p class="font-colo-gy aui-font-size-12">{{zanAarray.sno}}</p>
+                </li>
+                <li class="aui-col-xs-3 font-colo-w">{{zanAarray.nowPrice}}</li>
+                <li class="aui-col-xs-3 font-colo-r">{{zanAarray.zdPrice}}</li>
+                <li class="aui-col-xs-3 font-colo-r">{{zanAarray.zdRang}}</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript">
+  apiready = function () {
+    api.parseTapmode();
+    pageInit();
+
+  };
+  /* 初始化vue */
+  function pageInit() {
+    var vm = new Vue({
+      el: '#content',
+      data: {
+        transArrays: [],
+        zanAarrays: [],
+        dieArrays: []
+      },
+      methods: {
+        /*跳转股票页面*/
+        gopage: function (state, id, name, son) {
+          var statg = state.indexOf('-') > -1 ? ('down') : ('up');
+          openWin('trading_market_up', {id: id, state: statg, name: name, sno: son});
+        },
+        goModify: function () {
+          openWin('trading_market_compile');
+        }
+      },
+      mounted: function () {
+        var _this = this;
+        apiAjax(PHP_SERVE_URL + '/trade/selfStock', {
+          openId: "pY1RkVGVkOX1O1"
+        }, function (res) {
+          _this.transArrays = res.data;
+          var allData = res.data;
+          allData.forEach(function (item, index) {
+            var nowNumber = Number(item.zdRang.substring(0, item.zdRang.indexOf("%")));
+            if (nowNumber > 0) {
+              _this.zanAarrays.push(item)
+            } else if (nowNumber < 0) {
+              _this.dieArrays.push(item)
+            }
+          })
+        });
+      }
+    });
+  }
+</script>
+</body>
+</html>

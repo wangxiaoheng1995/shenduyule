@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>兑好礼</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inner {
+            padding: 0rem;
+        }
+
+        .aui-grid .aui-col-xs-6 {
+            padding: 1rem;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn" onclick="history.back();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">兑好礼</div>
+</header>
+<div id="item">
+    <div class="aui-content bg bg-color">
+        <div class="aui-list bg-color ">
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title font-colo-gy">
+                        我的金币
+                        <span class=" aui-padded-l-15 aui-padded-r-15 font-colo-r" style="font-size: 1rem;">5.00</span>
+                    </div>
+                    <div class="aui-list-item-right">
+                        <div onclick="location.href='trading_index_giftBetail.html'" class="aui-btn aui-btn-outlined aui-padded-l-15 aui-padded-r-15 font-colo-r"
+                             style="border-color: rgb(222, 50, 50);">兑换记录
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="aui-grid aui-margin-t-15 aui-padded-l-15 aui-padded-r-15">
+        <div>
+            <ul class="aui-row">
+                <li class="aui-col-xs-6" onclick="location.href='http://localhost:63342/guhaiH5/html/trading_index_giftDetails.html?gid=7&gold=5&pic=http://media1.yunlutong.com/YltmallRes/20180824/153509567930673.jpg'"><img src="http://media1.yunlutong.com/YltmallRes/20180824/153509567930673.jpg">
+                    <div class="aui-grid-label"><h3>绿色无抗老母鸡</h3>
+                        <p><span>8888.00</span>
+                            金币起</p></div>
+                </li>
+            </ul>
+            <div class="aui-hr" style="opacity: 0.5;"></div>
+        </div>
+    </div>
+</div>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/vue.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+</body>
+</html>

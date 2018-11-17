@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>免责声明</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <script src="../script/common.js"></script>
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*黑色*/
+        .font-colo-b {
+            color: #212121 !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        #activity {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .inner {
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+<header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">免责声明</div>
+</header>
+<div id="activity">
+    <div class="aui-content  inner">
+        <div class=" aui-padded-l-15 aui-padded-r-15">
+            <p class="font-colo-b"> 本着对投资者负责的态度，沽海郑重提醒您全 面了解使用移动终端炒股的风险，在使用本软件前，请 务必仔细阅读并透彻理解本声明，如您继续使用，您的
+                使用行为将被视为对本声明内容已完全了解并同意承担 可能存在的全部风险：</p>
+            <p class="font-colo-b">
+                &nbsp;&nbsp;&nbsp;1、由于无线通信网、互联网存在被恶意攻击、感染 病毒的可能性，无线通信网、互联网服务器可能会出现 故障及其它不可预测的状况。此种情况下，交易指令可
+                能会出现中断、停顿、延迟、数据错误等情况，行情信 息和其他证券信息可能会出现错误或延迟，我司对此及 由此导致的任何损失均不承担法律责任。若出现上述情 况，建议投资者采用其他委托方式（电话委托或网上交
+                易）进行行情查询及交易。
+                <br>
+                &nbsp;&nbsp;&nbsp;2、本软件中的部分资讯信息是由第三方提供，其中 包括但不限于行情报价、交易数据、财务数据、分析计 算数据、帮助信息、投资建议、投资分析等，我司并不
+                保证信息、数据资料的准确性、真实性、完整性等。该 内容亦不构成任何可以带来收益的投资建议。投资者依 据本软件提供的信息进行金融、证券等投资操作所导致 的盈亏由投资者自行承担，与我司无关。
+                <br>
+                &nbsp;&nbsp;&nbsp;3、您的移动终端故障、配置和性能与本软件不相匹 配、操作不当或不熟练等因素，均可能造成本软件的无 法使用、委托失败或错误，对此造成的损失我司不承担 法律责任。
+                <br>
+                &nbsp;&nbsp;&nbsp;4、投资者应避免在非安全环境下进行使用本软件， 在使用本软件过程中，请妥善保管好自己所使用的移动 设备、个人信息及密码，以防被他人盗用。凡通过密码
+                验证情况下进行的交易等一切操作行为，华泰证券均视 为您自身进行的交易及相关行为，由此产生的一切后果 及责任将由您自行承担。
+            </p>
+        </div>
+    </div>
+
+</div>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<script>
+    apiready = function () {
+        fix_status_bar();
+        $("#activity").css('height', api.winHeight - $("header").height());
+    }
+</script>
+</body>
+</html>

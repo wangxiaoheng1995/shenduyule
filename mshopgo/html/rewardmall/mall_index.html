@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>赏金专区</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <style>
+        body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .full {
+            width: 100%;
+            height: 100%;
+        }
+
+        .height-50 {
+            height: 50%;
+        }
+        /*特推广告*/
+
+        .poster-wrap {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            max-height: 5.5rem;
+            margin: 0.25rem 0;
+        }
+        /*轮播图的分页器样式*/
+
+        .aui-slide-page-dot {
+            width: 0.4rem;
+            height: 0.4rem;
+        }
+
+        .aui-slide-page-active {
+            background-color: #fff;
+        }
+        /*每日精选*/
+
+        .today-sift {
+            position: relative;
+            width: 100%;
+        }
+
+        .sift-title {
+            width: 100%;
+            height: 7vh;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        .today-sift #nav-scroll .arrows,
+        .today-sift #nav-scroll .con {
+            height: 8vh;
+            line-height: 8vh;
+        }
+
+        .today-sift #nav-view {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        header.header-nav {
+            background-color: transparent;
+            position: fixed;
+            z-index: 100000000;
+        }
+
+        .header-nav .scan-icon {
+            width: 1.2rem;
+            height: 1.2rem;
+            background: url('../../image/index/home_sm_icon.png') no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #title-nav .aui-iconfont {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+        .hostlist{
+            background: #ffffff;
+            margin: 0.2rem;
+            border-radius: 0.5rem;
+            padding:0.5rem ;
+        }
+        .aui-grid .aui-col-xs-4 {
+            padding:0rem;
+        }
+
+.hostlist img{
+    margin-top: 1rem;
+}
+
+        /* 模块样式 */
+
+        .subject {
+            width: 100%;
+        }
+
+        .subject .subject-title {
+            width: 50%;
+            padding-left: 0.75rem;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            height: 1.8rem;
+            position: relative;
+        }
+
+        .subject .subject-title .subject-tips {
+            position: absolute;
+            width: 100%;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            bottom: -1.5rem;
+            z-index: 10;
+        }
+
+        .subject .subject-row {
+            width: 100%;
+            height: 8rem;
+            overflow-x: hidden;
+        }
+
+        .subject .subject-row>div {
+            height: 100%;
+        }
+
+        #bg-color {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-color: #FE5095;
+            opacity: 0;
+        }
+
+        #go-top {
+            position: fixed;
+            right: 0.75rem;
+            bottom: 1rem;
+            width: 2rem;
+            height: 2rem;
+            /*background-color: #000;*/
+            background-image: url("../../image/index/scroll-to-top-icon.png");
+            background-size: 100% 100%;
+            border-radius: 50%;
+            display: none;
+        }
+
+        #nav-scroll .con-item {
+            padding: 0 10px;
+            min-width: 48px;
+            text-align: center;
+        }
+
+        .aui-col-xs-6 img {
+            border: 1px solid #F5F5F5;
+        }
+
+        .cart-section img {
+            margin: 0 auto;
+            width: auto;
+            border-radius: 0.3rem;
+        }
+    </style>
+</head>
+
+<body>
+<div id="content">
+    <!-- 头部 -->
+    <header class="aui-bar aui-bar-nav header-nav" id="header-bar" style="background-color:white;">
+        <div class="aui-pull-left aui-btn " onclick="$a.closeWin()">
+            <span class="aui-iconfont aui-icon-left color-gray9"></span>
+        </div>
+        <div class="aui-title aui-font-size-16  color-black">赏金mall</div>
+        <div class="aui-pull-right color-black"><img class="aui-margin-r-15" style="width: 1rem" src="../../image/my/jzzq_fx_icon.png">攻略
+        </div>
+    </header>
+    <!-- 秒杀专题 -->
+    <section id="s1" class="aui-grid subject" style="padding-top:50px;">
+        <div class="aui-searchbar back-write aui-padded-r-15">
+            <div class="aui-searchbar-input back-shallow" style="border-radius: 0.7rem">
+                <i class="aui-iconfont aui-icon-search aui-font-size-14"></i>
+                <input type="search" placeholder="请输入搜索内容" id="search-input" disabled>
+            </div>
+            <div class="aui-searchbar-cancel color-pink aui-font-size-14">搜索</div>
+        </div>
+        <div class="aui-grid" style="background: #F5F5F5 ">
+            <div class="aui-row aui-margin-10">
+                <div class="aui-col-xs-4">
+                    <div class="hostlist">
+                        <div class="aui-grid-label">
+                            <p class="aui-font-size-16 color-black ">朋友圈爆款</p>
+                            <p>发一条卖10单</p>
+                        </div>
+                        <img src="../../image/l1.png" />
+                    </div>
+                </div>
+                <div class="aui-col-xs-4">
+                    <div class="hostlist">
+                        <div class="aui-grid-label">
+                            <p class="aui-font-size-16 color-black ">朋友圈爆款</p>
+                            <p>发一条卖10单</p>
+                        </div>
+                        <img src="../../image/l1.png" />
+                    </div>
+                </div>
+                <div class="aui-col-xs-4">
+                    <div class="hostlist">
+                        <div class="aui-grid-label">
+                            <p class="aui-font-size-16 color-black ">朋友圈爆款</p>
+                            <p>发一条卖10单</p>
+                        </div>
+                        <img src="../../image/l1.png" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 每日精选商品 -->
+    <div class="today-sift" id="view">
+        <!-- 每日精选 nav 导航切换 -->
+        <div id="nav-scroll" class="flex-wrap">
+            <div id="iscroll" class="flex-con">
+                <ul class="con aui-padded-l-5 aui-padded-r-5">
+                </ul>
+            </div>
+            <div class="arrows"></div>
+        </div>
+
+        <!--切换nav 的显示-->
+        <div id="nav-view">
+        </div>
+        <script type="text/html/x-dot-template" id="data_goods">
+            {{~it :value}}
+            <div class="aui-card-list cart-section" onclick="openGoodsDetail('{{=value.gid}}')">
+                <div class="aui-card-list-content-padded">
+                    <img src="{{=value.pic}}" style="width: 7rem;height: 7rem;" />
+                </div>
+                <p class="aui-padded-l-15 aui-padded-r-15 aui-ellipsis-2 aui-font-size-14 aui-margin-b-5">
+                    {{=value.gname}}
+                </p>
+                <div class="aui-card-list-content-padded aui-font-size-12  cart-section-bottom" style="border-bottom: 1px solid #eee">
+                    <strong class="aui-font-size-16 cart-section-prize color-pink">￥{{=value.price}}</strong>
+                    <span class="aui-pull-right aui-font-size-16 cart-section-go">立即购></span></div>
+            </div>
+            {{~}}
+        </script>
+    </div>
+    <!--回到顶部的按钮-->
+    <a id="go-top" onclick="window.scrollTo(0,0)"></a>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/aui/aui-slide.js"></script>
+<script src="../../script/aui/iScroll-lite.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script>
+    var categoryId = 0,
+            page = totalpage = 1;
+    apiready = function() {
+        loadCategory();
+        /*aui 轮播图初始化*/
+        var slide2 = new auiSlide({
+            container: document.getElementById("slide"),
+            "height": 150,
+            "speed": 300,
+            "autoPlay": 0, //自动播放
+            "pageShow": true,
+            "loop": true,
+            "pageStyle": 'dot',
+            'dotPosition': 'center'
+        });
+        /*头部渐变效果*/
+        var nav = $api.byId('iscroll'),
+                topBtn = $api.byId('go-top');
+
+        window.onscroll = function() {
+            var top = this.pageYOffset || this.scrollY;
+            // var windowHeight = this.outerHeight || this.innerHeight;
+            var sH=$api.byId('s1').offsetHeight;
+            if (top <= sH) {
+                topBtn.style.cssText = 'display:none;';
+                nav.style.cssText = 'position:relative;top:0;';
+            } else {
+                topBtn.style.cssText = 'display:block;';
+                nav.style.cssText = 'position:fixed;top:' + $api.byId('header-bar').offsetHeight + 'px;';
+            }
+        };
+
+        /* 底部加载数据 */
+        $a.addEvt({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: 50
+            }
+        }, function(ret, err) {
+            if (page <= totalpage) {
+                loadGoods();
+            }
+        });
+    }
+    //获取分类
+    function loadCategory() {
+        api.ajax({
+            url: PHP_SERVE_URL + '/Sg/rewardGoodsType',
+            method: 'post'
+        }, function(ret, err) {
+            if (ret.code == 0 && ret.data.length > 0) {
+                categoryId = ret.data[0].id;
+                loadGoods();
+                var strHtml = '';
+                for (var i = 0; i < ret.data.length; i++) {
+                    if (i == 0) {
+                        strHtml += '<li data-id="' + ret.data[i].id + '" class="con-item active" tapmode="hover">' + ret.data[i].gtname + '</li>';
+                    } else {
+                        strHtml += '<li data-id="' + ret.data[i].id + '" class="con-item" tapmode="hover">' + ret.data[i].gtname + '</li>';
+                    }
+                }
+                <!-- 导航条底部的滑块 -->
+                strHtml += '<div class="run-line" id="line" style="background-color: #FF5192"></div>';
+                $api.html($api.dom('#iscroll ul'), strHtml);
+                /*nav 导航切换 点击切换后的回调函数 回调函数接收当前点击的对象 */
+                initNavScroll('#iscroll', function(target) {
+                    categoryId = $(target).data('id');
+                    page = 1, totalpage = 1;
+                    loadGoods();
+                });
+            }
+        });
+
+    }
+
+    function loadGoods() {
+        api.ajax({
+            url: PHP_SERVE_URL + '/Sg/rewardTypeGoods',
+            method: 'post',
+            data: {
+                values: {
+                    tid: categoryId,
+                    sort: '1',
+                    level: 1,
+                    page: page
+                }
+            }
+        }, function(ret, err) {
+            if (ret.code == 0) {
+                var interText = doT.template($api.text($api.byId('data_goods')));
+                if (page == 1) {
+                    $api.html($api.byId('nav-view'), interText(ret.data));
+                } else {
+                    $api.append($api.byId('nav-view'), interText(ret.data));
+                }
+                totalpage = ret.totalpage;
+                page++;
+            }
+        });
+
+    }
+
+    function openGoodsDetail(id) {
+        api.openWin({
+            name: 'goods_win',
+            url: '../goods/goods_win.html',
+            pageParam: {
+                id: id,
+                originOId: 0
+            },
+            progress: {
+                type: "default", //加载进度效果类型，默认值为default，取值范围为default|page，default等同于showProgress参数效果；为page时，进度效果为仿浏览器类型，固定在页面的顶部
+                title: "努力加载中...", //type为default时显示的加载框标题
+                text: "请稍等..."
+            }
+        });
+
+    }
+</script>
+</body>
+
+</html>

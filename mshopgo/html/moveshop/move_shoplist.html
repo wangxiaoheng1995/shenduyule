@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>助力抢免单</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <style>
+        #move-footer {
+            bottom: 0;
+        }
+        .aui-bar-nav{
+            position: fixed;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <header class="aui-bar aui-bar-nav aui-bar-light back-palered">
+            <div class="aui-pull-left aui-btn " onclick="api.closeWin()">
+                <span class="aui-iconfont aui-icon-left color-write"></span>
+            </div>
+            <div class="aui-title aui-font-size-16  color-write">移动店铺</div>
+            <div class="aui-pull-right aui-btn" onclick="$a.openWin('../msg/msg')">
+                <div class="aui-badge noticeNum" style="left: 35%;">0</div>
+                <span class="aui-font-size-20"><img src="../../image/moveshop/yddp_news_icon.png" class="top-ricon"/></span>
+            </div>
+        </header>
+        <div id="content" v-cloak>
+            <div style="height: 2rem;"></div>
+            <div id="main">
+                <div class="move-top-bg aui-padded-t-15 aui-padded-b-10 aui-padded-l-10 aui-padded-r-10">
+                    <div>
+                        <span class="aui-font-size-16 " v-text="isAuth?'营销统计':'暂未开通'"></span>
+                        <div class="move-time-btn aui-margin-l-10" @click="openActionsheet()" v-show="isAuth">
+                            <em class="aui-font-size-14" id="button-title">今日</em>
+                            <img src="../../image/moveshop/downjt.png" />
+                        </div>
+                    </div>
+                    <!-- 暂未开通-->
+                    <div class="move-prize aui-margin-t-10 aui-text-center" v-show="!isAuth">
+                        <h4><img src="../../image/moveshop/yddp_tips_icon.png" class="move-noshop-icon"/>您的店铺暂未开通，快去进行实名认证吧~</h4>
+                        <div class=" aui-font-size-14 cart-section-go aui-margin-t-10" @click="goAuth();">前往认证</div>
+                    </div>
+                    <!-- 已开通-->
+                    <div class="move-prize move-flex aui-margin-t-10" v-show="isAuth">
+                        <dl class="move-prize-dl">
+                            <dt><em class="move-prize-num">{{salesAmount}}</em>元/{{salesNum}}单</dt>
+                            <dd><img src="../../image/moveshop/yddp_xsje_icon.png" /> 销售金额</dd>
+                        </dl>
+                        <dl class="move-prize-dl">
+                            <dt><em class="move-prize-num">{{salesProfit}}</em>元</dt>
+                            <dd><img src="../../image/moveshop/yddp_xslr_icon.png" /> 销售利润</dd>
+                        </dl>
+                    </div>
+                </div>
+                <!-- 未开通的提示-->
+                <div class="aui-padded-15 color-black" v-show="!isAuth">
+                    <p>温馨提示：</p>
+                    <p class="aui-margin-t-5">1、具备出租车、网约车司机身份；</p>
+                    <p class="aui-margin-t-5">2、完成司机实名认证即可开通移动店铺。</p>
+                </div>
+                <div class="aui-padded-l-10 aui-padded-r-10 back-write aui-margin-t-10" style="padding-bottom: 50px;" v-show="isAuth&&goodsList.length>0">
+                    <h4 class="aui-border-b aui-padded-t-15 aui-padded-b-15">全部商品
+                      <span class="aui-pull-right">
+                        <em id="s1" class="move-em aui-margin-r-15 color-palered" @click="sortPage(1);">销量 <img src="../../image/moveshop/yddp_px1_icon.png"/></em>
+                        <em id="s2" class="move-em" @click="sortPage(2);">库存 <img src="../../image/moveshop/yddp_px2_icon.png"/></em>
+                      </span>
+                    </h4>
+                    <div class="cart-bg-fff order-section-padd aui-margin-t-10 aui-padded-l-15 aui-padded-r-15">
+                        <ul class="aui-list aui-media-list">
+                            <li class="aui-list-item aui-padded-l-0 cart-bg-fff" v-for="item in goodsList">
+                                <div class="aui-media-list-item-inner">
+                                    <div class="aui-list-item-media cart-left-img aui-margin-r-10">
+                                        <img :src="item.pic">
+                                    </div>
+                                    <div class="aui-list-item-inner aui-padded-r-0">
+                                        <div class="aui-list-item-text cart-text">
+                                            <p class="aui-ellipsis-2 s-color-black aui-font-size-14 line-height color-black">{{item.gname}}</p>
+                                        </div>
+                                        <div class="aui-margin-t-15 color-gray9 aui-font-size-14">
+                                            <span class="aui-margin-r-10">总销量 <em class="color-black">{{item.sell_num}}</em></span>
+                                            <span class="">库存 <em class="color-black">{{item.stock}}</em> </span>
+                                        </div>
+                                        <div class="aui-margin-t-5 color-gray9 aui-font-size-14">
+                                            <span class="aui-margin-r-10">售价  <em class="color-black">￥{{item.price}}</em></span>
+                                            <span class="">利润  <em class="color-black">￥{{item.supply_price}}</em></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 店铺空空如也-->
+                <div class="shop-if-noshop" v-show="isAuth&&goodsList.length==0">
+                    <dl>
+                        <dd class="aui-font-size-12 color-gray9 aui-margin-t-15">店铺空空如也~</dd>
+                    </dl>
+                    <span class="aui-font-size-20 back-palered color-write cart-section-go my-noshop-btn" @click="goBuy();">去采购</span>
+                </div>
+            </div>
+            <footer class="aui-bar aui-bar-tab  aui-margin-t-15" id="move-footer" v-show="isAuth&&goodsList.length>0">
+                <div id="addressbottom" class="color-tip aui-col aui-hide" style="font-size: 12px;">
+
+                </div>
+                <div class="aui-pull-left aui-font-size-12 settle-num aui-padded-l-5 ">
+                    <font class="color-gray9 aui-margin-r-5">库存总额</font><strong class="color-palered price totalPrice aui-margin-r-10">¥{{amount}}</strong>
+                    <font class="color-gray9 aui-margin-r-5">可得利润</font><strong class="color-palered price totalPrice">¥{{profit}}</strong>
+                </div>
+                <div @click="goBuy();" class="aui-pull-right btn-settle color-write back-palered aui-font-size-16 aui-text-center" style="display: block !important;height: 2.5rem;"> 去采购
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/vue.js"></script>
+    <script src="../../script/aui/aui-actionsheet.js"></script>
+    <script type="text/javascript">
+        var user, moveshop;
+        apiready = function() {
+            api.parseTapmode();
+            user = $api.getStorage('user');
+            moveshop = $api.getStorage('moveshop');
+            if (!user) {
+                return;
+            }
+            var vm = new Vue({
+                el: '#content',
+                data: {
+                    isAuth: false, //是否认证
+                    salesAmount: 0, //销售额
+                    salesNum: 0, //销售量
+                    salesProfit: 0, //收益
+                    goodsList: [], //全部商品
+                    amount: 0, //总额
+                    profit: 0, //利润
+                    page: 1, //当前页
+                    total: 1, //总页数
+                    sort: 1, //排序
+                    type: 1, //今日、本月、累计
+                    pageParam:''
+                },
+                methods: {
+                    getTaxiIdentity: function(callback) { //店铺是否认证
+                        var self = this;
+                        api.ajax({
+                            url: PHP_SERVE_URL + '/taxi/getTaxiIdentity',
+                            method: 'post',
+                            data: {
+                                values: {
+                                    openId: user.openId
+                                }
+                            }
+                        }, function(ret, err) {
+                            callback(ret);
+                        });
+                    },
+                    getMarketingStatistics: function() { //营销统计
+                        var self = this;
+                        api.ajax({
+                            url: PHP_SERVE_URL + '/taxi/getTaxiSaleStatistics',
+                            method: 'post',
+                            data: {
+                                values: {
+                                    shopId: moveshop.shopid,
+                                    type: self.type
+                                }
+                            }
+                        }, function(ret, err) {
+                            if (ret.code == 0) {
+                                self.salesAmount = ret.salemoney; //销售额
+                                self.salesNum = ret.num; //销售量
+                                self.salesProfit = ret.profit; //收益
+                            }
+                        });
+
+                    },
+                    getgoodsList: function() { //店铺全部商品
+                        var self = this;
+                        if (self.page > self.total) {
+                            return;
+                        }
+                        api.ajax({
+                            url: PHP_SERVE_URL + '/taxi/getTaxiGoodsList',
+                            method: 'post',
+                            data: {
+                                values: {
+                                    shopId: moveshop.shopid,
+                                    sort: self.sort,
+                                    pernum: 5,
+                                    page: self.page
+                                }
+                            }
+                        }, function(ret, err) {
+                            if (ret.code == 0) {
+                                self.total = ret.pages;
+                                self.amount = ret.totalmoney;
+                                self.profit = ret.totalprofit;
+                                if (self.page == 1) {
+                                    self.goodsList = ret.data;
+                                } else {
+                                    for (var i = 0; i < ret.data.length; i++) {
+                                        self.goodsList.push(ret.data[i]);
+                                    }
+                                }
+                                self.page++;
+                            }
+                        });
+                    },
+                    goAuth: function() { //前往认证
+                        var self=this;
+                        self.getTaxiIdentity(function(ret){
+                            if(ret.code==1){
+                                api.openWin({
+                                    name: 'authentication_win',
+                                    url: './authentication_win.html',
+                                    pageParam:self.pageParam
+                                });
+                            }
+                            if(ret.code==2){
+                                $a.toast("等待审核!");
+                            }
+                            if(ret.code==0){
+                                $a.toast("审核已通过!");
+                                setTimeout(function(){
+                                    location.reload();
+                                },1000);
+                            }
+                        })
+
+                    },
+                    goBuy: function() {
+                        api.sendEvent({
+                            name: 'moveshop-index-show',
+                            extra: {
+                                index: 1
+                            }
+                        });
+                    },
+                    sortPage: function(s) { //排序
+                        var self = this;
+                        var select = $api.byId('s' + s);
+                        if ($api.hasCls(select, 'color-palered')) {
+                            return;
+                        }
+                        self.sort = s;
+                        self.page = 1;
+                        self.total = 1;
+                        $api.addCls(select, 'color-palered');
+                        $api.attr($api.dom('#s' + s + ' img'), 'src', '../../image/moveshop/yddp_px1_icon.png');
+                        $api.removeCls($api.byId('s' + (3 - s)), 'color-palered');
+                        $api.attr($api.dom('#s' + (3 - s) + ' img'), 'src', '../../image/moveshop/yddp_px2_icon.png');
+                        self.getgoodsList();
+                    },
+                    openActionsheet: function() {
+                        var self = this;
+                        var actionsheet = new auiActionsheet();
+                        actionsheet.init({
+                            frameBounces: true, //当前页面是否弹动，（主要针对安卓端）
+                            cancelTitle: '取消',
+                            buttons: ['今日', '本月', '累计']
+                        }, function(ret) {
+                            if (ret) {
+                                self.type = ret.buttonIndex;
+                                $api.text($api.byId('button-title'), ret.buttonTitle);
+                                self.getMarketingStatistics();
+                            }
+                        })
+                    }
+                },
+                created: function() {
+
+                },
+                mounted: function() {
+                    var self = this;
+                    api.addEventListener({
+                        name:'move-shoplist-reload'
+                    },function(){
+                        location.reload();
+                    });
+                    if (!moveshop) {
+                        api.ajax({
+                            url: PHP_SERVE_URL + '/taxi/getTaxiShopInfo',
+                            method: 'post',
+                            data: {
+                                values: {
+                                    openId: user.openId
+                                }
+                            }
+                        }, function(ret, err) {
+                            if (ret.code == 0) {
+                                moveshop = {};
+                                moveshop.uid = ret.data.uid;
+                                moveshop.username = ret.data.username;
+                                moveshop.tel = ret.data.tel;
+                                moveshop.shopid = ret.data.shopid;
+                                moveshop.shoplogo = ret.data.shoplogo;
+                                moveshop.shopname = ret.data.shopname;
+                                $api.setStorage('moveshop', moveshop);
+                                self.getTaxiIdentity(function(ret){
+                                    if (ret.code == 0) {
+                                        self.isAuth = true;
+                                        self.getMarketingStatistics();
+                                        self.getgoodsList();
+                                        api.addEventListener({
+                                            name: 'scrolltobottom',
+                                            extra: {
+                                                threshold: 50
+                                            }
+                                        }, function(ret, err) {
+                                            self.getgoodsList();
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        self.getTaxiIdentity(function(ret){
+                            if (ret.code == 0) {
+                                self.isAuth = true;
+                                self.getMarketingStatistics();
+                                self.getgoodsList();
+                                api.addEventListener({
+                                    name: 'scrolltobottom',
+                                    extra: {
+                                        threshold: 50
+                                    }
+                                }, function(ret, err) {
+                                    self.getgoodsList();
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+
+        }
+    </script>
+</body>
+
+</html>

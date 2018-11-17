@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>金币明细</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .aui-list .aui-list-header {
+            background: none;
+        }
+
+        .content .aui-list .aui-list-item-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .content .aui-list .aui-list-item-text {
+            font-size: 0.6rem;
+            font-weight: 100;
+        }
+
+        .aui-list {
+            border: none;
+        }
+
+        .cont {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f6f6f6;
+        }
+
+        .tu img {
+            display: block;
+            width: 50%;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+    <a class="aui-pull-left aui-btn" onclick="history.back();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">金币明细</div>
+    <div class="aui-pull-right">筛选</div>
+</header>
+
+<section id="content">
+    <div class="aui-content aui-margin-t-15 bg-color">
+        <div class="aui-grid">
+            <div class="aui-row">
+                <div class="aui-col-xs-6">
+                    <span class="font-colo-gy">赚取</span>
+                    <span class="font-colo-r aui-font-size-20" id="income">+5</span>
+                </div>
+                <div class="aui-col-xs-6">
+                    <span class="font-colo-gy">使用</span>
+                    <span class="font-colo-r aui-font-size-20"><span id="expenditure">0</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script id="month_tmpl" type="text/html/x-dot-template">
+        <div class="content aui-content bg bg-color">
+            <ul class="aui-list bg-color" id="{{=it.addTime.substr(0,7)}}">
+                <li class="aui-list-header ">
+                    {{=showYearMonth(it.addTime)}}
+                </li>
+
+            </ul>
+        </div>
+    </script>
+    <script id="day_tmpl" type="text/html/x-dot-template">
+        <li class="">
+            <div class="aui-hr" style="opacity:0.5;filter:Alpha(opacity=50);"></div>
+            <div class="aui-list-item aui-padded-t-15">
+                <div class="aui-list-item-inner" style="width: 20%">
+                    <div class="aui-list-item-title">
+                        {{=showDay(it.addTime)}}
+                    </div>
+                </div>
+                <div class="aui-list-item-inner" style="width: 48%">
+                    <div class="aui-list-item-title">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">{{=it.memo}}</div>
+                        </div>
+                        <div class="aui-list-item-text aui-ellipsis-1">{{=it.memo}}</div>
+                    </div>
+                </div>
+                <div class="aui-list-item-right" style="width: 32%">
+                    <div class="aui-list-item-title clearfix">
+                        <div class="aui-list-item-text" style="float: right;">
+                            <div class="aui-list-item-title">
+                                {{? it.changeMoney >= 0}}
+                                +{{=it.changeMoney}}
+                                {{??}}
+                                {{=it.changeMoney}}
+                                {{?}}
+                            </div>
+                        </div>
+                        <div class="aui-list-item-text" style="float:right;">
+                            剩余金币:{{? it.leftMoney < 10000}}
+                            {{=it.leftMoney}}
+                            {{??}}
+                            {{=(it.leftMoney / 10000).toFixed(2) + "万"}}
+                            {{?}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </script>
+    <div class="cont" style="display: none;">
+        <div class="tu">
+            <img src="../image/nodata5.png">
+        </div>
+    </div>
+    <div class="content aui-content bg bg-color"> <ul class="aui-list bg-color" id="2018-04"> <li class="aui-list-header "> 2018年4月 </li>  <li class=""> <div class="aui-hr" style="opacity:0.5;filter:Alpha(opacity=50);"></div> <div class="aui-list-item aui-padded-t-15"> <div class="aui-list-item-inner" style="width: 20%"> <div class="aui-list-item-title"> <div class="aui-list-item-text"><div class="aui-list-item-title">13</div></div><div class="aui-list-item-text">周五</div> </div> </div> <div class="aui-list-item-inner" style="width: 48%"> <div class="aui-list-item-title"> <div class="aui-list-item-text"> <div class="aui-list-item-title">签到奖励</div> </div> <div class="aui-list-item-text aui-ellipsis-1">签到奖励</div> </div> </div> <div class="aui-list-item-right" style="width: 32%"> <div class="aui-list-item-title clearfix"> <div class="aui-list-item-text" style="float: right;"> <div class="aui-list-item-title">  +5.00  </div> </div> <div class="aui-list-item-text" style="float:right;"> 剩余金币: 5.00  </div> </div> </div> </div> </li> </ul> </div> </section>
+<script src="../script/api.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/doT.min.js"></script>
+</body>
+</html>

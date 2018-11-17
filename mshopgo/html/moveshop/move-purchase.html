@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>购物车</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        .aui-bar-nav {
+            position: fixed;
+            z-index: 999;
+        }
+
+        #main {
+            margin-top: 3rem;
+        }
+
+        .aui-list .aui-list-item:active {
+            background-color: #fff;
+        }
+
+        .aui-dialog-btn:nth-child(2) {
+            color: #3bb316;
+        }
+
+        #move-footer {
+            height: 2.4rem;
+            line-height: 2.4rem;
+            background: #fff;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap" class="cart">
+        <header class="aui-bar aui-bar-nav aui-bar-light back-palered color-write">
+            <div class="aui-pull-left aui-btn " onclick="$a.closeWin();" id="back">
+                <span class="aui-iconfont aui-icon-left color-write"></span>
+            </div>
+            <div class="aui-title aui-font-size-16  ">进货箱</div>
+            <div class="aui-pull-right aui-btn aui-margin-r-10" @click="changeEdit()">
+                <span class="aui-iconfont aui-font-size-14 color-write" v-text="isEdit?'完成':'编辑'"></span>
+            </div>
+        </header>
+        <div id="main" style="padding-bottom:3rem;">
+            <div class="cart-bg-fff order-section-padd aui-margin-t-10 aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-padded-l-5 aui-padded-r-5 back-write aui-margin-t-10">
+                    <h4 class="aui-border-b aui-padded-t-15 aui-padded-b-15">进货清单</h4>
+                    <ul class="aui-list aui-media-list" v-if="goodsList.length>0">
+                        <li class="aui-list-item aui-padded-l-0 cart-bg-fff" v-for="item in goodsList" :id="'goods_'+item.gid">
+                            <div class="aui-media-list-item-inner">
+                                <label class="aui-list-item-media  btn-checkbox">
+                                    <input class="aui-checkbox bd-radius50" @click="checkThis($event)" type="checkbox" name="checkthis" :value="item.gid" :supplyprice="item.supply_price" :profit="item.profit"
+                                     :price="item.price" :stock="item.stock" :shopid="item.shopId" :gname="item.gname" :pic="item.pic" :sellnum="item.sell_num">
+                                </label>
+                                <div class="aui-list-item-media cart-left-img" @click="openGoodsDetail(item.gid)">
+                                    <img :src="item.pic">
+                                </div>
+                                <div class="aui-list-item-inner aui-padded-r-0 aui-margin-l-10">
+                                    <div class="aui-list-item-text cart-text">
+                                        <p class="aui-ellipsis-2 s-color-black aui-font-size-14 line-height color-black">{{item.gname}}</p>
+                                    </div>
+                                    <div class="">
+                                        <!-- <p class="s-color-black">规格218g</p> -->
+                                        <p class="s-color-black">进货价<em class="color-black">￥{{item.supply_price}}</em>
+                                            <span class="aui-margin-l-5">销售价 <em class="color-black">￥{{item.price}}</em></span></p>
+                                        <p class="s-color-black">利润 <em class="color-black">￥{{item.profit}}</em></p>
+                                    </div>
+                                    <div class="aui-info aui-margin-t-10 padding0">
+                                        <div class="aui-info-item"></div>
+                                        <div class="aui-info-item cart-info-item">
+                                            <div class="aui-bar aui-bar-btn aui-margin-r-10" type="count">
+                                                <div class="aui-bar-btn-item " @click="min(item.gid);">
+                                                    <i class="aui-iconfont aui-icon-minus color-black"></i>
+                                                </div>
+                                                <div class="aui-bar-btn-item">
+                                                    <input :id="'g'+item.gid" type="tel" size="4" class="aui-input aui-text-center goodsnum" :value="item.num">
+                                                </div>
+                                                <div class="aui-bar-btn-item " @click="add(item.gid);">
+                                                    <i class="aui-iconfont aui-icon-plus color-black"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 编辑状态下底部栏-->
+        <footer class="aui-bar aui-bar-tab cart-footer aui-margin-t-15" v-if="isEdit">
+            <div class="aui-bar  cart-footer-bar">
+                <div class="aui-pull-left aui-font-size-14 aui-margin-l-15 aui-margin-r-15">
+                    <label>
+                        <input class="aui-checkbox bd-radius50" type="checkbox" name="checkAll" @click="checkAll($event)">
+                        全选
+                    </label>
+                </div>
+                <div class="aui-pull-right btn-settle color-write back-palered aui-font-size-16 btn-delete" @click="delCar()">删除所选商品</div>
+            </div>
+        </footer>
+        <!--  普通状态下底部栏-->
+        <footer class="aui-bar aui-bar-tab  aui-margin-t-15" id="move-footer" v-else>
+            <div id="addressbottom" class="color-tip aui-col aui-hide" style="font-size: 12px;">
+
+            </div>
+            <div class="aui-pull-left aui-font-size-14 settle-num aui-padded-l-15 ">
+                <font class="color-gray9 aui-margin-r-5">商品总额</font><strong class="color-palered price totalPrice aui-margin-r-10" id="salesAmount">¥0.00</strong>
+                <font class="color-gray9 aui-margin-r-5">可得利润</font><strong class="color-palered price totalPrice" id="salesProfit">¥0.00</strong>
+            </div>
+            <div @click="pay();" class="aui-pull-right btn-settle color-write back-palered aui-font-size-16 aui-text-center" style="display: block !important;height: 2.5rem;">
+                下单并付款
+            </div>
+        </footer>
+        <!--购物车空空如也-->
+        <div class="order-if-noshop aui-hide">
+            <img src="../../image/zt_empty_image@3x.png" />
+            <dl>
+                <dd class="aui-font-size-12 color-gray9 aui-margin-t-15">进货箱空空如也</dd>
+            </dl>
+            <span class="aui-font-size-20 cart-section-go my-noshop-btn">去逛逛</span>
+        </div>
+    </div>
+    <script src="../../script/jquery-1.11.1.min.js"></script>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/vue.js"></script>
+    <script src="../../script/jquery-1.11.1.min.js"></script>
+    <script src="../../script/aui/aui-dialog.js"></script>
+    <script>
+        var cartObj, user;
+        apiready = function() {
+                api.addEventListener({
+                    name: 'check-authenticated-3'
+                }, function() {
+                    checkIsAuthenticated();
+                })
+                user = $api.getStorage("user");
+                var vm = new Vue({
+                    el: '#wrap',
+                    data: {
+                        goodsList: [],
+                        // salesAmount: 0, //销售额
+                        // salesProfit: 0, //收益
+                        isEdit: false
+                    },
+                    methods: {
+                        min: function(gid) {
+                          var self=this;
+                            var select = $api.byId('g' + gid);
+                            var num = $api.val(select);
+                            if (num > 1) {
+                                $api.val(select, $api.val(select) - 1);
+                                self.sumPrice();
+                            }
+                        },
+                        add: function(gid) {
+                          var self=this;
+                            var select = $api.byId('g' + gid);
+                            $api.val(select, $api.val(select) * 1 + 1);
+                            self.sumPrice();
+                        },
+                        changeEdit: function() { //切换编辑按钮
+                            var self = this;
+                            self.isEdit = !self.isEdit;
+                        },
+                        checkThis:function(that){
+                            var ul = $(that.currentTarget).closest('ul');
+                            var checkedLen = ul.find(":checkbox:checked").length;
+                            var len = ul.find("li").length;
+                            if (checkedLen == len) {
+                                ul.prev().find(":checkbox").prop("checked", true);
+                            } else {
+                                ul.prev().find(":checkbox").prop("checked", false);
+                            }
+                            this.isAllChecked();
+                        },
+                        checkAll:function(that){
+                            var ischecked = $(that.currentTarget).is(":checked");
+                            $(":checkbox").prop("checked", ischecked);
+                            this.sumPrice();
+                        },
+                        sumPrice: function() { //价格合计
+                            var self = this;
+                            var amount = profit = 0.00;
+                            $("[name=checkthis]").each(function() {
+                                if ($(this).is(":checked")) {
+                                    var n = $(this).closest('li').find('.goodsnum').val();
+                                    var p = $(this).attr('supplyprice');
+                                    var f = $(this).attr('profit');
+                                    amount += parseFloat(n * p);
+                                    profit += parseFloat(n * f);
+                                }
+                            });
+                            // self.salesAmount = amount;
+                            // self.salesProfit = profit;
+                            $api.text($api.byId('salesAmount'), '¥'+amount.toFixed(2));
+                            $api.text($api.byId('salesProfit'), '¥'+profit.toFixed(2));
+                            binning();
+
+                        },
+                        isAllChecked: function() { //是否全选
+                            var self = this;
+                            var len = $(":checkbox").not("[name=checkAll]").length;
+                            var checkedLen = $(":checkbox:checked").not("[name=checkAll]").length;
+                            $("[name=checkAll]").prop("checked", len == checkedLen);
+                            self.sumPrice();
+                        },
+                        delCar: function() { //删除
+                            var self = this;
+                            var checkedLen = $(":checkbox:checked").not("[name=checkAll]").length;
+                            if (checkedLen == 0) {
+                                return;
+                            }
+                            $("[name=checkthis]:checked").each(function() {
+                                $('#goods_' + $(this).val()).remove();
+                            });
+                            self.salesAmount = 0;
+                            self.salesProfit = 0;
+                            $api.text($api.byId('salesAmount'), '¥0.00');
+                            $api.text($api.byId('salesProfit'), '¥0.00');
+                            binning();
+                        },
+                        pay: function() {
+                            var checkedLen = $(":checkbox:checked").not("[name=checkAll]").length;
+                            if (checkedLen == 0) {
+                                return;
+                            }
+                            binning();
+                            //进入确认订单页面
+                            api.openWin({
+                                name: 'move-confirm',
+                                url: './move-confirm.html'
+                            });
+                        },
+                        openGoodsDetail:function(id){
+                            api.openWin({
+                                name: 'goods_win',
+                                url: 'goods_win.html',
+                                pageParam: {
+                                    id: id,
+                                    originOId: 0
+                                },
+                                progress: {
+                                    type: "default", //加载进度效果类型，默认值为default，取值范围为default|page，default等同于showProgress参数效果；为page时，进度效果为仿浏览器类型，固定在页面的顶部
+                                    title: "努力加载中...", //type为default时显示的加载框标题
+                                    text: "请稍等..."
+                                }
+                            });
+                        }
+                    },
+                    created: function() {
+
+                    },
+                    mounted: function() {
+                        var self = this;
+                        cartObj = localStorage.getItem('cartMove') ? JSON.parse(localStorage.getItem('cartMove')) : [];
+                        self.goodsList = cartObj;
+                        api.addEventListener({
+                            name: 'refresh-purchase'
+                        }, function (ret) {
+                            location.reload();
+                        });
+                    }
+                });
+            }
+            //是否实名认证
+        function checkIsAuthenticated() {
+            api.ajax({
+                url: PHP_SERVE_URL + '/taxi/getTaxiIdentity',
+                method: "post",
+                data: {
+                    values: {
+                        openId: user.openId
+                    }
+                }
+            }, function(ret) {
+                // 已经实名认证有点击动作
+                if (ret.code != 0) {
+                    if(ret.code==2){
+                        var dialog=new auiDialog();
+                        dialog.alert({
+                            title:"司机实名认证",
+                            msg:'您提交的实名认证，正在等待审核！',
+                            buttons:['取消','确认']
+                        },function(ret){
+                            sendEvent()
+                        });
+                        $(".aui-dialog-close").click(function () {
+                            sendEvent();
+                        });
+                    }else {
+                        var dialog = new auiDialog();
+                        dialog.alert({
+                            title: "司机实名认证",
+                            msg: '您还未开通移动店铺，进行司机实名认证后即可开通！',
+                            buttons: ['取消', '前往认证']
+                        }, function (ret) {
+                            if (ret.buttonIndex == 2) {
+                                $a.openWin('authentication_win');
+                                sendEvent();
+                            }
+                            if (ret.buttonIndex == 1) {
+                                sendEvent();
+                            }
+                        });
+                        $(".aui-dialog-close").click(function () {
+                            sendEvent();
+                        });
+                    }
+                }
+            })
+        }
+
+        function sendEvent() {
+            api.sendEvent({
+                name: 'moveshop-index-show',
+                extra: {
+                    index: 0
+                }
+            })
+        }
+        //重新装箱
+        function binning() {
+            var cartObj = [];
+            $('.aui-media-list li').each(function() {
+                var li = $(this).find('[name=checkthis]');
+                var gid = $(li).val();
+                var selected = $(li).is(":checked");
+                cartObj.push({
+                    "profit": $(li).attr('profit'),
+                    "sell_num": $(li).attr('sellnum'),
+                    "stock": $(li).attr('stock'),
+                    "price": $(li).attr('price'),
+                    "shopId": $(li).attr('shopid'),
+                    "gname": $(li).attr('gname'),
+                    "gid": gid,
+                    "pic": $(li).attr('pic'),
+                    "supply_price": $(li).attr('supplyprice'),
+                    "num": $('#g' + gid).val(),
+                    "select": selected
+                });
+            })
+            localStorage.setItem('cartMove', JSON.stringify(cartObj));
+            api.sendEvent({
+                name: 'refresh-purchase-num'
+            });
+        }
+    </script>
+</body>
+
+</html>

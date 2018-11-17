@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>订单详情</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        .aui-bar-nav{
+            position: fixed;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">订单详情</div>
+</header>
+<div style="height: 2rem;"></div>
+<div id="main">
+    <div class="detail-bt-more" id="content" v-cloak>
+        <section class="cart-bg-fff order-section-padd aui-margin-t-10">
+            <h4 class="aui-border-b aui-padded-t-10 aui-padded-b-10"><span class="order-top-img color-gray9">{{orderRes.pay_time}}</span><span class="aui-pull-right"><em class="color-gray9 aui-padded-r-10">交易成功</em></span></h4>
+            <ul class="aui-list aui-media-list">
+                <li class="aui-list-item aui-padded-l-0 cart-bg-fff" v-for="item in ogRes">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-left-img">
+                            <img :src="item.skuGoodsJson.pic">
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-r-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 s-color-black">{{item.skuGoodsJson.pname}}</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-15" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="s-color-black">¥{{item.skuGoodsJson.price}}</span>
+                                </div>
+                                <div class="aui-info-item">×{{item.goods_count}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <h4 class="aui-padded-t-10 aui-padded-b-10 aui-text-right"><span class="order-top-img">共{{orderRes.goods_count}}件商品  合计：¥{{orderRes.goods_money}}</span></h4>
+        </section>
+        <div class="aui-margin-t-10">
+            <ul class="aui-list aui-media-list s-no-bgimg aui-padded-l-10">
+                <li class="aui-list-item-middle aui-padded-t-10 aui-padded-b-10" style="overflow: hidden">
+                    <p>
+                        <span class="aui-pull-left aui-margin-r-10" style="width: 18%">客户信息</span><span class="color-black">{{orderRes.name}}~{{orderRes.tel}}</span>
+                    </p>
+
+                    <p class="aui-margin-t-10" v-if="orderRes.pay_status==2">
+                        <span class="aui-pull-left aui-margin-r-10" style="width: 18%">订单编号</span><span class="color-black">{{orderRes.order_no}}</span>
+                    </p>
+
+                    <p class="aui-margin-t-10">
+                        <span class="aui-pull-left aui-margin-r-10" style="width: 18%">收款方式</span><span class="color-black">{{orderRes.pay_name}}</span>
+                    </p>
+                    <p class="aui-margin-t-10">
+                        <span class="aui-pull-left aui-margin-r-10" style="width: 18%">下单时间</span><span class="color-black">{{orderRes.add_time}}</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/vue.js"></script>
+<script>
+    apiready=function(){
+        var user=$api.getStorage("user");
+        var vue=new Vue({
+            el:'#content',
+            data:{
+                orderRes:'',
+                ogRes:''
+            },
+            mounted:function(){
+                var self=this;
+                api.ajax({
+                    url:PHP_SERVE_URL+"/taxi/getOrderInfo",
+                    method:'post',
+                    data:{
+                        values:{
+                            openId:user.openId,
+                            shopId:api.pageParam.shopId,
+                            oid:api.pageParam.oid
+                        }
+                    }
+                },function(ret){
+                    if(ret.code==0){
+                        self.orderRes=ret.data.orderRes;
+                        self.ogRes=ret.data.ogRes
+                    }
+                })
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        html,
+        body,
+        #content {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        #content {
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+
+        .bg-white {
+            background: #ffffff;
+        }
+
+        .hot-title {
+            padding: 0.3rem 0;
+        }
+
+        .cart-section-go {
+            color: #666666;
+            border-color: #CACACA;
+            margin: 0.25rem;
+        }
+        .cart-section-go.aui-active {
+            border-color: #ff5096;
+            color: #ff5096;
+        }
+
+        .aui-card-list-header,
+        .img-list {
+            overflow: hidden;
+        }
+
+        .aui-card-list-user-avatar {
+            height: 2rem;
+            overflow: hidden;
+        }
+
+        .aui-card-list-user-avatar img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .aui-card-list-user-info .icon-stars,
+        .aui-card-list-user-info .icon-star {
+            float: left;
+            width: 0.8rem;
+            height: 0.8rem;
+            margin-right: 0.3rem;
+            background-size: 100% 100% !important;
+        }
+
+        .icon-stars {
+            background-image: url("../../image/goods/icon-stars.png");
+        }
+
+        .icon-star {
+            background-image: url("../../image/goods/icon-star.png");
+        }
+
+        .img-list {
+            padding: 0.25rem 0;
+        }
+
+        .img-list .img-item {
+            position: relative;
+            padding-bottom: 33.33%;
+        }
+
+        .img-list .img-item img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            /*padding: 0.25rem;*/
+        }
+
+
+
+        .order-if-noshop {
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            -webkit-flex-direction: column;
+            -webkit-align-items: center;
+            -webkit-justify-content: center;
+            height: calc(100vh - 2rem);
+            height: -webkit-calc(100vh - 2rem);
+            width: 100vw;
+            padding-top: 20%;
+            margin-bottom: 4%;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .order-if-noshop img {
+            width: 30%;
+        }
+
+        .order-if-noshop dl {
+            text-align: center;
+        }
+
+
+        .aui-list .aui-card-list:last-child {
+            background-image: none;
+        }
+
+        /*[v-cloak] {*/
+            /*display: none;*/
+        /*}*/
+        .evalutale-card-list-user{
+            /*padding: 0;*/
+            padding: 0.5rem 0;
+        }
+        .evalutale-footer{
+            padding: 0.5rem 0;
+        }
+    </style>
+</head>
+
+<body>
+<div id="content" v-cloak>
+    <div class="title-info aui-margin-b-10 bg-white aui-padded-15 aui-padded-t-0" v-if="!noevashop">
+        <div class="hot-title color-pink aui-font-size-14">好评度{{commenttype.hpl}}%</div>
+        <ul class="aui-margin-t-5 aui-margin-b-5">
+            <li :class="item.type==0?'aui-active':''" class="aui-font-size-14 cart-section-go" :data-id="item.type" v-for="item in commenttype.commentList">{{item.name}}
+                <span>{{item.num}}</span></li>
+        </ul>
+    </div>
+    <!--评论列表-->
+    <ul class="aui-list aui-margin-t-15 bg-white aui-padded-l-15 aui-padded-r-15" v-if="!noevashop">
+        <li class="aui-card-list aui-border-b aui-padded-t-5 aui-padded-b-10" v-for="item in comment">
+            <div class="aui-card-list-header aui-card-list-user  evalutale-card-list-user   ">
+                <div class="aui-card-list-user-avatar">
+                    <img :src="item.avatar" class="aui-img-round"/>
+                </div>
+                <div class="aui-card-list-user-name">
+                    <div class="user-name">{{item.uname}}</div>
+                    <small>{{item.add_time}}</small>
+                </div>
+                <ul class="aui-card-list-user-info aui-margin-t-5">
+                    <li class="icon-stars" v-for="n in item.score*1"></li>
+                    <li class="icon-star" v-for="n in 5-item.score*1"></li>
+                </ul>
+            </div>
+            <div class="aui-card-list-content-padded padding0">
+                <div class="discuss aui-font-size-14">
+                    {{item.info}}
+                </div>
+                <ul class="img-list">
+                    <li class="img-item aui-col-xs-4" v-for="itemj in item.pic">
+                        <img :src="itemj">
+                    </li>
+                </ul>
+            </div>
+            <div class="aui-card-list-content-padded list-footer evalutale-footer">
+                <div class="color-gray9 aui-ellipsis-1">{{item.specname}}</div>
+                <div class="color-gray9"><span>购买日期 </span> <span>{{item.buytime}}</span>
+                    <div class="aui-pull-right" @click="commend(item.ogjid);">
+                        <i class="aui-iconfont aui-icon-laud"></i>
+                        <span :id="item.ogjid">{{item.commend}}</span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <!-- 如果没有评价-->
+    <div>
+        <div class="order-if-noshop" v-if="noevashop">
+            <dl>
+                <dd class="aui-font-size-16 color-gray9">买家偷懒，暂无评价~</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/zepto.min.js"></script>
+
+<script>
+  var gid = 0;
+  apiready = function () {
+    gid = $a.getParam().id;
+    showGoodsComment();
+  }
+
+  function showGoodsComment() {
+    new Vue({
+      el: '#content',
+      data: {
+        loadid: 0,
+        page: 1,
+        totalPage: 1,
+        commenttype: '',
+        comment: [],
+        noevashop: false
+      },
+      methods: {
+        loadComment: function () {
+          var self = this;
+          if (self.page > self.totalPage)
+            return;
+          self.page++;
+          api.ajax({
+            url: PHP_SERVE_URL + 'sg/goodsComment',
+            method: 'post',
+            data: {
+              values: {
+                goodsId: gid,
+                type: self.loadid,
+                page: self.page - 1
+              }
+            }
+          }, function (ret, err) {
+            if (ret.code == 0) {
+              self.totalPage = ret.total;
+              for (var i = 0; i < ret.data.length; i++) {
+                self.comment.push(ret.data[i]);
+              }
+              
+              // alert(JSON.stringify(self.comment));
+              // console.log(JSON.stringify(this.commenttype));
+            } else {
+              api.toast({
+                msg: ret.msg,
+                duration: 2000,
+                location: 'bottom'
+              });
+            }
+          });
+        }
+      },
+      mounted: function () {
+        var self = this;
+
+        /* 底部加载数据 */
+        $a.addEvt({
+          name: 'scrolltobottom',
+          extra: {
+            threshold: 50
+          }
+        }, function (ret, err) {
+          self.loadComment();
+        });
+        api.ajax({
+          url: PHP_SERVE_URL + 'sg/goodsCommentType',
+          method: 'post',
+          data: {
+            values: {
+              goodsId: gid
+            }
+          }
+        }, function (ret, err) {
+          if (ret.code == 0) {
+            self.commenttype = ret.data;
+            if (ret.data.commentList.length == 0) {
+              self.noevashop = true;
+            }
+            self.loadComment();
+          } else {
+            api.toast({
+              msg: ret.msg,
+              duration: 2000,
+              location: 'bottom'
+            });
+          }
+        });
+
+        //切换显示评论
+        $('body').on('click', '.cart-section-go', function () {
+          if ($(this).hasClass('aui-active')) return;
+          var id = $(this).data('id');
+          $('.cart-section-go').each(function () {
+            if ($(this).data('id') == id) {
+              $(this).addClass('aui-active');
+            } else {
+              $(this).removeClass('aui-active');
+            }
+          })
+          self.comment = [];
+          self.loadid = id;
+          self.page = 1;
+          self.totalPage = 1;
+          self.loadComment();
+        })
+      }
+    })
+  }
+
+  //点赞
+  function commend(ogjid) {
+    var span = $("#" + ogjid);
+    if (!span.prev("i").hasClass("i-selected")) {
+      api.ajax({
+        url: PHP_SERVE_URL + "/sg/goodsCommend",
+        method: 'post',
+        data: {
+          values: {
+            ogjid: ogjid
+          }
+        }
+      }, function (ret) {
+        if (ret.code == 0) {
+          var num = parseInt(span.text()) + 1;
+          span.text(num);
+          span.prev("i").addClass("i-selected");
+        }
+      })
+    }
+  }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>分类</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #fff!important;
+        }
+
+        .header-nav {
+            position: fixed;
+        }
+
+        .left {
+            width: 23%;
+            position: fixed;
+            left: 0;
+            top: 2.2rem;
+            bottom: 0;
+            overflow-y: scroll;
+        }
+
+        .active {
+            color: #32353b!important;
+        }
+
+        .overflow-y-hidden {
+            overflow-y: hidden;
+        }
+
+        .classify .left-list li {
+            height: 2rem;
+            line-height: 2rem;
+            z-index: 99;
+        }
+        .classify .left-list li span:before{
+            content:"";
+            display:inline-block;
+            height: 1rem;
+            width: 3px;
+            float: left;
+            margin-top: .5rem;
+        }
+        .classify .left-list li.active span:before{
+            content:"";
+            display:inline-block;
+            height: 1rem;
+            width: 3px;
+            background: #FE5095;
+            float: left;
+            margin-top: .5rem;
+        }
+
+        .classify .left-list li span {
+            width: 100%;
+        }
+
+        .classify .left-list li .icon {
+            width: 0.8rem;
+            height: 0.8rem;
+            margin-top: 1.2rem;
+            margin-right: 0.2rem;
+        }
+
+        .padded {
+            padding-bottom: 0.4rem;
+            padding-top: 0.4rem;
+        }
+
+        .icon-gray {
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            filter: gray;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+        .classify-banner{
+            padding: .7rem .6rem .7rem .0rem;
+        }
+    </style>
+</head>
+
+<body>
+<div class="overflow-y-hidden">
+    <!-- 头部 -->
+    <header class="aui-bar aui-bar-nav header-nav back-pink" id="header-bar">
+        <div id="bg-color"></div>
+        <div class="aui-pull-left aui-btn" onclick="window.history.back()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </div>
+        <div class="aui-title" style="left:2rem; right: 2rem;">
+            <div class="aui-searchbar" style="background-color: transparent">
+                <div class="aui-searchbar-input " style="border-radius: 0.7rem"
+                     onclick="window.location.href='../index/search_win.html'">
+                    <i class="aui-iconfont aui-icon-search"></i>
+                    <input type="search" placeholder="请输入搜索内容" id="search-input" disabled>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="clearfix classify" id="content" style="margin-top: 2rem;" v-cloak>
+        <div class="aui-pull-left left-list back-write left">
+            <ul>
+                <li class="clearfix color-gray9 aui-text-center" :class="index==0?'active':''"
+                    v-for="item,index in firstLevel" @click="changeClassify(item.id,item.gtname,$event)">
+                    <span class="aui-pull-left aui-font-size-12 aui-padded-r-10"> {{item.gtname}}</span>
+                    <!-- <img :src="item.logo!=''? item.logo :'../../image/classify/icon-people.png'"
+                         class="aui-pull-right icon" :class="index!=0?'icon-gray':''">
+                </li> -->
+            </ul>
+        </div>
+        <div class="aui-pull-right aui-margin-r-5 secondCategory" style="width:74%;display: block;">
+            <!-- <div class="classify-banner">
+                <img src="../../image/classify/ljqg@3x.png" width="100%" alt="">
+            </div> -->
+            <div class="clearfix aui-font-size-14 aui-margin-t-15 aui-margin-b-15 padded" @click="openWin(tname,tid,2)">
+                <strong class="aui-pull-left aui-margin-l-10">{{tname}}</strong>
+                <span class="aui-pull-right color-gray9" :id="tid">查看更多<i
+                        class="aui-iconfont aui-icon-right aui-font-size-12 aui-padded-l-5"></i></span>
+            </div>
+            <div class="back-write classify-right">
+                <ol class="clearfix aui-padded-t-15 aui-font-size-14">
+                    <li class="aui-col-xs-4 aui-text-center aui-margin-b-15" v-for="sitem in secondLevel"
+                        @click="openWin(sitem.gtname,sitem.id,3)">
+                        <img :src="sitem.logo!=''? sitem.logo :'../../image/classify/icon-people.png'" alt=""
+                             class="right-icon">
+                        <span class="inline-block aui-margin-t-5 color-gray9">{{sitem.gtname}}</span>
+                    </li>
+
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/sqlite_db.js"></script>
+<script>
+    var user, rong, sqlite;
+    user = $api.getStorage('user');
+    getTypes();
+    // setTimeout('getTotalUnreadCount();', 200);
+
+    function getTypes() {
+        var vue = new Vue({
+            el: '#content',
+            data: {
+                firstLevel: '',
+                secondLevel: '',
+                tname: '',
+                tid: 0
+            },
+            methods: {
+                getData: function (level) {
+                    var self = this;
+                    $.ajax({
+                        url: PHP_SERVE_URL + '/sg/goodsType',
+                        type: 'post',
+                        data: {
+                            ptid: self.tid,
+                            level: level
+                        },
+                        success:function (ret) {
+                            if (ret.code == 0) {
+                                if (level == 1) {
+                                    self.firstLevel = ret.data;
+                                    self.tid = ret.data[0].id;
+                                    self.tname = ret.data[0].gtname;
+                                    self.getData(2);
+
+                                } else {
+                                    self.secondLevel = ret.data;
+                                }
+                            }
+                        }
+                    })
+                },
+                changeClassify: function (id, gtname, event) {
+                    var self = this;
+                    self.tid = id;
+                    self.tname = gtname;
+                    if (!$(event.currentTarget).hasClass("active")) {
+                        $(event.currentTarget).siblings("li").removeClass("active");
+                        $(event.currentTarget).siblings("li").find('img').addClass("icon-gray");
+                        $(event.currentTarget).addClass("active");
+                        $(event.currentTarget).find('img').removeClass("icon-gray");
+                    }
+                    this.getData(2);
+                },
+                openWin: function (tname, tid, level) {
+                    // $a.openWin('classify_frm-goods', 'name:' + tname + ',typePId:' + tid + ',level:' + level);
+                    window.location.href="classify_frm-goods.html?name=" + tname + '&typePId=' + tid + '&level=' + level;
+                }
+            },
+            mounted: function () {
+                this.getData(1);
+            }
+        })
+    }
+
+</script>
+</body>
+
+</html>

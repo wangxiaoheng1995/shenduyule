@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>收货地址</title>
+    <link rel="stylesheet" href="../../css/sm.min.css">
+    <link rel="stylesheet" href="../../css/sm-extend.min.css">
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <style>
+           [v-cloak] {
+               display: none ;
+           }
+
+        .editInoutAll input {
+            outline: none;
+        }
+
+        .bd-radius50 {
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+        .back-color {
+            background: #ff5096;
+            width: 76%;
+            margin: 0 auto;
+            border-radius: 2rem;
+            color: #fff;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            font-size: .8rem;
+        }
+
+        .aui-btn:active {
+            color: #fff;
+            background-color: #fb3483;
+        }
+
+        .set-check {
+            width: 12%;
+            float: left;
+            padding-left: 0.55rem;
+            height: inherit;
+        }
+
+        #address .svalue-add {
+            height: inherit;
+            font-size: 0.6rem;
+        }
+
+        .tit-bar-black {
+            background: #fff;
+            color: #000;
+        }
+
+        .tit-bar-black .aui-btn .aui-iconfont {
+            color: #999
+        }
+
+        .address02 .sattr {
+            font-size: .7rem;
+            line-height: 1.6em;
+            color: #000 !important;
+            margin-left: 10%;
+            margin-top: 0.1rem;
+        }
+
+        .s-item {
+            position: relative;
+            padding: 0.6rem 0.2rem;
+            line-height: 1.2em;
+            overflow: hidden
+        }
+
+        .aui-checkbox:checked {
+            background-color: #44a254;
+            border: solid 1px #44a254;
+        }
+
+        .not-over-see {
+            display: block;
+        }
+
+        .fixed-top, .fixed-bottom {
+            width: 100%;
+            overflow: hidden;
+            font-size: 16px;
+        }
+
+        .bdb-1px {
+            position: relative
+        }
+
+        .bdb-1px:after {
+            border-top: 1px solid #e0e0e0;
+            content: ' ';
+            display: block;
+            width: 100%;
+            position: absolute;
+            right: 0
+        }
+
+        .bdb-1px:after {
+            bottom: 0
+        }
+
+        .item-addr .ia-m p {
+            float: left;
+            color: #666;
+            font-size: .8125em;
+            line-height: 1.6em;
+            padding-top: .6em
+        }
+
+        .popup-w {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 8;
+            display: none
+        }
+
+        .jd-index-header {
+            position: relative;
+            background: #ffffff;
+            background-size: 100% 44px;
+            min-height: 44px;
+        }
+
+        .jd-index-header-icon-back {
+            position: absolute;
+            width: 40px;
+            height: 44px
+        }
+
+        .jd-index-header-title {
+            margin: 0 50px;
+            text-align: center;
+            height: 44px;
+            line-height: 44px;
+            font-size: 16px;
+            color: #252525
+        }
+
+
+        .tryme span {
+            display: block;
+            width: 140px;
+            margin-left: 90px;
+            padding-top: 10px;
+            color: #fff;
+            font-size: 12px;
+            line-height: 15px;
+        }
+
+
+        .check-btn-auto {
+            width: 100%;
+            max-width: 640px;
+            min-width: 320px;
+            overflow: hidden;
+            margin: 0 auto
+        }
+
+        .check-btn-total {
+            height: 4em;
+            text-align: center;
+            background: #fff;
+            width: 100%;
+            max-width: 640px;
+            padding-top: .6em;
+            z-index: 6
+        }
+
+        .s-item .change-wp {
+            width: 88%
+        }
+
+        .s-item .change-po {
+            float: none;
+            width: auto;
+            -webkit-box-flex: 1
+        }
+
+        .s-item .change-wid {
+            display: -webkit-box;
+            width: 100%
+        }
+
+        .change-wid .change-po .change-sty {
+            padding-top: 0;
+            vertical-align: middle;
+            font-size: 0.6rem;
+            color: #232326;
+            resize: none;
+            width: 100%;
+            border: 0 solid transparent;
+            outline: 0;
+            overflow-y: hidden;
+            background-color: white
+        }
+
+        .change-padding {
+            padding-top: 0;
+            float: none
+        }
+
+        .search-result {
+            position: relative
+        }
+
+        .s-close, .s-text-close {
+            position: absolute;
+            right: 0;
+            width: 28px;
+            height: 46px;
+            top: 50%;
+            margin-top: -23px;
+            display: none
+        }
+
+        a, button, input {
+            -webkit-tap-highlight-color: rgba(255, 0, 0, 0)
+        }
+
+        .fixed-top, .fixed-bottom {
+            width: 100%;
+            overflow: hidden;
+            font-size: 16px
+        }
+
+        .address-info span {
+            font-size: 12px;
+            color: #cc7307;
+            text-align: center
+        }
+
+        .s-item-new .addressLabelTab-item .addressLabelTab span {
+            display: inline-block;
+            width: 70px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #bfbfbf;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            margin-right: 15px;
+            font-size: 12px;
+            color: #232326
+        }
+
+        .s-item-new .addressLabelTab-item .addressLabelTab span:last-child {
+            margin-right: 0
+        }
+
+        .s-item-new .addressLabelTab-item .addressLabekDiy .diy-edit .diy-close i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            width: 15px;
+            height: 15px;
+            margin-top: -7px;
+            background: url(/order/misc/skin/i/close-icon.png) no-repeat;
+            background-size: 15px 15px
+        }
+
+        .infoDiv li {
+            height: 56px;
+            padding: 12px 0
+        }
+
+        .map-yes img {
+            width: 15px;
+            height: 11px
+        }
+
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        * {
+            font-family: PingFangSC-Regular, Helvetica, "Droid Sans", Arial, sans-serif
+        }
+
+        body {
+            position: relative;
+            background-color: white
+        }
+
+        .check-page {
+            background-color: #fff;
+            height: 100%;
+            width: 100%
+        }
+
+
+
+        .change-padding {
+            padding-top: 0;
+            float: none
+        }
+
+        .address02 .add-color input {
+            border: 0;
+            background: #fff;
+            width: 120%;
+            height: 1.5em;
+            font-size: 14px;
+            padding-left: 0;
+            color: #232326
+        }
+
+        .address-big {
+            margin: 0;
+            width: 100%;
+            position: relative
+        }
+
+        .fixed-bottom {
+            width: 75%
+        }
+
+        .map-inter {
+            height: 100%;
+            width: 25%;
+            position: absolute;
+            left: 75%;
+            top: 0
+        }
+
+        .map-inter:after {
+            content: '';
+            border-left: 1px solid #e0e0e0;
+            height: 100%;
+            position: absolute;
+            width: 1px;
+            left: 1px;
+            top: 0;
+            transform: scaleX(0.5);
+            -webkit-transform: scaleX(0.5);
+            -webkit-transform-origin: left top;
+            transform-origin: left top
+        }
+
+        .address-position {
+            width: 60px;
+            height: 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -30px;
+            margin-top: -25px
+        }
+
+        .address-position span {
+            display: block;
+            /*background: url("/order/images/order/editAddress/new-address-pic.png") no-repeat;*/
+            width: 20px;
+            height: 27px;
+            background-size: 200px 200px;
+            background-position: -180px 0;
+            margin: 0 auto
+        }
+
+        .address-position i {
+            display: block;
+            font-style: normal;
+            color: #232326;
+            font-size: 15px;
+            line-height: 15px;
+            margin-top: 8px
+        }
+
+        .add-box {
+            display: -webkit-box;
+            padding-right: 0
+        }
+
+        .add-box .sattr-add {
+            float: none
+        }
+
+        .svalue-add {
+            color: #232326;
+            -webkit-box-flex: 1;
+            float: none;
+            font-size: 14px
+        }
+
+        .is-loading {
+            display: none;
+            height: 27px;
+            text-align: center;
+            font-size: 0;
+            position: fixed;
+            top: 50%;
+            left: 50%
+        }
+
+        .is-loading > em {
+            /*background: url("/order/images/order/editAddress/loading-animation.gif") center 2px no-repeat;*/
+            display: inline-block;
+            width: 23px;
+            height: 25px;
+            background-size: 23px 23px;
+            vertical-align: top
+        }
+
+        .is-loading > span {
+            color: #b3b3b3;
+            font-size: 11px;
+            display: inline-block;
+            line-height: 27px;
+            margin-left: 10px
+        }
+
+        .choose-address-page {
+            top: 0;
+            display: none;
+            background-color: white;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            overflow: hidden
+        }
+
+        .head-fix {
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100
+        }
+
+        .head-address-ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            overflow: hidden;
+            background-color: white;
+            font-size: 15px
+        }
+
+        .head-address-ul:after {
+            content: '';
+            width: 100%;
+            height: 1px;
+            position: absolute;
+            border-bottom: 1px solid #e3e5e9;
+            left: 0;
+            bottom: 0;
+            transform: scaleY(0.5);
+            -webkit-transform: scaleY(0.5)
+        }
+
+        .head-address-ul li {
+            width: 25%;
+            display: block;
+            float: left;
+            height: 44px;
+            position: relative;
+            line-height: 50px;
+            text-align: center
+        }
+
+        .address-container {
+            padding-top: 88px;
+            margin: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%
+        }
+
+        .address-content {
+            -webkit-transform: translate(0, 0) translateZ(0);
+            width: 400%;
+            height: 100%;
+            -webkit-transition-property: transform;
+            -webkit-transition-duration: 300ms;
+            -webkit-transition-timing-function: cubic-bezier(0.1, 0.57, 0.1, 1);
+            overflow: hidden
+        }
+
+        .address-ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            float: left;
+            width: 25%;
+            height: 100%;
+            overflow: auto;
+            font-size: 15px;
+            color: #232326
+        }
+
+        .address-ul li {
+            height: 44px;
+            line-height: 44px;
+            padding-left: 10px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .address-ul li:after {
+            content: '';
+            width: 100%;
+            height: 1px;
+            position: absolute;
+            border-bottom: 1px solid #e3e5e9;
+            left: 0;
+            bottom: 0;
+            transform: scaleY(0.5);
+            -webkit-transform: scaleY(0.5)
+        }
+
+        .jump_floor_info_total li {
+            position: relative
+        }
+
+        .jump_floor_info_total li em {
+            display: block
+        }
+
+        .singer-upgrade-btn a {
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-block
+        }
+
+        .no-same-price li {
+            margin: 0 20px;
+            padding: 18px 0
+        }
+
+        .no-same-price li img {
+            width: 100%;
+            height: 100%
+        }
+
+        .bdb-1px {
+            position: relative
+        }
+
+        .bdb-1px:after {
+            border-top: 1px solid #F6F6F6;
+            content: ' ';
+            display: block;
+            width: 100%;
+            position: absolute;
+            right: 0
+        }
+
+        .bdb-1px:after {
+            bottom: 0
+        }
+
+        .sitem-pad {
+            padding-left: 10px;
+            padding-right: .5625em
+        }
+
+        .s-item .sitem-l {
+            float: left
+        }
+
+        .sattr-add {
+            float: left;
+            font-size: 0.7rem;
+            color: #232326;
+            width: 75px
+        }
+
+        .change-padding {
+            padding-top: 0;
+            float: none
+        }
+
+        .s-item .svalue {
+            float: left;
+            color: #222
+        }
+
+        .s-item .change-po {
+            float: none;
+            width: auto;
+            -webkit-box-flex: 1
+        }
+
+        .address02 .svalue {
+            font-size: 15px;
+        }
+
+        .address02 .svalue input {
+            border: 0;
+            width: 120%;
+            height: 1.5em;
+            font-size: .7rem;
+            padding-left: 0;
+            color: #222;
+            background-color: white
+        }
+
+        .s-close, .s-text-close {
+            position: absolute;
+            right: 0;
+            width: 28px;
+            height: 46px;
+            top: 50%;
+            margin-top: -23px;
+            display: none
+        }
+
+        .address-big {
+            margin: 0;
+            width: 100%;
+            position: relative
+        }
+
+        .fixed-bottom {
+            width: 75%
+        }
+
+        .add-box {
+            display: -webkit-box;
+            padding-right: 0
+        }
+
+        .add-box .sattr-add {
+            float: none
+        }
+
+        .svalue-add {
+            color: #232326;
+            -webkit-box-flex: 1;
+            float: none;
+            font-size: 14px
+        }
+
+        .address02 .svalue .grey {
+            color: #252525;
+            line-height: 1.6em
+        }
+
+        .s-item .sattr {
+            float: left;
+            color: #666
+        }
+
+        .s-item .change-fl {
+            float: none
+        }
+
+        .popup-w {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 8;
+            display: none
+        }
+
+
+
+
+
+        .over-see {
+            display: none;
+        }
+
+        .not-over-see {
+            display: block;
+        }
+
+
+        .s-item.bdb-1px.over-see {
+            padding-right: 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="address" v-cloak>
+    <header class="aui-bar aui-bar-nav tit-bar-black">
+        <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">{{tit}}</div>
+    </header>
+    <div class="common-wrapper">
+        <div id="bjaddress">
+            <div class="check-page" style="display: block;">
+                <form id="editAddressForm">
+                    <input type="hidden" name="encryptVerifyCode" id="encryptVerifyCode" value="">
+                    <div class="common-wrapper ">
+                        <div class="address02">
+                            <div class="editInoutAll">
+                                <div class="fixed-top">
+                                    <div class="s-item bdb-1px not-over-see">
+                                        <div class="sitem-l sitem-pad">
+                                            <div class="sattr-add">收货人:</div>
+                                            <div class="svalue">
+                                                <input type="text" id="uersNameId" name="address.name"
+                                                       maxlength="25" v-model="name" class="ad-name" placeholder="请输入收货人">
+                                            </div>
+                                        </div>
+                                        <span class="s-close" id="clearUserName"><i></i></span>
+                                    </div>
+
+                                    <div class="s-item bdb-1px not-over-see">
+                                        <div class="sitem-l sitem-pad">
+                                            <div class="sattr-add">手机号码:</div>
+                                            <div id="mobileInputDiv" class="svalue">
+                                                <input type="tel" id="mobilePhoneId" maxlength="11" v-model="tel" class="ad-mobile" placeholder="请输入手机号码">
+                                            </div>
+                                        </div>
+                                        <span class="s-close"><i></i></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="address-big bdb-1px">
+                                    <div class="fixed-bottom" id="fixed-bottom" style="width: 100%;">
+                                        <div class="col02" id="selectAddressBtn">
+                                            <div class="s-item bdb-1px">
+                                                <div class="sitem-l sitem-pad add-box" style="width: 100%;">
+                                                    <div class="sattr-add">所在地区:
+                                                    </div>
+                                                    <div class="svalue-add">
+                                                        <input type="text" class="svalue-add" id="city-picker" placeholder="选择地址" readonly>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="s-item change-padd" style="position: relative">
+                                            <div class="sitem-l sitem-pad change-wid">
+                                                <div class="sattr-add change-padding">详细地址:</div>
+                                                <div class="svalue w65 change-po">
+                                                    <span class="grey" id="detailedAddressId"></span>
+                                                    <textarea class="textauto change-sty not-over-see" v-model="detaill" placeholder="请选择街道、楼牌号等" maxlength="200" rows="1" data-autosize-on="true"
+                                                              style="overflow: hidden; word-wrap: break-word; height: 19px;"></textarea>
+                                                </div>
+                                            </div>
+                                            <span class="s-text-close" id="clearAddress"><i></i></span>
+                                        </div>
+                                    </div>
+                                    <!-- 5.0新增地图入口 -->
+                                    <div class="map-inter" onclick="mapLocation()" id="map-inter" style="display: none;">
+                                        <div class="address-position">
+                                            <span></span>
+                                            <i>定位地址</i>
+                                        </div>
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </div>
+
+                                <div class="s-item bdb-1px over-see">
+                                    <div class="sitem-l sitem-pad">
+                                        <div class="sattr-add">固话(选填):</div>
+                                        <div id="" class="svalue">
+                                            <input type="tel" id="phoneId" name="address.phone" value=""
+                                                   class="ad-mobile"></div>
+                                    </div>
+                                    <span class="s-close"><i></i></span>
+                                </div>
+                                <div class="search-result"></div>
+                            </div>
+                            <!-- <div class="s-item bdb-1px set-default" style="">
+                                <label>
+                                    <div class="aui-input set-check">
+                                        <input type="checkbox" class="aui-checkbox bd-radius50" style="width: 1.2rem;height: 1.2rem;" :checked="isActive" @click="switchmr">
+                                    </div>
+                                    <div class="sitem-m sitem-pad change-wp">
+                                        <div class="sattr change-fl">设为默认</div>
+                                    </div>
+                                </label>
+                            </div> -->
+                            <div style="height: 100px;"></div>
+                        </div>
+                    </div>
+                    <div class="popup-w"></div>
+                    <div class="check-btn-auto">
+                        <div class="check-btn-total" id="checkBtnTotal">
+                            <div class="aui-btn aui-btn-block back-color" id="submitId" @click="preser()">确定</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="choose-address-page" id="chooseAddressPage" style="display: none;">
+                <div class="head-fix">
+                    <header>
+                        <div class="jd-index-header">
+                            <div class="jd-index-header-icon-back">
+                                <span id="goBack"></span>
+                            </div>
+                            <div class="jd-index-header-title">地址选择</div>
+                        </div>
+
+                    </header>
+                    <ul class="head-address-ul" id="headAddressUl">
+                        <li @click="tranlateDiv(0)">{{areaprovince}}</li>
+                        <li @click="tranlateDiv(1)" style="display: none">{{areacity}}</li>
+                        <li @click="tranlateDiv(2)" style="display: none">{{areaarea}}</li>
+                    </ul>
+                </div>
+                <div class="address-container" id="addressContainer">
+                    <div class="address-content" id="addressContentDiv">
+                        <ul class="address-ul">
+                            <li v-for="seleprovince in items" @click="switchul(seleprovince.DisplayName,seleprovince.Id,1)">
+                                {{seleprovince.DisplayName}}
+                            </li>
+                        </ul>
+                        <ul class="address-ul">
+                            <li v-for="selecity in selecitys" @click="switchcity(selecity.DisplayName,selecity.Id,2)">
+                                {{selecity.DisplayName}}
+                            </li>
+                        </ul>
+                        <ul class="address-ul">
+                            <li v-for="selearea in seleareas" @click="switchprocity(selearea.DisplayName,selearea.Id)">
+                                {{selearea.DisplayName}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/aui/aui-dialog.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script src='../../script/zepto.min.js' charset='utf-8'></script>
+<script src='../../script/sm.min.js' charset='utf-8'></script>
+<script src='../../script/sm-extend.min.js' charset='utf-8'></script>
+<script src="../../script/sm-city-picker.js" charset='utf-8'></script>
+<script src="../../script/vue.js"></script>
+<script>
+  // JW.islogin('userData');
+  var userData = getUserData();
+  var rback;
+  var JW;
+  var pageParam;
+  var user
+
+    pageParam = api.pageParam;
+    user = $api.getStorage('user');
+
+    rback = pageParam['back'] ? 1 : 0;
+    JW = {
+      // ajax: function (url, data, callback) {
+      //   var url = PHP_SERVE_URL + url;
+      //   $.ajax({
+      //     url: url,
+      //     data: data,
+      //     type: 'post',
+      //     dataType: 'json',
+      //     success: function (res) {
+      //       // console.log(res);
+      //       callback(res)
+      //     }, error: function () {
+      //       console.log('error')
+      //     }
+      //   })
+      // },
+      // cajax: function (url, data, callback) {
+      //   var url = PHP_SERVE_URL + url;
+      //   $.ajax({
+      //     url: url,
+      //     data: data,
+      //     type: 'post',
+      //     dataType: 'json',
+      //     success: function (res) {
+      //       // console.log(res);
+      //       callback(res)
+      //     }, error: function () {
+      //       console.log('error')
+      //     }
+      //   })
+      // },
+      /*读写storage*/
+      setData: function (key, obj) {
+        if (obj !== undefined) {
+          if (typeof key !== 'string') {
+            key = key.toString();
+          }
+          if (typeof obj === 'object') {
+            obj = JSON.stringify(obj);
+          }
+          localStorage.setItem(key, obj);
+          return;
+        } else {
+          var data;
+          try {
+            var obj = localStorage.getItem(key);
+            data = JSON.parse(obj)
+          } catch (e) {
+            data = obj;
+          }
+          return data;
+        }
+      },
+      /*移除本地缓存*/
+      rData: function (key) {
+        localStorage.removeItem(key)
+      },
+      /*记录用户浏览记录*/
+      // recordUserView: function (openId, type, viewId) {
+      //   $.ajax({
+      //     url: VIEWLOG_URL,
+      //     data: {
+      //       openId: openId,
+      //       type: type,
+      //       viewId: viewId,
+      //       source: VIEWLOG_SOURCE
+      //     },
+      //     type: 'post',
+      //     dataType: 'json',
+      //     success: function (res) {
+      //     },
+      //     error: function () {
+      //     }
+      //   });
+      // }
+    }
+    address("#address");
+  
+
+  function getUserData() {
+    var user = $api.getStorage('user');
+    if (typeof user == 'undefined') { // 登录
+    //   openWin('../login_win');
+      window.location.href="../login_win.html"
+    }
+    var res = {};
+    res.openId = user.openId;
+    res.tel = user.tel;
+    res.userName = user.nickName ? user.nickName : user.tel;
+    res.token = yltcrypt.cpt(user.openId);
+    return res;
+  }
+
+  function address(id) {
+    var sign = new Vue({
+      el: id,
+      data: {
+        deliverys: [],
+        name: '',
+        tel: '',
+        procity: '',
+        province: '',
+        city: '',
+        district: '',
+        detaill: '',
+        lng: '',
+        lat: '',
+        addreid: '',
+        areaprovince: '',
+        areacity: '',
+        areaarea: '',
+        items: [],
+        selecitys: [],
+        seleareas: [],
+        isActive: false,
+        province: '',
+        cityId: '',
+        areaId: '',
+        tit: '',
+        addtype: '',
+        userId: '',
+        priority: ""
+      },
+      methods: {
+        //保存收货地址
+        preser: function () {
+          var self = this;
+          var mr;
+          if (this.isActive == true) {
+            mr = 1
+          } else {
+            mr = 0
+          }
+          var i = $("#city-picker").val().split(" ");
+          this.province = i[0];
+          this.city = i[1];
+          this.district = i[2];
+          var mPattern = /^(1)\d{10}$/;
+          if (mPattern.test(this.tel) && this.name != "" && this.province != "" && this.detaill != "") {
+            var data = {
+              openId: userData['openId'],
+              aid: 0,
+              uname: this.name,
+              tel: this.tel,
+              province: this.province,
+              city: this.city,
+              district: this.district,
+              detail: this.detaill,
+              select: mr,
+              token: userData['token']
+            };
+            if (this.addtype == 1) {
+              data.aid = this.addreid;
+            }
+            // alert(data.uname + data.tel + data.province + data.city + data.district + data.detail)
+            $.ajax({
+              // url:PHP_SERVE_URL + '/GiftController/birthdayGiftOrder',
+              url:PHP_SERVE_URL + '/Gift/getPrivilegeGift',
+              type:'post',
+              data:{
+                  openId:user.openId,
+                  receptUserInfo:data.uname + data.tel + data.province + data.city + data.district + data.detail
+                  // type:pageParam.type,
+                //   sku_userget_json:JSON.stringify({
+                //    name:data.uname,
+                //    tel:data.tel,
+                //    address:data.province + data.city + data.district + data.detail
+                //  })
+              },
+              success:function(ret,err){
+              // alert(ret.code)
+              // alert(ret.msg)
+              // return
+              if(ret.code==0){
+                api.toast({
+                  msg:ret.msg,
+                  location:'middle'
+                })
+
+                setTimeout(function(){
+                  windwo.close()
+                },1000)
+              }else{
+                api.toast({
+                  msg:ret.msg
+                })
+                setTimeout(function(){
+                  $a.closeWin()
+                },1000)
+              }
+            }
+        })
+          } else {
+            toastSuccess("请输入完整收货地址", 2000);
+          }
+        },
+        switchmr: function () {
+          this.isActive = !this.isActive;
+        },
+      },
+      mounted: function () {
+        var _this = this;
+        if ( JSON.stringify(pageParam) != "{}") {
+          this.tit = "请输入您的收货地址";
+          this.name = pageParam.name;
+          this.tel = pageParam.tel;
+          this.addtype = 1;
+          this.addreid = pageParam.addreid;
+          this.detaill = pageParam.detaill;
+        //   $("#city-picker").val(pageParam.province + " " + pageParam.city + " " + pageParam.district);
+
+        } else {
+          this.tit = "请输入您的收货地址";
+          this.name = "";
+          this.tel = "";
+          this.addtype = 0;
+          this.addreid = "";
+          this.detaill = "";
+          $("#city-picker").val("");
+        }
+        if (pageParam.seleted == 1) {
+          this.isActive = true
+        } else {
+          this.isActive = false
+        }
+        api.addEventListener({name: 'select_location'}, function (ret, err) {
+          if (ret) {
+            _this.detaill = ret.value.location;
+            //$('#address_where').val(ret.value.location).attr('disabled',false).focus();
+          }
+        });
+        api.addEventListener({name: 'userLocationSearchEvent'}, function (ret, err) {
+          if (ret) {
+            _this.procity = ret.value.province + ret.value.city + ret.value.district + ret.value.address;
+            _this.province = ret.value.province;
+            _this.city = ret.value.city;
+            _this.district = ret.value.district;
+            _this.address = ret.value.address;
+            _this.lng = ret.value.lon;
+            _this.lat = ret.value.lat;
+          }
+        });
+        setTimeout(function () {
+          $("#city-picker").cityPicker({
+            toolbarTemplate: '<header class="bar bar-nav">' +
+            '<button class="button button-link pull-right close-picker color-palered aui-text-right">完成</button>' +
+            '<h1 class="title"></h1>' +
+            '</header>'
+          });
+        }, 80)
+
+
+      }
+
+    });
+
+  }
+
+  //成功提示框
+  function toastSuccess(msg, time) {
+    toast({
+      title: msg,
+      duration: time,
+      location: 'middle'
+    });
+  }
+  function lingSubmit() {
+    $(".s_submitexa").addClass("s_submitok");
+  }
+</script>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易-搜索</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <style>
+        .search input {
+            border: 1px solid rgba(126, 126, 142, 0.2);
+            height: 1.8rem;
+            line-height: 1.8rem;
+        }
+
+        .indistinct_search {
+            color: #424242;
+            text-align: center;
+            line-height: 1.6rem;
+        }
+    </style>
+</head>
+
+<body class="bg1">
+<div id="wrap" class="flex-wrap flex-vertical">
+    <div class="search-ct aui-padded-l-15 aui-padded-r-15 " id="search">
+        <div class="search aui-margin-t-10">
+            <input type="text" class="" v-model="search" ref="input">
+        </div>
+        <!--模糊查询-->
+        <div class="indistinct_search bg2">
+            <ul v-for="item in searchData" @click="selectStock(item.id,item.stock_no,item.stock_name)">
+                <li class="aui-ellipsis-1">{{item.stock_no}}-{{item.stock_name}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../script/yltcrypt.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+  apiready = function () {
+
+    new Vue({
+      el: '#search',
+      data: {
+        search: '',
+        searchInfo: '',
+        sid: '',
+        isActive: false,
+        oldIndex:'',
+
+      },
+      methods: {
+        //选中股票，筛选股票并选中后调用此方法
+        selectStock: function (sid, stock_no, stock_name) {
+          var self = this;
+          this.search = stock_no + "-" + stock_name;
+          this.sid = sid;
+          this.isActive = true;
+
+
+          api.sendEvent({
+            name: 'stockInfo',
+            extra: {
+              name: stock_no + "-" + stock_name,
+              sid: sid,
+            }
+          });
+
+          //发送买入卖出页面的索引
+          api.sendEvent({
+            name: 'oldIndex',
+            extra: {
+              oldIndex:self.oldIndex
+            }
+          })
+        },
+      },
+      mounted: function () {
+        this.$refs['input'].focus();
+        var self = this;
+        //获取所有股票数据，输入股票后从allStock中筛选
+        api.ajax({
+          url: PHP_SERVE_URL + '/trade/allStock',
+          method: 'post'
+        }, function (ret, err) {
+          if (ret.code == 0) {
+            self.searchInfo = ret.data;
+          } else {
+            api.toast({
+              msg: ret.msg,
+              duration: 2000,
+              location: 'bottom'
+            });
+          }
+        });
+
+        //监听买入卖出的索引
+        api.addEventListener({
+          name: 'searchStock'
+        }, function (ret, err) {
+          self.oldIndex = ret.value.oldIndex;
+        });
+
+      },
+      computed: {
+        searchData: function () {
+          var search = this.search;
+          if (search) {
+            searchVal = this.searchInfo.filter(function (product) {
+              return Object.keys(product).some(function (key) {
+                if (String(product['stock_name']).toLowerCase().indexOf(search) > -1) {
+                  return true;
+                }
+                if (String(product['stock_no']).toLowerCase().indexOf(search) > -1) {
+                  return true;
+                }
+              })
+            })
+            return searchVal;
+          }
+        }
+      }
+    })
+  }
+</script>
+</body>
+
+</html>

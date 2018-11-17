@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>设置昵称</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background-color: #f8f8f8;
+        }
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+        .aui-btn-success {
+            background: #de3232 !important;
+            border-radius: 2rem;
+            width: 75%;
+            margin: 0 auto;
+            padding: 0.55rem 0 !important;
+            font-size: 0.8rem !important;
+            line-height: 1rem !important;
+        }
+    </style>
+</head>
+<body>
+
+<header class="aui-bar aui-bar-nav" >
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">昵称设置</div>
+</header>
+<div style="height: 0.5rem;"></div>
+<div class="aui-content aui-margin-b-15">
+    <form id="myform" action="" method="post" autocomplete="on">
+        <ul class="aui-list aui-form-list">
+            <li class="aui-list-item" style="background: #fff;">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        昵称
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" id="nickname" name="nickname" placeholder="请输入昵称" maxlength="8" value=""
+                               required>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="aui-content-padded" style="margin-top: 30px;">
+            <div class="aui-btn-success aui-content-padded aui-btn aui-btn-block aui-btn-sm" id="sub">保存</div>
+        </div>
+    </form>
+
+</div>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/aui-toast.js"></script>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/yltcrypt.js"></script>
+<script type="text/javascript" src="../script/set_nickname.js"></script>
+</body>
+</html>

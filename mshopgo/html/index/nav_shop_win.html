@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>惠民店专区</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui-slide.css"/>
+    <style>
+        body, #main {
+            width: 100%;
+            overflow-x: hidden !important;
+        }
+
+        .aui-bar-nav, .aui-slide-page-active {
+            background: #DF2435;
+        }
+
+        .aui-searchbar {
+            background: none;
+        }
+
+        .aui-searchbar-input {
+            border-radius: 7rem;
+        }
+
+        .aui-bar-nav .aui-iconfont {
+            color: inherit;
+        }
+
+        .bg-dark {
+            background: #333333 !important;
+        }
+
+        .aui-slide-node img {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .aui-bar-btn-item {
+            padding: 0.5rem 0;
+            border: none;
+            color: #9F9F9F;
+        }
+
+        .aui-bar-btn-item.aui-active {
+            background: none;
+            color: #000000;
+            border-bottom: 1px solid #FE3C6F;
+        }
+
+        .aui-media-list .aui-list-item-inner {
+            padding: 0.75rem 0;
+            width: 75%;
+            padding-right: 1rem;
+        }
+
+        .order {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .order .line {
+            display: inline-block;
+            width: 50px;
+            border-top: 1px solid #ccc;
+        }
+
+        .order .txt {
+            color: #686868;
+            vertical-align: -4px;
+        }
+
+        .aui-col-5 {
+            float: left;
+            padding: 0.5rem 0 !important;
+
+        }
+
+        .aui-col-5 .aui-grid-label {
+            border: 1px solid #757575;
+            border-radius: 7rem;
+            margin: 0 0.2rem;
+            color: #757575;
+        }
+
+        .aui-col-5 .aui-active {
+            background: #757575;
+            color: #ffffff;
+        }
+
+        #label {
+            position: absolute;
+            top: 2rem;
+            z-index: 10;
+            padding-bottom: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            height: 100%;
+        }
+
+        .omit {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .aui-card-list-content .casteimg {
+            width: 1rem;
+            display: inline-block;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .display {
+            display: block !important;
+        }
+
+        .inline-block {
+            display: inline-block;
+        }
+        .icon-location{
+            margin-top: 0.7rem;
+        }
+        .icon-down{
+            margin-top: 1rem;
+            margin-right: 0.1rem;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+<div id="main">
+        <header class="aui-bar aui-bar-nav">
+            <a class="aui-pull-left aui-btn " onclick="$a.closeWin()">
+                <span class="aui-iconfont aui-icon-left color-write"></span>
+            </a>
+            <a class="aui-pull-left padding0 " onclick="openWin('../location/location_win')" style="width: 26%">
+                <div class="aui-font-size-14  clearfix" style="width: 100%;">
+                    <img src="../../image/goods/home_location_icon.png" style="width:0.6rem;" class="icon-location padding0 aui-pull-left">
+                    <span id="local-city" v-text="cityInfo.city" class="padding0 color-write aui-ellipsis-1 aui-pull-left aui-margin-l-5" style="display: block;width: 64%;font-size: 0.65rem;">深圳深深圳</span>
+                    <img src="../../image/index/fh_icon.png" style="width:0.4rem;" class="icon-down  padding0 aui-pull-right">
+                </div>
+            </a>
+            <div class="aui-title" style="left:7rem; right: 1rem;">
+                <div class="aui-searchbar" id="search">
+                    <div class="aui-searchbar-input aui-border-radius">
+                        <i class="aui-iconfont aui-icon-search"></i>
+                        <input type="search" placeholder="请输入搜索内容" id="search-input">
+                        <div class="aui-searchbar-clear-btn">
+                            <i class="aui-iconfont aui-icon-close"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+    <section>
+        <!--轮播图-->
+        <div class="aui-content">
+            <div id="aui-slide">
+                <div class="aui-slide-wrap">
+                    <div class="aui-slide-node bg-dark">
+                        <img src="../../image/index/hm-banner-1.png"/>
+                    </div>
+                    <div class="aui-slide-node bg-dark">
+                        <img src="../../image/index/hm-banner-2.png"/>
+                    </div>
+                </div>
+                <div class="aui-slide-page-wrap"><!--分页容器--></div>
+            </div>
+        </div>
+
+        <!--惠民店-->
+        <div class="aui-content">
+            <div class="aui-card-list aui-margin-b-0">
+                <div class="aui-card-list-header display" style="background:#F3F3F3 ">
+                    <img src="../../image/index/fjhmd.png" style="width: 1rem;" class="inline-block">
+                    <span class="aui-text"> 附近的惠民店</span>
+                </div>
+                <div class="aui-card-list-content">
+                    <ul class="aui-list aui-media-list">
+                        <li class="aui-list-item aui-list-item-middle" v-for="item in shopList" @click="goShop(item.sid)">
+                            <div class="aui-media-list-item-inner">
+                                <div class="aui-list-item-media">
+                                    <img :src="item.logo" class="aui-list-img-sm">
+                                </div>
+                                <div class="aui-list-item-inner">
+                                    <div class="aui-list-item-text">
+                                        <div class="aui-list-item-title aui-font-size-14">{{item.name}}</div>
+                                    </div>
+                                    <div class="aui-list-item-text aui-margin-t-15">
+                                        <div class="aui-list-item-title aui-font-size-14">
+                                            <img src="../../image/index/xing.png" class="casteimg" v-for="score in item.score">
+                                        </div>
+                                        <div class="aui-list-item-right">距离您 {{item.distance}} KM</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="aui-card-list-footer aui-text-center">
+                    查看更多 <i class="aui-iconfont aui-icon-right aui-font-size-14"></i>
+                </div>
+            </div>
+        </div>
+        <!--惠民商品-->
+        <div class="aui-content">
+            <div class="aui-card-list" style="position: relative">
+                <div class="aui-card-list-header display" style="background:#F3F3F3 ">
+                    <img src="../../image/index/hmsp.png" style="width: 1rem;position:relative; top: 0.15rem" class="inline-block">
+                    <span class="aui-text"> 惠民商品 </span>
+                </div>
+                <div id="tab-bar" class="aui-bar aui-bar-btn aui-bar-btn-full aui-padded-15" style="background: #ffffff">
+                    <div class="aui-bar-btn-item" v-for="(item,ind) in goodsType"
+                         :class="{'aui-active':item.tid == presentType}"
+                         v-if="ind<5" @click="toggleType(item.tid)">{{item.name}}
+                    </div>
+
+                    <div class="aui-bar-btn-item" :class="{'aui-active':isShow}" @click="showMoreType(true)"
+                         style="min-width: 1.5rem"><i class="aui-iconfont aui-icon-down"></i></div>
+                </div>
+                <div class="aui-card-list-content">
+                    <ul class="aui-list aui-media-list">
+                        <li class="aui-list-item aui-list-item-middle" v-for="list in goodsList"
+                            @click="goodsDetail(list.gid,list.sid)">
+                            <div class="aui-media-list-item-inner">
+                                <div class="aui-list-item-media aui-padded-t-0 aui-padded-b-0">
+                                    <img :src="list.pic" class="aui-list-img-sm">
+                                </div>
+                                <div class="aui-list-item-inner ">
+                                    <div class="aui-list-item-text ">
+                                        <span class="omit" style="color: #000000">{{list.gname}}</span>
+                                    </div>
+                                    <div class="aui-list-item-text  aui-ellipsis-1 ">
+                                        <div class="aui-list-item-title aui-font-size-14">
+                                            <span>¥ {{list.price}}</span>
+                                            <span>赏金:¥ {{list.agent_price}}</span>
+                                        </div>
+                                    </div>
+                                    <!-- -->
+                                    <div class="aui-list-item-text aui-margin-t-15">
+                                        <div class="aui-list-item-title aui-font-size-12" style="color:#757575 ">
+                                            已售 {{list.sell_num}} 件
+                                        </div>
+                                        <div class="aui-list-item-right" @click="openGoodsDetial(list.gid)">
+                                            <div class="aui-label aui-label-danger aui-label-outlined "
+                                                 style="border-radius: 7rem;padding: 0.3rem 0.5rem">发送给好友
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!--
+                            <div class="aui-list-item-text  aui-ellipsis-1 ">
+                                <div class="aui-list-item-title aui-font-size-12" style="color: #757575">
+                                    <img src="../image/mallimg/indexgwq.png"
+                                         style="width: 1rem;display: inline-block;position: relative;top: 0.25rem;">
+                                    <span>支持购物卷支付</span>
+                                </div>
+                            </div>
+                            <div class="aui-list-item-text  aui-ellipsis-1 ">
+                                <div class="aui-list-item-title aui-font-size-12" style="color: #757575">
+                                    <img src="../image/mallimg/indexyb.png"
+                                         style="width: 1rem;display: inline-block;position: relative;top: 0.25rem;">
+                                    <span>支持元宝支付</span>
+                                </div>
+                            </div>
+                         -->
+                    </ul>
+                </div>
+                <!--惠民商品更多便签-->
+                <div class="aui-content aui-hide" id="label" :class="{'aui-show': isShow }" @click="isShow = false">
+                    <div class="aui-card-list-header" style="background:#ffffff ">
+                        <span class="aui-text"> 为您精选以下标签:</span>
+                        <a class="aui-pull-right">
+                            <i class="aui-iconfont aui-icon-top aui-font-size-14" style="color: #757575"></i>
+                        </a>
+                    </div>
+                    <div class="aui-grid aui-padded-b-15">
+                        <div class="aui-row">
+                            <div class="aui-col-5" v-for="(item,ind) in goodsType">
+                                <div class="aui-grid-label" :class="{'aui-active':item.tid == presentType}"
+                                     @click="isShow = false || toggleType(item.tid)"> {{item.name}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底部-->
+        <div class="order" style="margin-bottom: 1rem">
+            <span class="line"></span>
+            <span class="txt">我是有底线的</span>
+            <span class="line"></span>
+        </div>
+    </section>
+</div>
+
+<script src="../../script/api.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/aui/aui-slide.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/common.js"></script>
+<script>
+  var user, aMap;
+  apiready = function () {
+    user = $api.getStorage('user');
+
+    /* 引入高德地图 */
+    aMap = api.require('aMap');
+    // aMap.open();
+    // aMap.hide();
+
+    /*设置 window 属性*/
+    api.setWinAttr({
+      vScrollBarEnabled: false,
+      hScrollBarEnabled: false
+    });
+
+    /* 初始化 vue */
+    initVue();
+  };
+
+  function initVue() {
+    var vm = new Vue({
+      el: '#main',
+      data: {
+        /*坐标信息*/
+        coord: {},
+        /*当前定位城市信息*/
+        cityInfo: {},
+        /*附近惠民店列表*/
+        shopList: [],
+        /*商品分类名称*/
+        goodsType: [],
+        /*分类下的商品*/
+        goodsList: [],
+        /*当前选择的分类*/
+        presentType: '',
+        /*显示更多*/
+        isShow: false
+      },
+      methods: {
+        /*惠民店首页*/
+        goShop: function (sid) {
+          openWinPro('../', {'sid': sid});
+        },
+        /*附近惠民店*/
+        nearHmShop: function (lon, lat) {
+          var self = this;
+          aMap.getNameFromCoords({'lon': lon, 'lat': lat}, function (res, err) {
+            if (res.status) {
+              self.cityInfo = res;
+                alert(res.city+" "+lat+" "+lon)
+              /*附近的惠民店铺*/
+              api.ajax({
+                url: PHP_SERVE_URL + '/sg/getNearShop',
+                method: 'post',
+                data: {
+                  values: {'cityname': res.city, 'lat': lat, 'lng': lon}
+                }
+              }, function (data, err) {
+                  alert(JSON.stringify(data))
+                if (data.code == 0) {
+                  self.shopList = data.data;
+                }
+              });
+            } else {
+              toast('定位失败，请稍后重试。');
+            }
+          })
+        }
+      },
+      mounted: function () {
+        var self = this;
+        //获取定位
+        var tmpObj = getTmpStorage();
+        if (tmpObj.hasOwnProperty('location')) {
+          self.nearHmShop(tmpObj.location.lon, tmpObj.location.lat);
+        } else {
+          aMap.getLocation(function (ret, err) {
+            if (ret.status) {
+              setTmpStorage('location', {lon: ret['lon'], lat: ret['lat']});
+              self.nearHmShop(ret['lon'], ret['lat']);
+            }
+          });
+        }
+
+        /*惠民店商品分类*/
+        api.ajax({
+          url: PHP_SERVE_URL + '/sg/hmGoodsType',
+          method: 'post',
+          data: {values: {}}
+        }, function (res, err) {
+          if (res.code == 0) {
+            self.goodsType = res.data;
+            self.toggleType(res.data[0]['tid']);
+          }
+        });
+        /*初始化轮播图*/
+        new auiSlide({
+          container: document.getElementById("aui-slide"),
+          "height": 180,
+          "speed": 500,
+          "autoPlay": 3000, //自动播放
+          "loop": true,
+          "pageShow": true,
+          "pageStyle": 'dot',
+          'dotPosition': 'center'
+        });
+      }
+    });
+
+    /*添加选择地址的事件监听*/
+    api.addEventListener({name: 'select_city'}, function (ret, err) {
+//      console.log(JSON.stringify(ret));
+      vm.$data.cityInfo.city = ret.value.name;
+    });
+  }
+
+</script>
+
+</body>
+</html>

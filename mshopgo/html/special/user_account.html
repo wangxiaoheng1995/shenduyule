@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  body{
+    background:#ccc;
+  }
+      .aui-row.subject-row{
+        width:100%;
+        display:flex;
+        flex-wrap: wrap;
+      }
+      .aui-col-xs-6.aui-padded-0.one{
+        width:49%;
+        margin-right:1%;
+      }
+      .aui-col-xs-6.aui-padded-0.one img{
+        width:100%;
+        height:100%;
+        float:left;
+      }
+      .aui-col-xs-6.aui-padded-0.two{
+        width:32.2%;
+        margin:0.15rem 0.25rem 0.15rem 0;
+      }
+      .aui-col-xs-6.aui-padded-0.two.first{
+      }
+      .aui-col-xs-6.aui-padded-0.two img{
+        width:100%;
+        float:left;
+        /*margin:1%;*/
+        height:100%;
+      }
+      .aui-col-xs-6.aui-padded-0.three{
+        width:99%;
+      }
+      .aui-col-xs-6.aui-padded-0.three img{
+        width:100%;
+
+      }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <div class="aui-row subject-row">
+        <div class="aui-col-xs-6 aui-padded-0 one">
+          <img src="../../image/index/tttj@2x.png" class="full">
+        </div>
+        <div class="aui-col-xs-6 aui-padded-0 one">
+          <img src="../../image/index/538x240-1.jpg" class="full">
+        </div>
+        <div class="aui-col-xs-6 aui-padded-0 two">
+          <img src="../../image/index/bkzj@2x.png" alt="" class="full">
+        </div>
+        <div class="aui-col-xs-6 aui-padded-0 two first">
+          <img src="../../image/index/qqhw@2x.png" alt="" class="full">
+        </div>
+        <div class="aui-col-xs-6 aui-padded-0 two">
+          <img src="../../image/index/538x240-2.jpg" alt="" class="full">
+        </div>
+        <div class="aui-col-xs-6 aui-padded-0 three">
+          <img src="../../image/index/rmbk@2x.png" class="full poster-img">
+        </div>
+    </div>
+
+     <div id="newGoods">
+
+     </div>
+     <script type="text/html/x-dot-template" id="new_goods">
+         {{~it :value}}
+         <div class="aui-card-list cart-section aui-margin-b-10 aui-padded-b-10"
+              onclick="openGoodsDetail('{{=value.gid}}')">
+             <div class="aui-card-list-content">
+                 <img src="{{=value.pic}}?x-oss-process=image/resize,m_mfit,h_300,w_640"
+                      style="width: 100%;height: auto;"/>
+             </div>
+         </div>
+         {{~}}
+     </script>
+  </div>
+
+
+  <script src="../../script/api.js"></script>
+  <script src="../../script/jquery-1.11.1.min.js"></script>
+  <script src="../../script/aui/aui-slide.js"></script>
+  <script src="../../script/aui/aui-tab.js"></script>
+  <script src="../../script/aui/iScroll-lite.js"></script>
+  <script src="../../script/base.js"></script>
+  <script src="../../script/vue.js"></script>
+  <script src="../../script/common.js"></script>
+  <script src="../../script/config.js"></script>
+  <script src="../../script/doT.min.js"></script>
+  <script src="../../script/zepto.min.js"></script>
+  <script src="../../script/yltcrypt.js"></script>
+
+  <script>
+      apiready=function(){
+        loadGoods();
+      }
+      function loadGoods() {
+          api.ajax({
+              url: PHP_SERVE_URL + '/Default/plateModule',
+              method: 'post',
+              data: {
+                  values: {
+                      tid: 0,//接口变更不需要获取分类categoryId=0
+                      sort: '1',
+                      level: 1,
+                      page: page
+                  }
+              }
+          }, function (ret, err) {
+              if (ret.code == 0) {
+                  var interText = doT.template($api.text($api.byId('newGoods')));
+                  if (page == 1) {
+                      $api.html($api.byId('nav-view'), interText(ret.data));
+                  } else {
+                      $api.append($api.byId('nav-view'), interText(ret.data));
+                  }
+                  totalpage = ret.totalpage;
+                  page++;
+              }
+          });
+
+      }
+  </script>
+</body>
+</html>

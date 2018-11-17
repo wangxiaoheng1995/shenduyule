@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../css/frame0.css">
+    <link rel="stylesheet" href="../css/aui-slide.css">
+
+    <!--走马灯css-->
+    <link rel="stylesheet" href="../css/liMarquee.css">
+    <link rel="stylesheet" href="../css/loading.css">
+    <style>
+        .order {
+            padding-bottom: 2.5rem;
+        }
+
+        .tradeIndex .back-index:active {
+            background-color: #ececec !important;
+        }
+
+        .back-inner:active {
+            background-color: #ececec;
+        }
+
+        /*list-按下背景色*/
+        .aui-list .aui-list-item:active,
+        .aui-card-list-conten > div:active {
+            background-color: #ececec;
+        }
+
+        .aui-list .media-pic {
+            width: 4rem;
+            height: 4rem;
+            overflow: hidden;
+        }
+
+        .aui-list .media-pic-h {
+            height: auto;
+            border-radius: 0.2rem
+
+        }
+
+        .btn-more {
+            border-top: 1px solid #dddddd;
+        }
+
+        .border-bot {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .aui-list .border-none {
+            border: none;
+            background: none;
+        }
+
+        .icon-eye {
+            width: 0.6rem;
+            margin-top: 0.4rem;
+
+        }
+
+        .aui-grid .nav-btn {
+            padding: .85rem 0 0.15rem;
+        }
+        a{
+            font-size: inherit;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav" id="header">
+    <ul class="aui-bar">
+        <li class="active">
+            <div id="head" class="index_hidden_top clearfix">
+                <div class="hidden_top1">
+                    <img src="../image/index/home_search_icon.png"/>
+                    <input type="text" placeholder="输入代码或拼音简称" readonly/>
+                </div>
+                <div class="hidden_top2">
+                    <a href="site_map.html">
+                        导航
+                    </a>
+                </div>
+            </div>
+        </li>
+
+
+    </ul>
+</header>
+
+<div id="tradeIndex" class="tradeIndex">
+    <div class="padding-foot">
+        <!--<div class="aui-card-list-content">-->
+        <!--<img src="../image/home_banner1_image.png">-->
+        <!--</div>-->
+        <div id="aui-slide">
+            <div class="aui-slide-wrap">
+                <div class="aui-slide-node bg-dark aui-card-list-content">
+                    <img src="../image/banner2.jpg">
+                </div>
+                <div class="aui-slide-node bg-dark aui-card-list-content">
+                    <img src="../image/banner2.jpg">
+                </div>
+            </div>
+            <div class="aui-slide-page-wrap"><!--分页容器--></div>
+        </div>
+        <div class="aui-padded-15" style="background: #ffffff">
+            <div style="font-size: 0.7rem;" class="clearfix">
+                <span class="aui-pull-left">实时动态</span>
+                <div class="aui-pull-left lamp">
+                    <div id="lampCt" class="str_move">
+                        <a style="color: #de323d; "> 神都餐饮(0001) <!--<em v-if="item.rise==1">涨</em>--> <!--<em v-else>跌</em>--> 168000.00+48000+40.00% </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav">
+            <div class="aui-grid aui-margin-t-15 aui-padded-b-15">
+                <div class="aui-col-xs-3 nav-btn back-index -t-15 " onclick="location.href='trading_index_signIn.html'">
+                    <img src="../image/index/home_mtqd_icon.png" class="find_img"/>
+                    <div class="aui-grid-label">每日签到</div>
+                </div>
+                <div class="aui-col-xs-3 nav-btn back-index  " onclick="location.href='trading_index_mySchool.html'">
+                    <img src="../image/index/home_wdxt_icon.png " class="find_img"/>
+                    <div class="aui-grid-label">我的学院</div>
+                </div>
+                <div class="aui-col-xs-3 nav-btn back-index" onclick="location.href='trading_index_gift.html'">
+                    <img src="../image/index/jy_dhhl_icon.png" class="find_img"/>
+                    <div class="aui-grid-label">兑换好礼</div>
+                </div>
+
+                <div class="aui-col-xs-3 nav-btn back-index " onclick="location.href='trading_deal_recharge.html'">
+                    <img src="../image/deal/jy_cz_icon.png" class="find_img"/>
+                    <div class="aui-grid-label">充值</div>
+                </div>
+
+                <div class="aui-col-xs-3 nav-btn back-index "
+                     onclick="openWin('win_trade',{'actionType':0,bg:0,name:''})">
+                    <img src="../image/deal/jy_mr_icon.png" class="find_img"/>
+                    <div class="aui-grid-label">买入</div>
+                </div>
+                <div class="aui-col-xs-3 nav-btn back-index "
+                     onclick="openWin('win_trade',{'actionType':1,bg:0,name:''})">
+                    <img src="../image/deal/jy_mc_icon.png " class="find_img"/>
+                    <div class="aui-grid-label">卖出</div>
+                </div>
+                <div class="aui-col-xs-3 nav-btn back-index   " onclick="openWin('trading_deal_asset')">
+                    <img src="../image/deal/jy_wdzc_icon.png" class="find_img"/>
+                    <div class="aui-grid-label">我的资金</div>
+                </div>
+                <div class="aui-col-xs-3 nav-btn back-index" onclick="location.href='trading_index_online_win.html'">
+                    <img src="../image/index/home_zxkf_icon.png" class="find_img"/>
+                    <div class="aui-grid-label">在线客服</div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-content aui-margin-t-15  new-list" style="background: #ffffff">
+            <ul class="aui-list aui-media-list" id="newsList">
+                <li class="aui-list-item border-none aui-padded-t-15  aui-padded-l-15 aui-padded-r-15 "
+                    onclick="location.href='trading_index_newsBetail.html?id=14'">
+                    <div class="aui-media-list-item-inner clearfix index-item-inner border-bot">
+                        <div class="aui-list-item-media aui-pull-left media-pic"><img style=""
+                                                                                      src="http://media1.yunlutong.com/YltmallRes/20180706/153084812531035.png?x-oss-process=image/resize,m_fill,h_200,w_200"
+                                                                                      class="media-pic-h"></div>
+                        <div class="aui-list-item-inner aui-pull-right index-inner">
+                            <div class="aui-list-item-text aui-margin-b-5">
+                                <div class="aui-list-item-title aui-ellipsis-1">游戏改版的重要通知</div>
+                            </div>
+                            <div class="aui-list-item-text aui-ellipsis-2 aui-font-size-12">
+                                因配合用户对界面体验感的需求，特为游戏进行更换更流畅和舒适的界面，公司改变原有市场策略。
+                            </div>
+                            <div class=" aui-pull-right"><img src="../image/index/icon-eye.png" alt=""
+                                                              class="aui-pull-left icon-eye aui-margin-r-5"> <span
+                                    class=" aui-font-size-12 color-gray"> 232</span></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item border-none aui-padded-t-15  aui-padded-l-15 aui-padded-r-15 "
+                    onclick="location.href='trading_index_newsBetail.html?id=14'">
+                    <div class="aui-media-list-item-inner clearfix index-item-inner border-bot">
+                        <div class="aui-list-item-media aui-pull-left media-pic"><img style=""
+                                                                                      src="http://media1.yunlutong.com/YltmallRes/20180411/152341246096643.jpg?x-oss-process=image/resize,m_fill,h_200,w_200"
+                                                                                      class="media-pic-h"></div>
+                        <div class="aui-list-item-inner aui-pull-right index-inner">
+                            <div class="aui-list-item-text aui-margin-b-5">
+                                <div class="aui-list-item-title aui-ellipsis-1">关于星系上下幅度调整的通知</div>
+                            </div>
+                            <div class="aui-list-item-text aui-ellipsis-2 aui-font-size-12">
+                                因娱乐幅度波动巨大，导致太过于刺激现公司决定上下幅度修改。
+                            </div>
+                            <div class=" aui-pull-right"><img src="../image/index/icon-eye.png" alt=""
+                                                              class="aui-pull-left icon-eye aui-margin-r-5"> <span
+                                    class=" aui-font-size-12 color-gray"> 319</span></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item border-none aui-padded-t-15  aui-padded-l-15 aui-padded-r-15 "
+                    onclick="location.href='trading_index_newsBetail.html?id=14'">
+                    <div class="aui-media-list-item-inner clearfix index-item-inner border-bot">
+                        <div class="aui-list-item-media aui-pull-left media-pic"><img style=""
+                                                                                      src="http://media1.yunlutong.com/YltmallRes/20180309/152057051050608.jpg?x-oss-process=image/resize,m_fill,h_200,w_200"
+                                                                                      class="media-pic-h"></div>
+                        <div class="aui-list-item-inner aui-pull-right index-inner">
+                            <div class="aui-list-item-text aui-margin-b-5">
+                                <div class="aui-list-item-title aui-ellipsis-1">关于星系开放时间的通知</div>
+                            </div>
+                            <div class="aui-list-item-text aui-ellipsis-2 aui-font-size-12"> 娱乐开放时间的调整</div>
+                            <div class=" aui-pull-right"><img src="../image/index/icon-eye.png" alt=""
+                                                              class="aui-pull-left icon-eye aui-margin-r-5"> <span
+                                    class=" aui-font-size-12 color-gray"> 218</span></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="aui-card-list-conten " id="listTop"></div>
+        </div>
+        <div class="aui-content aui-margin-t-15  " style="background: #ffffff">
+            <div class="back-index aui-list aui-media-list aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-list-item" style="background-image: none" onclick="location.href='trading_index_activity.html'">
+                    <div class="aui-media-list-item-inner back-inner">
+                        <div class="aui-list-item-inner ">
+                            <div class="aui-list-item-text aui-margin-b-5">
+                                <div class="aui-list-item-title aui-ellipsis-1">活动专区</div>
+                            </div>
+                            <div class="aui-list-item-text aui-ellipsis-2 aui-font-size-12">
+                                你想要的活动都在这里
+                            </div>
+                        </div>
+                        <div class="aui-list-item-media">
+                            <div style="position: absolute;right: 0rem;top: 1rem">
+                                <div class="aui-dot" style="right: 25%;top: 1%"></div>
+                                <span class=" aui-font-size-12 aui-padded-r-15 color-gray">更多惊喜</span>
+                                <img class="aui-pull-right" style="border-radius: 1rem;width: 12%; "
+                                     src="../image/index/home_zk1_icon.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--底线-->
+        <div class="order aui-margin-t-15 aui-margin-b-15 color-gray1">
+            <span></span><span class="line"></span>
+            <span style="white-space:pre">   </span><span class="txt ">我是有底线的</span>
+            <span style="white-space:pre">   </span><span class="line"></span>
+        </div>
+    </div>
+</div>
+<footer class="aui-bar aui-bar-tab " id="footer" style="background-color: #fff ;z-index: 100000">
+    <div class="aui-bar-tab-item aui-active">
+        <img src="../icon/1-0.png">
+        <div class="aui-bar-tab-label">首页</div>
+    </div>
+    <div class="aui-bar-tab-item">
+        <a href="trading_market_index.html">
+            <img src="../icon/2-1.png">
+            <div class="aui-bar-tab-label">行情</div>
+        </a>
+    </div>
+    <div class="aui-bar-tab-item">
+        <img src="../icon/3-1.png">
+        <div class="aui-bar-tab-label">游戏</div>
+    </div>
+    <div class="aui-bar-tab-item">
+        <a href="trading_test.html">
+            <img src="../icon/4-1.png">
+            <div class="aui-bar-tab-label">考试</div>
+        </a>
+    </div>
+    <div class="aui-bar-tab-item">
+        <a href="trading_my.html">
+            <img src="../icon/5-1.png">
+            <div class="aui-bar-tab-label">我的</div>
+        </a>
+    </div>
+</footer>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<!--走马灯js-->
+<script src="../script/jquery.liMarquee.js"></script>
+<script src="../script/doT.min.js"></script>
+<script src="../script/aui-slide.js"></script>
+<script>
+    $('#lampCt').liMarquee({
+        hoverstop: false,
+        drag: false
+    });
+    //轮播组件
+    var slide = new auiSlide({
+        container: document.getElementById("aui-slide"), //容器
+        "height": 140, //高度
+        "speed": 500, //速度
+        "autoPlay": 3000, //自动播放
+        "loop": true,//是否循环
+        "pageShow": true,//是否显示分页器
+        "pageStyle": 'dot', //分页器样式，分dot,line
+        'dotPosition': 'center' //当分页器样式为dot时控制分页器位置，left,center,right
+    })
+</script>
+</body>
+</html>

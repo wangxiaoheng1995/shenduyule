@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <style>
+        #header {
+            position: fixed;
+        }
+        .aui-badge{
+            background: #ff6766;
+        }
+    </style>
+</head>
+
+<body style="margin-top: 1rem">
+<!-- header -->
+<header id="header"></header>
+<!-- main -->
+<div id="main"></div>
+<!-- footer -->
+<footer class="aui-bar aui-bar-tab" id="footer">
+    <div class="aui-bar-tab-item aui-active" index="1" tapmode>
+        <i class="aui-iconfont" style="background-image: url('../../image/moveshop/yddp_f1-1.png')"></i>
+        <div class="aui-bar-tab-label">主页</div>
+    </div>
+    <div class="aui-bar-tab-item" index="2" tapmode>
+        <i class="aui-iconfont " style="background-image: url('../../image/moveshop/yddp_f2-2.png')"></i>
+        <div class="aui-bar-tab-label">好货</div>
+    </div>
+    <div class="aui-bar-tab-item" index="3" tapmode>
+        <div class="aui-badge"></div>
+        <i class="aui-iconfont " style="background-image: url('../../image/moveshop/yddp_f3-2.png')"></i>
+        <div class="aui-bar-tab-label">进货箱</div>
+    </div>
+    <div class="aui-bar-tab-item" index="4" tapmode>
+        <div class="aui-dot"></div>
+        <i class="aui-iconfont " style="background-image: url('../../image/moveshop/yddp_f4-2.png')"></i>
+        <div class="aui-bar-tab-label">我的</div>
+    </div>
+</footer>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../script/aui/aui-tab.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/aui/aui-dialog.js"></script>
+<script>
+    var oldTime;
+    var user;
+    var code;
+    apiready = function () {
+        var header = $api.byId('header'),
+                main = $api.byId('main'),
+                footer = $api.byId('footer');
+        user = $api.getStorage("user");
+        initFrames(header.offsetHeight, api.winHeight - footer.offsetHeight - header.offsetHeight);
+        $a.addEvt('moveshop-index-show', function (ret) {
+            var index = ret.value.index;
+            var activeIndex = $(".aui-active").index() + 1;
+            $(".aui-active").find("i").css("background-image", "url('../../image/moveshop/yddp_f" + activeIndex + "-2.png')");
+            $(".aui-active").removeClass("aui-active");
+            var i = index + 1;
+            $(".aui-bar-tab-item").eq(index).addClass("aui-active");
+            $(".aui-active").find("i").css("background-image", "url('../../image/moveshop/yddp_f" + i + "-1.png')");
+            api.setFrameGroupIndex({
+                name: 'moveshop-group',
+                index: index,
+                scroll: false
+            });
+        })
+        getCartNum();
+        api.addEventListener({
+            name:'refresh-purchase'
+        },function(){
+            getCartNum();
+        });
+        api.addEventListener({
+            name:'refresh-purchase-num'
+        },function(){
+            getCartNum();
+        });
+    }
+    function getCartNum(){
+        var carObj = localStorage.getItem('cartMove') ? JSON.parse(localStorage.getItem('cartMove')) : [];
+        var carLen = 0;
+        for (var i = 0; i < carObj.length; i++) {
+            carLen +=parseInt(carObj[i].num);
+        }
+        $('.aui-badge').text(carLen);
+    }
+    /* 底部 切换 frame 页面 */
+    new auiTab({
+        element: $api.byId('footer')
+    }, function (json) {
+        if (json.dom == $api.dom('#footer .aui-bar-tab-item.aui-active')) return;
+        var tabs = $api.domAll('#footer>div'),
+                icons = $api.domAll('#footer i.aui-iconfont');
+        for (var i = 0, len = tabs.length; i < len; i++) {
+            if (json.dom == tabs[i]) {
+                icons[i].style.cssText = "background-image: url('../../image/moveshop/yddp_f" + json.index + "-1.png')";
+            } else {
+                icons[i].style.cssText = "background-image: url('../../image/moveshop/yddp_f" + (i + 1) + "-2.png')";
+            }
+        }
+        if (json.index == 3 || json.index == 4) {
+            api.sendEvent({
+                name: 'check-authenticated-' + json.index
+            });
+        }
+        api.setFrameGroupIndex({
+            name: 'moveshop-group',
+            index: json.index - 1,
+            scroll: false
+        });
+    });
+    /* 初始化frames 页面组 */
+    function initFrames(headerY, mainH) {
+        var frames = [],
+                frameName = [
+                    "move_shoplist",
+                    "move-good",
+                    "move-purchase",
+                    "my-frm"
+                ];
+        for (var i = 0, len = frameName.length; i < len; i++) {
+            frames.push({
+                name: frameName[i],
+                url: frameName[i] + '.html',
+                //        bgColor: 'rgba(0,0,0,.2)',
+                bounces: false,
+                pageParam: {
+                    index: i
+                }
+            })
+        }
+        api.openFrameGroup({
+            name: 'moveshop-group',
+            scrollEnabled: false,
+            rect: {
+                x: 0,
+                y: headerY,
+                w: api.winWidth,
+                h: mainH
+            },
+            index: 0,
+            preload: 4, //预加载的 frame 个数，默认加载当前页后面一个
+            frames: frames
+        });
+    }
+    //    checkIsAuthenticated();
+    //    $(".aui-bar-tab-item").click(function(){
+    //        if(code==0){
+    //            var index=$(this).attr("index");
+    //            $(".aui-bar-tab-item").map(function(){
+    //                $(this).removeClass("aui-active");
+    //                var i=$(this).attr("index");
+    //                $(this).find("i").css("background-image","url('../../image/moveshop/yddp_f"+i+"-2.png')");
+    //            });
+    //            $(".aui-bar-tab-item").eq(index-1).addClass("aui-active");
+    //            $(".aui-bar-tab-item").eq(index-1).css("background-image","url('../../image/moveshop/yddp_f"+index+"-1.png')");
+    //        }
+    //    })
+    //    function checkIsAuthenticated(){
+    //        api.ajax({
+    //            url: PHP_SERVE_URL + '/taxi/getTaxiIdentity',
+    //            method: "post",
+    //            data: {
+    //                values: {
+    //                    openId: user.openId
+    //                }
+    //            }
+    //        }, function (ret) {
+    //            code=ret.code;
+    //        });
+    //    }
+</script>
+</body>
+
+</html>

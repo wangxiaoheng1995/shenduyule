@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>设置</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        .aui-col-5 {
+            margin-right: 2%;
+        }
+
+        .aui-bar-nav {
+            position: fixed;
+        }
+
+        .pic-ct {
+            position: relative;
+        }
+
+        /*五星好评*/
+        ul.grade {
+            overflow: hidden;
+        }
+
+        ul.grade > li {
+            float: left;
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 0.8rem;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-image: url("../../image/my/pjsd_star2_icon.png");
+        }
+
+        ul.grade > li.star {
+            background-image: url("../../image/my/pjsd_star_icon.png");
+        }
+
+        .icon-close {
+            position: absolute;
+            right: -0.3rem;
+            top: 0;
+            width: 1rem;
+            z-index: 9999999;
+            padding: 0 !important;
+        }
+
+        .aui-list .aui-list-item:active {
+            background-color: #fff;
+        }
+
+        .commentImg,#addImg {
+            margin: 0.5rem auto;
+            width: 4rem;
+            height: 3rem;
+            margin-right: 0.4rem;
+        }
+
+        html, body, .comm-padd-b {
+            width: 100%;
+            height: 100%;
+        }
+
+        .comm-padd-b {
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">发表评论</div>
+</header>
+
+<div class="comm-padd-b">
+    <div style="height: 2rem;"></div>
+    <div id="details_area">
+    </div>
+    <script type="text/html-x-dot-template" id="details_tmpl">
+        {{~it.ogRes:ogval:okey}}
+        <div class="aui-margin-t-10 cart-bg-fff aui-padded-15 ">
+            <ul class="aui-list aui-media-list s-no-bgimg">
+                <li class="aui-list-item aui-padded-l-0">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-left-img">
+                            <img src="{{=ogval.skuGoodsJson.pic}}">
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-r-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2">{{=ogval.skuGoodsJson.gname}}</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-15" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="aui-margin-l-5 cart-section-prize color-pink">￥{{=ogval.skuGoodsJson.price}}</span>
+                                </div>
+                                <div class="aui-info-item">×{{=ogval.goods_count}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="comm-stars aui-margin-t-10 aui-margin-b-10">
+                <li>
+                    <span class="comm-left-text">描述相符</span>
+                    <ul class="grade" id="score_{{=ogval.skuGoodsJson.gid}}">
+                        <li class="star"></li>
+                        <li class="star"></li>
+                        <li class="star"></li>
+                        <li class="star"></li>
+                        <li class="star"></li>
+                    </ul>
+                </li>
+            </ul>
+            <textarea id="info_{{=ogval.skuGoodsJson.gid}}" placeholder="亲，您对这个商品满意吗？您的评价会帮助我们选择更好的商品哦~"
+                      class="aui-padded-t-15 aui-padded-b-15 aui-font-size-14 comm-textarea"></textarea>
+            <ul class="aui-list aui-media-list s-no-bgimg">
+                <li class="aui-list-item s-no-bgimg aui-padded-0">
+                    <div class="aui-list-item-inner aui-padded-r-0">
+                        <div class="aui-row aui-row-padded imgs" ogid="{{=ogval.ogid}}"
+                             gid="{{=ogval.skuGoodsJson.gid}}"
+                             gname="{{=ogval.skuGoodsJson.gname}}">
+                            <div class="aui-col-5" onclick="openactionsheet(this);">
+                                <img src="../../image/my/yjfk_ph.png" id="addImg"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        {{~}}
+    </script>
+    <div>
+        <section class="cart-bg-fff order-section-padd aui-margin-t-10">
+            <h4 class="aui-border-b aui-padded-t-10 aui-padded-b-10"><span class="order-top-img"><img
+                    src="../../image/my/wddd_sc_icon.png" class="aui-pull-left aui-margin-r-10">店铺评分</span>
+            </h4>
+            <ul class="comm-stars aui-margin-t-10 aui-margin-b-10">
+                <li>
+                    <span class="comm-left-text">物流服务</span>
+                    <ul class="grade express">
+                        <li class="star"></li>
+                        <li class="star"></li>
+                        <li class="star"></li>
+                        <li class="star"></li>
+                        <li class="star"></li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="comm-left-text">服务态度</span>
+                    <ul class="grade service">
+                        <li class="star"></li>
+                        <li class="star"></li>
+                        <li class="star"></li>
+                        <li class="star"></li>
+                        <li class="star"></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </div>
+    <button class="aui-btn  padding0 border-no bd-radius my-margin-t  aui-font-size-16 back-pinkm color-write"
+            onclick="confirmComment();">提交评价
+    </button>
+</div>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui/aui-toast.js"></script>
+<script type="text/javascript" src="../../script/H5_public.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script>
+    var oid;
+    var user;
+    var shop_id;
+    var toast = new auiToast();
+    window.onload = function () {
+        oid = H5.pageParam().oid;
+        user = $api.getStorage("user");
+        // user = localStorage.getItem('user');
+        getOrderDetail();
+    }
+    //获取订单详情
+    function getOrderDetail() {
+        $.ajax({
+            url: PHP_SERVE_URL + "/order/info",
+            method: 'post',
+            data: {
+                // values: {
+                    openId: user.openId,
+                    oid: oid
+                // }
+            },
+            success: function (ret) {
+                if (ret.code == 0) {
+                    shop_id = ret.data.shopRes.shop_id;
+                    var innerText = doT.template($("#details_tmpl").text());
+                    $("#details_area").append(innerText(ret.data));
+                    /*五星好评的交互效果*/
+                    $('ul.grade').on('click', 'li', function (e) {
+                        var self = $(this);
+                        self.addClass('star').nextAll().removeClass('star');
+                        self.prevAll().addClass('star');
+                    });
+                }
+            }
+        })
+    }
+    //提交评价
+    function confirmComment() {
+        var isempty = false;
+        $(".comm-textarea").map(function () {
+            var self = $(this);
+            if (self.val().trim() == "") {
+                self.focus();
+                toast.fail({title:json.msg,duration:2000})
+                $a.toast("请输入评价内容");
+                isempty = true;
+            }
+        });
+        if (isempty) {
+            return;
+        }
+        var imgs = [];
+        $(".commentImg").map(function () {
+            imgs.push($(this).attr("src"));
+        })
+        api.showProgress({
+            title: '加载中...',
+            text: '',
+            modal: false
+        });
+        if (imgs.length > 0) {
+            //压缩
+            var compactPicture = api.require('compactPicture');
+            compactPicture.HittingPic({
+                picpatharray: imgs,
+                size: 10
+            }, function (res) {
+                if (res) {
+                    var images={};
+                    $.each(res.states,function(index,item){
+                        var key='file'+index;
+                        images[key]=item;
+                    })
+                    api.ajax({
+                        url: PHP_SERVE_URL + "/uploadImg/index",
+                        method: 'post',
+                        timeout: 120,//超时时间
+                        data: {
+                            files: images
+                        }
+                    }, function (ret, err) {
+                        if (ret.code == 0) {
+                            var divs = $(".commentImg");
+                            if (divs.length == ret.data.length) {
+                                $.each(ret.data, function (index, item) {
+                                    divs.eq(index).attr("uploadImg", item);
+                                });
+                                var values = getParameters();
+                                api.ajax({
+                                    url: PHP_SERVE_URL + "/order/comment",
+                                    method: 'post',
+                                    data: {
+                                        values: values
+                                    }
+                                }, function (ret,err) {
+                                    api.hideProgress();
+                                    if (ret.code == 0) {
+                                        $a.toast("评价已提交");
+                                        $a.sendEvt("evaluateOrder-reload");
+                                        $a.sendEvt("moveevaluateOrder-reload");
+                                        $a.closeWin();
+                                    }
+                                })
+                            }
+                            else {
+                                api.hideProgress();
+                                $a.toast("图片上传失败");
+                            }
+
+                        } else {
+                            api.hideProgress();
+                            $a.toast("图片上传失败");
+                            return false;
+                        }
+                    })
+                }else{
+                    api.hideProgress();
+                }
+            });
+
+        } else {
+            var values = getParameters();
+            api.ajax({
+                url: PHP_SERVE_URL + "/order/comment",
+                method: 'post',
+                data: {
+                    values: values
+                }
+            }, function (ret) {
+                api.hideProgress();
+                if (ret.code == 0) {
+                    $a.toast("评价已提交");
+                    $a.sendEvt("evaluateOrder-reload");
+                    $a.sendEvt("orderAll-reload");
+                    $a.sendEvt("moveevaluateOrder-reload");
+                    $a.sendEvt("moveorderAll-reload");
+                    $a.closeWin();
+                }
+            })
+        }
+
+    }
+    // 获取参数
+    function getParameters() {
+        var goodsComment = [];
+        var shopComment = [];
+        var matchscoreAll = 0;
+        var goodsnum = 0;
+        $(".imgs").map(function () {
+            var self = $(this);
+            var score = $("#score_" + self.attr("gid")).find(".star").length;
+            goodsnum++;
+            matchscoreAll += parseInt(score);
+            var goodcomment = {
+                ogid: self.attr("ogid"),
+                gid: self.attr("gid"),
+                gname: self.attr("gname"),
+                score: parseInt(score),
+                info: $("#info_" + self.attr("gid")).val(),
+                pic: []
+            }
+            var imgs = [];
+            self.find(".commentImg").map(function () {
+                var img = $(this).attr("uploadImg");
+                goodcomment.pic.push(img);
+            });
+            goodsComment.push(goodcomment);
+        })
+        var express_score = $(".express").find(".star").length;
+        var service_score = $(".service").find(".star").length;
+        shopComment.push({
+            express_score: express_score,
+            service_score: service_score,
+            match_score: 1.0 * matchscoreAll / goodsnum
+        })
+        var values = {
+            openId: user.openId,
+            uname: user.nickName == "" ? user.tel : user.nickName,
+            avatar:user.avatar,
+            shop_id: shop_id,
+            oid: oid,
+            goodsComment: goodsComment,
+            shopComment: shopComment
+        }
+        return values;
+    }
+    //增加图片
+    function openactionsheet(that) {
+        var self = $(that);
+        api.actionSheet({
+            title: "",
+            cancelTitle: '取消',
+            buttons: ['拍摄', '从相册选择'],
+            style: {
+                fontNormalColor: '#484848',
+            }
+        }, function (ret) {
+            if (ret) {
+                if (ret.buttonIndex == 1) {
+                    //获取一张图片
+                    api.getPicture({
+                        sourceType: 'camera',
+                        encodingType: 'png',
+                        mediaValue: 'pic',
+                        allowEdit: false,
+                        quality: 100,
+                        saveToPhotoAlbum: true
+                    }, function (ret, err) {
+                        if (ret) {
+                            var imgSrc = ret.data;
+                            if (imgSrc != "") {
+                                self.before('<div class="aui-col-5"> <img class="commentImg" src="' + imgSrc + '"/><img src="../../image/my/icon-close.png" class="icon-close" onclick="removePhoto(this)"/></div>');
+                            }
+                        }
+                    });
+                }
+                if (ret.buttonIndex == 2) {
+                    // 从相机中选择
+                    //UIMediaScanner 是一个多媒体扫描器，可扫描系统的图片、视频等多媒体资源
+                    var obj = api.require('UIMediaScanner');
+                    obj.open({
+                        //返回的资源种类,picture（图片）,video（视频）,all（图片和视频）
+                        type: 'picture',
+                        //（可选项）图片显示的列数，须大于1
+                        column: 4,
+                        max: 4,
+                        //（可选项）图片排序方式,asc（旧->新）,desc（新->旧）
+                        sort: {
+                            key: 'time',
+                            order: 'desc'
+                        },
+                        //（可选项）模块各部分的文字内容
+                        texts: {
+                            stateText: '已选择*项',
+                            cancelText: '取消',
+                            finishText: '完成'
+                        },
+                        exchange: true,
+                        styles: {
+                            bg: '#fff',
+                            mark: {
+                                icon: '',
+                                position: 'bottom_right',
+                                size: 20
+                            },
+                            nav: {
+                                bg: '#eee',
+                                stateColor: '#000',
+                                stateSize: 18,
+                                cancleBg: 'rgba(0,0,0,0)',
+                                cancelColor: '#000',
+                                cancelSize: 18,
+                                finishBg: 'rgba(0,0,0,0)',
+                                finishColor: '#000',
+                                finishSize: 18
+                            }
+                        }
+                    }, function (ret) {
+                        if (ret) {
+                            if (getJsonObjLength(ret.list) != 0) {
+                                if (ret.list.length != 0) {
+                                    $.each(ret.list, function (index, item) {
+                                        self.before('<div class="aui-col-5"> <img class="commentImg" src="' + item.path + '"/><img src="../../image/my/icon-close.png" class="icon-close" onclick="removePhoto(this)"/></div>');
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+    function getJsonObjLength(jsonObj) {
+        var Length = 0;
+        for (var item in jsonObj) {
+            Length++;
+        }
+        return Length;
+    }
+    //删除
+    function removePhoto(xthis) {
+        $(xthis).click(function () {
+            $(this).parent().remove();
+        });
+    }
+</script>
+</body>
+</html>

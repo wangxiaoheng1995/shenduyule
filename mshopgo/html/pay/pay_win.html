@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>销拼购收银台</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+    .aui-list .aui-list-item-title {
+        min-width: 200px;
+    }
+
+    .aui-font {
+        font-weight: bold;
+    }
+
+    .pay-label {
+        padding-top: 1rem;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <header class="aui-bar aui-bar-nav back-write ">
+            <a class="aui-pull-left aui-btn" onclick="history.back();">
+                <span class="aui-iconfont aui-icon-left color-gray9"></span>
+            </a>
+            <div class="aui-title color-black">销拼购收银台</div>
+        </header>
+        <div id="main">
+            <div class="aui-content ">
+                <ul class="aui-list aui-form-list">
+                    <li class="aui-list-item border-no">
+                        <div class="aui-list-item-inner clearfix">
+                            <div class="aui-list-item-label aui-pull-left">
+                                订单金额:
+                            </div>
+                            <div class="aui-list-item-input aui-pull-right">
+                                <div class="color-pink aui-text-right aui-font">¥<span class="money"></span></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="aui-content ">
+                <div class="aui-list-item-title color-gray9 aui-font-size-14  aui-padded-l-15  aui-padded-b-10 pay-label">
+                    选择支付方式
+                </div>
+                <ul class="aui-list aui-list-in">
+                    <li class="aui-list-item" onclick="pay('wxPay',this)">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title jw-list-item-title clearfix pay-title aui-font-size-14 ">
+                                <img src="../../image/pay/icon-wx.png" class="jw-list-item-pic aui-pull-left aui-margin-r-15" /> 微信
+                            </div>
+                            <div class="aui-list-item-right">
+                                <i class="jw-item-select check-pic"></i>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="aui-list-item" onclick="pay('aliPay',this)">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title jw-list-item-title pay-title">
+                                <img src="../../image/pay/icon-zfb.png" class="jw-list-item-pic aui-pull-left aui-margin-r-15" /> 支付宝
+                            </div>
+                            <div class="aui-list-item-right">
+                                <i class="jw-item-select "></i>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li class="aui-list-item" onclick="pay('unionPay',this)">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title jw-list-item-title pay-title">
+                            <img src="../../image/pay/icon-wy.png"
+                                 class="jw-list-item-pic aui-pull-left aui-margin-r-15"/>
+                            银联支付
+                        </div>
+                        <div class="aui-list-item-right">
+                            <i class="jw-item-select "></i>
+                        </div>
+                    </div>
+                </li> -->
+                </ul>
+            </div>
+            <button class="aui-btn  padding0 border-no bd-radius  aui-font-size-16 back-pinkm color-write btn-pay " id="submit">确认支付<span class="money">0</span>元
+            </button>
+        </div>
+    </div>
+    <script src="../../script/jquery-1.11.1.min.js"></script>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/H5_public.js"></script>
+    <script>
+    var orderPrice, orderNo, type = 'wxPay',
+        oid, isPartner = wxPaynable = false,
+        wx;
+    var user;
+    var orderFirstNo;
+    user = $api.getStorage('user');
+    // 请求微信支付模块
+    // wx = api.require('wx');
+    var pageParam = H5.pageParam();
+    orderPrice = pageParam.needPayMoney;
+    orderNo = pageParam.orderNo;
+    //#110 获得订单第一位
+    orderFirstNo = orderNo.charAt(0);
+    if (typeof pageParam.isPartner != "undefined") {
+        isPartner = pageParam.isPartner;
+    }
+    $(".money").text(orderPrice);
+    wx.isInstalled(function(ret, err) {
+        if (ret.installed) {
+            wxPaynable = true;
+        }
+    });
+    $("#submit").click(function() {
+        // paySuccess(orderNo);
+        // return;
+        switch (type) {
+            case 'wxPay':
+                weixinPay();
+                break;
+            case 'aliPay':
+                aliPay();
+                break;
+            case 'unionPay':
+                bankPay();
+                break;
+            default:
+                break;
+        }
+    })
+
+    function pay(paytype, that) {
+        $("i").removeClass("check-pic");
+        $(that).find('i').addClass("check-pic");
+        type = paytype;
+    }
+
+    //微信支付新，直接对接结算系统
+    function weixinPay() {
+        if (!wxPaynable) {
+            api.toast({
+                msg: '当前设备未安装微信客户端',
+                duration: 2000,
+                location: 'bottom'
+            });
+            return;
+        }
+        //获取支付参数（服务端完成统一下单）
+        api.ajax({
+            url: PHP_SERVE_URL + '/Pay/wxPaySign',
+            method: 'post',
+            data: {
+                values: {
+                    orderNo: orderNo,
+                    amount: orderPrice
+                }
+            }
+        }, function(ret, err) {
+            if (ret.code != 0) {
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+            } else {
+                //app发起微信支付
+                var data = ret.data;
+                var wxPay = api.require('wxPay');
+                wxPay.payOrder({
+                    apiKey: data.appid,
+                    orderId: data.prepayid,
+                    mchId: data.partnerid,
+                    nonceStr: data.noncestr,
+                    timeStamp: data.timestamp,
+                    package: data.package,
+                    sign: data.sign
+                }, function(ret, err) {
+                    if (ret.status) {
+                        //支付成功
+                        //#110 判断首位是否是9
+                        if (orderFirstNo == '9') {
+                            api.closeWin();
+                            $a.toast("支付成功");
+                        } else {
+                            paySuccess(data.orderNo);
+                            api.sendEvent({
+                                name: 'reloadThisPage'
+                            });
+                        }
+                    } else {
+                        if (err.code != -2) {
+                            api.alert({
+                                title: '支付结果',
+                                msg: '支付失败，错误码' + err.code,
+                                buttons: ['确定']
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    //支付宝支付新，直接对接结算系统
+    function aliPay() {
+        //获取支付参数（服务端完成请求参数配置）
+        api.ajax({
+            url: PHP_SERVE_URL + '/Pay/aliPaySign',
+            method: 'post',
+            data: {
+                values: {
+                    orderNo: orderNo,
+                    amount: orderPrice
+                }
+            }
+        }, function(ret, err) {
+            if (ret.code != 0) {
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                return;
+            } else {
+                //app发起支付宝支付
+                var aliPay = api.require('aliPay');
+                var orderNo = ret.orderNo;
+                aliPay.payOrder({
+                    orderInfo: ret.data
+                }, function(ret, err) {
+                    if (ret.statusCode == 9000) {
+                        //支付成功
+                        //#110 判断首位是否是9
+                        if (orderFirstNo == '9') {
+                            api.closeWin();
+                            $a.toast("支付成功");
+                        } else {
+                            paySuccess(orderNo);
+                            api.sendEvent({
+                                name: 'reloadThisPage'
+                            });
+                        }
+                    } else {
+                        if (ret.statusCode != 6001) {
+                            api.alert({
+                                title: '支付结果',
+                                msg: '支付失败' + ret.statusCode,
+                                buttons: ['确定']
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    function bankPay() {
+        toast('暂未开放');
+        return;
+        //获取支付参数（服务端完成请求参数配置）
+        api.ajax({
+            url: PHP_SERVE_URL + '/Pay/unionPayApp',
+            method: 'post',
+            data: {
+                values: {
+                    orderNo: orderNo,
+                    amount: orderPrice
+                }
+            }
+        }, function(ret, err) {
+            if (!ret.result) {
+                api.toast({
+                    msg: ret.msg,
+                    duration: 2000,
+                    location: 'bottom'
+                });
+                return;
+            } else {
+                var orderNo = ret.orderNo;
+                var unPay = api.require('unionPay');
+                unPay.pay({
+                    tn: ret.tn,
+                    devMode: false
+                }, function(ret, err) {
+                    if (ret.result == 'success') {
+                        paySuccess(orderNo);
+                    } else {
+                        api.alert({
+                            title: '支付结果',
+                            msg: '支付失败',
+                            buttons: ['确定']
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    // 支付成功处理
+    function paySuccess(orderNo) {
+        //        type 1普通订单  2拼团成功 3拼单失败
+        if (isPartner) {
+            //掌柜升级后关闭至首页
+            api.closeToWin({
+                name: 'index_win'
+            });
+        } else {
+            //发送监听刷新拼团列表(../goods/goods_index.htnl)
+            api.sendEvent({
+                name: 'refreshgrouplist'
+            });
+
+            //跳转到支付成功页面
+            api.openWin({
+                name: 'payResult',
+                url: './payResult.html',
+                pageParam: {
+                    orderNo: orderNo
+                }
+            });
+            api.closeWin();
+        }
+    }
+    </script>
+</body>
+
+</html>

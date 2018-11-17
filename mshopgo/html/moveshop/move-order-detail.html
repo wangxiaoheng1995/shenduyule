@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>我的订单</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        .aui-bar-nav {
+            position: fixed;
+        }
+
+        .aui-dialog-btn {
+            color: #ff5096;
+        }
+
+        .aui-dialog-body {
+            color: #212121;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body v-cloak>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">我的订单</div>
+</header>
+<div style="height: 2rem;"></div>
+<div id="content">
+    <div id="main">
+        <div class="detail-top-tip aui-hide">
+            <img src="../../image/my/wddd_dfk_bg.png"/>
+            <dl>
+                <dd>等待您的付款...</dd>
+                <dd>45分36秒后订单自动关闭</dd>
+            </dl>
+        </div>
+        <div class="aui-margin-t-10">
+            <ul class="aui-list aui-media-list">
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-inner aui-list-item-arrow" @click="showExpress()">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title aui-font-size-14">
+                                    <img src="../../image/my/wdddxq_wl_icon.png"
+                                         class="detail-no-wl aui-margin-r-10 aui-pull-left"/>
+                                    {{expressText}}
+                                </div>
+                            </div>
+                            <div class="aui-list-item-text detail-date-bot">
+                                {{expressTime}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item aui-list-item-middle aui-padded-t-10 aui-padded-b-10" style="overflow: hidden">
+                    <p>
+                        <span class="aui-pull-left aui-margin-r-10" style="width: 15%">收货人</span><span
+                            class="color-black">{{orderRes.name}} {{orderRes.tel}}</span>
+                    </p>
+
+                    <p class="aui-margin-t-10">
+                        <span class="aui-pull-left aui-margin-r-10" style="width: 18%">收货地址</span><span
+                            class="color-black aui-pull-left" style="width: 75%;">{{orderRes.address}}</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="aui-margin-t-10 cart-bg-fff s-padding-l-r aui-padded-t-15 aui-padded-b-15"
+             v-if="orderRes.order_type==2">
+            <h4 class="aui-padded-t-10 aui-padded-b-10">
+                <span class="order-top-img"><img src="../../image/my/wdddxq_pd_icon.png"
+                                                 class="aui-pull-left aui-margin-r-10"/>拼团中</span>
+            </h4>
+            <div class="aui-text-right aui-margin-t-5">
+                <img :src="item.avatar" class="aui-img-round aui-pull-left s-img-width" v-for="item in userRes"/>
+                <span class="aui-font-size-16 cart-section-go aui-margin-r-10">拼单详情</span>
+            </div>
+        </div>
+        <div class="detail-bt-more">
+            <section class="cart-bg-fff order-section-padd aui-margin-t-10">
+                <h4 class="aui-border-b aui-padded-t-10 aui-padded-b-10"><span class="order-top-img"><img
+                        :src="shopRes.shop_logo"
+                        class="aui-pull-left aui-margin-r-10"/>{{shopRes.shop_name}}></span><span
+                        class="aui-pull-right"><em
+                        class="color-gray9 aui-padded-r-10">共计{{orderRes.goods_count}}件商品</em></span>
+                </h4>
+                <ul class="aui-list aui-media-list">
+                    <li class="aui-list-item aui-padded-l-0 cart-bg-fff" v-for="item in ogRes">
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media cart-left-img">
+                                <img :src="item.skuGoodsJson.pic">
+                            </div>
+                            <div class="aui-list-item-inner aui-padded-r-0">
+                                <div class="aui-list-item-text">
+                                    <p class="aui-ellipsis-2 s-color-black">{{item.skuGoodsJson.gname}}</p>
+                                </div>
+                                <div class="aui-info aui-margin-t-15" style="padding:0">
+                                    <div class="aui-info-item">
+                                        <span class="s-color-black">￥{{item.skuGoodsJson.price}}</span>
+                                    </div>
+                                    <div class="aui-info-item">×{{item.goods_count}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="aui-padded-t-10 aui-padded-b-10 aui-padded-l-0 aui-padded-r-0 aui-border-b s-padding-l-r">
+                    <p class="detail-total-flex"><span>商品总额</span><span>￥{{orderRes.goods_money}}</span></p>
+                    <p class="detail-total-flex"><span>运费</span><span>￥0.00</span></p>
+                </div>
+                <p class="aui-text-right s-color-black aui-padded-t-10 aui-padded-b-10">
+                    实付：￥{{orderRes.pay_money}}（免运费）</p>
+                <div class="aui-text-right aui-margin-t-5">
+                    <span class="aui-font-size-16 cart-section-go aui-margin-r-10">申请退款</span>
+                </div>
+            </section>
+            <div class="s-flex cart-bg-fff detail-fun-div aui-margin-t-10" >
+            <span class="detail-fun-span">
+              <img src="../../image/my/wddd_lxmj_icon.png" class="aui-pull-left aui-margin-r-10"/>
+              联系卖家
+            </span>
+            <span class="detail-fun-span" @click="phone(shopRes.shop_tel)">
+              <img src="../../image/my/wddd_bddh_icon.png" class="aui-pull-left aui-margin-r-10"/>
+              拨打电话
+            </span>
+            </div>
+            <div class="aui-margin-t-10">
+                <ul class="aui-list aui-media-list s-no-bgimg">
+                    <li class="aui-list-item aui-list-item-middle aui-padded-t-10 aui-padded-b-10"
+                        style="overflow: hidden">
+                        <p>
+                            <span class="aui-pull-left aui-margin-r-10" style="width: 18%">订单编号</span><span
+                                class="color-black">{{orderRes.order_no}}</span>
+                        </p>
+
+                        <p class="aui-margin-t-10" v-if="orderRes.pay_status==2">
+                            <span class="aui-pull-left aui-margin-r-10" style="width: 18%">支付方式</span><span
+                                class="color-black">{{orderRes.pay_type==1?'微信':'支付宝'}}</span>
+                        </p>
+
+                        <p class="aui-margin-t-10">
+                            <span class="aui-pull-left aui-margin-r-10" style="width: 18%">下单时间</span><span
+                                class="color-black">{{orderRes.add_time}}</span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <footer class="aui-bar aui-bar-tab aui-border-t" v-show="orderRes.status!=4">
+        <div class="aui-bar-tab-item color-gray9" tapmode style="width: auto;" @click="cancleOrder(orderRes.oid);"
+             v-show="orderRes.status==1">取消订单
+        </div>
+        <div class="aui-bar-tab-item aui-text-white back-pink" tapmode style="width: auto;"
+             @click="gotoPay(orderRes.oid);" v-show="orderRes.status==1">立即支付
+        </div>
+        <div class="aui-bar-tab-item aui-text-white back-pink" tapmode style="width: auto;"
+             @click="showShare()" v-show="orderRes.status>1&&orderRes.status<4">邀请好友
+        </div>
+    </footer>
+</div>
+</body>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/aui/aui-tab.js"></script>
+<script src="../../script/sqlite_db.js"></script>
+<script src="../../script/aui/aui-dialog.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script>
+    var user, sqlite, oid = targetId = 0;
+    apiready = function () {
+        user = $api.getStorage('user');
+        oid = api.pageParam.oid;
+        sqlite = api.require('db');
+
+        var vm = new Vue({
+            el: '#content',
+            data: {
+                userRes: [],
+                ogRes: [],
+                shopRes: {},
+                orderRes: {sku_userget_json: {}},
+                expressText:'暂无物流信息',
+                expressTime:'',
+                hasExpress:false
+            },
+            methods: {
+                phone: function (p) {
+                    window.location.href = "tel://" + p;
+                },
+                cancleOrder: function (oid) {
+                    var dialog = new auiDialog();
+                    dialog.alert({
+                        msg: '确定取消此订单？',
+                        buttons: ['取消', '确定']
+                    }, function (ret) {
+                        if (ret.buttonIndex == 2) {
+                            api.ajax({
+                                url: PHP_SERVE_URL + '/order/cancleOrder',
+                                method: 'post',
+                                data: {
+                                    values: {
+                                        openId: user.openId,
+                                        oid: oid,
+                                        token: yltcrypt.cpt(user.openId)
+                                    }
+                                }
+                            }, function (ret) {
+                                if (ret.code == 0) {
+                                    $a.sendEvt('moveorderPayment-reload');
+                                    $a.sendEvt('moveorderAll-reload');
+                                    api.closeWin();
+                                } else {
+                                    $a.toast(ret.msg);
+                                }
+                            })
+                        }
+                    })
+                },
+                gotoPay: function (oid) {
+                    api.ajax({
+                        url: PHP_SERVE_URL + '/order/againPay',
+                        method: 'post',
+                        data: {
+                            values: {
+                                openId: user.openId,
+                                oid: oid
+                            }
+                        }
+                    }, function (ret) {
+                        if (ret.code == 0) {
+                            $a.openWin('../pay/pay_win', 'needPayMoney:' + ret.needPayMoney + ',orderNo:' + ret.orderNo);
+                        } else {
+                            $a.toast(ret.msg)
+                        }
+                    })
+                },
+                showExpress:function(){
+                    var self=this;
+                    if(self.hasExpress){
+                        var pageParame={
+                            express_no:self.orderRes.express_no,
+                            express_type:self.orderRes.express_type
+                        };
+                        $a.openWin('../my/my_frm-logistics',pageParame);
+                    }
+                    else{
+                        $a.toast("暂无物流信息");
+                    }
+                },
+                showShare:function(){
+                    $a.openFrm("../share/share");
+                }
+            },
+            mounted: function () {
+                var self = this;
+                loadOrderDetails(function (ret) {
+                    console.log(JSON.stringify(ret));
+                    if (ret.code == 0) {
+                        self.userRes = ret.data.userRes;
+                        self.ogRes = ret.data.ogRes;
+                        self.shopRes = ret.data.shopRes;
+                        self.orderRes = ret.data.orderRes;
+                        if(self.orderRes.express_no!="" && self.orderRes.express_type!=""){
+                            self.hasExpress=true;
+                            api.ajax({
+                                url:PHP_SERVE_URL+'/order/expressInfo',
+                                method:'post',
+                                data:{
+                                    values:{
+                                        expressNo:self.orderRes.express_no,
+                                        expressType:self.orderRes.express_type
+                                    }
+                                }
+                            },function(ret){
+                                if(ret.code==0){
+                                    if(ret.data.length>0){
+                                        self.expressText=ret.data[0].context;
+                                        self.expressTime=ret.data[0].time;
+                                    }
+                                }
+                            })
+                        }
+
+                    }
+                });
+            }
+        });
+    }
+
+    function loadOrderDetails(callback) {
+        api.ajax({
+            url: PHP_SERVE_URL + '/order/info',
+            method: 'post',
+            data: {
+                values: {
+                    openId: user.openId,
+                    oid: oid
+                }
+            }
+        }, function (ret, err) {
+            callback(ret);
+        });
+    }
+</script>
+
+</html>

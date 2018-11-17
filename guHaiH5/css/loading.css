@@ -1,0 +1,127 @@
+
+.box {
+    width:100%;
+    height:100%;
+    /*padding: 3%;*/
+    box-sizing: border-box;
+    overflow: hidden;
+
+    z-index: 999999;
+    position: absolute;
+    left:0;
+    top:0;
+}
+
+.loader {
+    width:100%;
+    height: 100px;
+    margin-right: 3%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    margin-left: -50%;
+
+}
+
+
+
+.loading_3 {
+    position: relative;
+}
+
+@-webkit-keyframes loading_3 {
+     0% {
+         transform: scale(1);
+         opacity: 1;
+     }
+     50% {
+         transform: scale(.5);
+         opacity: .3;
+     }
+     100% {
+         transform: scale(1);
+         opacity: 1;
+     }
+ }
+@keyframes loading_3 {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(.5);
+        opacity: .3;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.loading_3 i {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+}
+
+.loading_3 i:nth-child(1) {
+    top: 15px;
+    left: 0;
+    animation: loading_3 .7s ease 0s infinite;
+    -webkit-animation: loading_3 .7s ease 0s infinite;
+}
+
+.loading_3 i:nth-child(2) {
+    top: 11px;
+    left: 10px;
+    animation: loading_3 .7s ease -0.12s infinite;
+    -webkit-animation: loading_3 .7s ease -0.12s infinite;
+}
+
+.loading_3 i:nth-child(3) {
+    top: 0;
+    left:15px;
+    animation: loading_3 .7s ease -0.24s infinite;
+    -webkit-animation: loading_3 .7s ease -0.24s infinite;
+}
+
+.loading_3 i:nth-child(4) {
+    top: -11px;
+    left: 10px;
+    animation: loading_3 .7s ease -0.36s infinite;
+    -webkit-animation: loading_3 .7s ease -0.36s infinite;
+}
+
+.loading_3 i:nth-child(5) {
+    top: -15px;
+    left: 0;
+    animation: loading_3 .7s ease -0.48s infinite;
+    -webkit-animation: loading_3 .7s ease -0.48s infinite;
+}
+
+.loading_3 i:nth-child(6) {
+    top: -11px;
+    left: -10px;
+    animation: loading_3 .7s ease -0.60s infinite;
+    -webkit-animation: loading_3 .7s ease -0.60s infinite;
+}
+
+.loading_3 i:nth-child(7) {
+    top: 0;
+    left: -15px;
+    animation: loading_3 .7s ease -0.72s infinite;
+    -webkit-animation: loading_3 .7s ease -0.72s infinite;
+}
+
+.loading_3 i:nth-child(8) {
+    top: 11px;
+    left: -10px;
+    animation: loading_3 .7s ease -0.84s infinite;
+    -webkit-animation: loading_3 .7s ease -0.84s infinite;
+}

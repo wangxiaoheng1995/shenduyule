@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>掌柜升级规则</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        img{
+            width: 100%;
+        }
+        .list .list-header{
+            font-weight: bolder;
+        }
+        .list-header span{
+            display: inline-block;
+            height: 13px;
+            width: 3px;
+            background-color:#c2a46b;
+        }
+        /*黄色*/
+        .color-yellow{
+            color: #c2a46b;
+        }
+        .bg-yellow{
+            background-color:#c2a46b ;
+        }
+        .aui-row{
+            border-top: 1px solid #c2a46b;
+            border-right: 1px solid #c2a46b;
+        }
+        .aui-col-xs-6{
+            border-bottom: 1px solid #c2a46b;
+            border-left:1px solid #c2a46b;
+            font-weight: bolder;
+            height: 3.3rem;
+        }
+        .aui-bar-nav{
+            position: fixed;
+        }
+    </style>
+</head>
+<body>
+<!-- header -->
+<header class="aui-bar aui-bar-nav tit-bar-black back-write color-black">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back();">
+        <span class="aui-iconfont aui-icon-left color-black"></span>
+    </a>
+    <div class="aui-title">掌柜升级规则</div>
+</header>
+<!-- main -->
+<div id="main" style="margin-top: 2.6rem;">
+    <ul class="list aui-padded-l-15 aui-padded-r-15" >
+        <li class="list-item margin-top">
+            <div class="list-header"><span class="aui-margin-r-5"></span>掌柜等级介绍</div>
+            <div class="list-text margin-top">
+                销拼购平台掌柜等级分为：
+                <span class="color-yellow">青铜掌柜、白银掌柜、黄金掌柜、铂金掌柜</span>和<span class="color-yellow">黑金掌柜</span>五个等级。
+                用户升级掌柜需缴纳押金，
+                不同等级掌柜在平台享有不同类型的专属服务或福利
+            </div>
+        </li>
+
+        <li class="list-item margin-top">
+            <div class="list-header"><span class="aui-margin-r-5"></span>掌柜等级对照表</div>
+            <div class="aui-grid aui-margin-b-15 back-lucency aui-margin-t-15">
+                <ul class="aui-row">
+                    <li class="aui-col-xs-6 bg-yellow">
+                        <div class="aui-grid-label color-write">立即升级</div>
+                    </li>
+                    <li class="aui-col-xs-6 bg-yellow">
+                        <div class="aui-grid-label color-write">押金额度</div>
+                    </li>
+                    <li class="aui-col-xs-6">
+                        <div class="aui-grid-label" id="ordinaryName">青铜掌柜</div>
+                    </li>
+                    <li class="aui-col-xs-6">
+                        <div class="aui-grid-label" id="ordinary"></div>
+                    </li>
+                    <li class="aui-col-xs-6">
+                        <div class="aui-grid-label" id="silverName">白银掌柜</div>
+                    </li>
+                    <li class="aui-col-xs-6">
+                        <div class="aui-grid-label" id="silver"></div>
+                    </li>
+                    <li class="aui-col-xs-6">
+                        <div class="aui-grid-label" id="goldName">黄金掌柜</div>
+                    </li>
+                    <li class="aui-col-xs-6">
+                        <div class="aui-grid-label" id="gold"></div>
+                    </li>
+                    <li class="aui-col-xs-6">
+                        <div class="aui-grid-label" id="platinumName">铂金掌柜</div>
+                    </li>
+                    <li class="aui-col-xs-6">
+                        <div class="aui-grid-label" id="platinum"></div>
+                    </li>
+                    <li class="aui-col-xs-6">
+                        <div class="aui-grid-label" id="blackGoldName">黑金掌柜</div>
+                    </li>
+                    <li class="aui-col-xs-6">
+                        <div class="aui-grid-label" id="blackGold"></div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="list-item margin-top">
+            <div class="list-header"><span class="aui-margin-r-5"></span>押金返还规则</div>
+            <ul class="list-text margin-top">
+               <li>
+                   <div class="color-yellow">1、返还次数</div>
+                   <div>每笔押金分<span id="returnMonth"></span>个月返还，由缴纳时间算次月开始返还第1笔。</div>
+               </li>
+                <li>
+                    <div class="color-yellow">2、返还方式</div>
+                    <div>按支付原路返还</div>
+                </li>
+                <li>
+                    <div class="color-yellow">3、完成任务加速押金返还</div>
+                    <div>为帮助平台掌柜押金快速返还，平台专门设置了部分任务，完成任务可获得相应的加速押金退还时间。</div>
+                </li>
+
+            </ul>
+        </li>
+        <li class="list-item margin-top">
+            <div class="list-header"><span class="aui-margin-r-5"></span>掌柜等级升降规则</div>
+            <div class="list-text margin-top">
+                <div class="aui-margin-b-10 ">升级：当用户缴纳押金额度满足相应掌柜等级门槛要求后，将立刻予以升级。</div>
+                <div >降级：当用户退还了部分押金，所缴纳的押金不满足所在等级门槛要求时，掌柜等级将会被调整至押金额度对应的掌柜等级。</div>
+            </div>
+        </li>
+    </ul>
+</div>
+<!-- footer -->
+<script src="../../script/api.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script type="text/javascript">
+//获取显示四个等级金额的id
+var ordinary = $api.byId('ordinary');
+var silver = $api.byId('silver');
+var gold = $api.byId('gold');
+var platinum = $api.byId('platinum');
+var blackGold = $api.byId('blackGold');
+//获取四个等级名称id
+var ordinaryName = $api.byId('ordinaryName');
+var silverName = $api.byId('silverName');
+var goldName = $api.byId('goldName');
+var platinumName = $api.byId('platinumName');
+var blackGoldName = $api.byId('blackGoldName');
+//返还月份id
+var returnMonth = $api.byId('returnMonth');
+    loadRegulation();
+  function loadRegulation(){
+    $.ajax({
+        url: PHP_SERVE_URL + '/partner/getRules',
+        type: 'post',
+        success:function(ret, err){
+            if (ret) {
+                //掌柜等级
+                $api.text(ordinaryName, ret.data[0].name);
+                $api.text(silverName, ret.data[1].name);
+                $api.text(goldName, ret.data[2].name);
+                $api.text(platinumName, ret.data[3].name);
+                $api.text(blackGoldName, ret.data[4].name);
+                //掌柜等级对应的金额
+                $api.text(ordinary, ret.data[0].deposit);
+                $api.text(silver, ret.data[1].deposit);
+                $api.text(gold, ret.data[2].deposit);
+                $api.text(platinum, ret.data[3].deposit);
+                $api.text(blackGold, ret.data[4].deposit);
+                //分N个月份返还
+                $api.text(returnMonth, ret.return_timelen);
+            }
+        }
+    });
+
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>ajax局部刷新</title>
+ </head>
+ <body>
+  <header>
+   <nav>
+    <a href="4.html" rel="external nofollow" class="current">首页</a>
+    <a href="5.html" rel="external nofollow" >新闻资讯</a>
+    <!-- <a href="1.html" rel="external nofollow" >用户中心</a> -->
+   </nav>
+  </header>
+  <section id="content">
+   <div id="container">
+     5的内容
+   </div>
+  </section>
+  <!-- <script src="js/jquery-1.11.0.min.js"></script>
+  <script src="js/jq-load.js"></script> -->
+ </body>
+</html>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+$('nav a').on('click', function(e) {
+e.preventDefault(); // 阻止链接跳转
+var url = this.href; // 保存点击的地址
+
+$('nav a.current').removeClass('current');
+$(this).addClass('current');
+
+$('#container').remove();
+$('#content').load(url + ' #container').fadeIn('slow'); // 加载新内容,url地址与该地址下的选择器之间要有空格,表示该url下的#container
+});
+</script>

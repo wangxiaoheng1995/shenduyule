@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>申请退款</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style type="text/css">
+        body, html {
+            background: #ffffff !important;
+        }
+        .aui-list{
+            background-image: none;
+        }
+        .back-color {
+            background: #ff5096;
+            width: 80%;
+            margin: 0 auto;
+            border-radius: 2rem;
+            color: #fff;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            font-size: 1rem;
+        }
+
+        #refundBtn {
+            margin-top: 7rem !important;
+        }
+
+        .aui-list .aui-list-item:active {
+            background-color: #fff;
+        }
+
+        #popup{
+            left: 0;
+            width: 100%;
+            margin-left: 0rem;
+            bottom: 0rem;
+        }
+        #popup .aui-popup-content{
+            border-radius: 0rem;
+        }
+        #popup .aui-popup-content .popup-header{
+            position: relative;
+            padding: 1rem 0rem;
+            margin: 0 auto;
+            text-align: center;
+            color: #666666;
+        }
+        #popup .aui-popup-content .popup-img{
+           display: inline-block;
+            height: 0.7rem;
+            width: 0.7rem;
+            margin-right: 1rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0rem;
+        }
+        .popup-active{
+            margin-right: 1rem;
+            background-image: url("../../image/aftersale/check.png");
+            background-repeat: no-repeat;
+            background-position: center right;
+            background-size: 0.8rem;
+        }
+
+    </style>
+</head>
+<body id="body">
+<!--头部-->
+<div>
+    <div class="back-grayf5 aui-margin-15 aui-padded-15">
+        <ul>
+            <li>温馨提示：</li>
+            <li>1.限时特价、预约资格等购买优惠可能一并取消</li>
+            <li>2.订单一旦取消，无法恢复</li>
+        </ul>
+    </div>
+    <div class="aui-content aui-margin-b-15">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner" aui-popup-for="popup">
+                    <div class="aui-list-item-title "  >退款原因：<span class="color-gray9">请选择退款原因</span></div>
+                    <div class="aui-list-item-right"><i class="aui-iconfont  aui-icon-down"></i></div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">退款联系人：李小三</div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">联系方式：18818780342</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="aui-content aui-margin-t-15">
+        <div class="aui-btn aui-btn-block back-color" id="refundBtn">申请退款</div>
+    </div>
+
+    <div class="aui-popup aui-popup-bottom" id="popup">
+        <div class="aui-popup-content">
+            <div class="popup-header">
+                <span class="aui-font-size-18">取消原因</span>
+                <img class="popup-img" src="../../image/aftersale/close_icon.png">
+            </div>
+            <ul class="aui-list aui-list-noborder">
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner popup-active">
+                        <div class="aui-list-item-title"> 订单不能按预计时间送达</div>
+                    </div>
+                </li>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">操作有误（商品地址等选错）</div>
+                    </div>
+                </li>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">重复下单/误下单</div>
+                    </div>
+                </li>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">其他渠道价格更低</div>
+                    </div>
+                </li>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">该商品旌舞商城降价了</div>
+                    </div>
+                </li>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">不想买了</div>
+                    </div>
+                </li>
+                <li class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">其他原因</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../script/api.js" ></script>
+<script type="text/javascript" src="../../script/aui/aui-popup.js" ></script>
+<script type="text/javascript">
+    var popup = new auiPopup();
+</script>
+</body>
+</html>

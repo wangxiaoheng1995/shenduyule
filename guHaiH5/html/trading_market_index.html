@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>行情主页-市场</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/loading.css">
+    <style>
+        html, body {
+            width: 100%;
+            height: auto;
+            padding-bottom: 1.5rem;
+        }
+
+        /*#main {*/
+        /*height: 82vh;*/
+        /*}*/
+
+        .aui-bar-nav ul li {
+            width: 100%;
+            min-height: 2.25rem;
+            background-color: #de3232;
+            /*background-color: #000;*/
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 0.4rem;
+            top: 0.2rem;
+            width: 1.8rem;
+            height: 1.8rem;
+            text-align: center;
+            line-height: 1.8rem;
+        }
+
+        .index-set {
+            width: 2.25rem;
+            height: 2.25rem;
+            line-height: 2.25rem;
+            text-align: center;
+            position: relative;
+            margin: 0 0.8rem;
+        }
+
+        .index-set .set-badge {
+            background-color: #fff;
+            color: #de3232;
+            position: absolute;
+            right: 5%;
+            top: 5%;
+            line-height: initial;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            font-size: 14px;
+            padding: 0.1rem;
+        }
+
+        .search-icon img {
+            margin: 0.4rem auto;
+        }
+
+        .si_hide {
+            display: none;
+        }
+
+        #wrap {
+            height: 100%;
+        }
+
+        a {
+            color: inherit;
+            font-style: inherit;
+        }
+
+        .color-de3232 {
+            color: #de3232;
+        }
+
+        .count-nav {
+            overflow: hidden;
+        }
+
+        .count-nav li {
+            width: 33.33%;
+            float: left;
+        }
+
+        .font-size-10 {
+            font-size: .5rem;
+        }
+
+        .color-040404 {
+            color: #040404;
+        }
+
+        .color-60af60 {
+            color: #60af60;
+        }
+
+        .list-nav li {
+            width: 25%;
+            float: left;
+            text-align: center;
+            font-size: .75rem;
+            color: #676767;
+        }
+
+        .jj-list td {
+            min-width: 25%;
+            max-width: 25%;
+            width: 25%;
+            padding: .3rem 0;
+        }
+        .update_data{
+            width: 100%;
+            position:fixed;
+            bottom:2.4rem;
+            background: #fff;
+            border-bottom: 10px solid #f4f4f4;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+<header class="aui-bar aui-bar-nav" id="header">
+    <ul class="aui-bar">
+        <li class="active">
+            <div class="aui-title">
+                <div id="tab-bar" class="aui-bar aui-bar-btn "
+                     style="margin-top: 0.3rem;border:1px solid #fff;border-radius: 3px;overflow: hidden;">
+                    <div class="toggle_block aui-bar-btn-item aui-active" c_target="#market">市&nbsp;&nbsp;场</div>
+                    <div class="toggle_block aui-bar-btn-item" c_target="#costom">自选股</div>
+                </div>
+            </div>
+            <a class="search-icon">
+                <img style="width: 1rem" src="../image/market/hq_search_icon.png">
+            </a>
+        </li>
+    </ul>
+</header>
+<div id="content" style="background: #fff;">
+    <div id="market" class="market-block">
+        <ul class="count-nav aui-padded-t-5 aui-padded-b-10 border-bot">
+            <li class="aui-text-center">
+                <p class="aui-font-size-18 color-de3232">2814.14</p>
+                <p class="font-size-10 color-040404">海王星指数 <span class="color-60af60">-27.48%</span></p>
+            </li>
+            <li class="aui-text-center">
+                <p class="aui-font-size-18 color-de3232">9317.36</p>
+                <p class="font-size-10 color-040404">冥王星指数 <span class="color-de3232">+12.33%</span></p>
+            </li>
+            <li class="aui-text-center">
+                <p class="aui-font-size-18 color-de3232">1616.91</p>
+                <p class="font-size-10 color-040404">北斗星指数 <span class="color-60af60">-21.36%</span></p>
+            </li>
+        </ul>
+        <div style="height: 200px;">
+            图表区域
+        </div>
+        <ul class="list-nav clearfix border-bot aui-border-t aui-padded-t-15 aui-padded-b-15">
+            <li>名称/代码</li>
+            <li>最新</li>
+            <li>涨跌</li>
+            <li>涨幅 <img src="../image/market/point.png" style="display: inline-block;vertical-align: middle;width: .15rem;"
+                        alt=""></li>
+        </ul>
+        <ul class="jj-list">
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="costom" class="overflow-x-hidden market-block aui-padded-b-15 aui-margin-b-10 aui-hide">
+        <!--为空显示-->
+        <div class="font-colo-gy aui-font-size-20 aui-padded-15 "
+             style="margin: 5rem 4rem;text-align: center;border: 1px dashed #7e7e8e">+添加自选股
+        </div>
+        <ul class="count-nav aui-padded-t-5 aui-padded-b-10 border-bot">
+            <li class="aui-text-center">
+                <p class="aui-font-size-18 color-de3232">2814.14</p>
+                <p class="font-size-10 color-040404">海王星指数 <span class="color-60af60">-27.48%</span></p>
+            </li>
+            <li class="aui-text-center">
+                <p class="aui-font-size-18 color-de3232">9317.36</p>
+                <p class="font-size-10 color-040404">冥王星指数 <span class="color-de3232">+12.33%</span></p>
+            </li>
+            <li class="aui-text-center">
+                <p class="aui-font-size-18 color-de3232">1616.91</p>
+                <p class="font-size-10 color-040404">北斗星指数 <span class="color-60af60">-21.36%</span></p>
+            </li>
+        </ul>
+        <div style="height: 200px;">
+            图表区域
+        </div>
+        <ul class="list-nav clearfix border-bot aui-border-t aui-padded-t-15 aui-padded-b-15">
+            <li><a href="###">编辑 <img src="../image/market/edit.png" style="width: .65rem;display: inline-block;vertical-align: middle;" alt=""></a></li>
+            <li>最新 <img src="../image/market/point.png" style="display: inline-block;vertical-align: middle;width: .15rem;"
+                       alt=""></li>
+            <li>涨跌</li>
+            <li>涨幅 <img src="../image/market/point.png" style="display: inline-block;vertical-align: middle;width: .15rem;"
+                        alt=""></li>
+        </ul>
+        <ul class="jj-list">
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+            <li class="flex aui-text-center border-bot">
+                <a style="display: block;width: 100%;" href="trading_sharesDetail.html">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p class="color-111111">国招基金</p>
+                                <p class="color-a7a7a7">0005</p></td>
+                            <td>23.26</td>
+                            <td><span class="color-de3232">1.93</span></td>
+                            <td><span class="color-de3232">1.99%</span></td>
+                        </tr>
+                    </table>
+                </a>
+            </li>
+        </ul>
+        <div class="aui-border-t update_data aui-padded-t-5 aui-padded-b-5"><img src="../image/market/update_data.png" style="width: 5.075rem;margin: auto;" alt=""></div>
+    </div>
+</div>
+<footer class="aui-bar aui-bar-tab " id="footer" style="background-color: #fff ;z-index: 100000">
+    <div class="aui-bar-tab-item">
+        <a href="trading_index.html">
+            <img src="../icon/1-1.png">
+            <div class="aui-bar-tab-label">首页</div>
+        </a>
+    </div>
+    <div class="aui-bar-tab-item aui-active">
+        <img src="../icon/2-0.png">
+        <div class="aui-bar-tab-label">行情</div>
+    </div>
+    <div class="aui-bar-tab-item">
+        <img src="../icon/3-1.png">
+        <div class="aui-bar-tab-label">游戏</div>
+    </div>
+    <div class="aui-bar-tab-item">
+        <a href="trading_test.html">
+            <img src="../icon/4-1.png">
+            <div class="aui-bar-tab-label">考试</div>
+        </a>
+    </div>
+    <div class="aui-bar-tab-item">
+        <a href="trading_my.html">
+            <img src="../icon/5-1.png">
+            <div class="aui-bar-tab-label">我的</div>
+        </a>
+    </div>
+</footer>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-collapse.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/vue.js"></script>
+<script src="../script/echarts.min.js"></script>
+<script src="../script/iScroll-lite.js"></script>
+<script>
+    $(".toggle_block").on("click",function(){
+        var targetIsShow=$(this).attr("c_target");
+        $(this).addClass("aui-active").siblings(".aui-active").removeClass("aui-active");
+        $(".market-block").addClass("aui-hide");
+        $(targetIsShow).removeClass("aui-hide");
+    });
+</script>
+</body>
+
+</html>

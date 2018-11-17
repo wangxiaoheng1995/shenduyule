@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>消息中心</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <style>
+        .aui-bar-tab .aui-dot{
+
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write border-bot">
+        <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+            <span class="aui-iconfont aui-icon-left color-gray9"></span>
+        </a>
+        <div class="aui-title color-black">消息中心</div>
+    </header>
+    <div id="main">
+        <div class="aui-bar aui-bar-tab position-no  msg-top aui-padded-b-15 aui-padded-t-15">
+            <div class="aui-bar-tab-item aui-active" tapmode onclick="$a.openWin('msg_win',{index:0})">
+                <img src="../../image/msg/xx_tz_icon.png" alt="">
+                <div class="aui-bar-tab-label color-gray9">通知</div>
+                <!--<span class="aui-dot"></span>-->
+            </div>
+            <div class="aui-bar-tab-item aui-active" tapmode onclick="$a.openWin('msg_win',{index:1})">
+                <img src="../../image/msg/icon-wl.png" alt="">
+                <div class="aui-bar-tab-label color-gray9">交易物流</div>
+            </div>
+            <div class="aui-bar-tab-item" tapmode onclick="$a.openWin('msg_win',{index:2})">
+                <img src="../../image/msg/icon-hd.png" alt="">
+                <div class="aui-bar-tab-label color-gray9">互动</div>
+                <div class="aui-dot chat-message-tip" style="display: none"></div>
+            </div>
+            <div class="aui-bar-tab-item" tapmode onclick="$a.openWin('msg_win',{index:3})">
+                <!--<div class="aui-badge">99</div>-->
+                <img src="../../image/msg/icon-yh.png" alt="">
+                <div class="aui-bar-tab-label color-gray9">优惠</div>
+            </div>
+        </div>
+        <ul class="aui-list aui-media-list aui-margin-t-10 msg-list back-none">
+            <li class="aui-list-item aui-list-item-middle back-none border-bot">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3rem;">
+                        <img src="../../image/msg/icon-01.png" class=" aui-list-img-sm">
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-arrow">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title aui-font-size-14">
+                                销拼购活动
+                            </div>
+                        </div>
+                        <div class="aui-list-item-text color-gray9">
+                            双12同价提前够，领券下单减60
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-middle back-none border-bot">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3rem;">
+                        <img src="../../image/msg/icon-02.png" class=" aui-list-img-sm">
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-arrow">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title aui-font-size-14">
+                                我的资产
+                            </div>
+                        </div>
+                        <div class="aui-list-item-text color-gray9">
+                            暂无资产动态
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-middle back-none border-bot">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3rem;">
+                        <img src="../../image/msg/icon-03.png" class=" aui-list-img-sm">
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-arrow">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title aui-font-size-14">
+                                一点百科
+                            </div>
+                        </div>
+                        <div class="aui-list-item-text color-gray9">
+                            宝宝打针总是哭怎么办？
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script>
+  apiready = function () {
+    // $api.fixStatusBar($api.dom('header'));
+  }
+
+</script>
+</body>
+</html>

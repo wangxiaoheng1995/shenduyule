@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        .aui-bar-nav {
+            position: fixed;
+        }
+
+        .aui-bar-nav, .aui-searchbar {
+            background-color: #FE5095;
+            color: #fff;
+        }
+
+        .cart-section-go {
+            color: #666666;
+            border-color: #CACACA;
+            margin: 0.2rem 0;
+        }
+
+        .cart-section-go:active {
+            background-color: #bbb;
+        }
+
+        .main {
+            padding: 0.25rem 0.75rem 0 0.75rem;
+        }
+
+        .hot-title {
+            padding: 0.5rem 0;
+        }
+
+        .search-result .result-list {
+            position: relative;
+            color: #666666;
+            font-size: 0.75rem;
+            line-height: 1.8rem;
+            border-bottom: 1px solid #ebebeb;
+        }
+
+        .aui-tab-item.aui-active {
+            color: #FE5095;
+            border-bottom: 0;
+        }
+        #tab{
+            position: fixed;
+            width:100%;
+            z-index: 999;
+            display: inline-flex;
+        }
+        .aui-grid [class*=aui-col-] {
+            display: table-cell;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            padding: 0.5rem 0.2rem 0.5rem 0.2rem;
+
+        }
+
+        .aui-grid {
+            width: 100%;
+            background-color: #fff;
+            display: table;
+            table-layout: fixed;
+        }
+
+        .aui-card-list {
+            position: relative;
+            margin-bottom: 0rem;
+            background: #ffffff;
+            border: 1px solid #f6f6f6;
+        }
+
+        .text-height {
+            min-height: 1.8rem;
+        }
+        .content,.aui-content{
+            width: 100%;
+            height:100%;
+        }
+        .aui-content{
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+        .aui-btn:active {
+            color: #fff;
+            background-color: #bdbdbd;
+        }
+        .price{
+            position: absolute !important;
+            font-size: 1px !important;
+            padding-left: 0.1rem !important;
+            color:#212121 !important;
+            font-weight:bold !important;
+        }
+        .selected{
+            color:#FE5095 !important;
+        }
+        .cont {
+            padding: 1rem;
+            background: #f5f5f5;
+            display: none;
+        }
+        .tu img {
+            display: block;
+            width: 50%;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+<div id="search">
+    <header class="aui-bar aui-bar-nav">
+        <div class="aui-pull-left aui-btn" onclick="window.history.back();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </div>
+        <div class="aui-title" style="left:1.5rem; right: 2rem;">
+            <div class="aui-searchbar">
+                <div class="aui-searchbar-input aui-border-radius" style="border-radius:0.7rem ">
+                    <i class="aui-iconfont aui-icon-search"></i>
+                    <input type="search" placeholder="请输入搜索内容" id="search-input" value=""
+                           oninput="searchTypesResult(this)">
+                    <div class="aui-searchbar-clear-btn aui-show">
+                        <i class="aui-iconfont aui-icon-close" onclick="deleteText()"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-pull-right aui-btn" onclick="searchResult(1,'',$('#search-input').val(),'');">
+            <span class="aui-font-size-16">搜索</span>
+        </div>
+    </header>
+    <div style="height: 2rem;"></div>
+    <div class="main">
+        <div id="history-list">
+        </div>
+        <!--<div class="hot-list">-->
+        <!--<div class="hot-title color-gray9">热搜</div>-->
+        <!--<div class="aui-font-size-14 cart-section-go">去帮去帮去</div>-->
+        <!--<div class="aui-font-size-14 cart-section-go">去帮TA</div>-->
+        <!--<div class="aui-font-size-14 cart-section-go">去帮TA</div>-->
+        <!--<div class="aui-font-size-14 cart-section-go">去帮TA</div>-->
+        <!--</div>-->
+        <ul class="search-result" id="types_area">
+        </ul>
+
+    </div>
+    <!--商品列表-->
+    <div class="content " style="display: none;background-color: #fff;">
+        <div class="aui-tab aui-border-b" id="tab">
+            <div class="aui-tab-item aui-active" sort_type="score,gid desc">推荐</div>
+            <div class="aui-tab-item" sort_type="sell_num desc" >销量</div>
+            <div class="aui-tab-item"  sort_type="price asc">价格<span></span>
+               <i class="aui-iconfont aui-icon-top price" style="top:-0.1rem" sort_type="price asc"></i>
+                <i class="aui-iconfont aui-icon-down price" style="top:0.3rem" sort_type="price desc"></i>
+            </div>
+        </div>
+        <div class="aui-content" style="padding-top: 2.5rem;">
+            <div class="aui-grid">
+                <div class="aui-row-padded" id="goods_area">
+
+                </div>
+                <div class="cont">
+                    <div class="tu">
+                        <img src="../../image/icon-zw.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/html-x-dot-template" id="goods_tmpl">
+            {{~it.data:goods}}
+            <div class="aui-col-xs-6 aui-padded-b-0 " onclick="window.location.href='../goods/goods_win.html?id={{=goods.gid}}'">
+                <div class="aui-card-list">
+                    <div class="aui-card-list-content-padded">
+                        <img src="{{=goods.pic}}"
+                             style="height: 7rem;height: 7rem">
+                    </div>
+                    <div class="aui-card-list-footer aui-padded-t-0">
+                        <div class="aui-list-item-text aui-ellipsis-2">
+                            {{=goods.gname}}
+                        </div>
+                    </div>
+                    <div class="aui-card-list-footer aui-padded-t-0 " style="min-height: 1rem;">
+                        <div class="aui-list-item-text aui-font-size-12">
+                            <font class="color-pink" style="font-weight:bold;">
+                                ¥{{=goods.group_price}}</font>
+                            <!-- <font class="color-gray9 " style="text-decoration: line-through;">
+                                ¥{{=goods.price}}</font> -->
+                        </div>
+                        <div class="aui-list-item-text aui-font-size-12">
+                            已售:
+                            {{?it.type==1}}
+                            {{=goods.sell_num}}
+                            {{??}}
+                            {{=goods.group_done_num}}
+                            {{?}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{~}}
+        </script>
+    </div>
+    <!---->
+</div>
+<script type="text/html-x-dot-template" id="history_tmpl">
+    <div class="hot-title color-gray9">搜索历史</div>
+    {{~it:dval:dkey}}
+    <div class="aui-font-size-14 cart-section-go"
+         onclick="searchResult('{{=dval.type}}','{{=dval.key}}','{{=dval.value}}','{{=dval.level}}');">{{=dval.value}}
+    </div>
+    {{~}}
+</script>
+<script type="text/html-x-dot-template" id="types_tmpl">
+    {{~it:dval:dkey}}
+    <li class="result-list aui-list-item-arrow" onclick="searchResult(2,'{{=dval.id}}','{{=dval.gtname}}','{{=dval.level}}')">
+        {{=dval.gtname}}
+    </li>
+    {{~}}
+</script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/aui/aui-tab.js"></script>
+<script>
+    var url;
+    var values;
+    var page = 1, goodspage = 1;
+    var totalpage = 1, goodstotalpage = 1;
+    var sort_type="score,gid desc";
+    var type=1;
+    var type_goods;
+    var typekeywords;
+        getSearchHistory();
+        window.onscroll=function(e){
+            var top = this.pageYOffset || this.scrollY;
+            var windowHeight = this.outerHeight || this.innerHeight;
+            var bodyH=document.body.scrollHeight;
+            if ((top+windowHeight) == bodyH) {
+                if(type_goods=="type"){
+                    if (page <= totalpage) {
+                        getTypesResult();
+                    }
+                }
+                if(type_goods=="goods"){
+                    if (goodspage <= goodstotalpage) {
+                        getGoodsResult();
+                    }
+                }
+            }
+        };
+        // api.addEventListener({
+        //     name: 'scrolltobottom'
+        // }, function () {
+        //     if(type_goods=="type"){
+        //         if (page <= totalpage) {
+        //             getTypesResult();
+        //         }
+        //     }
+        //     if(type_goods=="goods"){
+        //         if (goodspage <= goodstotalpage) {
+        //             getGoodsResult();
+        //         }
+        //     }
+        //
+        // })
+        $(".aui-tab-item").click(function(){
+            if(!$(this).hasClass("aui-active")){
+                $(".aui-tab-item").removeClass("aui-active");
+                $(this).addClass("aui-active");
+                $(".price").removeClass("selected");
+                sort_type=$(this).attr("sort_type");
+                if($(this).index()==2){
+                    $(".price").eq(0).addClass("selected");
+                }
+            }else{
+                if($(this).index()==2){
+                    $(".price").toggleClass("selected");
+                    sort_type=$(this).find(".selected").attr("sort_type")
+                }
+            }
+            goodspage=goodstotalpage=1;
+            values.sort=sort_type;
+            getGoodsResult();
+        })
+    //    获取搜索历史
+    function getSearchHistory() {
+        $("#history-list").empty();
+        var history = $api.getStorage("searchHistory");
+        if (typeof history != "undefined" && history.data.length > 0) {
+            var innerText = doT.template($("#history_tmpl").text());
+            $("#history-list").append(innerText(history.data));
+        }
+    }
+    function deleteText(){
+        if($("#search-input").val()==""){
+            return;
+        }
+        $("#search-input").val("");
+        typekeywords="";
+        $(".main").show();
+        $(".content").hide();
+        $("#history-list").show();
+        $("#types_area").hide();
+        getSearchHistory();
+    }
+    //    键入值获取分类
+    function searchTypesResult(that) {
+        typekeywords = $(that).val();
+        type_goods="type";
+        page = totalpage=1;
+        $(".main").show();
+        $(".content").hide();
+        if (typekeywords == "") {
+            $("#history-list").show();
+            $("#types_area").hide();
+            getSearchHistory();
+        } else {
+            $("#types_area").show();
+            $("#history-list").hide();
+            getTypesResult();
+        }
+    }
+    // 获取分类结果
+    function getTypesResult() {
+        $.ajax({
+            url: PHP_SERVE_URL + '/sg/queryType',
+            type: 'post',
+            data: {
+                qwords: typekeywords,
+                pernum:20,
+                page: page
+            },
+            success:function (ret) {
+                if (ret.code == 0) {
+                    if (page == 1) {
+                        $("#types_area").empty();
+                    }
+                    var innerText = doT.template($("#types_tmpl").text());
+                    $("#types_area").append(innerText(ret.data))
+                    page++;
+                    totalpage = ret.totalpage;
+                }
+            }
+        })
+    }
+    function searchResult(method_type, key, value,level) {
+        if(value=="" || $(".content").css("display")!="none"){
+            return;
+        }
+        setSearchHistory(method_type, key, value,level);
+        $("#search-input").val(value);
+        $(".main").hide();
+        $(".content").show();
+        $(".aui-tab-item").removeClass("aui-active");
+        $(".aui-tab-item").eq(0).addClass("aui-active");
+        $(".price").removeClass("selected");
+        goodspage=goodstotalpage=1;
+        sort_type="score,gid desc"
+        type_goods="goods";
+        type=method_type;
+        //type   1:点击搜索，2：点击分类
+        if (type == 1) {
+            url = PHP_SERVE_URL + "/Sg/queryGoods";
+            values = {
+                qwords: value,
+                sort: sort_type,
+                page: goodspage,
+            }
+
+        } else {
+            url = PHP_SERVE_URL + "/Sg/getTypeGoods";
+            values = {
+                tid: key,
+                level: level,
+                sort: sort_type,
+                page: goodspage,
+                pernum: 10
+            }
+        }
+        getGoodsResult();
+    }
+    // 获取商品列表
+    function getGoodsResult() {
+        values.page=goodspage;
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: values,
+            success:function (ret) {
+                if (ret.code == 0) {
+                    ret.type=type;
+                    if(goodspage==1){
+                        $("#goods_area").empty();
+                        if(ret.data.length==0){
+                            $(".cont").show();
+                        }else{
+                            $(".cont").hide();
+                        }
+                    }
+                    var innerText = doT.template($("#goods_tmpl").text());
+                    $("#goods_area").append(innerText(ret))
+                    goodspage++;
+                    goodstotalpage = ret.totalpage;
+                }
+            }
+        })
+    }
+    // 存储搜索历史
+    function setSearchHistory(type, key, value,level) {
+        var history = $api.getStorage("searchHistory");
+        var iscontains=false;
+        if (typeof history == "undefined") {
+            history = {
+                data: []
+            }
+        }else{
+            $.each(history.data,function(index,item){
+                if(item.type==type && item.key==key && item.value==value&& item.level==level){
+                    iscontains=true;
+                }
+            })
+        }
+        if(!iscontains){
+            var data1 = {
+                type: type,
+                key: key,
+                value: value,
+                level:level
+            }
+            history.data.push(data1);
+            $api.setStorage('searchHistory', history);
+        }
+    }
+</script>
+</body>
+</html>

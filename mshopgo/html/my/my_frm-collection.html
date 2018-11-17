@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>我的订单</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        /*通用暂无信息*/
+        .icon-tips {
+            display: block;
+            width: 60%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+        }
+        .aui-bar-nav{
+            position: fixed;
+        }
+        #tab{
+            position: fixed;
+            top: 2rem;
+            width: 100%;
+            z-index: 1;
+        }
+        .nodata{
+            display: none;
+            width: 50%;
+            position: absolute;
+            top: 38%;
+            left: 25%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">我的收藏</div>
+</header>
+<div class="aui-tab aui-border-t coll-flex s-no-bgimg" id="tab">
+    <div class="aui-tab-item aui-active">商品</div>
+    <div class="aui-tab-item">
+        <div></div>
+        店铺
+    </div>
+</div>
+<div style="height:4.3rem "></div>
+<div id="content">
+    <!-- 商品-->
+    <div id="area_info">
+    </div>
+
+    <script type="text/html/x-dot-template" id="area_tmpl">
+        {{?it.type==1}}
+        {{~it.data:dval:dkey}}
+        <section class="cart-bg-fff order-section-padd aui-margin-t-10" id="{{=dval.gid}}">
+            <ul class="aui-list aui-media-list">
+                <li class="aui-list-item aui-padded-l-0 cart-bg-fff s-no-bgimg">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-left-img">
+                            <img src="{{=dval.pic}}">
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-r-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 s-color-black">{{=dval.gname}}</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-15" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="s-color-black"><em class="color-pink">{{=dval.group_num}}</em>人拼单  已拼<em
+                                            class="color-pink">{{=dval.sell_num}}</em>件</span>
+                                </div>
+                                <div class="aui-info-item">领券有优惠</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="aui-text-right aui-margin-t-15">
+                <dl class="aui-pull-left">
+                    <dt class="color-pink">￥{{=dval.group_price}} <span class="color-gray9 aui-font-size-12"
+                                                                       style="text-decoration: line-through;">￥{{=dval.price}}</span>
+                    </dt>
+                </dl>
+                <span class="order-more-btn aui-margin-r-10" onclick="cancleMark('{{=dval.gid}}')">取消收藏</span>
+                <!-- <span class="aui-font-size-16 cart-section-go" onclick="openWinPro('../goods/goods_win','id:{{=dval.gid}}')">一键拼团</span> -->
+                <span class="aui-font-size-16 cart-section-go" onclick="window.location.href='../goods/goods_win.html?id:'+{{=dval.gid}}">一键拼团</span>
+            </div>
+        </section>
+        {{~}}
+        {{??}}
+        {{~it.data:dval:dkey}}
+        <section class="cart-bg-fff order-section-padd aui-margin-t-10" id="{{=dval.shop_id}}">
+            <ul class="aui-list aui-media-list">
+                <li class="aui-list-item aui-padded-l-0 cart-bg-fff s-no-bgimg">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-left-img">
+                            <img src="{{=dval.shop_logo}}">
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-r-0">
+                            <div class="aui-list-item-text">
+                                <p class="s-color-black">{{=dval.shop_name}} </p>
+                                <span class="aui-pull-right aui-font-size-12">店铺评分：{{=dval.score}}</span>
+                            </div>
+                            <div class="aui-info aui-margin-t-15" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="">总销量：{{=dval.mark_num}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="aui-text-right aui-margin-t-15">
+                <span class="order-more-btn aui-margin-r-10" onclick="cancleMark('{{=dval.shop_id}}')">取消收藏</span>
+                <!-- <span class="aui-font-size-16 cart-section-go" onclick="$a.openWin('../shop/shop_win','shop_id:{{=dval.shop_id}}')">进入店铺</span> -->
+                <span class="aui-font-size-16 cart-section-go" onclick="Window.location.href='../shop/shop_win.html?shop_id:'+{{=dval.shop_id}}">进入店铺</span>
+            </div>
+        </section>
+        {{~}}
+        {{?}}
+    </script>
+</div>
+<div class="nodata" >
+    <img src="../../image/icon-zw.png" class="nodata-img">
+</div>
+</body>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/aui/aui-tab.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/common.js"></script>
+<script>
+    var user;
+    var page = 1;
+    var type = 1;
+    window.onload = function () {
+        user = $api.getStorage("user");
+        getCollection();
+    }
+    var tab = new auiTab({
+        index: 1,
+        element: document.getElementById('tab')
+    }, function (ret, err) {
+        $(".nodata").hide();
+        type = ret.index;
+        page = 1;
+        $("#area_info").empty();
+        getCollection();
+        document.addEventListener({
+            name:'scrolltobottom'
+        },function(ret,err){
+            page++;
+            getCollection();
+        });
+    });
+    function getCollection() {
+        $.ajax({
+            url: PHP_SERVE_URL + '/customer/userMarkList',
+            method: 'post',
+            data: {
+                // values: {
+                    openId: user.openId,
+                    type: type,
+                    page: page
+                // }
+            },
+            success: function (ret, err) {
+                if (ret.code == 0) {
+                    var results = {
+                        type: type,
+                        data: []
+                    };
+                    if(page==1){
+                        if(ret.data.length==0){
+                            $(".nodata").show();
+                            return;
+                        }
+                    }
+                    results.data = ret.data;
+                    var innerText = doT.template($("#area_tmpl").text());
+                    $("#area_info").append(innerText(results))
+                }
+            }
+        });
+    }
+    function cancleMark(id){
+        $.ajax({
+            url: PHP_SERVE_URL + '/customer/userCancelMark',
+            method: 'post',
+            data: {
+                // values: {
+                    openId: user.openId,
+                    type: type,
+                    target_id: id
+                // }
+            },
+            success:function (ret, err) {
+                if (ret.code == 0) {
+                    toast('取消成功');
+                    $("#area_info").empty();
+                    page=1;
+                    getCollection();
+                }else{
+                    toast("取消失败");
+                }
+            }
+        });
+    }
+</script>
+</html>

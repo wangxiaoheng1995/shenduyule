@@ -1,0 +1,239 @@
+
+body {
+    background: #f6f6f6;
+    /*overflow-x: scroll;*/
+}
+
+/*最底背景*/
+.bg1 {
+    background-color: #171b24;
+}
+.bg3{
+    background-color: #1C2029;
+}
+/*底背景*/
+.bg2 {
+    background-color: #1c2029;
+}
+
+/*小背景*/
+.bg {
+    padding: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+.bg-color {
+    background: #ffffff;
+}
+
+/*红色*/
+.font-colo-r {
+    color: #de3232 !important;
+}
+
+/*绿色*/
+.font-colo-g {
+    color: #43ac45 !important;
+}
+
+/*灰色*/
+.font-colo-gy {
+    color: #7e7e8e !important;
+}
+
+/*白色*/
+
+.font-colo-w {
+    color: #ffffff !important;
+}
+
+/*黑色*/
+.font-colo-b {
+    color: #212121 !important;
+}
+
+/*头部*/
+.aui-bar {
+    background-color: #de3232;
+}
+
+/*内容*/
+.overflow-x-hidden {
+    overflow-x: hidden;
+}
+
+/*清除下划线*/
+.aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+    background-image: none;
+}
+
+/*清除内边距*/
+.aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+    padding: 0rem;
+}
+
+.aui-tab-item {
+    color: #7e7e8e;
+}
+
+.aui-card-list, .aui-card-list-header, .aui-collapse-header.aui-active {
+    background: inherit;
+}
+
+.aui-card-list-header {
+    background: url("../image/market/hq_2icon.png") no-repeat left center;
+    background-size: 0.8rem;
+}
+
+.aui-collapse-header.aui-active {
+    background: url("../image/market/hq_1icon.png") no-repeat left center;
+    background-size: 0.8rem;
+}
+
+.aui-col-xs-3 {
+    height: 2rem;
+    line-height: 2rem;
+}
+
+.aui-row p {
+    height: 1rem;
+    line-height: 1rem;
+}
+
+#footer.aui-bar-tab .aui-active {
+    color: #de3232;
+}
+
+#footer img {
+    width: 1rem;
+    margin: 0 auto;
+}
+
+.border-bottom {
+    text-align: center;
+    border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+}
+
+#content {
+    padding-bottom: 2.5rem;
+}
+
+#warp-scroll,#wrapper {
+    width: 100%;
+    height: 2.5rem;
+    position: relative;
+    top: 0.5rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+#warp-scroll .arrows,#wrapper .arrows {
+    width: 3.2rem;
+    height: 1.8rem;
+    position: relative;
+    top: 0.35rem;
+    border-left: 1px dashed #7D7F8E;
+    text-align: center;
+    line-height: 1.8rem;
+}
+
+#warp-scroll .arrows .toggle-icon,#wrapper .arrows .toggle-icon {
+    display: inline-block;
+    width: 1.4rem;
+    height: 1.4rem;
+    position: relative;
+    top: 0.2rem;
+    background: url("../image/market/hq_night_icon.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+#scroll-inner {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+#scroll-inner .scroll-list {
+    white-space: nowrap;
+    position: absolute;
+    height: 2.5rem;
+    overflow-y: hidden;
+    padding: 0 0.1rem;
+}
+#scroll-inner .scroll-list ul{
+    height: 2.5rem;
+}
+#scroll-inner .scroll-list li {
+    position: relative;
+    display: inline-block;
+    padding: 0 1.2rem;
+    color: #7D7F8E;
+    line-height: 2.5rem;
+    /*max-width: 4.5rem;*/
+    overflow: hidden;
+    /*text-overflow: ellipsis;*/
+    white-space: nowrap;
+}
+
+#scroll-inner .scroll-list li.active {
+    color: #f00;
+}
+
+/*遮罩层*/
+.shade-layer {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    /*background-color: rgba(0, 0, 0, 0.2);*/
+    z-index: 1000 !important;
+    /*display: none;*/
+}
+
+.trad-focu {
+    color: red;
+    border-bottom: 2px solid red;
+}
+
+.select-edit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: -webkit-flex;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
+}
+.select-edit img{
+    height: 0.8rem;
+}
+
+.flex-vertical {
+    -webkit-box-orient: vertical;
+    -webkit-flex-flow: column;
+    flex-flow: column;
+}
+
+#wrap {
+    height: 100%;
+}
+
+.flex-con {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.flex-wrap {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.overflow-x-hidden {
+    overflow-x: hidden;
+}

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../css/frame0.css">
+    <link rel="stylesheet" href="../css/aui-slide.css">
+
+    <!--走马灯css-->
+    <link rel="stylesheet" href="../css/liMarquee.css">
+    <link rel="stylesheet" href="../css/loading.css">
+    <style>
+        html, body {
+            background: #fff;
+        }
+        html{
+            padding-bottom: 3rem;
+        }
+        .order {
+            padding-bottom: 2.5rem;
+        }
+
+        .tradeIndex .back-index:active {
+            background-color: #ececec !important;
+        }
+
+        .back-inner:active {
+            background-color: #ececec;
+        }
+
+        /*list-按下背景色*/
+        .aui-list .aui-list-item:active,
+        .aui-card-list-conten > div:active {
+            background-color: #ececec;
+        }
+
+        .aui-list .media-pic {
+            width: 4rem;
+            height: 4rem;
+            overflow: hidden;
+        }
+
+        .aui-list .media-pic-h {
+            height: auto;
+            border-radius: 0.2rem
+
+        }
+
+        .btn-more {
+            border-top: 1px solid #dddddd;
+        }
+
+        .border-bot {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .aui-list .border-none {
+            border: none;
+            background: none;
+        }
+
+        .icon-eye {
+            width: 0.6rem;
+            margin-top: 0.4rem;
+
+        }
+
+        .aui-grid .nav-btn {
+            padding: .85rem 0 0.15rem;
+        }
+
+        a {
+            font-size: inherit;
+            color: inherit;
+        }
+
+        .back—f8f8f8 {
+            background: #f8f8f8;
+        }
+
+        .color-adadad {
+            color: #adadad;
+        }
+
+        .answer-option .op-icon {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 1rem;
+        }
+
+        .answer-option .ok {
+            display: none;
+        }
+
+        .answer-option p.seleted .ok {
+            display: inline-block;
+        }
+
+        .answer-option p.seleted .no {
+            display: none;
+        }
+        .answer-footer{
+            background: #de3232;
+            display: flex;
+            padding:.6rem 1rem;
+            width: 100%;
+            position: fixed;
+            bottom:0;
+        }
+        .answer-footer li{
+            text-align: center;
+            flex: 1;
+            color: #fff;
+            font-size: .7rem;
+        }
+        .answer-footer li img{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn" onclick="history.back();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">第一节 股票</div>
+    <a class="aui-pull-right aui-btn" href="###">
+        交卷
+    </a>
+</header>
+<div id="test-answer">
+    <p class="back—f8f8f8 aui-font-size-16 color-adadad aui-padded-10 aui-padded-t-5 aui-padded-b-5">组合行选择题</p>
+    <div id="answer-main" class="aui-margin-l-10 aui-margin-r-10">
+        <p class="aui-margin-t-10 aui-margin-b-10">1.下列有关股票分割与合并的说法中，不正确的是( )。</p>
+        <p class="aui-margin-b-5">A.事实上，股票分割与合并通常会刺激股价上升或者下降</p>
+        <p class="aui-margin-b-5">B.从理论上说，股票分割与合并都不影响调整后的股价</p>
+        <p class="aui-margin-b-5">C.股票分割通常适用于低价股，股票合并常见于高价股</p>
+        <p class="aui-margin-b-5">D.股票不论是分割还是合并，均不影响每位股东所持股东权益占公司全部股东权益比重</p>
+        <div class="answer-option aui-padded-l-15 aui-padded-r-15 aui-padded-t-15 aui-padded-b-10">
+            <p class="aui-font-size-16 aui-margin-b-15 opt">
+                <img class="op-icon no" src="../image/answer/op_icon_no.png" style="width: 1.1rem;" alt="">
+                <img class="op-icon ok" src="../image/answer/op_icon_ok.png" style="width: 1.1rem;" alt="">
+                A.&nbsp;&nbsp;&nbsp;&nbsp;A、B
+            </p>
+            <p class="aui-font-size-16 aui-margin-b-15 seleted opt">
+                <img class="op-icon no" src="../image/answer/op_icon_no.png" style="width: 1.1rem;" alt="">
+                <img class="op-icon ok" src="../image/answer/op_icon_ok.png" style="width: 1.1rem;" alt="">
+                A.&nbsp;&nbsp;&nbsp;&nbsp;B、C
+            </p>
+            <p class="aui-font-size-16 aui-margin-b-15 opt">
+                <img class="op-icon no" src="../image/answer/op_icon_no.png" style="width: 1.1rem;" alt="">
+                <img class="op-icon ok" src="../image/answer/op_icon_ok.png" style="width: 1.1rem;" alt="">
+                A.&nbsp;&nbsp;&nbsp;&nbsp;B、C、D
+            </p>
+            <p class="aui-font-size-16 aui-margin-b-15 opt">
+                <img class="op-icon no" src="../image/answer/op_icon_no.png" style="width: 1.1rem;" alt="">
+                <img class="op-icon ok" src="../image/answer/op_icon_ok.png" style="width: 1.1rem;" alt="">
+                A.&nbsp;&nbsp;&nbsp;&nbsp;A、B、C
+            </p>
+        </div>
+        <div class="aui-text-right aui-margin-l-5 aui-margin-r-5 aui-padded-15 aui-padded-t-5 aui-padded-b-5 back—f8f8f8">
+            <a class="aui-margin-r-15 color-gray" href="###"><u>纠错</u></a><a class="color-gray" href="###"><u>笔记</u></a>
+        </div>
+    </div>
+    <ul class="answer-footer">
+        <li><a href="###"><img src="../image/answer/card.png" style="width: 3.25rem;" alt=""></a></li>
+        <li><img src="../image/answer/sc.png" style="width: 2.5rem;" alt=""></li>
+        <li><a href="###"><img src="../image/answer/js.png" style="width: 2.5rem;" alt=""></a></li>
+        <li><a href="###"><img src="../image/answer/next.png" style="width: 3.25rem;" alt=""></a></li>
+    </ul>
+</div>
+
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<!--走马灯js-->
+<script src="../script/jquery.liMarquee.js"></script>
+<script src="../script/doT.min.js"></script>
+<script src="../script/aui-slide.js"></script>
+<script>
+$(".answer-option").on("click","p.opt",function () {
+    $(this).addClass("seleted").siblings(".opt").removeClass("seleted");
+})
+</script>
+</body>
+</html>

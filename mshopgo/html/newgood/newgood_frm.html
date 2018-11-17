@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+    content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>新品</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-slide.css"/>
+    <link rel="stylesheet" href="../../css/swiper-3.2.5.min.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <script type="text/javascript" src="../../script/vue.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/config.js"></script>
+    <!--    <link rel="stylesheet" type="text/css" href="../../css/base.css" />-->
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: auto;
+            padding-bottom: 3rem;
+            overflow-x: hidden;
+        }
+    .wrap {
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+        background: #ffffff;
+        padding: 0rem 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .free-item{
+        padding: 0.25rem;
+    }
+    .free-item img{
+        display: block;
+        width: 100%;
+        height: 4rem;
+    }
+    .free-item .aui-text-center{
+        font-size: 0.7rem;
+        color: red;
+    }
+    img.icon {
+        display: block;
+        margin: 0 auto;
+        width: 60%;
+    }
+
+    .goods-item {
+        text-align: center;
+        height: 14rem;
+        background: #fff;
+    }
+
+    .goods-item img {
+        display: block;
+        width: 100%;
+        height: 9.25rem;
+    }
+
+
+    .title {
+        color: #666;
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+    .title p {
+        font-size: 0.6rem;
+        color: #ccc;
+    }
+
+    .goods-title {
+        font-size: 0.7rem;
+        color: #333 !important;
+        padding: 0 .5rem;
+        text-align: left;
+    }
+
+    .hot img {
+        width: 3rem;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .goods-item .aui-info .header-img {
+        height: 1.2rem;
+        width: 1.2rem;
+        border-radius: 50%;
+        border: 1px solid #ffffff;
+    }
+
+    .bg-white {
+        background: #ffffff;
+    }
+
+    .color-black {
+        color: #333333;
+    }
+    .aui-bar-tab .aui-bar-tab-item {
+        height: 3rem;
+    }
+    .aui-bar-tab .aui-bar-tab-item a,
+    .aui-bar-tab .aui-bar-tab-item a:visited,
+    .aui-bar-tab .aui-bar-tab-item a:hover{
+        color: inherit;
+        font-size: inherit;
+    }
+
+
+    .aui-row-padded [class*=aui-col-xs-]{
+        padding-bottom:0.25rem;
+        padding-top:0;
+    }
+    .aui-card-list{
+        background: #f6f6f6;
+    }
+        .fixed{
+            position:fixed;
+        }
+</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav bg-white aui-bar-light fixed" style="background: #FE73AA;color: #fff;" id="aui-header">
+        <div class="aui-title">
+            新品
+        </div>
+    </header>
+
+    <div class="aui-content" style="padding-top: 2.2rem;">
+        <div class="aui-card-list">
+            <!--<div class="aui-card-list-header">-->
+                <!--<div></div>-->
+                <!--<div class="title">-->
+                    <!--/&nbsp;&nbsp;精选新品&nbsp;&nbsp;/-->
+                <!--</div>-->
+                <!--<div></div>-->
+            <!--</div>-->
+            <div class="">
+                <div class="aui-row aui-row-padded" id="content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="../index/index_frm.html">
+                <i class="aui-iconfont" style="background-image: url('../../image/footer/f1-2.png')"></i>
+                <div class="aui-bar-tab-label">首页</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <i class="aui-iconfont " style="background-image: url('../../image/footer/f2-1.png')"></i>
+            <div class="aui-bar-tab-label">新品</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="../partner/partner_frm_app_download.html">
+                <i class="aui-iconfont " style="background-image: url('../../image/footer/f3-2.png')"></i>
+                <div class="aui-bar-tab-label">掌柜</div>
+            </a>
+        </div>
+        <!-- <div class="aui-bar-tab-item" tapmode>
+            <a href="../msg/msg_frm.html">
+                <i class="aui-iconfont" style="background-image: url('../../image/footer/f4-2.png')"></i>
+                <div class="aui-bar-tab-label">消息</div>
+                <div class="aui-dot chat-message-tip" style="display: none"></div>
+            </a>
+        </div> -->
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="javascript:typeof user.openId == 'undefined'?location.href='../gologin/gologin_frm.html':location.href='../my/my_frm.html'">
+                <i class="aui-iconfont " style="background-image: url('../../image/footer/f5-2.png')"></i>
+                <div class="aui-bar-tab-label">我的</div>
+            </a>
+        </div>
+    </footer>
+    <script type="text/html/x-dot-template" id="data_goods">
+        {{~it :value}}
+        <div class="aui-col-xs-6" onclick="openGoodsDetail('{{=value.gid}}')">
+            <div class="goods-item">
+                <img src="{{=value.pic}}">
+                <p class="aui-margin-t-10 goods-title aui-ellipsis-2">{{=value.gname}}</p>
+                <div class="aui-info aui-padded-l-10">
+                    <div class="aui-info-item" style="color: red;">¥<span style="font-size: .9rem;padding-left: .2rem;">{{=value.price}}</span></div>
+                    <!-- <div class="aui-info-item">
+                        <img src="../../image/demo2.png" class="header-img"/>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        {{~}}
+    </script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/doT.min.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+    <script>
+        var user=$api.getStorage("user");
+        var mySwiper = new Swiper('.swiper-container', {
+            direction: 'horizontal',
+            loop: true,
+            slidesPerView: 3
+        });
+
+        var page = 1;
+        var totalpage = 0;
+        var datas = [];
+            loadGoods();
+                //下滑加载数据
+        window.onscroll = function () {
+            var top = this.pageYOffset || this.scrollY;
+            var windowHeight = this.outerHeight || this.innerHeight;
+            var bodyH=document.body.scrollHeight;
+            if ((top+windowHeight) == bodyH) {
+                if (page <= totalpage) {
+                    loadGoods();
+                }
+            }
+        };
+            function loadGoods() {
+                $.ajax({
+                    url: PHP_SERVE_URL + '/sg/getNewGoods',
+                    type:'post',
+                    dataType: 'json',
+                    data: {
+                        page: page
+                    },
+                    success:function (ret, err) {
+                        if (ret.code == 0) {
+                            var interText = doT.template($api.text($api.byId('data_goods')));
+                            if (page == 1) {
+                                $api.html($api.byId('content'), interText(ret.data));
+                            } else {
+                                $api.append($api.byId('content'), interText(ret.data));
+                            }
+                            totalpage = ret.totalpage;
+                            page++;
+                        }
+                    }
+                });
+            }
+
+            function openGoodsDetail(id) {
+                // api.openWin({
+                //     name: 'goods_win',
+                //     url: '../goods/goods_win.html',
+                //     pageParam: {
+                //         id: id,
+                //         originOId: 0
+                //     },
+                //     progress: {
+                //         type: "default", //加载进度效果类型，默认值为default，取值范围为default|page，default等同于showProgress参数效果；为page时，进度效果为仿浏览器类型，固定在页面的顶部
+                //         title: "努力加载中...", //type为default时显示的加载框标题
+                //         text: "请稍等..."
+                //     }
+                // });
+                window.location.href='../goods/goods_win.html?originOId=0&id='+id;
+            }
+
+        </script>
+    </body>
+    </html>

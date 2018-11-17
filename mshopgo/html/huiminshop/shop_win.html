@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>店铺首页</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        header.header-nav {
+            background-color: transparent;
+            position: fixed;
+
+        }
+
+        #bg-color {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-color: #FE5095;
+            opacity: 0;
+        }
+
+        .header-nav .scan-icon {
+            width: 1.2rem;
+            height: 1.2rem;
+            background: url(../../image/index/home_sm_icon.png) no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .order-recommend h4 {
+            height: 1.5rem;
+            display: flex;
+            display: -webkit-flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-align-items: center;
+            -webkit-justify-content: center;
+        }
+
+        .order-recommend h4 span {
+            display: inline-block;
+            height: 1px;
+            width: 20%;
+            background: #ccc;
+            margin: 0 5%;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .shop-popup {
+            z-index: 999;
+        }
+
+        .shop-view ul li img {
+            display: block;
+            width: auto;
+            height: 6rem;
+            margin: 0.1rem auto;
+        }
+
+        .border {
+            border: 1px solid #eeeeee !important;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" class="shop" v-cloak>
+    <!-- 头部 -->
+    <header class="aui-bar aui-bar-nav header-nav" id="header-bar">
+        <div id="bg-color"></div>
+        <div class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </div>
+        <div class="aui-title" style="left:2rem; right: 2rem;">
+            <div class="aui-searchbar" style="background-color: transparent">
+                <div class="aui-searchbar-input " style="border-radius: 0.7rem"
+                     onclick="$a.openWin('../index/search_win')">
+                    <i class="aui-iconfont aui-icon-search"></i>
+                    <input type="search" placeholder="请输入搜索内容" id="search-input" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="aui-pull-right btn-share padding0 aui-text-center">
+            <img src="../../image/shop/icon-share.png" alt="" class="icon-share">
+        </div>
+    </header>
+    <div id="main">
+        <div class="shop-top" :style="'background: url('+shop.shopBgLogo+') no-repeat 0 0;'">
+            <ul class=" aui-media-list  back-lucency padding0 color-write">
+                <li class="aui-list-item aui-list-item-middle aui-clearfix aui-padded-l-10 aui-padded-r-10 ">
+                    <div class="aui-list-item-media shop-top-media aui-pull-left ">
+                        <img :src="shop.shopLogo" class="bd-radius4 aui-img-round aui-list-img-sm">
+                    </div>
+                    <div class="aui-list-item-inner aui-pull-left padding0 aui-margin-l-15">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title aui-font-size-14">{{shop.shopName}}</div>
+                            <div class="aui-list-item-right aui-font-size-12 ">店铺评分：{{shop.score}}</div>
+                        </div>
+                    </div>
+                    <div class="aui-list-item-inner aui-pull-right padding0 aui-margin-r-15">
+                        <div class="aui-list-item-text aui-text-right">
+                            <div class="aui-list-item-title aui-font-size-14">{{shop.collectNum}}</div>
+                            <div class="aui-list-item-right aui-font-size-12 ">收藏量</div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- <div class="aui-bar aui-bar-tab shop-bar aui-margin-b-10" id="tab">
+            <div class="aui-bar-tab-item " tapmode>
+                <i class="aui-iconfont iconmun aui-font-size-16">0</i>
+                <div class="aui-bar-tab-label ">全部商品</div>
+            </div>
+            <div class="aui-bar-tab-item" tapmode>
+                <i class="aui-iconfont iconmun aui-font-size-16">1</i>
+                <div class="aui-bar-tab-label">热销商品</div>
+            </div>
+            <div class="aui-bar-tab-item" tapmode>
+                <i class="aui-iconfont iconmun aui-font-size-16">1</i>
+                <div class="aui-bar-tab-label">店铺动态</div>
+            </div>
+
+        </div> -->
+        <!-- 每日精选 nav 导航切换 -->
+        <div id="nav-scroll" class="flex-wrap aui-margin-t-10 back-write" style="border-bottom: 1px solid #dddddd;">
+            <div id="iscroll" class="flex-con" style="line-height: 2rem;">
+                <ul class="con aui-padded-l-5 aui-padded-r-5">
+                </ul>
+            </div>
+            <div class="arrows" style="height: 2rem;"></div>
+
+        </div>
+        <div id="shop-view" class="shop-view aui-padded-t-10 back-write">
+            <ul class="clearfix aui-padded-l-15 ">
+                <li class="aui-pull-left border aui-margin-r-10 aui-margin-b-10" v-for="gitem in typeGoods"
+                    @click="openGoodsDetail(gitem.gid)">
+                    <img :src="gitem.pic" alt="" style="width: 7rem;height: 7rem;">
+                    <p class="aui-padded-l-5 aui-padded-r-5 aui-ellipsis-1">{{gitem.gname}}</p>
+                    <div class="cart-section-bottom clearfix aui-padded-t-5  aui-margin-l-5 aui-margin-r-5 aui-margin-t-10 aui-margin-b-5 border-top">
+                        <p class="aui-pull-left" v-if="gitem.group_num>=2">
+                            <strong class="aui-font-size-14 cart-section-prize color-pink">¥{{gitem.group_price}}</strong>
+                            <em class="aui-font-size-10 text-line">¥{{gitem.price}}</em>
+                        </p>
+                        <p class="aui-pull-left" v-else>
+                            <strong class="aui-font-size-14 cart-section-prize color-pink">¥{{gitem.price}}</strong>
+                            <em class="aui-font-size-10">&nbsp;</em>
+                        </p>
+                        <p class="aui-pull-right aui-font-size-12"> 已售:{{gitem.sell_num}}</p>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+        <div style="height:30px;"></div>
+    </div>
+
+    <footer id="footer" class=" aui-bar-tab shop-footer">
+        <div class=" shop-bar-btn  border-top aui-padded-b-10 aui-padded-t-10 clearfix">
+            <div class="  clearfix aui-pull-left  border-right  width33" @click="collect()">
+                <img :src="iscollect==1?'../../image/shop/home_sc_icon.png':'../../image/shop/wd_wdsc_icon.png'" alt=""
+                     class="aui-pull-left  aui-margin-r-5 " style="width: 0.8rem;margin: 0.1rem auto;">
+                <span class="aui-pull-left aui-text-left  aui-font-size-14">收藏店铺</span>
+            </div>
+            <div class="  clearfix aui-pull-left border-right width33" aui-popup-for="bottom-left">
+                <img src="../../image/shop/home_fl_icon.png" alt="" class="aui-pull-left aui-margin-r-5">
+
+                <span class="aui-pull-left aui-text-left  aui-font-size-14">热销分类</span>
+            </div>
+            <div class="  clearfix aui-pull-left width33">
+                <img src="../../image/shop/home_kf_icon.png" alt="" class="aui-pull-left aui-margin-r-5">
+
+                <span class="aui-pull-left aui-text-left aui-font-size-14">客服</span>
+            </div>
+        </div>
+    </footer>
+    <div class="aui-popup aui-popup-bottom shop-bot-left shop-popup" id="bottom-left">
+        <div class="aui-popup-arrow"></div>
+        <div class="aui-popup-content">
+            <ul class="aui-list aui-list-noborder">
+                <li class="aui-list-item padding0 " v-for="type in types" @click="gotoShopAll(type.id)">
+                    <div class="aui-list-item-inner aui-list-item-middle padding0 centent ">
+                        {{type.gtname}}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/aui/aui-slide.js"></script>
+<script src="../../script/aui/aui-tab.js"></script>
+<script src="../../script/aui/iScroll-lite.js"></script>
+<script src="../../script/aui/aui-popup.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/sqlite_db.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script>
+    var user;
+    var shop_id, sqlite, targetId, categoryId;
+    var popup;
+    var page = totalpages = 1;
+    apiready = function () {
+        user = $api.getStorage("user");
+        sqlite = api.require('db');
+        shop_id = api.pageParam.shop_id;
+        var vue = new Vue({
+            el: '#wrap',
+            data: {
+                shop: '',
+                iscollect: 0,
+                typeGoods: [],
+                types: ''
+            },
+            mounted: function () {
+                var self = this;
+                api.ajax({
+                    url: PHP_SERVE_URL + "/sg/shopInfo",
+                    method: "post",
+                    data: {
+                        values: {
+                            openId: user.openId,
+                            shopId: shop_id
+                        }
+                    }
+                }, function (ret) {
+                    if (ret.code == 0) {
+                        self.shop = ret.data.shop;
+                        targetId = ret.data.shop.uid;
+                        self.iscollect = ret.data.iscollect;
+                        self.getTypes();
+                    }
+                });
+                api.addEventListener({
+                    name:'scrolltobottom'
+                },function(){
+                    if(page<=totalpages){
+                        self.getTypeGoods();
+                    }
+                })
+
+            },
+            methods: {
+                collect: function () {
+                    var self = this;
+                    var url = "";
+                    if (self.iscollect == 0) {
+                        url = PHP_SERVE_URL + "/customer/userMark";
+                    } else {
+                        url = PHP_SERVE_URL + "/customer/userCancelMark";
+                    }
+                    api.ajax({
+                        url: url,
+                        method: 'post',
+                        data: {
+                            values: {
+                                openId: user.openId,
+                                type: 2,
+                                target_id: shop_id
+                            }
+                        }
+                    }, function (ret) {
+                        if (ret) {
+                            self.iscollect = self.iscollect == 1 ? 0 : 1;
+                        }
+                    })
+                },
+                getTypes: function () {
+                    var self = this;
+                    api.ajax({
+                        url: PHP_SERVE_URL + "/sg/entityShopGoodsType",
+                        method: "post",
+                        data: {
+                            values: {
+                                shopId: shop_id
+                            }
+                        }
+                    }, function (ret) {
+                        if (ret.code == 0) {
+                            self.types = ret.data;
+                            popup = new auiPopup();
+                            if (ret.data.length > 0) {
+                                var strHtml = '';
+                                for (var i = 0; i < ret.data.length; i++) {
+                                    if (i == 0) {
+                                        categoryId = ret.data[i].id;
+                                        strHtml += '<li data-id="' + ret.data[i].id + '" class="con-item active" tapmode="hover">' + ret.data[i].gtname + '</li>';
+                                    } else {
+                                        strHtml += '<li data-id="' + ret.data[i].id + '" class="con-item" tapmode="hover">' + ret.data[i].gtname + '</li>';
+                                    }
+                                }
+                                <!-- 导航条底部的滑块 -->
+                                strHtml += '<div class="run-line" id="line" style="background-color: #FF5192"></div>';
+                                $api.html($api.dom('#iscroll ul'), strHtml);
+                                /*nav 导航切换 点击切换后的回调函数 回调函数接收当前点击的对象 */
+                                initNavScroll('#iscroll', function (target) {
+                                    if($(target).hasClass("active")) {
+                                        self.typeGoods = [];
+                                        page = totalpages = 1;
+                                        categoryId = $(target).data('id');
+                                        self.getTypeGoods();
+                                    }
+                                });
+                                self.getTypeGoods();
+                                /*头部渐变效果*/
+                                setTimeout(function () {
+                                    var head = $api.dom('#bg-color'),
+                                            nav = $api.dom('#iscroll');
+                                    window.onscroll = function () {
+                                        var top = this.pageYOffset || this.scrollY;
+                                        var windowHeight = this.outerHeight || this.innerHeight;
+                                        if (top <= windowHeight-500) {
+                                            nav.style.cssText = 'position:relative;top:0;';
+                                            return head.style.cssText = 'opacity:' + (top / windowHeight).toFixed(2);
+                                        } else {
+                                            nav.style.cssText = 'position:fixed;top:' + $api.byId('header-bar').offsetHeight + 'px;';
+                                            return head.style.cssText = 'opacity:1;';
+                                        }
+                                    };
+                                }, 100);
+                            }
+                        }
+                    });
+                },
+                openGoodsDetail: function (id) {
+                    $a.closeWin("goods_win");
+                    $a.openWin('../goods/goods_win', {id: id, originOId: 0})
+                },
+                getTypeGoods: function () {
+                    var self = this;
+                    api.ajax({
+                        url: PHP_SERVE_URL + "/sg/entityShopTypeGoods",
+                        method: "post",
+                        data: {
+                            values: {
+                                shopId: shop_id,
+                                typeId: categoryId,
+                                pernum: 10,
+                                page: page
+                            }
+                        }
+                    }, function (ret,err) {
+                        page++;
+                        if (ret.code == 0) {
+                            ret.data.forEach(function(item,index){
+                                self.typeGoods.push(item);
+                            })
+                            totalpages=ret.pages;
+                        }
+                    });
+                },
+                gotoShopAll: function (id) {
+                    $a.openWin('shop_all', 'shopId:' + shop_id + ',typeId:' + id);
+                    setTimeout('popup.hide();', 1000);
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

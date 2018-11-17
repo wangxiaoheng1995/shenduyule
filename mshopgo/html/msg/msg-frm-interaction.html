@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>消息中心</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <style>
+    .aui-badge{
+      width: 0.8rem;
+    height: 0.8rem;
+    position: absolute;
+    left: 2.6rem;
+    top: -0.4rem;
+    }.aui-list .aui-list-item-media .inter-img{
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+    .aui-img{
+      display: inherit !important;
+    }
+    .aui-list-item-text img{
+      width: 20px;
+      display: inline;
+    }
+    </style>
+</head>
+<body>
+<div>
+    <div class="aui-padded-t-10">
+        <ul class="aui-list aui-media-list back-none" id="conversation">
+             <!--<li class="aui-list-item aui-list-item-middle aui-padded-t-10 aui-padded-b-10">-->
+                <!--<div class="aui-media-list-item-inner">-->
+                    <!--<div class="aui-list-item-media padding0 inter  ">-->
+                        <!--<img src="../../image/test.jpg" class=" aui-list-img-sm inter-img">-->
+                        <!--<em class="aui-badge">5</em>-->
+                    <!--</div>-->
+                    <!--<div class="aui-list-item-inner aui-list-item-arrow before-none aui-margin-l-15">-->
+                        <!--<div class="aui-list-item-text">-->
+                            <!--<div class="aui-list-item-title aui-font-size-14">APICloud AUI</div>-->
+                            <!--<div class="aui-list-item-right">08:00</div>-->
+                        <!--</div>-->
+                        <!--<div class="aui-ellipsis">-->
+                            <!--发送到就发了多少分了飞洒的发送到发送到发送到发的说法是分了飞洒的发送到发送到发送到发的分了飞洒的发送到发送到发送到发的分了飞洒的发送到发送到发送到发的-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</li>-->
+        </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/sqlite_db.js"></script>
+<script type="text/javascript" src="../../script/newMsgListen.js"></script>
+<script type="text/html/x-dot-template" id="data_conversation">
+    {{~it :value}}
+    <li id="t{{=value.targetId}}" class="aui-list-item aui-list-item-middle aui-padded-t-10 aui-padded-b-10" onclick="openChatFromConversation({{=value.targetId}})">
+        <div class="aui-media-list-item-inner">
+            <div class="aui-list-item-media padding0 inter  ">
+                <img src="{{=value.avatar}}?x-oss-process=image/resize,m_mfit,h_200,w_200" class=" aui-list-img-sm inter-img">
+                {{?value.noRead != 0}}
+                    <em class="aui-badge">{{=value.noRead}}</em>
+                {{??}}
+                <em class="aui-badge" style="display: none">0</em>
+                {{?}}
+            </div>
+            <div class="aui-list-item-inner aui-list-item-arrow before-none aui-margin-l-15">
+                <div class="aui-list-item-text">
+                    <div class="aui-list-item-title aui-font-size-14">{{=value.name}}</div>
+                    <div class="aui-list-item-right">{{=value.edittime}}</div>
+                </div>
+                <div class="aui-ellipsis-1 aui-card-list-user-info aui-margin-t-5">
+                    {{=value.lastmsg}}
+                </div>
+            </div>
+        </div>
+    </li>
+    {{~}}
+</script>
+<script type="text/javascript">
+    var rong, sqlite, user;
+    apiready = function() {
+        rong = api.require('rongCloud2');
+        sqlite = api.require('db');
+        user = $api.getStorage('user');
+        if (!user)return;
+
+        //查询本地数据库会话
+        getChatUser();
+        //刷新未读消息数量
+        api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: false
+        }, function(ret, err) {
+            //查询本地数据库会话
+            getChatUser();
+            api.refreshHeaderLoadDone();
+        });
+        //监听接收到消息
+        NewMsgListen.chatListReceive();
+        //消息被读取监听
+        NewMsgListen.chatListreadMsg();
+    };
+
+    function openChatFromConversation(targetId) {
+        openChatFromFriend(targetId,{});
+    }
+    function getTime(timestamp) {
+      var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+       Y = date.getFullYear() + '-';
+       M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+       D = date.getDate() + ' ';
+       h = date.getHours() + ':';
+       m = date.getMinutes() + ':';
+       s = (date.getSeconds()<10?'0'+date.getSeconds():date.getSeconds());
+       return Y+M+D+h+m+s;
+    }
+    function getNowTime() {
+      var date = new Date();
+       Y = date.getFullYear() + '-';
+       M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+       D = date.getDate() + ' ';
+       h = date.getHours() + ':';
+       m = date.getMinutes() + ':';
+       s = (date.getSeconds()<10?'0'+date.getSeconds():date.getSeconds());
+       return Y+M+D+h+m+s;
+    }
+</script>
+</html>

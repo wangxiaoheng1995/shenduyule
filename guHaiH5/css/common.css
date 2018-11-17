@@ -1,0 +1,64 @@
+/*公共底部*/
+body {
+    background: #f6f6f6;
+}
+
+.padding-foot {
+    padding-bottom: 2.5rem;
+}
+
+/*头部*/
+.aui-bar {
+    background-color: #de3232;
+}
+
+/*内容*/
+.overflow-x-hidden {
+    overflow-x: hidden;
+}
+
+/*清除下划线*/
+.aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+    background-image: none;
+}
+
+/*清除内边距*/
+.aui-list .aui-list-item, .aui-list .aui-list-header {
+    padding: 0rem;
+}
+
+.bg-color {
+    background: #ffffff;
+}
+
+/*红色*/
+.font-colo-r {
+    color: #de3232 !important;
+}
+
+/*白色*/
+.font-colo-w {
+    color: #ffffff !important;
+}
+
+.border-bot {
+    border-bottom: 1px solid #dddddd!important;
+}
+.color-a7a7a7{
+    color: #a7a7a7;
+}
+.color-111111{
+    color: #111;
+}
+.flex{
+    display: flex;
+}
+.flex-wrap{
+    flex-wrap: wrap;
+}
+.flex1{
+    flex: 1;
+}
+.min-width-33{
+    min-width: 33.33%;
+}

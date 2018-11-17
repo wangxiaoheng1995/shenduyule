@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>分享</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2) !important;
+            overflow: hidden;
+        }
+
+        .share_more_mask {
+            opacity: 0.3;
+        }
+    </style>
+</head>
+
+<body>
+<!--分享-->
+<div class="share_popup" onclick="closeShare()">
+    <div class="share_more_mask"></div>
+    <ul class="aui-padded-t-15 aui-padded-b-15 aui-padded-l-10 aui-padded-r-10">
+        <li class="aui-col-5 aui-margin-b-15">
+            <img src="../../image/share/icon-tips.png" onclick="shareclick('qq', 'QFriend');"/>
+            <p>云动态</p>
+        </li>
+        <li class="aui-col-5 aui-margin-b-15">
+            <img src="../../image/share/icon-hy.png" onclick="shareclick('qq', 'QFriend');"/>
+            <p>发给好友</p>
+        </li>
+        <li class="aui-col-5 aui-margin-b-15">
+            <img src="../../image/share/icon-qq.png" onclick="shareclick('qq', 'QFriend');"/>
+            <p>QQ</p>
+        </li>
+
+        <li class="aui-col-5 aui-margin-b-15">
+            <img src="../../image/share/icon-qzone.png" onclick="shareclick('qq', 'QZone');"/>
+            <p>QQ空间</p>
+        </li>
+        <li class="aui-col-5 aui-margin-b-15">
+            <img src="../../image/share/icon-wb.png" onclick="shareclick('sina');"/>
+            <p>微博</p>
+        </li>
+        <li class="aui-col-5 aui-margin-b-15">
+            <img src="../../image/share/icon-wx.png" onclick="shareclick('wx', 'session');"/>
+            <p>微信</p>
+        </li>
+        <li class="aui-col-5 aui-margin-b-15">
+            <img src="../../image/share/icon-pyq.png" onclick="shareclick('wx', 'timeline');"/>
+            <p>朋友圈</p>
+        </li>
+        <li class="aui-col-5 aui-margin-b-15">
+            <img src="../../image/share/icon-dd.png" onclick="shareclick('sms');"/>
+            <p>钉钉</p>
+        </li>
+        <li class="aui-col-5 aui-margin-b-15">
+            <img src="../../image/share/icon-dx.png" onclick="shareclick('sms');"/>
+            <p>短信</p>
+        </li>
+        <li class="aui-col-5 aui-margin-b-15">
+            <img src="../../image/share/icon-update.png" onclick="shareclick('reload');"/>
+            <p>刷新</p>
+        </li>
+        <li class="aui-col-5">
+            <img src="../../image/share/icon-link.png" onclick="shareclick('copylink');"/>
+            <p>复制链接</p>
+        </li>
+    </ul>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/vue.js"></script>
+<script>
+  function closeShare() {
+    api.closeFrame({});
+  }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的持仓</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background-color: #171b24;
+        }
+
+        span {
+            font-size: 0.75rem;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            padding-top: 0rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #1c2029;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除左边距*/
+        .aui-list .aui-list-item {
+            padding-left: 0rem;
+        }
+
+        .head .aui-list .aui-list-item-title {
+            color: #ffffff;
+        }
+
+        .aui-list .aui-list-item-title {
+            font-size: 0.7rem;
+        }
+
+        .aui-grid .aui-col-xs-6 {
+            text-align: left;
+            padding: 0.1rem 0;
+        }
+
+        .border-bot {
+            border-bottom: 1px solid #252932;
+        }
+
+        .holding-list li, .holding-inner {
+            min-height: inherit !important;
+            height: 1.6rem !important;
+            line-height: 1.6rem !important;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .aui-content .aui-list-item:active,
+        .aui-row .aui-col-xs-6 {
+            background-color: inherit !important;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="aui-bar aui-bar-nav" id="header">
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">我的持仓</div>
+    <div class="aui-pull-right" onclick="openWin('trading_index_detail')">历史交易</div>
+</header>
+
+<div id="myAssets" v-cloak>
+    <div class="head aui-content aui-padded-15 font-colo-w " style="background-color:#de3232 ">
+        <h4>今日盈亏（元）</h4>
+
+        <h1 style="text-align: center;font-size: 2rem" v-cloak v-text="ctAssets.todayMoney">0</h1>
+
+
+        <div class="aui-hr" style="opacity:0.3;filter:Alpha(opacity=30)"></div>
+
+        <ul class="aui-list holding-list" style="background-color:#de3232">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner holding-inner">
+                    <!--<div class="aui-list-item-title">我的<span class="aui-margin-l-15">3.66%</span></div>-->
+                    <!--<div class="aui-list-item-title">上证<span class="aui-margin-l-15">3.66%</span></div>-->
+                    <div class="aui-list-item-title"></div>
+                    <div class="aui-list-item-title"></div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner holding-inner ">
+                    <div class="aui-list-item-title">总市值
+                        <span class="aui-margin-l-15" v-cloak v-text="ctAssets.totalMoney">0</span>
+                    </div>
+                    <div class="aui-list-item-title">持仓总盈亏
+                        <span class="aui-margin-l-15" v-cloak v-text="ctAssets.totalChMoney">0</span>
+                    </div>
+                    <div class="aui-list-item-title"></div>
+                    <div class="aui-list-item-title"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="holding-bot">
+        <div class="content aui-content bg-color bg" v-for="item in list">
+            <div class="aui-list bg-color">
+                <div class="aui-list-item">
+                    <div class="aui-list-item-inner border-bot">
+                        <div class="aui-list-item-title">
+                            <span style="color: #ffffff" v-cloak v-text="item.sname">0</span>
+                            <span class=" aui-margin-l-15 aui-font-size-12 font-colo-gy" v-cloak v-text="item.sno"></span>
+                        </div>
+
+                        <div class="aui-list-item-right">
+                            <p style="display: inline-block">
+                                <span class="font-colo-r" v-if="parseFloat(item.chratio)*1000 >=0" v-text="item.chratio">0</span>
+                                <span class="font-colo-g" v-else v-text="item.chratio">0</span>
+                            </p>
+                            <p style="display: inline-block" class="">
+                                <span class="font-colo-r aui-padded-l-15" v-if="parseFloat(item.chmoney) >=0" v-text="item.chmoney">0</span>
+                                <span class="aui-padded-l-15 font-colo-g" v-else v-text="item.chmoney">0</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-grid aui-margin-t-15 bg-color font-colo-gy">
+                <div class="aui-row">
+                    <div class="aui-col-xs-6">
+                        <span class="aui-padded-r-15">现价</span>
+                        <span v-cloak v-text="item.nowMoney">0</span>
+                    </div>
+                    <div class="aui-col-xs-6">
+                        <span class="aui-padded-r-15">持仓</span>
+                        <span v-cloak v-text="item.handNum">0</span>
+                    </div>
+                    <div class="aui-col-xs-6">
+                        <span class="aui-padded-r-15">成本</span>
+                        <span v-cloak v-text="item.handPrice">0</span>
+                    </div>
+                    <div class="aui-col-xs-6">
+                        <span class="aui-padded-r-15">市值</span>
+                        <span v-cloak v-text="item.totalMoney">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../script/yltcrypt.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+  var user;
+  apiready = function () {
+    fix_status_bar();
+    user = $api.getStorage('user');
+    vm = new Vue({
+      el: '#myAssets',
+      data: {
+        ctAssets: '',
+        list: ''
+      },
+      created: function () {
+        var self = this;
+        apiAjax(PHP_SERVE_URL + '/trade/myAssets', {
+          openId: user.openId,
+          token: yltcrypt.cpt(user.openId)
+        }, function (ret, err) {
+
+          if (!ret.code) {
+            self.ctAssets = ret.cData;
+            self.list = ret.sData;
+          }
+        })
+      }
+    });
+  };
+
+</script>
+</body>
+</html>

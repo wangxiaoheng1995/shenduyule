@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>赏金mall</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <style>
+        html {
+            background: #f3f3f3;
+        }
+
+        body {
+            background: url("../../image/rewardmall/mfs_bg.png") no-repeat;
+            background-size: 100% auto;
+        }
+
+        header.header-nav {
+            background-color: #ffffff;
+            position: fixed;
+            top: 0;
+            z-index: 100000000;
+        }
+
+        .bar-nav-title {
+            right: 2rem !important;
+            left: 2rem !important;
+        }
+
+        .color-white {
+            color: #ffffff !important;
+        }
+
+        .color-black {
+            color: #000000;
+        }
+        .color-gray3 {
+            color: #333333 !important;
+        }
+        .color-gray75{
+            color: #757575;
+        }
+
+        .color-pink {
+            color: #ff5096;
+        }
+
+        .search {
+            border: 1px solid #f3f3f3;
+            border-radius: 7rem;
+        }
+
+        .recommend {
+            margin: 0 0.7rem 0rem 0.7rem;
+            padding: 0.5rem;
+            padding-bottom: 0rem;
+            background: #ffffff;
+        }
+
+        .recommend img {
+            width: 100%;
+            height: 8rem;
+        }
+
+        .btn-go {
+            font-size: 0.6rem;
+            padding: 0.2rem 0rem;
+            text-align: center;
+            width: 4rem;
+            border-radius: 5rem;
+            background: #ff5096;
+            color: #ffffff;
+        }
+
+        .flex-con {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        #wrap {
+            height: 100%;
+        }
+        .flex-vertical {
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+        }
+
+        .flex-wrap {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+        .aui-list .aui-list-item-media{
+            width: 5rem;
+            padding: 0rem;
+            padding-right: 0.75rem;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+  <header class="header-nav aui-bar aui-bar-nav tit-bar-black back-write border-bot">
+      <a class="aui-pull-left aui-btn" onclick="history.back()">
+          <span class="aui-iconfont aui-icon-left color-gray9"></span>
+      </a>
+      <div class="aui-title color-black">赏金mall</div>
+  </header>
+<div class="flex-wrap flex-vertical" id="wrap">
+    <div class="flex-con" style="padding-top:1.9rem;">
+
+            <div class="aui-card-list aui-margin-t-10" >
+                <div class="aui-card-list-content">
+                    <ul class="aui-list aui-media-list" id="nav-view">
+
+                    </ul>
+
+
+                    <script type="text/html/x-dot-template" id="data_goods">
+                        {{~it :value}}
+                        <li class="aui-list-item aui-list-item-middle" onclick="openGoodsDetail('{{=value.gid}}')">
+                            <div class="aui-media-list-item-inner">
+                                <div class="aui-list-item-media">
+                                    <img src="{{=value.pic}}?x-oss-process=image/resize,m_mfit,h_300,w_300" class="aui-list-img-sm">
+                                </div>
+                                <div class="aui-list-item-inner">
+                                    <div class="aui-list-item-text">
+                                        <div class="aui-list-item-title aui-font-size-14">
+                                            <p class="color-gray3 aui-font-size-16 aui-ellipsis-2 ">
+                                              {{=value.gname}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="aui-list-item-text aui-margin-t-10">
+                                        <span class="color-black aui-font-size-14"><em class="color-pink">赏金¥{{=value.price}}</em></span>
+                                    </div>
+                                    <div class="aui-padded-0">
+                                        <div class="aui-pull-left">
+                                            <span class="aui-font-size-12 aui-margin-t-10 color-gray75">已售{{=value.sellnum}}件</span>
+                                        </div>
+                                        <div class="aui-pull-right btn-go">立即兑换</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {{~}}
+                    </script>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!--js-->
+<script type="text/javascript" src="../../script/api.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script type="text/javascript">
+    page = totalpage = 1;
+
+    // loadCategory();
+    loadGoods();
+    /*aui 轮播图初始化*/
+
+    /* 底部加载数据 */
+    // $a.addEvt({
+    //     name: 'scrolltobottom',
+    //     extra: {
+    //         threshold: 50
+    //     }
+    // }, function (ret, err) {
+    //     if (page <= totalpage) {
+    //         loadGoods();
+    //     }
+    // });
+    window.onscroll = function () {
+        var top = this.pageYOffset || this.scrollY;
+        var windowHeight = this.outerHeight || this.innerHeight;
+        var bodyH=document.body.scrollHeight;
+        if ((top+windowHeight) == bodyH) {
+            if (page <= totalpage) {
+                loadGoods();
+            }
+        }
+    };
+
+
+    function loadGoods() {
+        $.ajax({
+            url: PHP_SERVE_URL + '/Sg/getBonusGoods',
+            type: 'post',
+            data: {
+                page: page
+            },
+            success:function (ret, err) {
+                if (ret.code == 0) {
+                    var interText = doT.template($api.text($api.byId('data_goods')));
+                    if (page == 1) {
+                        $api.html($api.byId('nav-view'), interText(ret.data));
+                    } else {
+                        $api.append($api.byId('nav-view'), interText(ret.data));
+                    }
+                    totalpage = ret.totalpage;
+                    page++;
+                }
+            }
+        });
+    }
+
+    function openGoodsDetail(id) {
+        // $a.openWin('../goods/goods_win', {
+        //     id: id,
+        //     originOId: 0
+        // })
+        // api.openWin({
+        //     name: 'goods_win',
+        //     url: '../goods/goods_win.html',
+        //     pageParam: {
+        //         id: id,
+        //         originOId: 0
+        //     },
+        //     progress: {
+        //         type: "default", //加载进度效果类型，默认值为default，取值范围为default|page，default等同于showProgress参数效果；为page时，进度效果为仿浏览器类型，固定在页面的顶部
+        //         title: "努力加载中...", //type为default时显示的加载框标题
+        //         text: "请稍等..."
+        //     }
+        // });
+        location.href="../goods/goods_win.html?id="+id+"&originOId=0";
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>售后申请</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        .aui-list, .aui-list .aui-list-item {
+            background-image: none;
+        }
+        .aui-list .aui-list-item:active{
+            background-color: inherit;
+        }
+        .tab-with {
+            padding: 0 3rem;
+        }
+
+        .aui-tab-item.aui-active {
+            color: #ff5096;
+            border-bottom: 1px solid #ff5096;
+        }
+
+        .aui-content .aui-list .status {
+            padding: 0;
+            margin: 0.5rem 0.75rem 0.5rem 0;
+            border-right: 1px solid #E6E6E6;
+            padding-right: 2rem;
+        }
+
+        .status img {
+            margin-right: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .count-down {
+            background-image: url("../../image/aftersale/iocn_time.png");
+            background-repeat: no-repeat;
+            background-size: 0.5rem;
+            background-position-y: center;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div class="aui-tab tab-with" id="tab">
+        <div class="aui-tab-item aui-active">售后申请</div>
+        <div class="aui-tab-item">申请记录</div>
+    </div>
+</section>
+<section id="tab-content1">
+    <div class="aui-content back-write aui-margin-t-10">
+        <div class="cart-bg-fff order-section-padd aui-padded-l-15 aui-padded-r-15">
+            <div class="aui-info border-bot ">
+                <div class="aui-info-item">
+                    <span class="aui-margin-l-5">订单编号：1545613254154</span>
+                </div>
+                <div class="aui-info-item">2015-07-13 22:31</div>
+            </div>
+            <div class="aui-list aui-media-list">
+                <div class="aui-list-item aui-padded-l-0 cart-bg-fff">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-left-img">
+                            <img src="">
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-r-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 color-black21">深圳特产深圳特产深圳特产深圳特产深圳特产深圳特产深圳特产</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-15" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="color-gray3">￥49.9<del
+                                            class="color-gray9 aui-margin-l-5">￥50</del></span>
+                                </div>
+                                <div class="aui-info-item">X1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-info aui-padded-10">
+            <div class="aui-info-item"></div>
+            <div class="aui-info-item">
+                <span class="aui-font-size-16 cart-section-go ">申请售后</span>
+            </div>
+        </div>
+    </div>
+    <div class="aui-content back-write aui-margin-t-10 ">
+        <div class="cart-bg-fff order-section-padd aui-padded-l-15 aui-padded-r-15">
+            <div class="aui-info aui-margin-t-10 border-bot">
+                <div class="aui-info-item">
+                    <span class="aui-margin-l-5">订单编号：1545613254154</span>
+                </div>
+                <div class="aui-info-item">退货</div>
+            </div>
+            <div class="aui-list aui-media-list">
+                <div class="aui-list-item aui-padded-l-0 cart-bg-fff">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-left-img">
+                            <img src="">
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-r-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 color-black21">深圳特产深圳特产深圳特产深圳特产深圳特产深圳特产深圳特产</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-15" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="color-gray3">￥49.9<del
+                                            class="color-gray9 aui-margin-l-5">￥50</del></span>
+                                </div>
+                                <div class="aui-info-item">X1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" back-grayf5">
+            <div class="aui-list aui-select-list back-lucency">
+                <div class="aui-list-item">
+                    <div class="aui-list-item-label status">
+                        待待商家收货
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-arrow aui-font-size-14">
+                        您的服务单已申请成功，待商家收货中
+                        <div class="aui-list-item-text">
+                            下一阶段：买家退回
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-padded-10 back-write">
+            <span class="aui-pull-right aui-font-size-14 color-pink count-down aui-padded-l-15">
+                剩余发货时间：14天20时55分
+            </span>
+            <div class="aui-pull-right aui-padded-t-15 aui-padded-b-15">
+                <span class="aui-font-size-16 btn ">填写发货单</span>
+                <span class="aui-font-size-16 btn ">取消申请</span>
+            </div>
+        </div>
+    </div>
+    <div class="aui-content aui-margin-t-10 back-write">
+        <div class="cart-bg-fff order-section-padd aui-padded-l-15 aui-padded-r-15">
+            <div class="aui-info aui-margin-t-10 border-bot">
+                <div class="aui-info-item">
+                    <span class="aui-margin-l-5">订单编号：1545613254154</span>
+                </div>
+                <div class="aui-info-item">2015-07-13 22:31</div>
+            </div>
+            <div class="aui-list aui-media-list">
+                <div class="aui-list-item aui-padded-l-0 cart-bg-fff">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-left-img">
+                            <img src="">
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-r-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 color-black21">深圳特产深圳特产深圳特产深圳特产深圳特产深圳特产深圳特产</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-15" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="color-gray3">￥49.9<del
+                                            class="color-gray9 aui-margin-l-5">￥50</del></span>
+                                </div>
+                                <div class="aui-info-item">X1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-info aui-padded-10">
+            <div class="aui-info-item">
+                <span class="color-gray9">该商品已超过售后期</span>
+            </div>
+            <div class="aui-info-item">
+                <span class="aui-font-size-16 cart-section-gopush ">申请售后</span>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section id="tab-content2" style="display: none">
+    <div class="aui-content back-write aui-margin-t-10">
+        <div class="cart-bg-fff order-section-padd  aui-padded-l-15 aui-padded-r-15">
+            <div class="aui-info border-bot">
+                <div class="aui-info-item">
+                    <span class="aui-margin-l-5">订单编号：1545613254154</span>
+                </div>
+                <div class="aui-info-item">维修</div>
+            </div>
+            <div class="aui-list aui-media-list">
+                <div class="aui-list-item aui-padded-l-0 cart-bg-fff">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-left-img">
+                            <img src="">
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-r-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 s-color-black">深圳特产深圳特产深圳特产深圳特产深圳特产深圳特产深圳特产</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-15" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="color-gray3">￥49.9<del
+                                            class="color-gray9 aui-margin-l-5">￥50</del></span>
+                                </div>
+                                <div class="aui-info-item">X1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" back-grayf5">
+            <div class="aui-list aui-select-list back-lucency">
+                <div class="aui-list-item">
+                    <div class="aui-list-item-label status">
+                        <img src="../../image/aftersale/icon_accomplish.png">待审核
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-arrow aui-font-size-14">
+                        您的服务单已申请成功，待售后审核中
+                        <div class="aui-list-item-text">
+                            下一阶段：商家审核
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" aui-padded-10">
+            <div class="aui-pull-right aui-padded-t-15 aui-padded-b-15">
+                <span class="aui-font-size-16 btn ">修改申请</span>
+                <span class="aui-font-size-16 btn ">取消申请</span>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="aui-text-center aui-padded-15 color-gray9 aui-font-size-14">没有更多服务单了</div>
+
+<script type="text/javascript" src="../../script/aui-tab.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+    var tab = new auiTab({
+        element: document.getElementById("tab"),
+        index: 1,
+        repeatClick: false
+    }, function (ret) {
+        if (ret.index == 1) {
+            $('#tab-content1').show();
+            $('#tab-content2').hide()
+        }
+        else {
+            $('#tab-content2').show();
+            $('#tab-content1').hide()
+        }
+
+    });
+</script>
+</body>
+</html>

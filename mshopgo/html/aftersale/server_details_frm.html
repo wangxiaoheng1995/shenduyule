@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>服务单详情————填写发货单</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/step.css">
+    <style>
+        .aui-list, .aui-list .aui-list-item,.aui-list.aui-list-in .aui-list-item:last-child{
+            background-image: none;
+        }
+        .aui-list .aui-list-item:active{
+            background-color: inherit;
+        }
+        .countdown {
+            background-image: url("../../image/aftersale/bg.png");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .address {
+            background-image: url("../../image/aftersale/icon_site.png"), url("../../image/aftersale/xpg_zk_icon.png");
+            background-repeat: no-repeat;
+            background-position: left center, right center;
+            background-size: 1rem 1.2rem, 0.5rem 1rem;
+            padding: 0 1.5rem;
+        }
+        .li_disc ul, .li_disc li {
+            list-style-type: disc;
+            line-height: 1.2rem;
+        }
+
+        .describe-img img {
+            padding-right: 0.5rem;
+        }
+
+        .list-line-height .aui-list .aui-list-item {
+            line-height: 1.5rem;
+            padding-left: 0rem;
+        }
+
+    </style>
+</head>
+<body>
+<section>
+    <div class="aui-info aui-padded-l-10 aui-padded-r-10 back-write">
+        <div class="aui-info-item">
+            <span class="aui-margin-l-5 color-gray3">服务单号：<em class="color-gray9">645132415</em></span>
+        </div>
+        <div class="aui-info-item color-gray9">2015-07-13 22:31</div>
+    </div>
+</section>
+
+<section>
+    <div class="countdown color-write aui-padded-15 aui-margin-t-10">
+        <h1>请退货并填写物流信息</h1>
+        <p class="aui-padded-t-10 color-write">还剩6天17时59分</p>
+    </div>
+</section>
+<section>
+    <div class="aui-content back-write aui-padded-10 aui-margin-t-10">
+        <h3 class="aui-padded-t-10 aui-padded-b-10 border-bot">退货地址</h3>
+        <div class="aui-info aui-margin-t-10">
+            <div class="aui-info-item">
+                <span class="aui-margin-l-5">收货人：李小包</span>
+            </div>
+            <div class="aui-info-item">18818780342</div>
+        </div>
+        <div class="address aui-margin-t-15 aui-margin-b-15">
+            广东省深圳市宝安区西乡商会大厦20楼云路通
+        </div>
+        <div class="color-gray9 aui-font-size-14 border-top aui-padded-t-10 li_disc">
+            <ul>
+                <li>1.未与商家协商一致，请勿使用到付或平邮，以免商家拒签货物。</li>
+                <li>2.交易的钱款还在平台中间账号，确保您资金安全。</li>
+                <li>3.请填写真实物流信息，逾期未填写，退货申请将撤销</li>
+            </ul>
+        </div>
+        <div class="aui-pull-right aui-padded-t-15 aui-padded-b-15">
+            <span class="aui-font-size-16 btn ">填写发货单</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="aui-content back-write aui-padded-10 aui-margin-t-10">
+        <h3 class="aui-padded-t-10 aui-padded-b-10 border-bot aui-margin-b-10">售后进度</h3>
+        <div class="steps"></div>
+        <button onClick="previousStep()">上一步</button>
+        <button onClick="nextStep()">下一步</button>
+        <div class="aui-info aui-margin-t-10 aui-padded-r-10">
+            <div class="aui-info-item aui-margin-r-10">
+                <span class="aui-margin-l-5">您的服务单45315651246已申请成功，待商家收货中 </span>
+            </div>
+            <div class="aui-info-item border" style="display: inline-block;width: 4rem;text-align: center">进度详情</div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="aui-content back-write aui-padded-10 aui-margin-t-10">
+        <h3 class="aui-padded-t-10 aui-padded-b-10 border-bot aui-margin-b-10">审核描述</h3>
+        <span class="aui-font-size-14">
+            尊敬的客户，很抱歉您的商品出现这样的问题，请您准备好商品全套及发票原件
+        </span>
+    </div>
+</section>
+
+<section>
+    <div class=" aui-content back-write aui-padded-10 aui-margin-t-10">
+        <h3 class="aui-padded-t-10 aui-padded-b-10 border-bot">问题描述</h3>
+        <ul class="aui-list aui-media-list">
+            <li class="aui-list-item aui-padded-0 aui-padded-t-10">
+                <div class="aui-list-item-inner aui-padded-0 ">
+                    <div class="aui-list-item-title">很坑很坑</div>
+                    <p class="aui-padded-t-10 aui-padded-b-10">2017-11-09 11:12:19</p>
+                    <div class="aui-row aui-row-padded describe-img">
+                        <div class="aui-col-5">
+                            <img src="../../image/demo3.png"/>
+                        </div>
+                        <div class="aui-col-5">
+                            <img src="../../image/demo3.png"/>
+                        </div>
+                        <div class="aui-col-5">
+                            <img src="../../image/demo3.png"/>
+                        </div>
+                        <div class="aui-col-5">
+                            <img src="../../image/demo3.png"/>
+                        </div>
+                        <div class="aui-col-5">
+                            <img src="../../image/demo3.png"/>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+<section>
+    <div class="aui-content back-write aui-padded-10 aui-margin-t-10 list-line-height">
+        <h3 class="aui-padded-t-10 aui-padded-b-10 border-bot">服务单信息</h3>
+        <ul class="aui-list ">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><span class="color-gray9">退款类型：</span>退货</div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><span class="color-gray9">退款方式：</span>云路通账号余额</div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><span class="color-gray9">联系人：</span>李小三</div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><span class="color-gray9">联系电话：</span>18818780342</div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"><span class="color-gray9">取件地址：</span>广东省深圳市保安全去西乡商会大厦20楼</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/step.js"></script>
+<script>
+    /*购物流程代码*/
+    $(function () {
+        initStep();
+    });
+
+    function initStep() {
+        $(".steps").step({
+            stepNames: ['提交申请', '商家审核', '商家发货', '换货', '完成'],
+            initStep: 1
+        })
+    }
+
+    function previousStep() {
+        $(".steps").step("previous");
+    }
+
+    function nextStep() {
+        $(".steps").step("next");
+    }
+
+    function gotoStep(step) {
+        $(".steps").step("goto", step)
+    }
+
+    /*购物流程代码*/
+</script>
+</body>
+</html>

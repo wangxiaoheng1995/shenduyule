@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>每日签到</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background: url("../image/index/sign_in/qd_bg_image.png") no-repeat;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            padding-top: 0rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #1c2029;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inner {
+            padding: 0rem;
+        }
+
+        .aui-grid {
+            background: url("../image/index/sign_in/qd_bg2_image.png") no-repeat 0 0;
+            width: 92%;
+            height: 70%;
+            background-size: 100% 100%;
+            padding: 28% 0.6rem 8%;
+            margin: 0 auto;
+
+        }
+
+        .gold-pic {
+            display: block;
+            width: 3.2rem;
+            margin: 0 auto;
+        }
+
+        .aui-grid-label {
+            text-align: center;
+        }
+
+        .checked-detail {
+            color: #666;
+            font-size: 0.6rem;
+            line-height: 1rem;
+            overflow: hidden;
+            width: 3.2rem;
+            margin: 0 auto;
+
+        }
+
+        .checked-pic {
+            float: left;
+            width: 0.8rem;
+            margin-top: 0.25rem;
+            /*margin-right: 0rem;*/
+            /*padding-left: 1rem;*/
+        }
+
+        .aui-col-xs-4 {
+            padding-top: 0rem !important;
+        }
+
+        .record-detail {
+            text-align: center;
+            position: relative;
+        }
+
+        .order {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .order .line {
+            display: inline-block;
+            width: 50px;
+            border-top: 1px solid #ccc;
+        }
+
+        .order .txt {
+            color: #686868;
+            vertical-align: -4px;
+        }
+
+        .question {
+            position: absolute;
+            top: 5rem;
+            right: 2rem;
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .btn-sign {
+            background: #de3232;
+            border-radius: 3rem
+        }
+
+        .aui-list-item:active {
+            background-color: inherit !important;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+<div id="sign">
+    <header class="aui-bar aui-bar-nav"><a onclick="history.back();" class="aui-pull-left aui-btn"><span
+            class="aui-iconfont aui-icon-left"></span></a>
+        <div class="aui-title">每日签到</div>
+        <div onclick="location.href='trading_deal_details.html'" class="aui-pull-right">记录</div>
+    </header>
+    <div id="content" style="">
+        <div class="aui-grid aui-margin-b-15">
+            <div onclick="location.href='trading_index_rule.html'" class="question"><img
+                    src="../image/index/sign_in/wdjb_tips_icon.png"></div>
+            <div class="aui-row">
+                <div class="aui-col-xs-3"><img src="../image/index/sign_in/5.png" class="gold-pic">
+                    <div class="checked-detail"><img src="../image/index/sign_in/yes.png" alt="no" class="checked-pic ">
+                        <div class="aui-grid-label">
+                            第1天
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-col-xs-3"><img src="../image/index/sign_in/5.png" class="gold-pic">
+                    <div class="checked-detail"><img src="../image/index/sign_in/no.png" alt="no" class="checked-pic ">
+                        <div class="aui-grid-label">
+                            第2天
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-col-xs-3"><img src="../image/index/sign_in/10.png" class="gold-pic">
+                    <div class="checked-detail"><img src="../image/index/sign_in/no.png" alt="no" class="checked-pic ">
+                        <div class="aui-grid-label">
+                            第3天
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-col-xs-3"><img src="../image/index/sign_in/10.png" class="gold-pic">
+                    <div class="checked-detail"><img src="../image/index/sign_in/no.png" alt="no" class="checked-pic ">
+                        <div class="aui-grid-label">
+                            第4天
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 0px 1rem;">
+                    <div class="aui-col-xs-4"><img src="../image/index/sign_in/15.png" class="gold-pic">
+                        <div class="checked-detail"><img src="../image/index/sign_in/no.png" alt="no"
+                                                         class="checked-pic ">
+                            <div class="aui-grid-label">
+                                第5天
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aui-col-xs-4"><img src="../image/index/sign_in/15.png" class="gold-pic">
+                        <div class="checked-detail"><img src="../image/index/sign_in/no.png" alt="no"
+                                                         class="checked-pic ">
+                            <div class="aui-grid-label">
+                                第6天
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aui-col-xs-4"><img src="../image/index/sign_in/20.png" class="gold-pic">
+                        <div class="checked-detail" style="width: 100%;"><img src="../image/index/sign_in/no.png"
+                                                                              alt="no" class="checked-pic ">
+                            <div class="aui-grid-label">
+                                7天及以上
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="record-detail">
+                <div class="order"><span style="white-space: pre;"></span><span class="line"></span> <span
+                        style="white-space: pre;"></span><span class="txt">您已连续签到<span
+                        class="font-colo-r">0</span>天</span> <span style="white-space: pre;"></span><span
+                        class="line"></span></div>
+                <p>下次签到将奖励<strong class="font-colo-r">5</strong>个金币</p></div>
+        </div>
+        <div style="padding: 0px 3rem;">
+            <div id="sub" class="aui-btn aui-btn-block aui-content-padded font-colo-w btn-sign">立即签到</div>
+        </div>
+        <div onclick="location.href='trading_index_gift.html'" class="aui-`content bg-color bg aui-padded-b-0 ">
+            <div class="aui-list aui-media-list bg-color">
+                <div class="aui-list-item aui-list-item-middle">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media" style="width: 3.5rem; padding-right: 0rem;"><img
+                                src="../image/index/sign_in/qd_dhl_icon.png" class="aui-img-round aui-list-img-sm"
+                                style="border-radius: 1rem;"></div>
+                        <div class="aui-list-item-inner aui-list-item-arrow">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title aui-font-size-14 font-colo-w">惊呆了！0元就购</div>
+                            </div>
+                            <div class="aui-list-item-text">
+                                丰富好礼随你兑
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-margin-t-15 bg-color " style="padding: 0.75rem 3rem;">
+            <div onclick="location.href='trading_index_myGold.html'" class="aui-btn aui-btn-block aui-btn-outlined font-colo-r"
+                 style="border-radius: 3rem; border-color: rgb(222, 50, 50);">查看我的金币
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../script/api.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/vue.js"></script>
+<script src="../script/yltcrypt.js"></script>
+<!--<script src="../script/sign-in.js"></script>-->
+</body>
+</html>

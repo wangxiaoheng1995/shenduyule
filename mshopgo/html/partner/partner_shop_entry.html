@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+  <title>尊享礼包</title>
+  <link rel="stylesheet" href="../../css/aui/aui.css">
+  <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+  <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+  <link rel="stylesheet" href="../../css/base.css">
+</head>
+<style>
+  .color-white {
+    color: #fff;
+  }
+
+  .wui-bg-pink {
+    background: #FE5095;
+  }
+
+  .aui-bar-nav {
+    position: fixed;
+  }
+
+  .content {
+    padding-top: 2rem;
+  }
+
+  .vip-gift-list .aui-list-item-media {
+    width: 8.5rem;
+  }
+
+  .font-size-9 {
+    font-size: .45rem !important;
+  }
+
+  .cart-bg-fff {
+    background-color: #fff !important;
+  }
+
+  .relative {
+    position: relative;
+  }
+
+  .padding-t-20 {
+    padding-top: 1rem;
+  }
+  .mt25 {
+    margin-top: 1.25rem;
+  }
+  .color-666666{
+    color:#666666;
+  }
+  .bg-FF6699{
+    background:#FF6699;
+  }
+  .ml35{
+    margin-left: 1.75rem;
+  }
+  .color-999999{
+    color:#999999;
+  }
+  .shop-type-radios input[type=radio]{
+    display: none;
+  }
+  .shop-type-radios label{
+    display: inline-block;
+    background: url("../../image/partner/c.png") no-repeat 0 .05rem/.6rem .6rem;
+    padding-left: .8rem;
+  }
+  .shop-type-radios input[type=radio]:checked+label {
+    display: inline-block;
+    background: url("../../image/partner/nc.png") no-repeat 0 .05rem/.6rem .6rem;
+    padding-left: .8rem;
+  }
+  .border-1-CECDCD{
+    border: 1px solid #CECDCD;
+  }
+  .bg-F84A76{
+    background: #F84A76;
+  }
+</style>
+
+<body class="cart-bg-fff">
+<!-- header -->
+<header class="aui-bar aui-bar-nav tit-bar-black wui-bg-pink color-white" id="header">
+  <a class="aui-pull-left aui-btn" onclick="window.history.back();">
+    <span class="aui-iconfont aui-icon-left"></span>
+  </a>
+  <div class="aui-title">商家入驻</div>
+</header>
+<div style="padding-top: 2.2rem;">
+  <div class="padding-t-20 aui-font-size-12 color-666666 border-bot aui-padded-l-15 aui-padded-r-15"><span class="inline-block bg-FF6699 aui-margin-r-5" style="height: 1.3rem;width:.6rem;vertical-align: middle;"></span>店铺类型</div>
+  <div class="shop-type-radios padding-t-20">
+    <span class="ml35"><input type="radio" name="shopTP" id="tp1"><label for="tp1" class="aui-font-size-10 color-999999">旗舰店</label></span>
+    <span class="ml35"><input type="radio" name="shopTP" id="tp2"><label for="tp2" class="aui-font-size-10 color-999999">专卖店</label></span>
+    <span class="ml35"><input type="radio" name="shopTP" id="tp3"><label for="tp3" class="aui-font-size-10 color-999999">专营店</label></span>
+    <span class="ml35"><input type="radio" name="shopTP" checked id="tp4"><label for="tp4" class="aui-font-size-10 color-999999">普通店</label></span>
+  </div>
+  <div class="padding-t-20 aui-font-size-12 color-666666 border-bot aui-padded-l-15 aui-padded-r-15"><span class="inline-block bg-FF6699 aui-margin-r-5" style="height: 1.3rem;width:.6rem;vertical-align: middle;"></span>请描述店铺经营范围并上传营业执照</div>
+  <div class="aui-margin-l-15 aui-margin-r-15 aui-margin-t-10">
+    <textarea class="border-1-CECDCD aui-padded-5 aui-font-size-10" placeholder="实例：衣服，鞋子，箱包" name="" id="" cols="30" rows="10" style="height: 2.6rem;"></textarea>
+  </div>
+  <div class="ml35 mt25 clearfix">
+    <p class="color-666666 aui-font-size-10">请拍照上传营业执照</p>
+    <div class="mt25">
+      <img class="aui-pull-left ml30" src="../../image/partner/cap.png" style="width: 5.25rem;" alt="">
+      <div class="aui-pull-left">
+        <img class="ml35" src="../../image/partner/zzao.png" style="width: 5rem;height: 7rem;" alt="">
+      </div>
+    </div>
+  </div>
+  <div class="aui-text-center" style="margin-top: 4rem;">
+    <span onclick="location.href='partner_shop_entry_res.html'" class="inline-block aui-text-center color-write aui-font-size-10 bg-F84A76" style="width: 7rem;line-height: 1.5rem;border-radius: 8px;">立即入驻</span>
+  </div>
+</div>
+
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+</script>
+</body>
+
+</html>

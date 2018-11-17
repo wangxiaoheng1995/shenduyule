@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>申请退款</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <style>
+    #wrap{
+      height:100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .header-nav-top{
+      flex:1;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+     .refund-detail-text{
+       padding:1.3rem 0.6rem;
+       border-top:1px solid #E5E5E5;
+       box-sizing: border-box;
+       background: #fff;
+       margin-bottom:0.4rem;
+     }
+     .refund-detail-text h3{
+       display:flex;
+       align-items: center;
+       color:#000;
+       margin-bottom:0.5rem;
+     }
+     .refund-detail-text h3 img{
+       width:1.05rem;
+       height:1.05rem;
+       margin-right:0.5rem;
+     }
+     .refund-detail-text p{
+       font-size:0.8rem;
+       margin-bottom:0.2rem;
+     }
+     .refund-detail-text p em{
+       color:#fe5095;
+     }
+     .refund-detail-text p span{
+       color:#fe5095;
+     }
+     .refund-detail-consult{
+       padding:0.8rem;
+       display:flex;
+       justify-content: space-between;
+       align-items: center;
+       background: #fff;
+       margin-bottom:0.4rem;
+     }
+     .refund-detail-store{
+       padding:0.8rem;
+       display:flex;
+       justify-content: space-between;
+       align-items: center;
+       background: #fff;
+       margin-bottom:0.5rem;
+     }
+     .refund-detail-store img{
+       width:1.05rem;
+       height:1.05rem;
+     }
+     .detail-store{
+       display:flex;
+     }
+     .detail-store p{
+       display:flex;
+       margin-left:0.3rem;
+     }
+     .detail-store p span{
+       margin-left:0.5rem;
+       color:#333;
+     }
+     .refund-detail-type{
+       padding-left:0.8rem;
+       background: #fff;
+     }
+     .refund-detail-type li{
+       padding:0.8rem 0;
+       color:#4F4F4F;
+       border-bottom:1px solid #EEEEEE;
+     }
+     .refund-detail-type li span{
+       margin-left:0.5rem;
+       color:#4F4F4F;
+     }
+     .my_refund_footer{
+       background: #F2F2F2;
+       display:flex;
+       justify-content: flex-end;
+       align-items: center;
+       border-top:1px solid #E8E8E8;
+       box-sizing: border-box;
+       padding:0.8rem;
+       width:100%;
+     }
+     .my_refund_footer span{
+       display:flex;
+       justify-content: center;
+       align-items: center;
+       padding:0.2rem;
+       border:1px solid #8D8D8D;
+       border-radius:5px;
+       box-sizing: border-box;
+       color:#333;
+       margin-left:0.3rem;
+     }
+     .my_refund_footer span:last-child{
+       border:1px solid #fe5095;
+       border-radius:5px;
+       box-sizing: border-box;
+       color:#fe5095;
+     }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write border-bot header-nav" style="background:#fe5095!important;color:#fff">
+        <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+            <span class="aui-iconfont aui-icon-left aui-font-size-20"></span>
+        </a>
+        <div class="aui-title">退款/售后详情</div>
+    </header>
+    <div class="header-nav-top" id="main">
+        <div class="refund-detail-text">
+          <h3><img src="../../image/orderSale/time.png" alt="">申请已提交，商家处理中</h3>
+          <p>若商家同意退货: 请您在<em>7</em>天内按照给出的地址退货,<span>并请记录退货快递单号</span></p>
+          <p>若商家直接退款: 申请将达成并退款至您支付账号</p>
+          <p>若商家拒绝: 您将有7天时间修改申请或申请销拼购介入</p>
+          <p>若商家未处理: 超过<em>1</em>天<em>23</em>时<em>59</em>分系统将自动为您退款</p>
+        </div>
+        <div class="refund-detail-consult">
+          协商详情
+          <span class='aui-iconfont aui-icon-right'></span>
+        </div>
+        <div class="refund-detail-store">
+          <div class="detail-store">店铺名称:
+              <p><img src="../../image/orderSale/shop-avatar.png" alt=""><span>六点半原创工作室</span></p>
+          </div>
+          <a><img src="../../image/orderSale/msg.png" alt=""></a>
+        </div>
+        <ul class="refund-detail-type">
+          <li>
+            售后类型:<span>退货退款</span>
+          </li>
+          <li>
+            退款金额:<span>￥19.8</span>
+          </li>
+          <li>
+            退款原因:<span>其他</span>
+          </li>
+          <li>
+            商品名称:<span>【假一赔十】品胜正品苹果数据线oppovivo乐视数据线苹果安卓通用</span>
+          </li>
+        </ul>
+    </div>
+    <div class="my_refund_footer">
+      <span>修改申请</span>
+      <span>撤销申请</span>
+      <span>申请销拼购介入</span>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.min.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<script type="text/javascript" src="../../script/mobileSelect.min.js"></script>
+<script type="text/javascript">
+
+</script>
+
+</html>

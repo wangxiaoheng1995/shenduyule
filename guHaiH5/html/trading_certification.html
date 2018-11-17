@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>沽海</title>
+    <link rel="stylesheet" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/message_reset.css">
+    <link rel="stylesheet" href="../css/sm.min.css">
+    <link rel="stylesheet" href="../css/sm-extend.min.css">
+    <link rel="stylesheet" href="../css/message_style.css">
+    <style>
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        #header .aui-iconfont {
+            color: #7a7a7a;
+        }
+
+        #data_area {
+            padding-bottom: 1rem;
+        }
+
+        body {
+            position: relative;
+            line-height: normal;
+            overflow: visible;
+        }
+
+        .picker-items {
+            font-size: 0.9rem;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .aui-mask {
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">实名认证</div>
+</header>
+<div id="data_area" style="background:#fff">
+
+    <!--<div class="s_remind">-->
+    <!--<span id="AuthTip"> </span>-->
+    <!--</div>-->
+    <section class="s_authsection">
+        <h2>证件照片</h2>
+        <div class="s_pushphoto">
+            <div class="s_photoset">
+                <img src="../image/smrz_add_image.png" alt="" data-index="0" class="photo_set"><span>点击上传正面照</span>
+            </div>
+            <div class="s_photoset">
+                <img src="../image/smrz_add_image.png" alt="" data-index="1" class="photo_set"><span>点击上传背面照</span>
+            </div>
+            <p>请上传清晰的身份证正反面照片</p>
+        </div>
+        <div class="s_pushphoto">
+            <div class="s_photoset">
+                <img src="../image/smrz_add_image.png" alt="" data-index="2" class="photo_set handPhoto"><span>点击上传手持照</span>
+            </div>
+            <div class="s_example"><img src="../image/example.png" alt="" class="handPhoto"></div>
+            <p>请上传手持身份证正面照片，面部和身份证需保持清晰</p>
+        </div>
+        <form class="s_authform">
+            <p><span>真实姓名</span><input type="text" placeholder="上传身份证后自动识别" id="name" readonly="readonly"></p>
+            <p><span>身份证号</span><input type="text" placeholder="上传身份证后自动识别" id="number" readonly="readonly">
+            </p>
+        </form>
+    </section>
+
+    <button type="button" name="button" class="s_submitexa">提交审核</button>
+</div>
+<!--照片大图-->
+<div class="s_photoshow" style="display:none">
+    <img src="../image/smrz_add_image.png" alt="">
+</div>
+<!--删除照片-->
+<div class="s_showdelete s_hide">
+    <div class="s_deleteblock">
+        <p>确定删除照片？</p>
+        <div class="deleteBtn">
+            <button class="delete_no">取消</button>
+            <button id="deletePhoto">删除</button>
+        </div>
+    </div>
+</div>
+<!--选择的本机图片的路径-->
+<input type="hidden" id="avatarUrl" name="avatarUrl" value="">
+<!--选择的本机图片的路径-->
+<input type="hidden" id="addRess" name="avatarUrl" value="">
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-dialog.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type='text/javascript' src='../script/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../script/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../script/sm-extend.min.js' charset='utf-8'></script>
+<script type="text/javascript" src="../script/sm-city-picker.js" charset="utf-8"></script>
+<script type="text/javascript" src="../script/aui-actionsheet.js"></script>
+<script type="text/javascript" src="../script/yltcrypt.js"></script>
+<script type="text/javascript" src="../script/certification.js"></script>
+
+<script>
+  var correctPhoto = 0;
+
+  function lingSubmit() {
+    correctPhoto += 1;
+    if (correctPhoto == 3) {
+      $(".s_submitexa").addClass("s_submitok");
+    }
+  }
+  $("#city-picker").cityPicker({
+    toolbarTemplate: '<header class="bar bar-nav">\
+    <button class="button button-link pull-right close-picker">确定</button>\
+    <h1 class="title">选择收货地址</h1>\
+    </header>'
+  });
+</script>
+</html>

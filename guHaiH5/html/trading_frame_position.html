@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        html {
+            height: 100%;
+        }
+
+        /*浅白*/
+        body {
+            background: #f6f6f6;
+            height: 100%;
+        }
+
+        /*最底背景：黑色*/
+        .bg1 {
+            background-color: #171b24;
+            pointer-events: none;
+
+        }
+
+        /*底背景：半黑色*/
+        .bg2 {
+            background-color: #1c2029;
+        }
+
+        .color-g {
+            color: #43ac45;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .aui-tab-item {
+            color: #ffffff;
+        }
+
+        .aui-tab-item.aui-active {
+            color: #de3232;
+            border-bottom: 2px solid #de3232;
+        }
+
+        /*买入*/
+        .aui-grid .aui-col-xs-3 {
+            background-color: #1c2029;
+            color: #ffffff;
+        }
+
+        .aui-grid .aui-col-xs-3, .aui-grid .aui-col-xs-3.aui-active, .aui-grid .aui-col-xs-3:active {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-3.aui-active, .aui-grid .aui-col-xs-3:active {
+            background-color: #de3232;
+        }
+
+        .aui-bar-btn-item {
+            color: #ffffff;
+            border: none;
+        }
+
+        .aui-bar-btn-item.aui-active {
+            background-color: #7e7e8e;
+            color: #000000;
+
+        }
+
+        .aui-bar-btn.aui-bar-btn-round .aui-bar-btn-item:first-child {
+            border-radius: 0.3rem;
+            border: none;
+        }
+
+        .aui-grid .aui-col-xs-4 {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-4 p {
+            font-weight: 700;
+
+        }
+
+        /* 文本框预输入文字颜色：*/
+        :-moz-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        ::-moz-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        input:-ms-input-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        input::-webkit-input-placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /*撤单*/
+        #revoke .aui-grid .aui-col-xs-3 {
+            font-weight: inherit;
+        }
+
+        #revoke .aui-grid .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+        }
+
+        #revoke .aui-grid .aui-col-xs-3 .revoke {
+            border: 1px solid #de3232;
+            border-radius: 0.1rem;
+            color: #de3232;
+            margin: 0 auto;
+            width: 2.5rem;
+        }
+
+        #revoke ul li {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #revoke .aui-grid {
+            background-color: inherit;
+        }
+
+        /*委托*/
+        #entrust .aui-grid .aui-col-xs-6 {
+            color: #ffffff;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        #entrust .aui-grid .aui-col-xs-6.active {
+            color: #de3232;
+        }
+
+        #entrust ul li {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #entrust .aui-grid {
+            background-color: inherit;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 {
+            font-weight: inherit;
+            background-color: inherit;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 .entrust {
+            border: 1px solid #de3232;
+            border-radius: 0.1rem;
+            color: #de3232;
+            margin: 0 auto;
+            width: 2.5rem;
+        }
+
+        /*持仓*/
+        #mochikura .aui-grid .aui-row .aui-col-xs-3 p {
+            /*font-size: 0.1rem;*/
+            color: #7e7e8e;
+            padding: 0.2rem 0;
+            text-align: left;
+        }
+
+        .list-border {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2)
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg1">
+<!--持仓-->
+<div class="aui-content tabcontent " id="mochikura" v-cloak>
+    <div class="aui-grid aui-font-size-12 aui-margin-t-15" style="background-color: #222933">
+        <div class="aui-col-xs-6 font-colo-w aui-padded-t-10 aui-padded-b-10">
+            总市值<span class="font-colo-r aui-padded-l-10">{{cList.totalMoney}}</span>
+        </div>
+        <div class="aui-col-xs-6 font-colo-w aui-padded-t-10 aui-padded-b-10">
+            总盈亏
+            <span class="font-colo-r aui-padded-l-10 " v-if="parseFloat(cList.totalChMoney)*100 >=0">{{cList.totalChMoney}}</span>
+            <span class=" aui-padded-l-10 color-g">{{cList.totalChMoney}}</span>
+        </div>
+    </div>
+    <div>
+        <div class="aui-content aui-margin-t-15" v-for="item in sList">
+            <div class="aui-list bg2 aui-padded-l-15 aui-padded-r-15 list-border">
+                <div class="aui-list-item">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title">
+                            <span class="font-colo-w aui-font-size-12">{{item.sname}}</span>
+                            <span class="font-colo-gy aui-padded-l-10" style="font-size: 0.1rem">{{item.sno}}</span>
+                        </div>
+                        <div class="aui-list-item-right">
+                            <p style="display: inline-block">
+                                <span class="font-colo-r"
+                                      v-if="parseFloat(item.chratio)*100 >=0">{{item.chratio}}</span>
+                                <span class="color-g" v-else>{{item.chratio}}</span>
+                            </p>
+                            <p style="display: inline-block">
+                                <span class="font-colo-r aui-padded-l-15" v-if="parseFloat(item.chmoney)*100 >=0">{{item.chmoney}}</span>
+                                <span class="aui-padded-l-15 color-g" v-else>{{item.chmoney}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="aui-grid bg2 aui-padded-l-15 aui-padded-r-15 aui-font-size-14">
+                <div class="aui-row">
+                    <div class="aui-col-xs-3">
+                        <p>现价</p>
+                        <p>成本</p>
+                    </div>
+                    <div class="aui-col-xs-3">
+                        <p>{{item.nowMoney}}</p>
+                        <p>11.279</p>
+                    </div>
+                    <div class="aui-col-xs-3">
+                        <p>持仓</p>
+                        <p>市值</p>
+                    </div>
+                    <div class="aui-col-xs-3">
+                        <p>{{item.handNum}}</p>
+                        <p>{{item.totalMoney}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../script/yltcrypt.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+    var user;
+    apiready = function () {
+        user = $api.getStorage('user');
+        vm = new Vue({
+            el: '#mochikura',
+            data: {
+                sList: '',
+                cList: '',
+            },
+            methods: {
+                getAssets: function () {
+                    var self = this;
+                    apiAjax(PHP_SERVE_URL + '/trade/myAssets',
+                            {
+                                openId: user.openId,
+                                token: yltcrypt.cpt(user.openId)
+                            },
+                            function (ret, err) {
+                                if (!ret.code) {
+                                    self.sList = ret.sData;
+                                    ret.cData.totalChMoney = ret.cData.totalChMoney.toFixed(2);
+                                    self.cList = ret.cData;
+                                }
+                            }
+                    )
+                }
+            },
+            mounted: function () {
+                var self = this;
+                api.addEventListener({
+                    name: 'refresh-entrust'
+                }, function () {
+                    self.getAssets();
+                });
+                self.getAssets();
+            }
+        })
+    }
+</script>
+</body>
+</html>

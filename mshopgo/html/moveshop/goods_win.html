@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <style>
+        #header {
+            background-image: none;
+        }
+
+        #header>.aui-title {
+            left: 3rem;
+            right: 4rem;
+        }
+
+        #header #iscroll .con-item {
+            color: #999;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div id="content" v-cloak>
+    <header class="aui-bar aui-bar-nav aui-bar-light aui-padded-b-10" id="header">
+        <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+            <span class="aui-iconfont aui-icon-left color-gray9"></span>
+        </a>
+        <div class="aui-title">
+            <div id="nav-scroll" class="flex-wrap">
+                <div id="iscroll" class="flex-con">
+                    <ul class="con" style="width: 100%">
+                        <li class="con-item aui-margin-0 aui-col-xs-4 active" data-index="0" tapmode="hover">商品</li>
+                        <li class="con-item aui-margin-0 aui-col-xs-4 " data-index="1" tapmode="hover">详情</li>
+                        <li class="con-item aui-margin-0 aui-col-xs-4 " data-index="2" tapmode="hover">评价</li>
+                        <!-- 导航条底部的滑块 -->
+                        <li class="run-line" id="line" style="background-color: #FF5192"></li>
+                    </ul>
+                </div>
+                <div class="arrows"></div>
+            </div>
+        </div>
+        <div class="aui-pull-right aui-btn">
+            <i class="aui-iconfont aui-icon-more aui-font-size-20 color-gray3"></i>
+        </div>
+        <!--<div class="aui-pull-right aui-btn" onclick="$a.openWin('../cart/cart_frm',{index:1})">-->
+            <!--<div class="aui-badge" style="left: 35%;">{{cartNum}}</div>-->
+            <!--<i class="aui-iconfont aui-icon-cart color-gray9"></i>-->
+        <!--</div>-->
+    </header>
+    <div id="main">
+
+    </div>
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item" tapmode style="width: 3rem;">
+            <i class="aui-iconfont aui-icon-comment aui-text-info"></i>
+            <div class="aui-bar-tab-label color-gray9 ">客服</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode style="width: 3rem;" @click="markOrCancle();">
+            <i class="aui-iconfont aui-icon-star" :class="ismarked?'aui-text-warning':'color-gray9'" id="star"></i>
+            <div class="aui-bar-tab-label color-gray9 ">收藏</div>
+        </div>
+        <!--<div class="aui-bar-tab-item" tapmode style="width: 3.1rem;" @click="addCart();">-->
+            <!--<i class="aui-iconfont aui-icon-cart" :class="isadd?'aui-text-pink':'color-gray9'" id="cart"></i>-->
+            <!--<div class="aui-bar-tab-label color-gray9">购物车</div>-->
+        <!--</div>-->
+        <div class="aui-bar-tab-item aui-text-white aui-font-size-14 back-pinkm" tapmode style="width: auto;" @click="openGoodsSelect(1);">
+            <p class="aui-text-white">￥ <span>{{goodRes.price}}</span></p>
+            单独购买
+        </div>
+        <div class="aui-bar-tab-item aui-text-white aui-font-size-14 back-pink" tapmode style="width: auto;" @click="openGoodsSelect(2);" v-show="goodRes.groupnum>1">
+            <p class="aui-text-white">￥ <span>{{goodRes.groupprice}}</span></p>
+            一键拼团
+        </div>
+    </footer>
+</div>
+
+<script src="../../script/api.js"></script>
+<script src="../../script/aui/iScroll-lite.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/sqlite_db.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+
+<script>
+    var param, sqlite, user, targetId,originOId=0;
+    apiready = function() {
+        /*页面传递的参数*/
+        param = $a.getParam();
+        user = $api.getStorage('user');
+        sqlite = api.require('db');
+        // if (!user)
+        //     return;
+        showGoodsbtn();
+    }
+
+    function showGoodsbtn() {
+        new Vue({
+            el: '#content',
+            data: {
+                goods: '',
+                goodRes: '',
+                cartNum: 0,
+                ismarked: false,
+                isadd: false
+            },
+            methods: {
+                initFrames: function() {
+                    /*页面头部状态栏*/
+                    var header = $api.byId('header'),
+                            footer = $api.byId('footer').offsetHeight;
+                    var headerH = header.offsetHeight;
+                    var height = api.winHeight - footer - headerH;
+                    var frames = [],
+                            frameName = ["index", "detail", "evaluate"];
+                    for (var i = 0, len = frameName.length; i < len; i++) {
+                        frames.push({
+                            name: frameName[i],
+                            url: './goods_' + frameName[i] + '.html',
+                            //bgColor: 'rgba(0,0,0,.2)',
+                            bounces: false,
+                            pageParam: (i == 2 ? param.id : this.goods)
+                        });
+                    }
+                    api.openFrameGroup({
+                        name: 'group',
+                        scrollEnabled: false,
+                        rect: {
+                            x: 0,
+                            y: headerH,
+                            w: 'auto',
+                            h: height
+                        },
+                        index: 0,
+                        preload: 3, //预加载的 frame 个数，默认加载当前页后面一个
+                        frames: frames
+                    });
+
+                    api.showProgress({
+                        style: 'default',
+                        animationType: 'fade',
+                        title: '努力加载中...',
+                        text: '请稍等...',
+                        modal: false
+                    });
+                    /*头部nav滑块切换*/
+                    initNavScroll('#iscroll', function(target) {
+                        var index = $api.attr(target, 'data-index');
+                        api.setFrameGroupIndex({
+                            name: 'group',
+                            index: index,
+                            scroll: false
+                        });
+                    }, 50);
+                    setTimeout(function () {
+                        api.hideProgress();
+                    }, 1000);
+                },
+                openGoodsSelect: function(stype) {
+                    api.openFrame({
+                        name: 'goods_select',
+                        url: './goods_select.html',
+                        rect: {
+                            x: 0,
+                            y: 0,
+                            w: api.winWidth,
+                            h: api.winHeight
+                        },
+                        pageParam: {
+                            goods: this.goods,
+                            stype: stype,
+                            originOId:originOId,
+                        },
+                        bounces: false,
+                        bgColor: 'rgba(0,0,0,0)',
+                        vScrollBarEnabled: true,
+                        hScrollBarEnabled: true
+                    });
+                },
+                markOrCancle: function() {
+                    var self = this;
+                    var user = $api.getStorage("user");
+                    if (self.ismarked) {
+                        api.ajax({
+                            url: PHP_SERVE_URL + '/customer/userCancelMark',
+                            method: 'post',
+                            data: {
+                                values: {
+                                    openId: user.openId,
+                                    type: 1,
+                                    target_id: param.id
+                                }
+                            }
+                        }, function(ret, err) {
+                            if (ret.code == 0) {
+                                $api.removeCls($api.dom("#star"), 'aui-text-warning');
+                                $api.addCls($api.dom("#star"), 'color-gray9');
+                                self.ismarked = false;
+                            }
+                        });
+                    } else {
+                        api.ajax({
+                            url: PHP_SERVE_URL + '/customer/userMark',
+                            method: 'post',
+                            data: {
+                                values: {
+                                    openId: user.openId,
+                                    type: 1,
+                                    target_id: param.id
+                                }
+                            }
+                        }, function(ret, err) {
+                            if (ret) {
+                                $api.removeCls($api.dom("#star"), 'color-gray9');
+                                $api.addCls($api.dom("#star"), 'aui-text-warning');
+                                self.ismarked = true;
+                            }
+                        });
+                    }
+                },
+                addCart: function() {
+                    var self = this;
+                    if (self.isadd) {
+                        $api.addCls($api.dom("#cart"), 'aui-text-pink');
+                        $api.removeCls($api.dom("#cart"), 'color-gray9');
+                    } else {
+                        $api.removeCls($api.dom("#cart"), 'aui-text-pink');
+                        $api.addCls($api.dom("#cart"), 'color-gray9');
+                        self.isadd=true;
+                    }
+                    self.isadd = !self.isadd;
+                    self.openGoodsSelect(3);
+                    // self.isadd = !self.isadd;
+
+                },
+                addFootprints: function () {
+                    var self = this;
+                    var nowtime = formatTime(new Date());
+                    var data = $api.getStorage("footPrints");
+                    var arr = [];
+                    var iscontain = false;
+                    var goodRes=self.goodRes;
+                    if (typeof data != "undefined" && data.length > 0) {
+                        $.each(data, function (index, item) {
+                            if (item.openId == user.openId) {
+                                iscontain = true;
+                                var idata=item;
+                                var goods=item.goods;
+                                idata.goods=[];
+                                var hasgoods=false;
+                                $.each(goods,function(index,gitem){
+                                    if(gitem.id==goodRes.gid){
+                                        hasgoods=true;
+                                    }
+                                    idata.goods.push(gitem);
+                                })
+                                if(!hasgoods){
+                                    var picstr = '';
+                                    if (self.goods.gpicaRes[0]) {
+                                        picstr = self.goods.gpicaRes[0].pic;
+                                    }
+                                    var good = {
+                                        time: nowtime,
+                                        id: goodRes.gid,
+                                        pic: picstr,
+                                        name: goodRes.gname,
+                                        num: goodRes.sellnum,
+                                        price: goodRes.groupprice
+                                    };
+                                    idata.goods.push(good);
+                                }
+                                arr.push(idata);
+                            }else{
+                                arr.push(item);
+                            }
+                        })
+                        if (!iscontain) {
+                            var item={
+                                openId:user.openId,
+                                goods:[]
+                            }
+                            var good = {
+                                time: nowtime,
+                                id: goodRes.gid,
+                                pic: self.goods.gpicaRes[0].pic,
+                                name: goodRes.gname,
+                                num: goodRes.sellnum,
+                                price: goodRes.groupprice
+                            };
+                            item.goods.push(good)
+                            arr.push(item);
+                        }
+                    }else{
+                        var item={
+                            openId:user.openId,
+                            goods:[]
+                        }
+                        var good = {
+                            time: nowtime,
+                            id: goodRes.gid,
+                            pic: self.goods.gpicaRes[0].pic,
+                            name: goodRes.gname,
+                            num: goodRes.sellnum,
+                            price: goodRes.groupprice
+                        };
+                        item.goods.push(good)
+                        arr.push(item);
+                    }
+                    $api.setStorage("footPrints",arr);
+                }
+            },
+            mounted: function() {
+                var self = this;
+                //接口返回是否收藏，本地购物车是否加入该商品
+                // selft.isadd=true;
+                // self.ismarked=true;
+                self.cartNum = getCartNum();
+                api.ajax({
+                    url: PHP_SERVE_URL + '/Sg/goodsSingleInfo',
+                    method: 'post',
+                    data: {
+                        values: {
+                            goodsId: param.id
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret.code == 0) {
+                        targetId = ret.data.shopRes.uid;
+                        self.goods = ret.data;
+                        if (ret.data.goodRes) {
+                            self.goodRes = ret.data.goodRes;
+                        }
+                        self.initFrames();
+                        self.addFootprints();
+                    } else {
+                        api.toast({
+                            msg: ret.msg,
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                        api.closeWin();
+                    }
+                });
+
+                api.ajax({
+                    url: PHP_SERVE_URL + '/customer/isGoodsCollect',
+                    method: 'post',
+                    data: {
+                        values: {
+                            openId: user.openId,
+                            goodsId: param.id
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret.code == 0) {
+                        self.ismarked = ret.iscollect == 1;
+                    }
+                });
+                //监听购物车商品数量
+                api.addEventListener({
+                    name: 'changeCart'
+                }, function(ret, err) {
+                    self.cartNum = getCartNum();
+                });
+
+            }
+        })
+    }
+    //获取购物车商品数量
+    function getCartNum() {
+        var carObj = localStorage.getItem('carObjx') ? JSON.parse(localStorage.getItem('carObjx')) : [];
+        var carLen = 0;
+        for (var i = 0; i < carObj.length; i++) {
+            for (var j = 0; j < carObj[i].child.length; j++) {
+                carLen++
+            }
+        }
+        return carLen;
+    }
+</script>
+</body>
+
+</html>

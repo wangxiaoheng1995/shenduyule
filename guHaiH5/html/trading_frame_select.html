@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>行情主页-自选股</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../css/frame1.css">
+    <style>
+        .aui-iconfont {
+            vertical-align: top;
+        }
+
+        .aui-row p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .add-btn-select{
+            margin: 5rem 4rem ;
+            text-align: center
+        ;
+            border: 1px dashed #7e7e8e
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden bg1">
+
+<div id="content" style="height: 200px;">
+    <div id="content2">
+        <!--<div class="aui-content aui-padded-l-15 aui-padded-r-15 aui-margin-t-15">-->
+        <!--<div class="aui-list" style="background-color: initial">-->
+        <!--<div class="aui-list-item">-->
+        <!--<div class="aui-list-item-inner">-->
+        <!--<div class="aui-list-item-title font-colo-r aui-font-size-20">11091.49</div>-->
+        <!--<div class="aui-list-item-right font-colo-gy">深证指数<span class="font-colo-r">+0.43%</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div style="height: 8rem;" id="main"></div>-->
+        <div class="aui-content">
+
+            <div class="aui-tab aui-padded-l-15 aui-padded-r-15 bg2" id="btn">
+                <div class="aui-tab-item aui-font-size-16" @click="goModify">编辑&nbsp;<i class="aui-iconfont aui-icon-edit"></i>
+                </div>
+                <div class="aui-tab-item aui-font-size-16" @click="tabArray(1)">最新</div>
+                <div class="aui-tab-item aui-font-size-16" @click="tabArray(2)">涨幅</div>
+                <div class="aui-tab-item aui-font-size-16" @click="tabArray(3)">跌幅</div>
+            </div>
+
+
+
+            <div class="aui-card-list-content" id="dataUl" v-if="transArrays.length !=0">
+                <ul class="dataUl-li">
+                    <li v-for="transArray in transArrays" @click="gopage(transArray.zdRang,transArray.sid,transArray.sname,transArray.sno)">
+                        <ul class="aui-row aui-padded-t-5 aui-padded-b-5" style="text-align: center;border-bottom: 1px solid rgba(126,126,142,0.2); ">
+                            <li class="aui-col-xs-3">
+                                <p class="font-colo-w white">{{transArray.sname}}</p>
+                                <p class="font-colo-gy aui-font-size-12">{{transArray.sno}}</p>
+                            </li>
+                            <li class="aui-col-xs-3 font-colo-w white">{{transArray.nowPrice}}</li>
+                            <li class="aui-col-xs-3 ">
+                                <span class="font-colo-r" v-if="parseFloat(transArray.zdPrice)>=0"> {{transArray.zdPrice}}</span>
+                                <span class="font-colo-g" v-else=""> {{transArray.zdPrice}}</span>
+                            </li>
+                            <li class="aui-col-xs-3 font-colo-r">
+                                <span class="font-colo-r" v-if="parseFloat(transArray.zdRang)>=0">{{transArray.zdRang}}</span>
+                                <span class="font-colo-g" v-else="">{{transArray.zdRang}}</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="dataUl-li" style="display:none;">
+                    <li v-for="zanAarray in zanAarrays" @click="gopage(zanAarray.zdRang,zanAarray.sid,zanAarray.sname,zanAarray.sno)">
+                        <ul class="aui-row aui-padded-t-5 aui-padded-b-5" style="text-align: center;border-bottom: 1px solid rgba(126,126,142,0.2); ">
+                            <li class="aui-col-xs-3">
+                                <p class="font-colo-w">{{zanAarray.sname}}</p>
+                                <p class="font-colo-gy aui-font-size-12">{{zanAarray.sno}}</p>
+                            </li>
+                            <li class="aui-col-xs-3 font-colo-w">{{zanAarray.nowPrice}}</li>
+                            <li class="aui-col-xs-3 font-colo-r">
+                                <span class="font-colo-r" v-if="parseFloat(zanAarray.zdPrice)>=0">{{zanAarray.zdPrice}}</span>
+                                <span class="font-colo-g" v-else="">{{zanAarray.zdPrice}}</span>
+
+                            </li>
+                            <li class="aui-col-xs-3 font-colo-r">
+                                <span class="font-colo-r" v-if="parseFloat(zanAarray.zdRang)>=0">{{zanAarray.zdRang}}</span>
+                                <span class="font-colo-g" v-else="">{{zanAarray.zdRang}}</span>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="dataUl-li" style="display:none;">
+                    <li v-for="dieArray in dieArrays" @click="gopage(dieArray.zdRang,dieArray.sid,dieArray.sname,dieArray.sno)">
+                        <ul class="aui-row aui-padded-t-5 aui-padded-b-5" style="text-align: center;border-bottom: 1px solid rgba(126,126,142,0.2); ">
+                            <li class="aui-col-xs-3">
+                                <p class="font-colo-w">{{dieArray.sname}}</p>
+                                <p class="font-colo-gy aui-font-size-12">{{dieArray.sno}}</p>
+                            </li>
+                            <li class="aui-col-xs-3 font-colo-w">{{dieArray.nowPrice}}</li>
+                            <li class="aui-col-xs-3 font-colo-r">
+                                <span class="font-colo-r" v-if="parseFloat(dieArray.zdPrice)>=0">{{dieArray.zdPrice}}</span>
+                                <span class="font-colo-g" v-else="">{{dieArray.zdPrice}}</span>
+
+                            </li>
+                            <li class="aui-col-xs-3 font-colo-r">
+                                <span class="font-colo-r" v-if="parseFloat(dieArray.zdRang)>=0">{{dieArray.zdRang}}</span>
+                                <span class="font-colo-g" v-else="">{{dieArray.zdRang}}</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="font-colo-gy aui-font-size-20 aui-padded-15 add-btn-select" v-else="" @click="openMarketIndex()" >+添加自选股
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script type="text/javascript" src="../script/aui-collapse.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js"></script>
+<script src="../script/iscroll.js"></script>
+<script src="../script/vue.js"></script>
+<script type="text/javascript" src="../script/echarts.min.js"></script>
+<script type="text/javascript">
+  var user, openId;
+  apiready = function () {
+    api.parseTapmode();
+    user = $api.getStorage('user');
+
+
+    //检测是否登录
+    if (typeof user == "undefined") {
+      openId = "";
+    } else {
+      openId = user.openId
+    }
+    pageInit();
+
+    api.addEventListener({
+      name: 'customerLogined'
+    }, function () {
+      location.reload();
+    });
+    api.addEventListener({
+      name: 'refresh-selfstock'
+    }, function () {
+      location.reload();
+    });
+
+  };
+
+  /* 初始化vue */
+  function pageInit() {
+    var vm = new Vue({
+      el: '#content',
+      data: {
+        transArrays: [],
+        zanAarrays: [],
+        dieArrays: [],
+        bg: 0,
+      },
+      methods: {
+        tabArray: function (index) {
+          $("#dataUl .dataUl-li").eq(index - 1).show().siblings().hide();
+        },
+        /*跳转股票页面*/
+        gopage: function (state, id, name, son) {
+          var self = this;
+          var statg = state.indexOf('-') > -1 ? ('down') : ('up');
+          openWin('win_optionalShareDetail', {
+            id: id,
+            state: statg,
+            name: name,
+            sno: son,
+            bg: self.bg
+          })
+        },
+        goModify: function () {
+          var self = this;
+          openWin('trading_market_compile', {
+            bg: self.bg
+          });
+        },
+        //跳市场
+        openMarketIndex:function () {
+          api.sendEvent({
+            name: 'MarketIndex'
+          });
+        }
+      },
+      mounted: function () {
+        var _this = this;
+        apiAjax(PHP_SERVE_URL + '/trade/selfStock', {
+          openId: openId
+        }, function (res) {
+        if(res!=""){
+          _this.transArrays = res.data;
+          var allData = res.data;
+
+          allData.forEach(function (item, index) {
+            var nowNumber = Number(item.zdRang.substring(0, item.zdRang.indexOf("%")));
+            if (nowNumber > 0) {
+              _this.zanAarrays.unshift(item);
+              _this.dieArrays.push(item)
+            } else {
+              _this.zanAarrays.push(item);
+              _this.dieArrays.unshift(item)
+            }
+          });
+        }
+        });
+
+        //监听主题切换
+        api.addEventListener({
+          name: 'send_bg'
+        }, function (ret, err) {
+          _this.bg = ret.value.bg;
+          if (!ret.value.bg) {
+            $('body').addClass("bg1");
+            $('#btn').addClass("bg2");
+            $(".white").addClass('font-colo-w');
+          } else {
+            $('body').removeClass("bg1");
+            $('#btn').removeClass("bg2");
+            $(".white").removeClass('font-colo-w');
+          }
+        });
+      }
+    });
+  }
+</script>
+
+</body>
+
+</html>

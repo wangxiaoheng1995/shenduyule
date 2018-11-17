@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>押金退还明细</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        .aui-list .aui-list-item {
+            background-image: none;
+        }
+
+    </style>
+</head>
+<body>
+<!-- header -->
+<header class="aui-bar aui-bar-nav tit-bar-black back-write color-black">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back();">
+        <span class="aui-iconfont aui-icon-left color-black"></span>
+    </a>
+    <div class="aui-title">明细详情</div>
+</header>
+<!-- main -->
+<div id="main">
+  
+</div>
+<!-- footer -->
+<script src="../../script/api.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/H5_public.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script type="text/template" id="templateId">
+
+    <div class="back-write aui-margin-t-15">
+        <div class="aui-margin-l-15 aui-margin-r-15 aui-padded-t-15 border-bot">
+            <div class="color-gray9">退还押金</div>
+            <div class="aui-padded-t-15 aui-padded-b-15" style="font-size: 3rem">+{{=it.money}}</div>
+        </div>
+        <ul class="aui-list aui-margin-t-10 aui-padded-b-10">
+            <li class="aui-list-item cart-bg-fff">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">
+                       退还时间
+                        <span class="aui-padded-l-10 color-gray9">{{=it.addtime}}</span>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item cart-bg-fff">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">
+                        退还类型
+                        {{? it.days > 0}}
+                        <span class="aui-padded-l-10 color-gray9">使用加速返还押金</span>
+                        {{??}}
+                        <span class="aui-padded-l-10 color-gray9">自然状态下返回押金</span>
+                        {{?}}
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item cart-bg-fff">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">
+                        返还状态
+                        <span class="aui-padded-l-10 color-gray9">
+                        第{{=it.beginCount}}笔
+                        {{? it.beginCount != it.endCount}}
+                        到 第{{=it.endCount}}笔
+                        {{?}}
+                    </span>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item cart-bg-fff">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">
+                        退还方式
+                        <span class="aui-padded-l-10 color-gray9">按支付原路返还</span>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item cart-bg-fff">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">
+                        退还账号
+                        <span class="aui-padded-l-10 color-gray9">{{=it.orderno}}</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</script>
+<script type="text/javascript">
+//存储ajax请求返回的数据
+var dataSource;
+//模板内容
+var templateTxt = $api.text($api.byId('templateId'));
+//引擎预处理模板内容
+var templateExe = doT.template(templateTxt);
+
+var user;
+  user = $api.getStorage('user');
+  if (user) {
+      loadReturnDetail();
+  }
+
+function loadReturnDetail() {
+    $.ajax({
+        url: PHP_SERVE_URL + '/partner/myGetDepositInfo',
+        type: 'post',
+        data: {
+            openId: user.openId,
+            hashToken: yltcrypt.cpt(user.openId),
+            id: H5.pageParam().id
+        },
+        success:function(ret, err) {
+            if (ret.code == 0) {
+                dataSource = ret.data;
+                $api.append($api.byId('main'), templateExe(dataSource));
+            }
+        }
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>成交详情</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        html {
+            height: 100%;
+        }
+
+        /*浅白*/
+        body {
+            background: #f6f6f6;
+            height: 100%;
+        }
+
+        /*最底背景：黑色*/
+        .bg1 {
+            background-color: #171b24;
+
+        }
+
+        /*底背景：半黑色*/
+        .bg2 {
+            background-color: #1c2029;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item {
+            padding: 0rem;
+        }
+
+        .aui-list .aui-list-item-inner {
+            padding: 0rem;
+        }
+
+        .aui-grid .aui-row .aui-list .aui-list-item-title {
+            color: #7e7e8e;
+            font-size: 0.7rem;
+        }
+
+        .list2 {
+            border-left: 0.1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .aui-row {
+            border-top: 0.1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .list1 .aui-list-item-title {
+            padding-left: 0.75rem;
+        }
+
+        .list2 .aui-list-item-title {
+            color: #ffffff !important;
+            padding-left: 2rem;
+        }
+
+        .aui-list .aui-list-item {
+            border-bottom: 0.1px solid rgba(255, 255, 255, 0.1);
+        }
+
+
+    </style>
+</head>
+<body class="overflow-x-hidden bg1">
+<header style="background-color: #de3232 ">
+    <div class="aui-bar aui-bar-nav">
+        <a class="aui-pull-left aui-btn" onclick="closeWin();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">成交详情</div>
+    </div>
+</header>
+
+<div id="item">
+    <div class="aui-content">
+        <div class="aui-info bg2 aui-padded-l-15 aui-padded-r-15">
+            <div class="aui-info-item">
+                <span class="font-colo-r" v-if="list.type==1">买入</span>
+                <span class="font-colo-r" v-else>卖出</span>
+                <span class="font-colo-w aui-padded-l-15 aui-padded-r-15">{{list.sname}}</span>
+                <span class="font-colo-gy">{{list.sno}}</span>
+            </div>
+            <div class="aui-info-item font-colo-gy">{{date}}</div>
+        </div>
+    </div>
+    <div class="aui-content aui-margin-t-15">
+        <div class="aui-grid bg2">
+            <div class="aui-row ">
+                <div class="aui-col-xs-6 list1" style="width: 25%">
+                    <ul class="aui-list bg2">
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">成交均价</div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">成交数量</div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">成交金额</div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">成交日期</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="aui-col-xs-6 list2" style="width: 75%">
+                    <ul class="aui-list bg2">
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">{{list.dealPrice}}</div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">{{list.dealNum}}</div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">{{list.dealTotalMoney}}</div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">{{year}}</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="aui-content aui-margin-t-15">
+        <div class="aui-grid bg2">
+            <div class="aui-row ">
+                <div class="aui-col-xs-6 list1" style="width: 25%">
+                    <ul class="aui-list bg2">
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">股东名称</div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">委托单号</div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="aui-col-xs-6 list2" style="width: 75%">
+                    <ul class="aui-list bg2">
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">{{list.placeName}}</div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title">{{list.dealNo}}</div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../script/yltcrypt.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+  var user, pageParam;
+  apiready = function () {
+    $api.fixStatusBar($api.dom('header'));
+    user = $api.getStorage('user');
+    pageParam = api.pageParam;
+    new Vue({
+      el: '#item',
+      data: {
+        list: '',
+        date:'',
+        year:'',
+      },
+      methods: {},
+      mounted: function () {
+        var self = this;
+        apiAjax(PHP_SERVE_URL + '/trade/dealInfo', {
+          openId: user.openId,
+          did: pageParam.did,
+          sid: pageParam.sid
+        }, function (ret, err) {
+          if (!ret.code) {
+            self.list = ret.data;
+            self.year = ret.data.addtime.split(" ")[0];
+            self.date = ret.data.addtime.split(" ")[1];
+
+          }
+        })
+      }
+    })
+  }
+</script>
+</body>
+</html>

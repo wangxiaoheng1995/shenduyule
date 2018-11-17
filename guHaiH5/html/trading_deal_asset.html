@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易-我的资产</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+
+
+    <style>
+        body {
+            background-color: #171b24;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            padding-top: 0rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #1c2029;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除左边距*/
+        .aui-list .aui-list-item {
+            padding-left: 0rem;
+        }
+
+        .head .aui-list .aui-list-item-title {
+            color: #ffffff;
+        }
+
+        .aui-grid .aui-col-xs-6 {
+            text-align: left;
+            padding: 0.1rem 0;
+        }
+
+        #footer .aui-bar-tab-label {
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        #footer {
+            background-color: #222933;
+        }
+
+        .trad-data-block {
+            display: flex;
+            display: -webkit-flex;
+            align-items: center;
+            -webkit-align-items: center;
+            height: 2rem;
+        }
+
+        .trad-data-left {
+            width: 80%;
+            color: #727682;
+        }
+
+        .trad-data-left input {
+            width: 40%;
+            display: inline;
+            text-align: center;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .border-bot {
+            border-bottom: 1px solid #252932;
+        }
+
+        .holding-list li, .holding-inner {
+            min-height: inherit !important;
+            height: 1.6rem !important;
+            line-height: 1.6rem !important;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .aui-content .aui-list-item:active,
+        .aui-row .aui-col-xs-6 {
+            background-color: inherit !important;
+        }
+        .aui-iconfont.aui-icon-question{
+          font-size:0.7rem;
+        }
+        .aui-grid.aui-margin-b-15{
+          background:#de3232;
+          color:#fff;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">我的资产</div>
+
+    <a class="aui-pull-right aui-btn aui-btn-outlined" onclick="openWin('trading_deal_details',{index:1})">
+        <span class="aui-iconfont aui-font-size-12 aui-padded-l-10 aui-padded-r-10"> 明细</span>
+    </a>
+</header>
+
+<div id="asset">
+    <!-- <div class="head aui-content aui-padded-15 font-colo-w " style="background-color:#de3232 ">
+        <h4>累积金额</h4>
+        <h1 style="text-align: center;font-size: 2rem">
+            <span v-if="asset.totalBalance<=0"> 0 </span>
+            <span v-else="">{{asset.totalBalance}}</span>
+        </h1>
+        <div>
+            <h4 style="text-align: center;">
+                <p style="display: inline-block;" class="font-colo-w">
+                    <span style="padding-right:0.5rem;margin-right: 0.5rem;border-right: 2px solid #ffffff" v-if="asset.inBalance>=10000">收入{{(asset.inBalance/10000).toFixed(2)}}万</span>
+                    <span style="padding-right:0.5rem;margin-right: 0.5rem;border-right: 2px solid #ffffff" v-else="">收入{{asset.inBalance}}</span>
+                </p>
+                <p style="display: inline-block;" class="font-colo-w">
+                    <span v-if="asset.outBalance>=10000">支出{{(asset.outBalance/10000).toFixed(2)}}万</span>
+                    <span v-else="">支出 {{asset.outBalance}}</span>
+                </p>
+            </h4>
+        </div>
+    </div> -->
+    <section class="aui-grid aui-margin-b-15">
+      <div class="aui-row">
+          <div class="aui-col-xs-4">
+              <div class="aui-grid-label">总资产</div>
+              <div class="aui-grid-label" v-if="myAssets.totalMoney>=10000">{{(myAssets.totalMoney/10000).toFixed(2)}}万</div>
+              <div class="aui-grid-label" v-else="">{{myAssets.totalMoney}}</div>
+          </div>
+          <div class="aui-col-xs-4">
+              <div class="aui-grid-label">持仓盈亏</div>
+              <div class="aui-grid-label" v-if="myAssets.tradePL>=10000">{{(myAssets.tradePL/10000).toFixed(2)}}万</div>
+              <div class="aui-grid-label" v-else="">{{myAssets.tradePL}}</div>
+          </div>
+          <div class="aui-col-xs-4">
+              <div class="aui-grid-label">可用买卖</div>
+              <div class="aui-grid-label" v-if="myAssets.enableBuyTotal>=10000">{{(myAssets.enableBuyTotal/10000).toFixed(2)}}万</div>
+              <div class="aui-grid-label" v-else="">{{myAssets.enableBuyTotal}}</div>
+          </div>
+          <div class="aui-col-xs-4">
+              <div class="aui-grid-label">总市值</div>
+              <div class="aui-grid-label" v-if="myAssets.stockPriceTotal>=10000">{{(myAssets.stockPriceTotal/10000).toFixed(2)}}万</div>
+              <div class="aui-grid-label" v-else="">{{myAssets.stockPriceTotal}}</div>
+          </div>
+          <div class="aui-col-xs-4">
+              <div class="aui-grid-label">当日盈亏<i class="aui-iconfont aui-icon-question"></i></div>
+              <div class="aui-grid-label" v-if="myAssets.todayPL>=10000">{{(myAssets.todayPL/10000).toFixed(2)}}万</div>
+              <div class="aui-grid-label" v-else="">{{myAssets.todayPL}}</div>
+          </div>
+          <div class="aui-col-xs-4">
+              <div class="aui-grid-label">可用消费</div>
+              <div class="aui-grid-label" v-if="myAssets.enableCostTotal>=10000">{{(myAssets.enableCostTotal/10000).toFixed(2)}}万</div>
+              <div class="aui-grid-label" v-else="">{{myAssets.enableCostTotal}}</div>
+          </div>
+      </div>
+    </section>
+    <div class="holding-bot">
+        <div class="content aui-content bg-color bg" v-for="item in list">
+            <div class="aui-list bg-color">
+                <div class="aui-list-item">
+                    <div class="aui-list-item-inner border-bot">
+                        <div class="aui-list-item-title">
+                            <span style="color: #ffffff" v-cloak v-text="item.sname">0</span>
+                            <span class=" aui-margin-l-15 aui-font-size-12 font-colo-gy" v-cloak v-text="item.sno"></span>
+                        </div>
+
+                        <div class="aui-list-item-right">
+                            <p style="display: inline-block">
+                                <span class="font-colo-r" v-if="parseFloat(item.chratio)*1000 >=0" v-text="item.chratio">0</span>
+                                <span class="font-colo-g" v-else v-text="item.chratio">0</span>
+                            </p>
+                            <p style="display: inline-block" class="">
+                                <span class="font-colo-r aui-padded-l-15" v-if="parseFloat(item.chmoney) >=0" v-text="item.chmoney">0</span>
+                                <span class="aui-padded-l-15 font-colo-g" v-else v-text="item.chmoney">0</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-grid aui-margin-t-15 bg-color font-colo-gy">
+                <div class="aui-row">
+                    <div class="aui-col-xs-6">
+                        <span class="aui-padded-r-15">现价</span>
+                        <span v-cloak v-text="item.nowMoney">0</span>
+                    </div>
+                    <div class="aui-col-xs-6">
+                        <span class="aui-padded-r-15">持仓</span>
+                        <span v-cloak v-text="item.handNum">0</span>
+                    </div>
+                    <div class="aui-col-xs-6">
+                        <span class="aui-padded-r-15">成本</span>
+                        <span v-cloak v-text="item.handPrice">0</span>
+                    </div>
+                    <div class="aui-col-xs-6">
+                        <span class="aui-padded-r-15">市值</span>
+                        <span v-cloak v-text="item.totalMoney">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="aui-bar aui-bar-tab" id="footer">
+    <div class="aui-bar-tab-item aui-active" onclick="openWin('win_trade',{'actionType':0,bg:0,name:''})">
+        <div class="aui-bar-tab-label" style="border-right: 1px solid #7e7e8e">买入</div>
+    </div>
+    <div class="aui-bar-tab-item" onclick="openWin('win_trade',{'actionType':1,bg:0,name:''})">
+        <div class="aui-bar-tab-label">卖出</div>
+    </div>
+</footer>
+<script src="../script/yltcrypt.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+
+
+  var user;
+  apiready = function () {
+    fix_status_bar();
+    user = $api.getStorage('user');
+    new Vue({
+      el: '#asset',
+      data: {
+        asset: '',
+        ctAssets: '',
+        list: '',
+        myAssets:''
+      },
+      mounted: function () {
+        var self = this;
+        //资产
+        apiAjax(PHP_SERVE_URL + '/customer/getAssets', {
+          openId: user.openId,
+          assetsType: 2
+        }, function (ret, err) {
+//          console.log(JSON.stringify(ret));
+          if (!ret.code) {
+            self.asset = ret;
+          }
+        });
+        apiAjax(PHP_SERVE_URL + '/trade/myAssets', {
+          openId: user.openId,
+          token: yltcrypt.cpt(user.openId)
+        }, function (ret, err) {
+          console.log(JSON.stringify(ret));
+          if (!ret.code) {
+            self.ctAssets = ret.cData;
+            self.list = ret.sData;
+          }
+        });
+        apiAjax(PHP_SERVE_URL + '/customer/stockAssetsInfo',{
+          openId:user.openId
+        }, function(ret,err){
+          console.log(JSON.stringify(ret));
+            if(!ret.code){
+            self.myAssets=ret;
+          }
+        });
+      }
+    })
+  };
+
+</script>
+</body>
+</html>

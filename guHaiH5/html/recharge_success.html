@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>充值成功</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .tu img {
+            vertical-align: middle;
+            width: 2rem;
+        }
+
+        .gx {
+            color: #000;
+            font-family: 微软雅黑;
+            font-size: 1rem;
+        }
+
+        .aui-btn {
+            padding: 0.4rem 2.5rem;
+            border: 1px solid #41ac44;
+            border-radius: 2rem;
+        }
+
+        .btn {
+            color: #41ac44 !important;
+            background-color: #ffffff !important;
+            font-weight: bold;
+        }
+
+        .submitimg {
+            width: 100%;
+            margin: 0 auto;
+            padding-top: 3rem;
+        }
+
+        .aui-bar-nav {
+            background: #de3232;
+            color: #fff;
+        }
+
+        .aui-bar-nav .aui-btn .aui-iconfont {
+            color: #fff;
+        }
+
+        .p1 {
+            padding-top: 0.5rem;
+            font-size: 0.6rem;
+        }
+
+        .p2 {
+            font-size: 0.6rem;
+            padding-bottom: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn" onclick="history.back();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">充值成功</div>
+</header>
+<div style="height: 0.5rem;background: #f8f8f8;"></div>
+<div class="cont center aui-margin-b-15">
+    <div class="submitimg">
+        <img src="../image/submit_icon-.png" style="width: 3rem;height: 3rem;">
+    </div>
+    <div class="tu">
+        <span class="gx"> 恭喜您，充值成功！</span>
+    </div>
+    <p class="p1">支付成功，付款订单号</p>
+    <p class="p2" id='orderNo'></p>
+    <div class="aui-btn btn " onclick="location.href='trading_index_myGold.html'">查看个人余额</div>
+</div>
+
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script type="text/javascript">
+    var orderId;
+    var winName;
+    apiready = function () {
+        api.parseTapmode();
+        fix_status_bar();
+        orderId = api.pageParam.orderId;
+        winName=api.pageParam.winName;
+        $('#orderNo').text( orderId);
+    }
+    function gotowin(){
+        openWinPro(winName,'',true);
+    }
+</script>
+</body>
+</html>

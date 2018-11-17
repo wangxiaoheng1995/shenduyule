@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>消息中心</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/footer.css"/>
+    <style>
+        .aui-bar-tab .aui-bar-tab-item {
+            height: 3rem;
+        }
+        .aui-bar-tab .aui-bar-tab-item a,
+        .aui-bar-tab .aui-bar-tab-item a:visited,
+        .aui-bar-tab .aui-bar-tab-item a:hover{
+            color: inherit;
+            font-size: inherit;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <header class="aui-bar aui-bar-nav tit-bar-black border-bot header-nav" style="background: #FE73AA;color: #fff;">
+        <a class="aui-pull-left aui-btn">
+            <span class="aui-iconfont color-gray9"></span>
+        </a>
+        <div class="aui-title">消息中心</div>
+    </header>
+    <div class="header-nav-top" id="main">
+        <ul class="aui-list aui-media-list aui-margin-t-10 msg-list back-none" id="conversation">
+        </ul>
+    </div>
+</div>
+<footer class="aui-bar aui-bar-tab" id="footer">
+    <div class="aui-bar-tab-item" tapmode>
+        <a href="../index/index_frm.html">
+            <i class="aui-iconfont" style="background-image: url('../../image/footer/f1-2.png')"></i>
+            <div class="aui-bar-tab-label">首页</div>
+        </a>
+    </div>
+    <div class="aui-bar-tab-item" tapmode>
+        <a href="../newgood/newgood_frm.html">
+            <i class="aui-iconfont " style="background-image: url('../../image/footer/f2-2.png')"></i>
+            <div class="aui-bar-tab-label">新品</div>
+        </a>
+    </div>
+    <div class="aui-bar-tab-item" tapmode>
+        <a href="../partner/partner_frm.html">
+            <i class="aui-iconfont " style="background-image: url('../../image/footer/f3-2.png')"></i>
+            <div class="aui-bar-tab-label">掌柜</div>
+        </a>
+    </div>
+    <div class="aui-bar-tab-item aui-active" tapmode>
+        <i class="aui-iconfont" style="background-image: url('../../image/footer/f4-1.png')"></i>
+        <div class="aui-bar-tab-label">消息</div>
+        <div class="aui-dot chat-message-tip" style="display: none"></div>
+    </div>
+    <div class="aui-bar-tab-item" tapmode>
+        <a href="../my/my_frm.html">
+            <i class="aui-iconfont " style="background-image: url('../../image/footer/f5-2.png')"></i>
+            <div class="aui-bar-tab-label">我的</div>
+        </a>
+    </div>
+</footer>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/zepto.min.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/sqlite_db.js"></script>
+<script type="text/javascript" src="../../script/newMsgListen.js"></script>
+
+<script type="text/html/x-dot-template" id="data_conversation">
+    {{~it :value}}
+    <li id="t{{=value.targetId}}" class="aui-list-item aui-list-item-middle back-none border-bot" onclick="openChatFromConversation({{=value.targetId}})">
+        <div class="aui-media-list-item-inner">
+            <div class="aui-list-item-media" style="width: 3rem;">
+                <div class="aui-chat-media">
+                    <img src="{{=value.avatar}}?x-oss-process=image/resize,m_mfit,h_200,w_200" class="aui-list-img-sm">
+                </div>
+                {{?value.noRead != 0}}
+                <em class="aui-badge">{{=value.noRead}}</em>
+                {{??}}
+                <em class="aui-badge" style="display: none">0</em>
+                {{?}}
+            </div>
+            <div class="aui-list-item-inner aui-list-item-arrow" style="padding-top: 0.3rem">
+                <div class="aui-list-item-text">
+                    <div class="aui-list-item-title aui-font-size-14">{{=value.name}}</div>
+                    {{?value.edittime != null}}
+                    <div class="aui-list-item-right">{{=value.edittime}}</div>
+                    {{??}}
+                    <div class="aui-list-item-right"></div>
+                    {{?}}
+                </div>
+                <div class="aui-list-item-text color-gray9 aui-font-size-12 aui-ellipsis-1" style="margin-top: 0.3rem;">
+                    {{=value.lastmsg}}
+                </div>
+            </div>
+        </div>
+    </li>
+    {{~}}
+</script>
+<script type="text/javascript">
+    var rong, sqlite, user;
+        user = $api.getStorage('user');
+        dbopen();
+        if (user){
+            getChatUser();
+        };
+
+        //查询本地数据库会话
+
+        //刷新未读消息数量
+        /*api.setRefreshHeaderInfo({
+            loadingImg: 'widget://image/refresh.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: false
+        }, function(ret, err) {
+            //查询本地数据库会话
+            getChatUser();
+            api.refreshHeaderLoadDone();
+        });*/
+        //监听接收到消息
+        // NewMsgListen.chatListReceive();
+        //消息被读取监听
+        // NewMsgListen.chatListreadMsg();
+
+    function openChatFromConversation(targetId) {
+        openChatFromFriend(targetId,{});
+    }
+
+
+</script>
+</html>
+

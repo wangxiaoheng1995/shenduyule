@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>云路通</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/message_style.css">
+    <style>
+        #header .aui-iconfont {
+            color: #7a7a7a;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<header id="header" class="aui-bar aui-bar-nav" style="background-color: #ffffff;color: #222;z-index: 1 !important;">
+    <a class="aui-pull-left aui-btn" onclick="history.back();" >
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title " style="background-color: #fff;color: #222;font-size: 0.8rem;">实名认证</div>
+</header>
+<div id="content" v-cloak>
+    <div id="data_area" style="background:#fff">
+        <img src="../../image/my/smrz_image.png" class="s_authtopimg" alt="123"/>
+        <p class="aui-text-center aui-font-size-16" style="position: absolute;width: 100%;top:8rem;color: white;">
+            {{checkState==1?'认证信息已提交，等待审核':checkState==2?'已通过实名认证':checkState==3?'实名认证未通过':'未提交实名认证'}}
+        </p>
+        <section class="s_authsection">
+            <form class="s_authform">
+                <p><span>真实姓名</span><strong id="name">{{realName.real_name}}</strong></p>
+                <p><span>身份证号</span><strong id="number">{{realName.card_no}}</strong></p>
+                <p><span>性别</span><strong id="address"></strong></p>
+            </form>
+        </section>
+    </div>
+    <div v-if="checkState==3" onclick="location.href='./my-authen.html'" class="aui-margin-15 aui-text-center" style="padding-top: 2rem;">
+        <div class="aui-btn aui-btn-danger aui-btn-sm aui-font-size-12">实名认证未通过,重新提交资料</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<script type="text/javascript" src="../../script/yltcrypt.js"></script>
+<script>
+    var user=$api.getStorage('user');
+    new Vue({
+        el:"#content",
+        data:{
+            realName:{},
+            checkState:1
+        },
+        methods:{
+            getRealNameInfo:function () {
+                var _self=this;
+                $.ajax({
+                    url:PHP_SERVE_URL + '/customer/checkRealName',
+                    type:'post',
+                    data:{
+                        openId:user.openId,
+                        token:yltcrypt.cpt(user.openId)
+                    },
+                    success:function (res) {
+                        console.log(res)
+                        _self.realName=res.data;
+                        _self.checkState=res.code;
+                    }
+                })
+            }
+        },
+        mounted:function(){
+            // 获取用户实名信息
+            this.getRealNameInfo()
+        }
+    })
+
+</script>
+</html>

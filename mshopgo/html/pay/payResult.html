@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>支付结果</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+    html,
+    body,
+    #content {
+        width: 100% !important;
+        height: 100% !important;
+        background: #fff !important;
+    }
+
+    #content {
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+    }
+
+    header.aui-bar-nav {
+        position: fixed;
+        z-index: 10000;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    .like-titie {
+        position: relative;
+        height: 1.6rem;
+        line-height: 1.6rem;
+        width: 58%;
+        margin: 0 auto 0.6rem;
+    }
+
+    .like-titie:after,
+    .like-titie:before {
+        content: "";
+        width: 3rem;
+        height: 1px;
+        position: absolute;
+        top: 50%;
+        background-color: #ddd
+    }
+
+    .like-titie:after {
+        left: 0;
+    }
+
+    .like-titie:before {
+        right: 0;
+    }
+
+    .shop-view {
+        background: #f6f6f6;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="content" v-cloak>
+        <header class="aui-bar aui-bar-nav tit-bar-black">
+            <a class="aui-pull-left aui-btn" onclick="api.closeWin();">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </a>
+            <div class="aui-title" v-show="payResult.orderType==1">{{payResult.type==3?'支付失败':'支付成功'}}</div>
+            <div class="aui-title" v-show="payResult.orderType==2">
+                <template v-if="payResult.type==1">参团成功</template>
+                <template v-if="payResult.type==2">拼团成功</template>
+                <template v-if="payResult.type==3">拼图失败</template>
+            </div>
+            <div class="aui-title" v-show="payResult.orderType==4">{{payResult.type==3?'支付失败':'支付成功'}}</div>
+        </header>
+        <div style="height: 2rem"></div>
+        <!--支付成功-->
+        <div class="back-write team-block aui-text-center aui-padded-b-15" v-show="payResult.orderType==1||payResult.orderType==4">
+            <img src="../../image/my/gw_zfcg_icon.png" class="team-state" />
+            <dl class="team-dl">
+                <dt>支付成功</dt>
+                <dd class="aui-font-size-14"><span id="seconds">3</span>秒后关闭页面...</dd>
+                <dd class="aui-font-size-14">请耐心等候商家发货~</dd>
+            </dl>
+            <!-- <p class="color-blue" @click="openOrderDetail();">查看订单详情></p> -->
+            <button class="aui-margin-b-15 aui-btn  padding0 border-no bd-radius  aui-font-size-16 back-pinkm color-write my-margin-t" @click="openIndexWin()">
+                去首页逛逛
+            </button>
+        </div>
+        <!--拼单成功-->
+        <div class="group team-block aui-text-center" v-show="payResult.orderType==2&&payResult.type!=3">
+            <img src="../../image/my/gw_zfcg_icon.png" class="team-state" />
+            <dl class="team-dl">
+                <dt>拼单成功</dt>
+                <dd class="aui-font-size-14" v-if="payResult.type==1">还差 <em class="color-pink">{{payResult.lessnum}}</em>人，赶紧邀请好友来拼团吧~
+                    <br/>拼单人满后立即发货
+                </dd>
+                <dd class="aui-font-size-14" v-if="payResult.type==2">
+                    商家正在努力发货，请耐心等待！
+                </dd>
+            </dl>
+            <div class="team-people">
+                <span v-for="item,index in payResult.userInfo"><img :src="item.avatar"/><em class="back-pink" v-show="index==0">拼主</em></span>
+            </div>
+            <button class="aui-btn  padding0 border-no bd-radius  aui-font-size-16 back-pinkm color-write my-margin-t" @click="openIndexWin()">
+                去首页逛逛
+            </button>
+        </div>
+        <!--拼单失败-->
+        <div class="group team-block aui-text-center" v-show="payResult.orderType==2&&payResult.type==3">
+            <img src="../../image/my/gw_zfsb_icon.png" class="team-state" />
+            <dl class="team-dl">
+                <dt>拼单失败</dt>
+                <dd class="aui-font-size-14">拼单超出时限，交易已关闭
+                    <br/>贷款将于24小时内退回您的账户</dd>
+            </dl>
+            <div class="team-people">
+                <span><img src="../../image/my/share_wx.png"/><em class="back-pink">拼主</em></span>
+                <span><img src="../../image/my/share_wx.png"/></span>
+            </div>
+            <button class="aui-btn  padding0 border-no bd-radius  aui-font-size-16 back-pinkm color-write my-margin-t" @click="openIndexWin()">
+                去首页逛逛
+            </button>
+        </div>
+        <!--猜你喜欢-->
+        <div class="shop-view aui-padded-t-10  aui-padded-b-15 back-write aui-margin-t-15 aui-hide">
+            <div class="aui-content" style="width:100%;height: 0.75rem;background: #f6f6f6;"></div>
+            <h2 class="aui-text-center aui-font-size-16 like-titie">猜你喜欢</h2>
+            <ul class="clearfix aui-padded-l-10 ">
+                <li class="aui-pull-left border aui-margin-r-10 aui-margin-b-10">
+                    <img src="../../image/test.jpg" alt="">
+                    <p class="aui-padded-l-5 aui-padded-r-5 aui-ellipsis-1">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</p>
+                    <div class="cart-section-bottom clearfix aui-padded-t-5  aui-margin-l-5 aui-margin-r-5 aui-margin-t-10 aui-margin-b-5 border-top">
+                        <p class="aui-pull-left">
+                            <strong class="aui-font-size-14 cart-section-prize color-pink">￥39.9</strong>
+                            <!--<em class="aui-font-size-10 text-line">￥599</em>-->
+                        </p>
+                        <p class="aui-pull-right aui-font-size-12"> 已售:68989</p>
+                    </div>
+                </li>
+                <li class="aui-pull-left border aui-margin-r-10 aui-margin-b-10">
+                    <img src="../../image/test.jpg" alt="">
+                    <p class="aui-padded-l-5 aui-padded-r-5 aui-ellipsis-1">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</p>
+                    <div class="cart-section-bottom clearfix aui-padded-t-5  aui-margin-l-5 aui-margin-r-5 aui-margin-t-10 aui-margin-b-5 border-top">
+                        <p class="aui-pull-left">
+                            <strong class="aui-font-size-14 cart-section-prize color-pink">￥39.9</strong>
+                            <!--<em class="aui-font-size-10 text-line">￥599</em>-->
+                        </p>
+                        <p class="aui-pull-right aui-font-size-12"> 已售:68989</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--订单信息-->
+        <div class="group my-margin-t" v-show="payResult.orderType==2">
+            <ul class="aui-list aui-media-list">
+                <li class="aui-list-item aui-list-item-middle aui-padded-t-10 aui-padded-b-10 s-no-bgimg">
+                    <p class="aui-margin-t-15" style="overflow: hidden">
+                        <span class="aui-pull-left aui-margin-r-10 color-black" style="width: 23%">订单编号</span><span class="aui-pull-left" style="width: 72%">{{payResult.order_no}}</span>
+                    </p>
+                    <p class="aui-margin-t-15" style="overflow: hidden">
+                        <span class="aui-pull-left aui-margin-r-10 color-black" style="width: 23%">收货人</span><span class="aui-pull-left" style="width: 72%">{{payResult.name}}</span>
+                    </p>
+                    <p class="aui-margin-t-15" style="overflow: hidden">
+                        <span class="aui-pull-left aui-margin-r-10 color-black" style="width: 23%">收货地址</span><span class="aui-pull-left" style="width: 72%">{{payResult.address}}</span>
+                    </p>
+                    <p class="aui-margin-t-15" style="overflow: hidden">
+                        <span class="aui-pull-left aui-margin-r-10 color-black" style="width: 28%">拼单成功时间</span><span class="aui-pull-left" style="width: 68%">{{payResult.pay_time}}</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="../../script/jquery-1.11.1.min.js"></script>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/vue.js"></script>
+    <script>
+    var orderNo;
+    var type; //1 普通订单   2拼团成功  3拼单失败
+    apiready = function() {
+        orderNo = api.pageParam.orderNo;
+        new Vue({
+            el: '#content',
+            data: {
+                payResult: {}
+            },
+            methods: {
+                openIndexWin: function() {
+                    var self = this;
+                    $a.sendEvt('index-show');
+                    $a.openWin('../index_win');
+                },
+                openOrderDetail: function() {
+                    var self = this;
+                    api.openWin({
+                        name: 'orderDetails',
+                        url: '../my/my_frm-orderDetail.html',
+                        pageParam: {
+                            oid: self.payResult.oid
+                        }
+                    });
+                }
+            },
+            mounted: function() {
+                var self = this;
+                api.ajax({
+                    url: PHP_SERVE_URL + '/order/getGroupSuccessOrFailOrder',
+                    method: 'post',
+                    data: {
+                        values: {
+                            orderNo: orderNo
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret.code == 0) {
+                        self.payResult = ret.data;
+                    }
+                });
+                var time = 3;
+                setInterval(function() {
+                    time--;
+                    $("#seconds").text(time);
+                    if(time==0){
+                      setTimeout(function() {
+                          $a.openWin('../my/my_win-order', 'type:1');
+                      }, 500);
+                   }
+                }, 1000);
+                // setTimeout('api.closeWin()', 40000);
+                // setTimeout(function() {
+                //     $a.openWin('../my/my_win-order', 'type:1');
+                // }, 30000);
+            }    
+        })
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>红涨</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        /*最底背景*/
+        .bg1 {
+            background-color: #171b24;
+
+        }
+
+        /*底背景*/
+        .bg2 {
+            background-color: #1c2029;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*黑色*/
+        .font-colo-b {
+            color: #212121 !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+        .page-content{
+            padding: 0.65rem;
+        }
+        .notice-title,.notice-content,.notice-content p{
+            color: #C2C6CF;
+        }
+        .notice-content,.notice-content p{
+
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden bg1">
+
+<header style="padding-top:25px;background-color: #de3232 ">
+    <div class="aui-bar aui-bar-nav">
+        <a class="aui-pull-left aui-btn" onclick="closeWin();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">公告</div>
+    </div>
+</header>
+<section class="page-content" id="notice">
+    <div class="notice-header clearfix">
+        <p class="aui-font-size-18 notice-title aui-padded-b-5">{{info.title}}</p>
+        <!--<p class="aui-pull-left aui-col-xs-6 aui-font-size-14 aui-ellipsis-1">来源 ：<span>某某某交易所</span></p>-->
+        <p class="aui-pull-left aui-col-xs-6 aui-font-size-14 aui-ellipsis-1">{{info.addtime}}</p>
+    </div>
+    <!--<div class="list aui-margin-t-5">-->
+        <!--<p class="aui-ellipsis-1 aui-padded-t-5">证券代码：<span>66666</span></p>-->
+        <!--<p class="aui-ellipsis-1 aui-padded-t-5">证券简介：<span>阿里巴巴</span></p>-->
+        <!--<p class="aui-ellipsis-1 aui-padded-t-5">公告编号：<span>2017-315435</span></p>-->
+    <!--</div>-->
+    <div class="notice-content aui-margin-t-10" v-html="info.content"></div>
+</section>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+    apiready = function () {
+        api.parseTapmode();
+        initVue();
+    }
+    function initVue() {
+        var vm = new Vue({
+            el: '#notice',
+            data: {
+                info:{}
+            },
+            methods: {
+
+            },
+            mounted: function () {
+                var self = this, pageParam = getParam();
+                /*盘口数据*/
+                apiAjax(PHP_SERVE_URL + '/trade/stockNoticeInfo', {'snid': pageParam.id}, function (res) {
+                    if (res.code == 0) {
+                        self.info = res.data[0];
+                        echo(res);
+                    } else {
+                        toast(res.msg);
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

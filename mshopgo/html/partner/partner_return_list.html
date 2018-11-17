@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>押金退还明细</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        .aui-grid .aui-col-xs-4{
+            padding: 0;
+        }
+        .aui-grid .aui-grid-label{
+            margin-top: 0rem;
+        }
+        .aui-grid .list1{
+            width: 20%;
+        }
+        .aui-grid .list2{
+            width: 50%;
+            text-align: left;
+            opacity: 0.7;
+        }
+        .aui-grid .list3{
+                width: 30%;
+            }
+        .aui-list .aui-list-item{
+            padding-left: 0rem;
+            border-bottom: none;
+        }
+        .aui-grid .aui-row{
+            border-top: 1px solid rgba(204,204,204,0.4);
+            padding-top: 1rem;
+        }
+
+
+    </style>
+</head>
+<body>
+<!-- header -->
+<header class="aui-bar aui-bar-nav tit-bar-black back-write color-black">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back();">
+        <span class="aui-iconfont aui-icon-left color-black"></span>
+    </a>
+    <div class="aui-title">押金退还明细</div>
+</header>
+<!-- main -->
+<div id="main">
+    <div class="aui-card-list aui-padded-b-5">
+        <div class="aui-card-list-content" style="background-color: #f5f5f5;">
+            <ul class="aui-list aui-media-list" style="border-top: none;" id="returnListId">
+              
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+<script src="../../script/api.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script type="text/template" id="templateId">
+    {{~ it:value }}
+<div class="showTheYearMonth">
+    <div style="width: 100%;height: 1rem;background-color: #f5f5f5;"></div>
+    <div class="aui-info">
+        <div class="aui-info-item">
+            <span class="color-gray9 aui-margin-l-10">{{=value.addtime}}</span>
+        </div>
+    </div>
+</div>
+    <li class="aui-list-item aui-list-item-middle" onclick="openDetail({{=value.id}})">
+        <div class="aui-grid aui-margin-b-15">
+            <div class="aui-row">
+                <div class="aui-col-xs-4 list1">
+                    <div class="aui-grid-label">{{=value.format_date}}</div>
+                </div>
+                <div class="aui-col-xs-4 list2">
+                    {{? value.days > 0 }}
+                    <div class="aui-grid-label aui-font-size-18 aui-ellipsis-1">使用完成任务加速返还押金</div>
+                    <div class="aui-grid-label color-gray9">加速{{=value.days}}天</div>
+                    {{??}}
+                    <div class="aui-grid-label aui-font-size-18 aui-ellipsis-1">自然状态 返还押金</div>
+                    {{?}}
+                    <div class="aui-grid-label aui-font-size-12 aui-ellipsis-1 color-gray9">
+                        钱款去向： {{? value.status==1}}退款中{{??}}已到账{{?}}
+                    </div>
+                </div>
+                <div class="aui-col-xs-4 list3 color-gray9">
+                    <div class="aui-grid-label"><strong class="aui-font-size-20 color-black">+{{=value.money}}</strong></div>
+                    <div class="aui-grid-label color-gray9">退还状态:<span class="color-black">{{=value.back_percent}}</span>/{{=value.return_timelen}}</div>
+                </div>
+            </div>
+        </div>
+    </li>
+    {{~}}
+</script>
+<script>
+    //存储ajax请求返回的数据
+    var dataSource;
+    //模板内容
+    var templateTxt = $api.text($api.byId('templateId'));
+    //引擎预处理模板内容
+    var templateExe = doT.template(templateTxt);
+
+    var user;
+        user = $api.getStorage('user');
+        if (user) {
+            loadCashDepositList();
+        }
+    var toast=new auiToast();
+    function loadCashDepositList() {
+        $.ajax({
+            url: PHP_SERVE_URL + '/partner/cashDepositList',
+            type: 'post',
+            data: {
+                openId: user.openId,
+                hashToken: yltcrypt.cpt(user.openId),
+                page:1,
+                udid:0
+            },
+            success:function(ret, err) {
+                if (ret.code == 0) {
+                    dataSource = ret.data;
+                    $api.append($api.byId('returnListId'),templateExe(dataSource));
+                    var timeList = $('.showTheYearMonth');
+                    for (var i = 1; i < timeList.length; i++) {
+                        var k = i-1;
+                        if (dataSource[i].addtime == dataSource[k].addtime) {
+                            $api.css(timeList[i], 'display:none');
+                        }
+                    }
+                }else if(ret.code===1){
+                    toast.fail({title:ret.msg,duration:2000});
+                }
+
+            }
+        });
+    }
+
+  function openDetail(val){
+    // api.openWin({
+    //     name: 'partner_return_detail',
+    //     url: './partner_return_detail.html',
+    //     pageParam: {
+    //         id:val
+    //     }
+    // });
+      window.location.href='./partner_return_detail.html?id='+val
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>设置</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+</head>
+<body>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn"  onclick="window.history.back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">设置</div>
+</header>
+<div class="aui-content aui-margin-b-15 aui-margin-t-15">
+    <ul class="aui-list aui-list-in cart-bg-fff my-no-border">
+        <li class="aui-list-item" onclick="setSex(1,this);">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title">男</div>
+                <div class="aui-list-item-right" id="sex1">
+                    <img src="../../image/my/zf_btn_normal@3x.png" class="my-item-select imga "/>
+                    <img src="../../image/my/zf_btn_selected@3x.png" class="my-item-select imgb aui-hide"/>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item" onclick="setSex(2,this);">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title">女</div>
+                <div class="aui-list-item-right" id="sex2">
+                    <img src="../../image/my/zf_btn_normal@3x.png" class="my-item-select imga "/>
+                    <img src="../../image/my/zf_btn_selected@3x.png" class="my-item-select imgb aui-hide "/>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js" ></script>
+<script type="text/javascript" src="../../script/aui/aui-actionsheet.js" ></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script type="text/javascript">
+    var sex = 1;
+    var toast = new auiToast();
+    window.onload = function () {
+        var user = $api.getStorage('user');
+        // var user = localStorage.getItem('user')
+        if (user.sex != '' || typeof user.sex != 'undefined') {
+            if (user.sex == '1') {
+                $("#sex1").find('.imga').addClass('aui-hide');
+                $("#sex1").find('.imgb').removeClass('aui-hide');
+            }
+
+            if (user.sex == '2') {
+                $("#sex2").find('.imga').addClass('aui-hide');
+                $("#sex2").find('.imgb').removeClass('aui-hide');
+            }
+        }
+    }
+
+    function setSex(sexvalue, that) {
+        $(".imga").removeClass('aui-hide');
+        $(".imgb").addClass('aui-hide');
+        $(that).find('.imga').addClass('aui-hide');
+        $(that).find('.imgb').removeClass('aui-hide');
+        sex = sexvalue;
+        setCustomerSex();
+    }
+
+    function setCustomerSex() {
+        // 判断输入的值是否合法
+        var user = $api.getStorage('user');
+        // var user = localStorage.getItem('user')
+        // 设置用户性别
+        $.ajax({
+            url: PHP_SERVE_URL + '/customer/setSex',
+            method: 'post',
+            data: {
+                // values: {
+                    openId: user.openId,
+                    sex: sex,
+                    token: yltcrypt.cpt(user.openId)
+                // }
+            },
+            success:function (json, err) {
+                if (json.code==0) {
+                    user.sex = sex;
+                    $api.setStorage('user', user);
+                    // api.sendEvent({
+                    //     name: 'refresh_sex',
+                    //     extra: {
+                    //         sex:sex
+                    //     }
+                    // });
+                    var toast = new auiToast();
+                    toast.success({
+                        title: json.msg,
+                        duration: 2000
+                    });
+                    setTimeout('window.location.href="my_frm-set.html"',1000);
+                } else {
+                    var toast = new auiToast();
+                    toast.fail({
+                        title: json.msg,
+                        duration: 2000
+                    });
+                }
+            }
+        });
+    }
+</script>
+</html>

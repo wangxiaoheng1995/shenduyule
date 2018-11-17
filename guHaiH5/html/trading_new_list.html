@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>新闻列表</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        .aui-bar {
+            background-color: #de3232;
+        }
+    </style>
+
+
+</head>
+<body>
+<header class="aui-bar aui-bar-nav">
+    <div class="aui-bar aui-bar-nav">
+        <a class="aui-pull-left aui-btn" onclick="closeWin();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">新闻列表</div>
+    </div>
+</header>
+<div class="aui-content aui-padded-t-15 aui-padded-b-15 new-list">
+    <div class="aui-card-list-conten " id="listTop">
+    </div>
+    <ul class="aui-list aui-media-list" id="newsList">
+
+    </ul>
+</div>
+<!--首页左右新闻列表-->
+<script id="list" type="text/x-dot-template">
+    {{~ it:item:value}}
+    {{?  item.show_type ==1 }}
+    <li class="aui-list-item border-none aui-padded-t-15  aui-padded-l-15 aui-padded-r-15 " onclick="openWin('trading_index_newsBetail',{id:{{=item.id}}})">
+        <div class="aui-media-list-item-inner clearfix index-item-inner border-bot">
+            <div class="aui-list-item-media aui-pull-left media-pic">
+                <img style="" src="{{= item.cover_img}}?x-oss-process=image/resize,m_fill,h_200,w_200" class="media-pic-h">
+            </div>
+            <div class="aui-list-item-inner aui-pull-right index-inner">
+                <div class="aui-list-item-text aui-margin-b-5">
+                    <div class="aui-list-item-title aui-ellipsis-1 aui-ellipsis-2">{{= item.title}}</div>
+                </div>
+                <div class="aui-ellipsis-2 aui-font-size-12 color-gray">
+                    {{= item.info}}
+                </div>
+                <div class=" aui-pull-right">
+                            <span class=" aui-font-size-12 color-gray">
+                                <i  class="aui-iconfont aui-icon-display aui-padded-r-5 "></i>
+                                {{= item.laud_num}}</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    {{?}}
+    {{~}}
+</script>
+<!--首页上下新闻列表-->
+<script id="top-list" type="text/x-dot-template">
+    {{~ it:item:value}}
+    {{?  item.show_type ==2 }}
+    <div class="aui-list-item aui-padded-t-15 aui-padded-r-15  aui-padded-l-15" onclick="openWin('trading_index_newsBetail',{id:{{=item.id}}})">
+        <img src="{{= item.cover_img}}?x-oss-process=image/resize,m_fill,h_240,w_580" class="index-cover-img">
+        <div class=" aui-media-list">
+            <div class="aui-list-item" style="background-image: none">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner ">
+                        <div class="aui-list-item-text aui-margin-b-5">
+                            <div class="aui-list-item-title aui-ellipsis-1">
+                                <div class="aui-btn aui-btn-danger aui-margin-r-10 index-btn">{{= item.type_name}}</div>
+                                <span style="position: relative;top: 0.2rem">{{= item.title}}</span>
+                            </div>
+                        </div>
+                        <div class="aui-list-item-text aui-ellipsis-2 aui-font-size-12  color-gray">
+                            {{= item.info}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{?}}
+    {{~}}
+</script>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<!--走马灯js-->
+<script src="../script/jquery.liMarquee.js"></script>
+<script src="../script/doT.min.js"></script>
+<script>
+  apiready = function () {
+    fix_status_bar();
+    api.addEventListener({
+      name: 'customerLogined'
+    }, function () {
+      location.reload();
+    });
+
+    //首页播报
+    apiAjax(PHP_SERVE_URL + '/trade/broadCast', {}, function (ret, err) {
+
+      if (!ret.code) {
+        var tmTxt = doT.template($("#lamp").text());
+        $("#lampCt").html(tmTxt(ret.data));
+        $('#lampCt').liMarquee({
+          hoverstop: false,
+          drag: false
+        });
+      }
+    });
+
+    //首页新闻列表
+    apiAjax(PHP_SERVE_URL + '/trade/newsList', {}, function (ret, err) {
+      if (!ret.code) {
+        var tmTxts = doT.template($("#list").text());
+        var tmTxt = doT.template($("#top-list").text());
+        $("#newsList").html(tmTxts(ret.data));
+        $("#listTop").html(tmTxt(ret.data));
+      }
+    })
+  }
+</script>
+</body>
+</html>

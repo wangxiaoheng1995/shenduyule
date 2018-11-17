@@ -1,0 +1,87 @@
+#nav-scroll.flex-wrap {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    min-height: 2.25rem;
+    position: relative;
+}
+
+#nav-scroll .flex-con {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    min-height: 2.25rem;
+    width: 100%;
+    left: 0;
+    z-index: 5;
+    background-color: #fff;
+}
+
+#nav-scroll .arrows {
+    position: relative;
+}
+
+#nav-scroll .arrows:before,
+#nav-scroll .arrows:after {
+    content: '';
+    display: inline-block;
+    /*width: 30%;
+    height: 2px;*/
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -20%;
+    -webkit-transform: rotate(45deg);
+}
+
+#nav-scroll .arrows:after {
+    -webkit-transform: rotate(-45deg);
+    margin-left: 0;
+}
+
+#nav-scroll #iscroll {
+    overflow: hidden;
+    position: relative;
+}
+
+/*#nav-scroll .showdon {
+    width: 40px;
+    height: 40px;
+    box-shadow: 0 0 6px #000;
+    position: absolute;
+    right: -40px;
+    top: 5px;
+    border-radius: 50%;
+}*/
+
+#nav-scroll .run-line {
+    height: 2px;
+    width: 2rem;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    background-color: #FF5192;
+    z-index: 100;
+}
+
+#nav-scroll .con {
+    white-space: nowrap;
+    position: absolute;
+    line-height: 2.25rem;
+}
+
+#nav-scroll .con-item {
+    display: inline-block;
+    padding: 0 10px;
+    position: relative;
+    margin: 0 0.4rem;
+}
+#nav-scroll .con-item.active {
+    color: #FF5192 !important;
+    padding:0 10px;
+    margin: 0 0.4rem;
+}
+

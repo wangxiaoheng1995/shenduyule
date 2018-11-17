@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/share.css">
+    <style>
+    html,body{
+      width:100%;
+      height:100%;
+    }
+        .aui-list .aui-list-item-label-icon {
+            padding-right: 0rem;
+        }
+        .aui-list{
+          background: none;
+        }
+        .aui-iconfont {
+            width: 0.9rem;
+        }
+        #myIndex{
+          height:100%;
+          display:flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        #footer.aui-bar-tab .aui-active {
+            color: #de3232;
+        }
+
+        #footer img {
+            width: 1rem;
+            margin: 0 auto;
+        }
+
+        .aui-bar-nav .aui-pull-left {
+            padding: 0;
+        }
+
+        .btn-sign span {
+
+            font-size: 0.7rem;
+
+        }
+
+        .aui-img-round {
+            height: 100%;
+        }
+
+        .aui-list .header-media {
+            padding: 0;
+            width: 2.6rem;
+            margin-right: 3%;
+            margin-left: 4%;
+        }
+
+        /*.aui-list-item-arrow:before {*/
+        /*content: initial;*/
+        /*}*/
+
+        .sign {
+            height: 1.4rem;
+            line-height: 1.4rem;
+            position: absolute;
+            right: 0.5rem;
+            top: 28%;
+            border-radius: 0.2rem;
+            border: 1px solid #ffffff;
+        }
+
+        .aui-card-list-content .sign-gold {
+            width: 24%;
+            margin: 5% 6%;
+        }
+        .aui-list .aui-list-item:active{
+          background: none;
+        }
+        /*list-按下背景色*/
+        /*.aui-list .aui-list-item:active {
+            background-color: #ececec;
+        }
+
+        .aui-list .aui-no-active:active {
+            background-color: inherit;
+        }*/
+
+        .btn-show {
+            display: inline-block;
+            /*padding: 0.3rem 0.5rem;*/
+            border: 1px solid #de3232;
+            border-radius: 0.2rem;
+            width: 4rem;
+            height: 1.4rem;
+            line-height: 1.4rem;
+            font-size: .7rem;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+        .confirmimg{
+            float: left;
+            width:1.8rem;
+            display: inline-block;
+            margin: 1rem;
+        }
+        .aui-toast {
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            border-radius: 0.25rem;
+            color: #ffffff;
+            position: fixed;
+            z-index: 3;
+            top: 42%;
+            left: 44%;
+            width: 10.5em;
+            min-height: 4.5em;
+            margin-left: -3.75em;
+            margin-top: -4rem;
+            display: none;
+        }
+        .aui-toast-content{
+            display: inline-block;
+            position: absolute;
+            left: 43%;
+            top: 35%;
+        }
+        .avatar-new{
+          display:flex;
+          flex-direction: column;
+          margin-left:1rem;
+        }
+        .font-colo-w{
+          text-align: center!important;
+        }
+        .aui-list-item-inner{
+          display:flex;
+          justify-content: center;
+          padding-right: 0!important;
+        }
+        .header-top-new{
+          display:flex!important;
+        }
+        .my_right{
+          display:flex;
+          padding-right:0.5rem;
+          align-items:normal!important;
+        }
+        .my_right img{
+          width:1rem;
+          height:1rem;
+        }
+        .user-content{
+          display:flex;
+          padding:0 0.5rem;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .user-content-left p{
+          color:#FEC2BA;
+        }
+        .user-content-left p img{
+          display:inline;
+          width:1.25rem;
+          height:0.6rem;
+        }
+        .user-money{
+        padding:0.4rem;
+        background: #E14546;
+        border-radius: 5px;
+        margin-top:0.5rem;
+        color:#fff;
+        }
+        .user-content-right{
+          padding:0.3rem 1rem;
+          color:#fff;
+          background:#E14546;
+          border:2px solid #fff;
+          border-radius: 5px;
+        }
+        .my_income{
+          flex:1;
+          overflow-x: hidden;
+          overflow-y: auto;
+          margin-top:0.5rem;
+          background:#F8F8F8;
+        }
+        .my_income ul{
+          position: relative;
+        }
+        .my_income ul li{
+          border-bottom:1px solid #EAEAEA;
+        }
+        .my_cash{
+          padding:0.5rem 1rem;
+          display:flex;
+        }
+        .cash_number{
+          display:flex;
+          justify-content: space-between;
+          align-items: center;
+          border-right:1px solid #ECECEC;
+          padding-right:0.5rem;
+        }
+        .cash_past{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .cash_number h5{
+          color:#656565;
+          font-size:0.8rem;
+        }
+        .cash_number span{
+          color:#000;
+          font-size:0.7rem;
+        }
+        .cash_number,.cash_past{
+          text-align: center;
+          flex:1;
+        }
+        .go-myicom{
+          display:flex;
+          padding:0.5rem 1rem;
+          align-items: center;
+          justify-content: space-around;
+          background: #fff;
+          margin-top:0.5rem;
+        }
+        .go-myicom h5{
+          color:#6B6B6B;
+          font-size:0.8rem;
+          flex:1;
+        }
+        .go-myicom p{
+          flex:1;
+          padding:0.3rem;
+          color:#000;
+          border:1px solid #CD3740;
+          border-radius:5px;
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          font-size:0.6rem;
+        }
+        .go-myicom .blank{
+          flex:1;
+        }
+        .my_incom_img{
+          position: absolute;
+          bottom:-0.4rem;
+          left:0.25rem;
+          width:100%;
+          display:flex;
+          justify-content: center;
+          /*background: #fff;*/
+        }
+        .my_incom_img img{
+          width:1.35rem;
+          height:1.35rem;
+        }
+    </style>
+</head>
+<body>
+<div style="padding-bottom: 2.25rem" id="myIndex">
+
+    <div class="aui-card-list-content" style="background:#de3232;">
+        <div class="aui-list aui-media-list" style="background:#de3232">
+            <div class="aui-list-item aui-list-item-middle header-top-new" style="padding-top:0.5rem;">
+                <a class="aui-pull-left aui-btn"  style="background: #de3232;color:white;">
+                    <!-- <span class="aui-iconfont aui-icon-left"></span> -->
+                </a>
+                <div class="aui-media-list-item-inner  aui-padded-b-15 avatar-new"
+                      >
+                      <!-- onclick="openWin('trading_my_set')" -->
+                    <div class="aui-list-item-media header-media">
+                        <img :src="avatar" class="aui-img-round">
+                    </div>
+                    <div class="aui-list-item-inner  ">
+                        <div class="aui-font-size-16 font-colo-w" v-cloak>{{nickname}}</div>
+                        <!-- <div class="aui-list-item-text aui-pull-left font-colo-w"
+                             style="opacity:0.5;filter:Alpha(opacity=50)">
+                            <span v-cloak>金币:{{assets}}</span>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="my_right">
+                  <img src="../image/my_help.png" alt="">
+                  <span style="color:white;margin-left:0.5rem;">退出</span>
+                </div>
+                <!-- <div class="btn-sign sign clearfix">
+                    <img src="../image/icon-gold.png" alt="" class="sign-gold aui-pull-left">
+                    <span class="font-colo-w  btn-sign aui-pull-left"
+                          onclick="openWin('trading_index_signIn')">签到</span>
+                </div> -->
+            </div>
+        </div>
+        <div class="user-content">
+          <div class="user-content-left" style="margin-bottom:1rem;">
+            <p>总资产 (元) <img src="../image/my_eyes.png"></p>
+            <div class="user-money">423,456,123,456,123</div>
+          </div>
+          <div class="user-content-right">
+            充值
+          </div>
+        </div>
+    </div>
+    <div class="my_income">
+      <ul style="background:#fff;">
+        <li>
+          <div class="my_cash">
+            <div class="cash_number">
+              <h5>现金</h5>
+              <span>999999.9</span>
+            </div>
+            <div class="cash_past">
+              <h5>昨日收益</h5>
+              <p>+0.00</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="my_cash">
+            <div class="cash_number">
+              <h5>股票</h5>
+              <span>999999.9</span>
+            </div>
+            <div class="cash_past">
+              <h5>今日收益</h5>
+              <p>+0.00</p>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="my_cash">
+            <div class="cash_number">
+              <h5>持仓盈亏</h5>
+              <span>0.00</span>
+            </div>
+            <div class="cash_past">
+              <h5>游戏货币增强</h5>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="my_cash">
+            <div class="cash_number">
+              <h5>总市值</h5>
+              <span>0.00</span>
+            </div>
+            <div class="cash_past">
+              <h5>天天利</h5>
+            </div>
+          </div>
+        </li>
+        <div class="my_incom_img"><img src="../image/my_s_down.png" alt=""></div>
+
+      </ul>
+      <div class="go-myicom">
+        <h5>持仓列表</h5>
+        <p>点击进入你的金库</p>
+        <div class="blank"></div>
+      </div>
+    </div>
+
+    <!-- 底部 -->
+    <footer class="aui-bar aui-bar-tab " id="footer" style="background-color: #fff ;z-index: 100000">
+        <div class="aui-bar-tab-item" onclick="window.location.href='trading_index.html'">
+            <img src="../icon/1-1.png">
+            <div class="aui-bar-tab-label">首页</div>
+        </div>
+        <div class="aui-bar-tab-item">
+            <img src="../icon/2-1.png">
+            <div class="aui-bar-tab-label">行情</div>
+        </div>
+        <div class="aui-bar-tab-item">
+            <img src="../icon/3-1.png">
+            <div class="aui-bar-tab-label">游戏</div>
+        </div>
+        <div class="aui-bar-tab-item" onclick="window.location.href='trading_test.html'">
+            <img src="../icon/4-1.png">
+            <div class="aui-bar-tab-label">考试</div>
+        </div>
+        <div class="aui-bar-tab-item aui-active">
+            <img src="../icon/5-0.png">
+            <div class="aui-bar-tab-label">我的</div>
+        </div>
+    </footer>
+
+    <!--<div class="aui-content aui-margin-t-15   bg-color ">-->
+        <!--<div class="aui-list aui-media-list">-->
+            <!--<div class="aui-list-item aui-list-item-middle aui-padded-l-15 aui-padded-r-15">-->
+                <!--<div class="aui-media-list-item-inner">-->
+                    <!--<div class="aui-list-item-media" style="width: 3rem;">-->
+                        <!--<img src="../image/my_hb_icon.png" class="aui-list-img-sm" style="border-radius: 0.2rem">-->
+                    <!--</div>-->
+                    <!--<div class="aui-list-item-inner " style="width: 60%">-->
+                        <!--<div class="aui-list-item-text">-->
+                            <!--<div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1">邀请好友下载APP赚红包</div>-->
+                        <!--</div>-->
+                        <!--<div class="aui-list-item-text aui-ellipsis-1">-->
+                            <!--已有58000万人领到红包-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div style=" position: absolute;right: 0rem;bottom: 1rem">-->
+                    <!--<span class="font-colo-r btn-show  aui-margin-r-15 aui-text-center">立即邀请</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!-- <div class="aui-content aui-margin-t-15">
+        <ul class="aui-list  ">
+            <li class="aui-list-item aui-padded-l-15 " onclick="openWin('trading_index_myGold');">
+                <div class="aui-list-item-label-icon">
+                    <img src="../image/my_wdjb_icon.png" class="aui-iconfont ">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow border-bot">
+                    我的金币
+                </div>
+            </li>
+            <li class="aui-list-item aui-padded-l-15" onclick="toast('暂未开放')">
+                <div class="aui-list-item-label-icon">
+                    <img src="../image/my_zhbd_icon.png" class="aui-iconfont ">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow border-bot">
+                    <div class="aui-list-item-title"> 第三方账号绑定</div>
+                    <div class="aui-list-item-right">暂未绑定</div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-padded-l-15" onclick="openWin('trading_my_statement')">
+                <div class="aui-list-item-label-icon">
+                    <img src="../image/my_mzsm_icon.png" class="aui-iconfont ">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow border-bot">
+                    免责声明
+                </div>
+            </li>
+            <li class="aui-list-item aui-padded-l-15" onclick="toast('暂未开放')">
+                <div class="aui-list-item-label-icon">
+                    <img src="../image/my_cjwt_icon.png" class="aui-iconfont ">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow border-bot">
+                    常见问题
+                </div>
+            </li>
+            <li class="aui-list-item aui-padded-l-15" @click="emptyCache()">
+                <div class="aui-list-item-label-icon">
+                    <img src="../image/my_qchc_icon.png" class="aui-iconfont ">
+                </div>
+                <div class="aui-list-item-inner aui-list-item-arrow ">
+                    <div class="aui-list-item-title"> 消除缓存</div>
+                    <div class="aui-list-item-right"><span id="cacheSize" v-cloak>{{size}}</span>M</div>
+                </div>
+            </li>
+        </ul>
+    </div> -->
+
+    <!-- <div class="aui-content aui-margin-t-15">
+        <div class="aui-list aui-padded-l-15 aui-padded-r-15">
+            <div class="aui-list-item aui-no-active" onclick="showAction('沽海风云','从娱乐中学习到金融知识','widget://image/ghlogo.png','http://spr.shenduyule.com/app.html')">
+                <div class="aui-list-item-label-icon">
+                    <img src="../image/fx_icon.png" class="aui-iconfont ">
+                </div>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"> 邀请好友</div>
+                </div>
+            </div>
+            <div class="aui-list-item aui-no-active">
+                <div class="aui-list-item-label-icon">
+                    <img src="../image/my_gywm_icon.png" class="aui-iconfont ">
+                </div>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title"> 关于我们</div>
+                    <div class="aui-list-item-right">当前版本 <span id="version">1.0</span></div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<!--遮罩层-->
+<!-- <div class="flick-menu-mask" id="mask" style="display: none;"></div> -->
+<!--分享-->
+<!-- <div class="share_popup" id="share" style="display:none; z-index: 999;" onclick="shareopen(this)">
+    <ul style="z-index:999 !important; position: absolute;bottom:0;background: #f3f3f3;left:0;">
+        <li class="aui-col-5">
+            <img src="../image/popup_share/fxtc_qq_icon.png" onclick="sharewithData('qq', 'QFriend');"/>
+            <p>QQ</p></li>
+        <li class="aui-col-5">
+            <img src="../image/popup_share/fxtc_qqkj_icon.png" onclick="sharewithData('qq', 'QZone');"/>
+            <p>QQ空间</p></li>
+        <li class="aui-col-5">
+            <img src="../image/popup_share/fxtc_wb_icon.png" onclick="sharewithData('sina');"/>
+            <p>微博</p></li>
+        <li class="aui-col-5">
+            <img src="../image/popup_share/fxtc_wx_icon.png" onclick="sharewithData('wx', 'session');"/>
+            <p>微信</p></li>
+        <li class="aui-col-5">
+            <img src="../image/popup_share/fxtc_pyq_icon.png" onclick="sharewithData('wx', 'timeline');"/>
+            <p>朋友圈</p></li>
+        <li class="aui-col-5">
+            <img src="../image/popup_share/fxtc_dx_icon.png" onclick="sharewithData('sms');"/>
+            <p>短信</p></li>
+        <li class="aui-col-5">
+            <img src="../image/popup_share/fxtc_sx_icon.png" />
+            <p>刷新</p></li>
+        <li class="aui-col-5">
+            <img src="../image/popup_share/fxtc_fzlj_icon.png" onclick="sharewithData('copylink');"/>
+            <p>复制链接</p></li>
+    </ul>
+    <div class="share_more_mask"></div>
+</div> -->
+
+<script src="../script/api.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/vue.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/forwards.js"></script>
+<script>
+    var user, getSize;
+    window.onload = function () {
+
+
+        user = $api.getStorage('user');
+        // getSize = api.getCacheSize({sync: true});
+        if (!user) {
+            openWinPro('trading_login');
+            return;
+        }
+
+
+
+
+        // api.addEventListener({
+        //     name: 'customerLogined'
+        // }, function () {
+        //     location.reload();
+        // });
+
+      var vm = new Vue({
+            el: '#myIndex',
+            data: {
+                assets: '',
+                nickname: user.nickName,
+                avatar: user.avatar,
+                // version: api.appVersion,
+                size: (getSize / 1048576).toFixed(2),
+            },
+            methods: {
+                /*清除手机缓存*/
+                emptyCache: function () {
+                    var self = this;
+                    // api.clearCache(function() {
+                    //     var toast=new auiToast();
+                    //     toast.custom({
+                    //         title:"清理成功",
+                    //         html:'<img class="confirmimg" src="../image/submit_icon-.png"></img>',
+                    //         duration:2000
+                    //     });
+                    //     self.size='0.00';
+                    // });
+                },
+                getAssets: function () {
+                    var self=this;
+                    //获取金币
+                    $.ajax({
+                        url:PHP_SERVE_URL + '/customer/getAssets',
+                        data:{
+                          openId: user.openId,
+                          assetsType: 1,
+                        },
+                        success:function (ret, err) {
+                            if (ret.totalBalance == null) {
+                                self.assets = 0.00
+                            } else if (ret.totalBalance < 10000) {
+                                self.assets = ret.totalBalance;
+                            } else {
+                                self.assets = (ret.totalBalance / 10000).toFixed(2) + '万'
+                            }
+                        }
+                    });
+                }
+            },
+            mounted:function(){
+              // $("#footer").children(".aui-bar-tab-item").click(function(){
+              //   $(this).addClass('aui-active').siblings().removeClass("aui-active")
+              // })
+            },
+            created: function () {
+                var self = this;
+                self.getAssets();
+                // api.addEventListener({
+                //     name: 'refresh-gold'
+                // }, function () {
+                //     self.getAssets();
+                // });
+                //监听名字
+                // api.addEventListener({
+                //     name: 'refresh_user_nickname'
+                // }, function (ret, err) {
+                //     self.nickname = ret.value.nickName
+                // });
+                //监听头像
+                // api.addEventListener({
+                //     name: 'refresh_user_avatar'
+                // }, function (res) {
+                //     if (res) {
+                //         self.avatar = res.value.headurl;
+                //     }
+                // });
+                // api.addEventListener({
+                //     name: 'viewappear'
+                // }, function () {
+                //     self.size = (getSize / 1024).toFixed(2);
+                // })
+            }
+        });
+    };
+
+
+</script>
+
+</body>
+</html>

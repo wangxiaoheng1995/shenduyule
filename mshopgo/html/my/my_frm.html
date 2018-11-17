@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <style>
+        html,
+        body,
+        #content {
+            width: 100% !important;
+            height: 100% !important;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .my-title {
+            /*height: 5.5rem;*/
+            position: relative;
+            /*padding-top: 2.25rem;*/
+            background: -webkit-linear-gradient(#FE8298, #FB6396);
+            background: -o-linear-gradient(#FE8298, #FB6396);
+            background: -moz-linear-gradient(#FE8298, #FB6396);
+            background: linear-gradient(#FE8298, #FB6396);
+        }
+
+        .user-img {
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            width: 3.5rem;
+            height: 3.5rem
+        }
+
+        .aui-list-item-inner .aui-list-item-text {
+
+            position: relative;
+            display:flex;
+            justify-content: space-between;
+            align-items:center;
+        }
+
+        .aui-list-item-inner .aui-list-item-text .icon-medal {
+            display: inline-block;
+            padding: 0 0.5rem;
+            position: absolute;
+            right: -3.5rem;
+            top: 0.25rem;
+            font-size: 0.6rem;
+            line-height: 1rem;
+            background-color: #FEEFD4;
+            border-radius: 0.5rem;
+            font-style: normal;
+        }
+
+        .vip-info {
+            font-size:0.6rem;
+            color:#896225;
+            background-color: #F6b91e;
+            border-radius: 1.1rem;
+            width:4.55rem;
+            height:1rem;
+            box-sizing: border-box;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            color:#fff;
+            margin-top:0.25rem;
+        }
+
+        .icon-gold {
+            width: 0.8rem;
+            height: 0.8rem;
+            display: inline-block;
+            position: relative;
+            top: 0.1rem;
+            border-radius: 50%;
+            margin-right: 0.2rem;
+        }
+
+        .check {
+            position: absolute;
+            line-height: 1.2rem;
+            height: 1.2rem;
+            padding: 0 0.8rem 0 0.1rem;
+            font-size: 0.75rem;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 0.7rem 0 0 0.7rem;
+            right: 0;
+            bottom: 1rem;
+            border-right-color: transparent;
+        }
+
+        .icon-check {
+            width: 1rem;
+            height: 1rem;
+            float: left;
+            margin-top: 0.025rem;
+            margin-right: 0.1rem;
+        }
+
+        .aui-tab-item img.icon {
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            /*position: relative;*/
+            top: 0.35rem;
+            margin-right: 0.25rem;
+        }
+
+        .mission {
+            width: 100%;
+            max-height: 4rem;
+            /*padding: 0.25rem 0.5rem;*/
+        }
+
+        .aui-card-list {
+            padding: 0 0.5rem;
+        }
+
+        .aui-row .aui-col-5 img.icon,
+        .aui-row .aui-col-xs-4 img.icon {
+            width: 3.4rem;
+            height: 3.4rem;
+            margin: 0 auto;
+        }
+
+        .pull-left_c {
+            float: left;
+            width: 48%;
+        }
+
+        .pull-left_r {
+            float: right;
+            margin-top: 0.4rem;
+            padding: 0.2rem 0.8rem;
+            border: 1px solid #fe5d2c;
+            border-radius: 1rem;
+        }
+        .aui-badge{
+            background: #ff5096;
+            display: none;
+        }
+        .header-nav{
+           display:flex;
+           justify-content: space-between;
+           align-items: center;
+           background:#fe5095;
+        }
+        .myself-frm-time img{
+          width:1.1rem;
+          height:1.1rem;
+          display: block;
+          margin-right:0.5rem;
+        }
+
+        .color-write {
+          color:#fff!important;
+        }
+      .header-nav-top{
+          background:#fe5095;
+          /*border-bottom:0.7rem solid #f6f6f6;*/
+          display:flex;
+          align-items: center;
+        }
+        .aui-margin-r-10{
+          width:3.975rem;
+          height:3.975rem;
+        }
+        .aui-margin-r-10 .user-img{
+          width:3.975rem;
+          height:3.975rem;
+        }
+        .aui-tab{
+          display:flex;
+          justify-content: space-around;
+          align-items: center;
+        }
+        .aui-tab .aui-tab-item {
+          /*font-size:1.2rem;*/
+          display:flex;
+          justify-content:center;
+          align-items: center;
+          color:#fe5095;
+        }
+        .aui-tab .aui-tab-item img{
+         width:0.625rem;
+         height:0.625rem;
+        }
+        .myself-order{
+        font-size:0.9rem;
+        font-weight:600;
+        }
+        .aui-font-size-14{
+          font-size:0.5rem!important;
+          color:#c8c8c8!important;
+        }
+        .border-bot{
+          border:none!important;
+        }
+        .aui-row{
+          display:flex;
+          flex-wrap:wrap;
+        }
+        .aui-col-5 .icon{
+          width:2.5rem!important;
+          height:2.5rem!important;
+      }
+      #sale{
+        font-size:0.75rem;
+        color:#e8e8e8;
+      }
+      .aui-card-list .aui-margin-b-10{
+        /*border-top:0.3rem solid #f6f6f6;*/
+        border-bottom:0.25rem solid #f6f6f6;
+      }
+      .invit-firends{
+        display:flex;
+        justify-content:space-between;
+        align-items: center;
+        padding-left: 0.9rem;
+        margin-top:0.25rem;
+        background:#fff;
+      }
+      .invit-firends .invit-firends-left{
+        display:flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .invit-firends-img{
+        width:1.7rem;
+        height:1.7rem;
+        margin-right:0.5rem;
+      }
+      .invit-firends-img img{
+        width:1.7rem;
+        height:1.7rem;
+      }
+      .invit-firends-title h5{
+        color:black;
+        font-size:0.7rem;
+      }
+      .invit-firends-title p{
+        font-size:0.6rem;
+        color:#fe5095;
+        font-weight:800;
+      }
+      .invit-firends-right{
+        margin-right:0.5rem;
+      }
+      .invit-firends-right span{
+        font-size:0.5rem!important;
+      }
+      .invit-firends-right i{
+        font-size:0.5rem!important;
+      }
+      .aui-grid-label{
+        font-size:0.6rem!important;
+        opacity:0.7;
+        color:#333!important;
+      }
+      .aui-media-list-item-inner.aui-padded-l-15.aui-padded-r-15.aui-padded-t-5{
+        display:flex;
+        align-items: center;
+      }
+      .my-frm-box{
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        padding:0.1rem 0.6rem;
+        border-radius:5px;
+        border:1px solid #fff;
+        font-size:0.6rem;
+        color:#fff;
+        margin-left:0.5rem;
+      }
+      #nickName{
+        font-size:0.9rem;
+        color:#fff;
+      }
+      .aui-iconfont.aui-icon-right.color-gray9{
+        font-size:0.5rem!important;
+      }
+      .aui-pull-right .aui-iconfont.aui-icon-right.color-gray9{
+        font-size:0.75rem;
+      }
+      .aui-card-list-header .aui-pull-right span{
+        font-size:0.5rem!important;
+      }
+      .aui-pull-right i{
+        font-size:0.5rem;
+      }
+      .aui-iconfont.aui-icon-gear.aui-font-size-20{
+        font-size:1.1rem;
+      }
+      .aui-grid [class*=aui-col-]{
+        padding:0.5rem 0;
+      }
+      .invit-firends-title{
+        padding:0.25rem 0;
+      }
+      .aui-bar-tab .aui-bar-tab-item {
+          height: 3rem;
+      }
+      .aui-bar-tab .aui-bar-tab-item a,
+      .aui-bar-tab .aui-bar-tab-item a:visited,
+      .aui-bar-tab .aui-bar-tab-item a:hover{
+          color: inherit;
+          font-size: inherit;
+      }
+    </style>
+</head>
+
+<body>
+<div id="content">
+    <header class="aui-bar aui-bar-nav header-nav" id="header-bar">
+        <!-- <div id="bg-color"></div> -->
+        <!--<div id="tel" class="aui-title" style="left:2.5rem; right: 2.5rem;">-->
+        <!--</div>-->
+        <div class="aui-pull-right aui-btn" onclick="openEdit();">
+            <span class="aui-iconfont aui-icon-gear aui-font-size-20"></span>
+        </div>
+        <div class="myself-frm-title nickName">136****5689</div>
+        <div class="myself-frm-time" onclick="window.location.href='my_sign.html'"><img src="../../image/my/qd@2x.png"></div>
+        <!--<div class="aui-pull-right aui-btn aui-margin-r-5" onclick="openMsg();">
+            <div class="aui-badge noticeNum" style="left: 35%;display: block;">0</div>
+            <span class="aui-iconfont aui-icon-comment aui-font-size-20"></span>
+        </div>-->
+    </header>
+    <div class="aui-content">
+        <div class="my-title aui-padded-b-15 header-nav-top">
+            <div class="aui-media-list-item-inner aui-padded-l-15 aui-padded-r-15 aui-padded-t-5">
+                <div class="aui-list-item-media aui-margin-r-10" onclick="openEdit();">
+                    <img id="avatar" src="../../image/goods/home_open_icon.png" class="aui-img-round user-img">
+                </div>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-text">
+                        <div class="color-write aui-ellipsis-1 nickName" id="nickName">完善个人资料领赏金</div>
+
+                    <!--    <i class="icon-medal" id="level">
+                            <img src="../../image/partner/hhr_tq_icon@3x.png" alt="" class="icon-gold">
+                            <span>金牌</span>
+                        </i>-->
+                        <div class="my-frm-box" id="shopName">店铺</div>
+                    </div>
+                    <div class="vip-info">立享会员特权</div>
+                </div>
+                <div class="myself-frm-level">
+
+                </div>
+            </div>
+            <!-- 签到 -->
+            <!-- <div class="check" onclick="$a.openWin('my_sign')">
+                <img src="../../image/my/my_gold_icon.png" alt="" class="icon-check"> 签到领现金
+            </div> -->
+        </div>
+        <div class="head-img">
+            <div class="aui-tab" id="tab">
+                <div class="aui-tab-item "  onclick="toast.fail({title:'暂未开放',duration:2000})"><img
+                        src="../../image/my/wb@2x.png" alt="" class="icon">我的微博
+                </div>
+                <!-- onclick="$a.openWin('my_frm-collection')" -->
+                <!-- onclick="window.location.href('my_frm-footprint')" -->
+                <div class="aui-tab-item" onclick="window.location.href='my_frm-footprint.html'"><img
+                        src="../../image/my/zj@2x.png" alt="" class="icon">我的足迹
+                </div>
+                <div class="aui-tab-item " onclick="window.location.href='my_frm-collection.html'"><img
+                        src="../../image/my/shoucang@2x.png" alt="" class="icon">我的收藏
+                </div>
+                <div class="aui-tab-item " onclick="window.location.href='my_income.html'" id="myIncome"><img
+                        src="../../image/my/my_income.png" alt="" class="icon" >我的收入
+                </div>
+            </div>
+        </div>
+        <!-- 每日任务 -->
+        <div class="aui-margin-t-10 aui-margin-b-10" onclick="window.location.href='my_sign-everyday.html'">
+            <img src="../../image/my/dhye@2x.png" alt="" class="mission"></div>
+        <!--我的订单-->
+        <div class="aui-card-list aui-margin-b-10">
+            <div class="aui-card-list-header aui-padded-0 border-bot">
+                <div class="myself-order">我的订单</div>
+                <span class="aui-pull-right color-gray9 aui-font-size-14" onclick="window.location.href='my-frm-orderAll.html?'+'type='+1">查看全部<i
+                        class="aui-iconfont aui-icon-right"></i></span>
+            </div>
+            <section class="aui-grid">
+                <ul class="aui-row">
+                    <li class="aui-col-5" onclick="window.location.href='my-frm-orderAll.html?'+'type='+2">
+                        <img src="../../image/my/dfk@2x.png" alt="" class="icon">
+                        <div class="aui-grid-label aui-font-size-14">待付款</div>
+                        <div class="aui-badge ordernum" id="waitpay"></div>
+                    </li>
+                    <li class="aui-col-5" onclick="window.location.href='my-frm-orderAll.html?'+'type='+3">
+                        <img src="../../image/my/zt@2x.png" alt="" class="icon">
+                        <div class="aui-grid-label aui-font-size-14">待成团</div>
+                        <div class="aui-badge ordernum" id="waitgroup"></div>
+                    </li>
+                    <li class="aui-col-5" onclick="window.location.href='my-frm-orderAll.html?'+'type='+4">
+                        <img src="../../image/my/dsh@2x.png" alt="" class="icon">
+                        <div class="aui-grid-label aui-font-size-14">待收货</div>
+                        <div class="aui-badge ordernum" id="waitreceive"></div>
+                    </li>
+                    <li class="aui-col-5" onclick="window.location.href='my-frm-orderAll.html?'+'type='+5">
+                        <img src="../../image/my/dpj@2x.png" alt="" class="icon">
+                        <div class="aui-grid-label aui-font-size-14">待评价</div>
+                        <div class="aui-badge ordernum" id="waitcomment"></div>
+                    </li>
+                    <li class="aui-col-5" onclick="window.location.href='../order_saled/my_orderSale_list.html'">
+                        <img src="../../image/my/shwb@2x.png" alt="" class="icon">
+                        <div class="aui-grid-label aui-font-size-14">我的售后</div>
+                        <div class="aui-badge ordernum" id="aftersell"></div>
+                    </li>
+                    <li class="aui-col-5" onclick="window.location.href='my_frm-refundlist.html'">
+                        <img src="../../image/my/py@2x.png" alt="" class="icon">
+                        <div class="aui-grid-label aui-font-size-14">亲密付</div>
+                        <div class="aui-badge ordernum" id="lovepay"></div>
+                    </li>
+                    <li class="aui-col-5" onclick="window.location.href='my-authen.html'">
+                        <img src="../../image/my/ren@2x.png" alt="" class="icon">
+                        <div class="aui-grid-label aui-font-size-14">实名认证</div>
+                        <div class="aui-badge ordernum" id="namesure"></div>
+                    </li>
+                    <li class="aui-col-5" onclick="window.location.href='my_frm-address.html'">
+                        <img src="../../image/my/shdz@2x.png" alt="" class="icon">
+                        <div class="aui-grid-label aui-font-size-14">收货地址</div>
+                        <div class="aui-badge ordernum" id="address"></div>
+                    </li>
+                    <li class="aui-col-5" onclick="window.location.href='my_frm-refundlist.html'">
+                        <img src="../../image/my/sh@2x.png" alt="" class="icon">
+                        <div class="aui-grid-label aui-font-size-14">客服中心</div>
+                        <div class="aui-badge ordernum" id="cocenter"></div>
+                    </li>
+                    <li class="aui-col-5" onclick="window.location.href='my_frm-refundlist.html'">
+                        <img src="../../image/my/yhk@2x.png" alt="" class="icon">
+                        <div class="aui-grid-label aui-font-size-14">银行卡</div>
+                        <div class="aui-badge ordernum" id="saleCard"></div>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <!--我的钱包-->
+        <div class="aui-card-list aui-margin-b-10">
+            <div class="aui-card-list-header aui-padded-0 " onclick="window.location.href='my_frm-wallet.html'">
+                <div class="myself-order">我的钱包</div>
+                <div class="aui-pull-right">
+                    <span id="sale">查看全部</span>
+                    <i class="aui-iconfont aui-icon-right color-gray9"></i>
+                </div>
+            </div>
+        </div>
+        <!--邀请好友-->
+         <div class="invit-firends">
+              <div class="invit-firends-left">
+                <div class="invit-firends-img">
+                  <img src="../../image/my/qb@2x.png" alt="">
+                </div>
+                <div class="invit-firends-title">
+                  <h5>邀请好友下载APP赚红包</h5>
+                  <p>已有58000人领到红包</p>
+                </div>
+              </div>
+              <div class="invit-firends-right">
+                <span id="sale">查看全部</span>
+                <i class="aui-iconfont aui-icon-right color-gray9"></i>
+              </div>
+         </div>
+        <!--推广广告-->
+        <div class="advertise aui-margin-b-15">
+        </div>
+        <!--底部分类-->
+        <div class="aui-grid aui-margin-b-10">
+            <!-- <ul class="aui-row">
+                <li class="aui-col-xs-4" onclick="$a.openWin('my_frm-team')">
+                    <img src="../../image/my/wd_dpd_icon.png" alt="" class="icon">
+                    <div class="aui-grid-label aui-font-size-14">我的拼团</div>
+                </li> -->
+                <!--<li class="aui-col-xs-3" onclick="checkIsAuthenticated();">-->
+                <!--<img src="../../image/my/wd_smrz_icon.png" alt="" class="icon">-->
+                <!--<div class="aui-grid-label aui-font-size-14">实名认证</div>-->
+                <!--</li>-->
+                <!-- <li class="aui-col-xs-4" onclick="$a.openWin('my_frm-address2')">
+                    <img src="../../image/my/wd_shdz_icon.png" alt="" class="icon">
+                    <div class="aui-grid-label aui-font-size-14">收货地址</div>
+                </li>
+                <li class="aui-col-xs-4" onclick="$a.openWin('../airlines/question_win');">
+                    <img src="../../image/my/wd_kfzx_icon.png" alt="" class="icon">
+                    <div class="aui-grid-label aui-font-size-14">客服中心</div>
+                </li>
+            </ul> -->
+        </div>
+    </div>
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item" tapmode>
+          <a href="../index/index_frm.html">
+            <i class="aui-iconfont" style="background-image: url('../../image/footer/f1-2.png')"></i>
+            <div class="aui-bar-tab-label">首页</div>
+          </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="../newgood/newgood_frm.html">
+                <i class="aui-iconfont " style="background-image: url('../../image/footer/f2-2.png')"></i>
+                <div class="aui-bar-tab-label">新品</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="../partner/partner_frm_app_download.html">
+                <i class="aui-iconfont " style="background-image: url('../../image/footer/f3-2.png')"></i>
+                <div class="aui-bar-tab-label">掌柜</div>
+            </a>
+        </div>
+        <!-- <div class="aui-bar-tab-item" tapmode>
+            <a href="../msg/msg_frm.html">
+                <i class="aui-iconfont" style="background-image: url('../../image/footer/f4-2.png')"></i>
+                <div class="aui-bar-tab-label">消息</div>
+                <div class="aui-dot chat-message-tip" style="display: none"></div>
+            </a>
+        </div> -->
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <!-- <a href=""> -->
+                <i class="aui-iconfont " style="background-image: url('../../image/footer/f5-1.png')"></i>
+                <div class="aui-bar-tab-label">我的</div>
+            <!-- </a> -->
+        </div>
+    </footer>
+</div>
+
+<script src="../../script/api.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/sqlite_db.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+
+
+<script>
+  var rong, sqlite;
+  var user = $api.getStorage("user");
+  var toast = new auiToast();
+  // console.log(user);
+ window.onload=function () {
+    //#110 增加监听刷新事件
+    document.addEventListener({
+        name: 'reloaddata'
+    }, function(ret, err) {
+        if (ret) {
+          apiready();
+        }
+    });
+    // user = JSON.parse(localStorage.getItem('user'));
+
+
+
+    // rong = window.require('rongCloud2');
+    // sqlite = window.require('db');
+    document.addEventListener({
+      name: 'viewappear'
+    }, function () {
+      getOrderNum();
+    })
+    document.addEventListener({
+      name: 'refresh_user_avatar'
+    }, function (res) {
+      if (res) {
+        $api.attr($api.byId('avatar'), 'src', res.value.headurl);
+      }
+    });
+    document.addEventListener({
+      name: 'refresh_user_avatar'
+    }, function (res) {
+      if (res) {
+        $api.attr($api.byId('avatar'), 'src', res.value.headurl);
+      }
+    });
+    document.addEventListener({
+      name: 'refresh_user_nickname'
+    }, function (ret, err) {
+      $api.text($api.dom('.nickName'), ret.value.nickName);
+      $api.text($api.byId('nickName'), ret.value.nickName);
+    });
+    //检测是否登录
+    if (typeof user == "undefined") {
+      window.location.href="../login_win.html"
+        // name: 'login_win',
+    } else {
+      $api.text($api.byId('tel'), user.tel);
+      $api.text($api.dom('.nickName'), user.nickName);
+      $api.text($api.byId('nickName'), user.nickName);
+      $api.attr($api.byId('avatar'), 'src', user.avatar);
+      //我的收入
+      if(user.eid == null){
+        $api.css($api.byId('myIncome'),'display:none')
+      }else{
+        $api.css($api.byId('myIncome'),'display:block')
+      }
+      //技师所属
+      if(user.etype==null || user.etype==''){
+        $api.attr($api.byId('shopName'), 'display', 'none');
+      }else{
+        $api.attr($api.byId('shopName'), 'display', 'block');
+        $api.text($api.byId('shopName'), user.etype);
+      }
+      if (user.partnerLevel>0) {
+        var level = "普通掌柜";
+        if (user.partnerLevel == 1) {
+          level = "普通掌柜";
+        } else if (user.partnerLevel == 2) {
+          level = "白银掌柜";
+        } else if (user.partnerLevel == 3) {
+          level = "黄金掌柜";
+        } else if (user.partnerLevel == 4) {
+          level = "铂金掌柜";
+        }else if (user.partnerLevel == 5) {
+          level = "黑金掌柜";
+        }
+        $api.text($api.dom('.vip-info'),level);
+      } else {
+       /* $api.addCls($api.byId('level'), 'aui-hide');*/
+      }
+      //  dbopen(); //连接数据库
+      //  ronginit(); //连接融云
+      // setTimeout('getTotalUnreadCount();', 300);
+      document.addEventListener({
+        name: 'refresh-reward'
+      }, function () {
+        getReward();
+      })
+      getOrderNum();
+      getReward();
+      document.addEventListener({
+        name: 'refresh-noticenum'
+      }, function () {
+        $api.text($api.dom('.noticeNum'), 0);
+      })
+        $api.addEvt($api.dom('.vip-info'), 'click', function(){
+            // api.sendEvent({
+            //     name: 'refresh-itemFn',
+            //     extra: {}
+            // });
+        });
+    }
+  }
+
+  function getOrderNum() {
+    $.ajax({
+      url: PHP_SERVE_URL + '/order/getStatOrderNum',
+      type: 'post',
+      data: {
+        // values: {
+          openId: user.openId
+        // }
+      },
+      async:"",
+      dataType:"",
+      success:function(ret,err){
+
+        if (ret.code == 0) {
+
+          if (ret.data.waitpay > 0) {
+            // console.log(ret.data.waitpay)
+            $api.text($api.byId('waitpay'), ret.data.waitpay);
+            $api.css($api.byId('waitpay'), "display:block");
+          }else{
+            $api.css($api.byId('waitpay'), "display:none");
+          }
+          if (ret.data.waitgroup > 0) {
+            $api.text($api.byId('waitgroup'), ret.data.waitgroup);
+            $api.css($api.byId('waitgroup'), "display:block");
+          }else{
+            $api.css($api.byId('waitgroup'), "display:none");
+          }
+          if (ret.data.waitreceive > 0) {
+
+            $api.text($api.byId('waitreceive'), ret.data.waitreceive);
+            $api.css($api.byId('waitreceive'), "display:block");
+          }else{
+            $api.css($api.byId('waitreceive'), "display:none");
+          }
+          if (ret.data.waitcomment > 0) {
+            $api.text($api.byId('waitcomment'), ret.data.waitcomment);
+            $api.css($api.byId('waitcomment'), "display:block");
+          }else {
+            $api.css($api.byId('waitcomment'), "display:none");
+          }
+          if (ret.data.aftersell > 0) {
+            $api.text($api.byId('aftersell'), ret.data.aftersell);
+            $api.css($api.byId('aftersell'), "display:block");
+          }else{
+            $api.css($api.byId('aftersell'), "display:none");
+          }
+        }
+      }
+    });
+  }
+
+  function getReward() {
+    $.ajax({
+      url: PHP_SERVE_URL + '/order/getUserAllMoney',
+      type: 'post',
+      data: {
+          openId: user.openId
+      },
+      async:"",
+      dataType:"",
+      success:function(ret,err){
+        if (ret.code == 0) {
+          $api.text($api.byId('sale'), ret.data.reWard);
+        }
+      }
+    })
+  }
+
+  //        是否实名认证
+  // function checkIsAuthenticated() {
+  //   return;
+  //   $a.openWin('my-authenadopt');
+  //   api.ajax({
+  //     url: PHP_SERVE_URL + "",
+  //     method: 'post',
+  //     data: {}
+  //   }, function (ret) {
+  //     if (ret.code == 0) {
+  //       //                    $a.openWin('my-authen');
+  //
+  //     }
+  //   })
+  // }
+
+  function openEdit() {
+    // api.openWin({
+    //   name: 'my_frm-set',
+    //   url: '../my/my_frm-set.html'
+    // });
+    window.location.href="../my/my_frm-set.html"
+  }
+
+  function openMsg() {
+    // api.openWin({
+    //   name: 'msg',
+    //   url: '../msg/msg_frm.html'
+    // });
+    window.location.href="../msg/msg_frm.html"
+  }
+
+</script>
+</body>
+
+</html>

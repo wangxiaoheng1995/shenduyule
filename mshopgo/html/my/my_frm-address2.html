@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>收货地址</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        strong {
+            font-weight: normal;
+        }
+
+        .plus-btn {
+            display: block;
+            height: 2.4rem;
+            line-height: 2.4rem;
+            border-style: dashed;
+            border-radius: 2rem;
+            color: #000;
+        }
+
+        .pay-btn {
+
+            width: 80%;
+            position: relative;
+            margin: 2rem auto 0;
+
+            text-align: center;
+
+        }
+
+        .bd-radius50 {
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+
+        .aui-btn:active {
+            color: #fff;
+            background-color: #fb3483;
+        }
+
+        .tit-bar-black {
+            background: #fff;
+            color: #000;
+        }
+
+        .tit-bar-black .aui-btn .aui-iconfont {
+            color: #999
+        }
+
+        .bdb-1px:after {
+            border-top: 1px solid #F6F6F6;
+            content: ' ';
+            display: block;
+            width: 100%;
+            position: absolute;
+            right: 0
+        }
+
+        .bdb-1px:after {
+            bottom: 0
+        }
+
+        .address {
+            background: #f6f6f6;
+        }
+
+        .item-addr {
+            padding: 0.5rem 0.8rem 0;
+            overflow: hidden;
+            background: #fff;
+            margin: 0.5rem 0;
+        }
+
+        .item-addr .ia-m {
+            float: left;
+            width: 86.125%
+        }
+
+        .item-addr .ia-m78 {
+            width: 100%
+        }
+
+        .item-addr .ia-m .mt_new {
+            color: #222
+        }
+
+        .item-addr .ia-m p {
+            float: left;
+            color: #666;
+            font-size: .8125em;
+            line-height: 1.6em;
+            padding-top: .6em
+        }
+
+        .tip-w .tip .mt_new {
+            padding-bottom: 1.6875em;
+            line-height: 1.4em;
+            font-size: 1.0625em
+        }
+
+        .map-yes img {
+            width: 15px;
+            height: 11px
+        }
+
+        .bdb-1px {
+            position: relative
+        }
+
+        .tip-w .tip .mt_new {
+            padding-bottom: 1.6875em;
+            line-height: 1.4em;
+            font-size: 1.0625em
+        }
+
+        .list-border {
+            border-bottom: 1px solid #f6f6f6;
+        }
+    </style>
+
+</head>
+<body>
+
+<header class="aui-bar aui-bar-nav tit-bar-black ">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">收货地址</div>
+</header>
+<div class="common-wrapper" id="address" v-cloak>
+    <div class="addressblock">
+        <div class="from-sys">
+            <div class="address">
+                <div class="item-addr bdb-1px " v-for="delivery in deliverys">
+                    <div class="ia-m m ia-m78  list-border aui-padded-b-10" :aid="delivery.id">
+                        <div class="mt_new">
+                            <span>{{delivery.uname}}</span>
+                            <strong>{{delivery.tel}}</strong>
+                        </div>
+                        <div class="mc">
+                            <p style="word-break: break-all;">
+                                {{delivery.province}}{{delivery.city}}{{delivery.district}}{{delivery.detail}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="aui-info aui-pull-left  aui-padded-t-15 aui-padded-b-15" style="width: 100%; ">
+                        <div class="aui-info-item aui-font-size-14">
+                            <label>
+                                <input class="aui-checkbox bd-radius50" type="radio" :checked="delivery.select==1" :id="delivery.id" @change="setDefault(delivery.id)">
+
+
+                                <span class="aui-padded-l-5 tit-bar-black"> 设为默认</span>
+                            </label>
+                        </div>
+                        <div class="aui-info-item aui-font-size-14" @click="bjadd(delivery.uname,delivery.tel,delivery.province,delivery.city,delivery.district,delivery.detail,delivery.id,delivery.select,delivery.lng,delivery.lat)">
+                            <i class="aui-iconfont aui-icon-edit aui-font-size-14"></i>
+
+                            <span class="aui-padded-l-5 tit-bar-black">编辑</span>
+                        </div>
+                        <div class="aui-info-item aui-font-size-14" @click="deletedd(delivery.id)">
+                            <i class="aui-iconfont aui-icon-trash aui-font-size-14">
+                            </i>
+                            <span class="aui-padded-l-5 tit-bar-black">删除</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pay-btn ">
+                <a href="javascript:;" class="aui-font-size-16 plus-btn  aui-btn-block aui-btn-outlined " @click="bjadd()">
+                    <i class="aui-iconfont aui-icon-plus"></i> 新增收货地址
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/aui/aui-dialog.js"></script>
+<script src='../../script/zepto.min.js' charset='utf-8'></script>
+<script src='../../script/sm.min.js' charset='utf-8'></script>
+<script src='../../script/sm-extend.min.js' charset='utf-8'></script>
+<script src="../../script/sm-city-picker.js" charset='utf-8'></script>
+<script src="../../script/vue.js"></script>
+<script>
+  // JW.islogin('userData');
+  var userData = getUserData();
+  var rback;
+  var JW;
+  apiready = function () {
+    urlArgs = api.pageParam;
+    rback = urlArgs['back'] ? 1 : 0;
+    JW = {
+      ajax: function (url, data, callback) {
+        var url = PHP_SERVE_URL + url;
+        $.ajax({
+          url: url,
+          data: data,
+          type: 'post',
+          dataType: 'json',
+          success: function (res) {
+            // console.log(res);
+            callback(res)
+          }, error: function () {
+            console.log('error')
+          }
+        })
+      },
+      cajax: function (url, data, callback) {
+        var url = PHP_SERVE_URL + url;
+        $.ajax({
+          url: url,
+          data: data,
+          type: 'post',
+          dataType: 'json',
+          success: function (res) {
+            // console.log(res);
+            callback(res)
+          }, error: function () {
+            console.log('error')
+          }
+        })
+      },
+      /*读写storage*/
+      setData: function (key, obj) {
+        if (obj !== undefined) {
+          if (typeof key !== 'string') {
+            key = key.toString();
+          }
+          if (typeof obj === 'object') {
+            obj = JSON.stringify(obj);
+          }
+          localStorage.setItem(key, obj);
+          return;
+        } else {
+          var data;
+          try {
+            var obj = localStorage.getItem(key);
+            data = JSON.parse(obj)
+          } catch (e) {
+            data = obj;
+          }
+          return data;
+        }
+      },
+      /*移除本地缓存*/
+      rData: function (key) {
+        localStorage.removeItem(key)
+      },
+      /*记录用户浏览记录*/
+      recordUserView: function (openId, type, viewId) {
+        $.ajax({
+          url: VIEWLOG_URL,
+          data: {
+            openId: openId,
+            type: type,
+            viewId: viewId,
+            source: VIEWLOG_SOURCE
+          },
+          type: 'post',
+          dataType: 'json',
+          success: function (res) {
+          },
+          error: function () {
+          }
+        });
+      }
+    }
+    address("#address");
+  }
+
+  function getUserData() {
+    var user = $api.getStorage('user');
+    if (typeof user == 'undefined') { // 登录
+      openWin('../login_win');
+    }
+    var res = {};
+    res.openId = user.openId;
+    res.tel = user.tel;
+    res.userName = user.nickName ? user.nickName : user.tel;
+    res.token = yltcrypt.cpt(user.openId);
+    return res;
+  }
+
+  function address(id) {
+    var sign = new Vue({
+      el: id,
+      data: {
+        deliverys: [],
+        name: '',
+        tel: '',
+        procity: '',
+        province: '',
+        city: '',
+        district: '',
+        detaill: '',
+        lng: '',
+        lat: '',
+        addreid: '',
+        areaprovince: '请选择',
+        areacity: '请选择',
+        areaarea: '请选择',
+        items: [],
+        selecitys: [],
+        seleareas: [],
+        isActive: false,
+        province: '',
+        cityId: '',
+        areaId: '',
+        tit: '',
+        addtype: '',
+        userId: '',
+        priority: ""
+      },
+      methods: {
+        //设置默认
+        setDefault: function (addressId) {
+          var data = {openId: userData['openId'], aid: addressId};
+          JW.ajax("/customer/setSelectAddress", data, function (res) {
+            if (res.code == 0) {
+              $(".aui-checkbox").prop("checked", false);
+              $("#" + addressId).prop("checked", true);
+              toast("设置成功");
+            } else {
+              $("#" + addressId).prop("checked", false);
+            }
+          }, false)
+        },
+        /*定位获取详细地址*/
+        getLocal: function (name, pageParam) {
+          api.openWin({
+            name: name,
+            url: name + '.html',
+            bgColor: 'rgba(0,0,0,0)'
+            //pageParam: pageParam
+          });
+        },
+        //编辑与新增
+        bjadd: function (name, tel, province, city, district, detaill, addreid, seleted, lng, lat) {
+          if (arguments.length != 0) {
+            this.tel = tel;
+            this.name = name;
+            $("#city-picker").val(province + " " + city + " " + district)
+            this.detaill = detaill;
+            this.addreid = addreid;
+            this.tit = '修改收货地址';
+            this.addtype = 1;
+            this.lng = lng;
+            this.lat = lat;
+          } else {
+            this.tel = '';
+            this.name = '';
+            this.detaill = '';
+            this.addreid = 0;
+            this.tit = '新建收货地址';
+            this.addtype = 0;
+            this.lng = 0;
+            this.lat = 0;
+          }
+
+          api.openWin({
+            name: 'my_frm_addressDetail',
+            url: 'my_frm_addressDetail.html',
+            pageParam: {
+              name: name,
+              tel: tel,
+              province: province,
+              city: city,
+              district: district,
+              detaill: detaill,
+              addreid: addreid,
+              seleted: seleted,
+              lng: lng,
+              lat: lat
+            }
+          });
+
+
+          if (seleted == 1) {
+            this.isActive = true
+          } else {
+            this.isActive = false
+          }
+        },
+
+        //地区
+        procitya: function () {
+          var data = {prId: 0, level: 1};
+          var _this = this;
+          JW.ajax("/user/region", data, function (rea) {
+            _this.items = rea.data
+
+          }, false)
+          $("#chooseAddressPage").show();
+          $(".check-page").hide()
+        },
+
+
+        switchmr: function () {
+          this.isActive = !this.isActive;
+
+        },
+        //删除
+        deletedd: function (addressId) {
+          var self = this;
+          var dialog = new auiDialog();
+          dialog.alert({
+            msg: '确定删除吗？',
+            buttons: ['取消', '删除']
+          }, function (ret) {
+            if (ret.buttonIndex == 2) {
+              var data = {openId: userData['openId'], aid: addressId, token: userData['token']};
+              JW.cajax("/customer/delAddress", data, function (res) {
+                if (res.code == 0) {
+                  self.addAjax()
+                } else {
+                  $a.toast(res.msg);
+                }
+              });
+            }
+          })
+        },
+
+        addAjax: function () {
+          var data = {openId: userData['openId']};
+          var _this = this;
+          JW.cajax("/customer/myAddress", data, function (res) {
+            if (res.code == 0) {
+              _this.deliverys = res.data
+            } else {
+              toastSuccess(res.msg);
+            }
+          });
+          api.sendEvent({
+            name: 'reloadAddressList'
+          });
+        },
+        hidebj: function () {
+          $("#bjaddress").hide();
+          $(".addressblock").show()
+        },
+        backToOrder: function (uname, tel, province, city, district, address, detail, aid, lng, lat) {
+          if (rback == 1) {
+            api.sendEvent({
+              name: 'select_address',
+              extra: {
+                id: aid,
+                name: uname,
+                tel: tel,
+                address: province + city + district + address + detail,
+                city: city,
+                lng: lng,
+                lat: lat
+              }
+            });
+            api.closeWin();
+          }
+        }
+      },
+      watch: {
+        'items': function (newval, oldval) {
+
+        }
+      },
+      mounted: function () {
+
+        var _this = this;
+        this.addAjax();
+        api.addEventListener({name: 'select_location'}, function (ret, err) {
+          if (ret) {
+            _this.detaill = ret.value.location;
+            //$('#address_where').val(ret.value.location).attr('disabled',false).focus();
+          }
+        });
+        api.addEventListener({name: 'userLocationSearchEvent'}, function (ret, err) {
+          if (ret) {
+            _this.procity = ret.value.province + ret.value.city + ret.value.district + ret.value.address;
+            _this.province = ret.value.province;
+            _this.city = ret.value.city;
+            _this.district = ret.value.district;
+            _this.address = ret.value.address;
+            _this.lng = ret.value.lon;
+            _this.lat = ret.value.lat;
+          }
+        });
+
+//        监听新增收货地址
+        api.addEventListener({name: 'reloadList'}, function (ret, err) {
+          _this.addAjax();
+        });
+        setTimeout(function () {
+          $("#city-picker").cityPicker({
+            toolbarTemplate: '<header class="bar bar-nav">' +
+            '<button class="button button-link pull-right close-picker color-palered aui-text-right">完成</button>' +
+            '<h1 class="title"></h1>' +
+            '</header>'
+          });
+        }, 80)
+      }
+
+    });
+
+  }
+
+  //成功提示框
+  function toastSuccess(msg, time) {
+    api.toast({
+      msg: msg,
+      duration: time,
+      location: 'middle'
+    });
+  }
+
+  function lingSubmit() {
+    $(".s_submitexa").addClass("s_submitok");
+  }
+
+</script>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>活动专题</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <style>
+		.show{
+			background-size: 100% 100%;background:no-repeat;
+		}
+		i{
+			height: 8rem;
+		}
+    </style>
+</head>
+<body>
+	<div class="aui-content">
+		<div class="aui-row" id="pictures">
+		</div>
+	</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/template" id="pictureTemp">
+	{{~ it:value:index }}
+		{{? index == -1 }}
+		<i class="show aui-col-xs-12" style="background-image: url('{{=value}}');"></i>
+		{{??}}
+		<i class="show aui-col-xs-4" style="background-image: url('{{=value}}');"></i>
+		{{?}}
+	{{~}}
+</script>
+<script>
+	//获取要填充图片的元素id
+	var pictures = $api.byId('pictures');  
+	//图片模板内容
+	var pictureTemp = $api.text($api.byId('pictureTemp'));
+	//图片数组,默认图片每行三张。第27行和28行自定义显示宽度
+	var pictureArray = ['','',''];
+	//加载模板内容
+	var temp = doT.template(pictureTemp);
+	apiready = function(){
+		
+	  
+	};
+	//根据图片数据填充加载
+	$api.append(pictures, temp(pictureArray));
+</script>
+</body>
+</html>

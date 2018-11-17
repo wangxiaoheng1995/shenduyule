@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>专属供货</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+</head>
+<style>
+    .color-white {
+        color: #fff;
+    }
+
+    .wui-bg-pink {
+        background: #FE5095;
+    }
+
+    .aui-bar-nav {
+        position: fixed;
+    }
+
+    .content {
+        padding-top: 2rem;
+    }
+
+    .vip-gift-list .aui-list-item-media {
+        width: 8.5rem;
+    }
+
+    .font-size-9 {
+        font-size: .45rem !important;
+    }
+
+    .cart-bg-fff {
+        background-color: #fff !important;
+    }
+
+    .relative {
+        position: relative;
+    }
+
+    .bottom-15 {
+        bottom: .15rem;
+    }
+
+    .btn-pink-to-bpink {
+        display: inline-block;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        line-height: 1.75rem;
+        background: linear-gradient(to bottom, #D8085B 0, #FE5095 100%);
+        border-radius: 5px;
+        font-size: 10px;
+        color: #fff !important;
+        margin-top: .5rem;
+    }
+
+    .font-size-15 {
+        font-size: .75rem;
+    }
+
+    .pt20 {
+        padding-top: 1rem;
+    }
+
+    .pt30 {
+        padding-top: 1.5rem;
+    }
+
+    .pt50 {
+        padding-top: 2.5rem;
+    }
+
+    .font-size-11 {
+        font-size: .55rem;
+    }
+
+    .color-666666 {
+        color: #666666;
+    }
+
+    .color-999999 {
+        color: #999999;
+    }
+
+    .color-333333 {
+        color: #333333;
+    }
+
+    .text-indent-1 {
+        text-indent: 1.1rem;
+    }
+
+    .line-height-18 {
+        line-height: .9rem;
+    }
+
+    .line-height-24 {
+        line-height: 1.2rem;
+    }
+
+    .line-height-30 {
+        line-height: 1.5rem;
+    }
+
+    .privilege_bg {
+        background: url("../../image/partner/private_product_bg.png") no-repeat 0 1rem / 100% auto;
+    }
+
+    .pink_stroke_btn {
+        display: inline-block;
+        width: 4rem;
+        border: 1px solid #FE5598;
+        color: #FE5598 !important;
+        text-align: center;
+        font-size: .6rem;
+        line-height: 1.25rem;
+        border-radius: .4rem;
+        margin-top: 1rem;
+        margin-bottom: .6rem;
+        position: relative;
+    }
+
+    .pink_stroke_btn img {
+        position: absolute;
+        bottom: 0;
+        right: -.3rem;
+    }
+
+    .font-size-13 {
+        font-size: .65rem;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9;
+    }
+
+    .my_dialog {
+        background: rgba(0, 0, 0, .8);
+        margin-top: 10rem;
+        border-radius: 10px;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .ml28 {
+        margin-left: 1.4rem;
+    }
+
+    .mr28 {
+        margin-right: 1.4rem;
+    }
+
+    .pb25 {
+        padding-bottom: 1.4rem;
+    }
+
+    .border-white {
+        border: 1px solid white;
+        border-radius: 10px;
+    }
+</style>
+
+<body class="cart-bg-fff">
+<!-- header -->
+<header class="aui-bar aui-bar-nav tit-bar-black wui-bg-pink color-white" id="header">
+    <a class="aui-pull-left aui-btn" onclick="history.back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">专属供货</div>
+</header>
+<div class="main back-write aui-padded-b-15">
+    <div class="content privilege_bg">
+        <div class="aui-text-center">
+            <p class="color-pink aui-font-size-14 pt30">我们的平台服务特色：</p>
+            <p class="color-pink font-size-13 line-height-24 pt30">
+                一对一顾问式服务<br>专业的人员对接！<br>享受掌柜和供货双重店铺，<br>在线用户咨询，处理售后<br>拥有丰富的优质资源，实现最高效的资源共享</p>
+        </div>
+        <p class="aui-text-center color-pink aui-font-size-10" style="margin-top: 7.5rem;">还不是掌柜？立即入驻吧！</p>
+        <div class="aui-text-center">
+            <a onclick="merchantsInStatus()" class="btn-pink-to-bpink">商家入驻</a>
+        </div>
+    </div>
+</div>
+<div class="modal" id="my-dialog">
+    <div class="my_dialog ml28 mr28 aui-text-center pb25">
+        <p class="aui-text-right aui-padded-r-10 aui-padded-t-10"><i
+                class="color-write close-dialog aui-iconfont aui-icon-close bold aui-font-size-18"></i></p>
+        <p class="aui-padded-b-15 color-write aui-font-size-16 aui-padded-t-10 dialog-text"
+           style="line-height: 1.4rem;">您尚未缴纳保证金<br>暂无法开通店铺</p>
+        <p class="aui-margin-t-10"><span
+                class="next_btn inline-block color-write aui-font-size-16 border-white aui-padded-t-10 aui-padded-10">缴纳保证金</span>
+        </p>
+    </div>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+    var user=$api.getStorage('user');
+    // 判断用户入驻状态
+    function merchantsInStatus() {
+        $.ajax({
+            url: PHP_SERVE_URL + '/shop/merchantsIn',
+            type: "post",
+            data: {
+                openId: user.openId
+            },
+            success: function (res) {
+                // 0可入住（添加营业执照信息） 1跳转实名认证 2实名认证正等待审核！3实名认证未通过 4：店铺正在审核 5：店铺已经审核 6 跳转押金页面
+                switch (res.code) {
+                    case 0:
+                        location.href='./partner_shop_entry.html';
+                        break;
+                    case 1:
+                        $(".dialog-text").html('您尚未进行实名认证<br>暂无法开通店铺');
+                        $(".next_btn").text('我要实名认证');
+                        $(".next_btn")[0].onclick = function () {
+                            location.href='../my/my-authen.html';
+                            $("#my-dialog").hide();
+                        };
+                        $("#my-dialog").show();
+                        break;
+                    case 2:
+                        location.href='../my/my-authenadopt.html';
+                        break;
+                    case 3:
+                        location.href='../my/my-authenadopt.html';
+                        break;
+                    case 4:
+                        location.href='./partner_shop_entry_res.html';
+                    case 5:
+                        location.href='./partner_shop_entry_res.html';
+                        break;
+                    case 6:
+                        $(".dialog-text").html('您尚未缴纳保证金<br>暂无法开通店铺');
+                        $(".next_btn").text('缴纳保证金');
+                        $(".next_btn")[0].onclick = function () {
+                            location.href='./partner_upgrade.html';
+                            $("#my-dialog").hide();
+                        };
+                        $("#my-dialog").show();
+                        break;
+                }
+            }
+        })
+    }
+    $(".close-dialog").click(function () {
+        $(this).parents(".modal").hide();
+    })
+</script>
+</body>
+</html>

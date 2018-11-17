@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>店铺商品</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        .aui-bar-nav {
+            position: fixed;
+        }
+
+        .today-sift {
+            position: fixed;
+            top: 2rem;
+            height: 2rem;
+            line-height: 2rem;
+            width: 100%;
+            z-index: 9;
+        }
+
+        .shop-view ul li img {
+            display: block;
+            width: auto;
+            height: 6rem;
+            margin: 0.1rem auto;
+        }
+
+        .border {
+            border: 1px solid #eeeeee !important;
+        }
+        .cont {
+            padding: 1rem;
+            background: #f6f6f6;
+        }
+
+        .tu img {
+            display: block;
+            width: 50%;
+            margin: 10px auto;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" class="shop">
+    <header class="aui-bar aui-bar-nav back-pink ">
+        <div class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </div>
+        <div class="aui-title shop-tit">
+            <div class="aui-searchbar  back-pink">
+                <div class="aui-searchbar-input bd-radius " onclick="$a.openWin('../index/search_win')">
+                    <input type="search" placeholder="请输入搜索内容" id="search-input" disabled>
+                    <i class="aui-iconfont aui-icon-search margin0"></i>
+                </div>
+            </div>
+        </div>
+        <div class="aui-pull-right btn-share padding0 aui-text-center">
+            <img src="../../image/shop/icon-share.png" alt="" class="icon-share">
+        </div>
+    </header>
+    <div id="main">
+        <div class="today-sift">
+            <!-- 全部商品导航切换 -->
+            <div id="nav-scroll" class="flex-wrap  back-write" style="border-bottom: 1px solid #dddddd;">
+                <div id="iscroll" class="flex-con" style="line-height: 2rem">
+                    <ul class="con aui-padded-l-5 aui-padded-r-5">
+                    </ul>
+                </div>
+                <div class="arrows" style="height: 2rem;"></div>
+            </div>
+        </div>
+        <!--<div class="aui-bar aui-bar-tab shop-bar shop-all-bar  border-bot">-->
+        <!--<div class="aui-bar-tab-item color-black color-pink " tapmode>-->
+        <!--<div class="aui-bar-tab-label  ">推荐</div>-->
+        <!--</div>-->
+        <!--<div class="aui-bar-tab-item color-black" tapmode>-->
+        <!--<div class="aui-bar-tab-label ">销量</div>-->
+        <!--</div>-->
+        <!--<div class="aui-bar-tab-item color-black" tapmode>-->
+        <!--<div class="aui-bar-tab-label  ">-->
+        <!--<span class="border-triangle">价格</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div id="shop-view" class="shop-view aui-padded-t-10 back-write">
+            <div style="height: 4.5rem;"></div>
+            <ul class="clearfix " id="content">
+            </ul>
+        </div>
+        <script type="text/html-x-dot-template" id="goods_tmpl">
+            {{?it.length>0}}
+            {{~it:item}}
+            <li class="aui-pull-left border  aui-margin-b-10 aui-margin-l-10"
+                onclick="openGoodsDetail('{{=item.gid}}')">
+                <img src="{{=item.pic}}" alt="" style="width: 7rem;height: 7rem;">
+                <p class="aui-padded-l-5 aui-padded-r-5 aui-ellipsis-1">{{=item.gname}}</p>
+                <div class="cart-section-bottom clearfix aui-padded-l-5 aui-padded-r-5 ">
+                    {{?item.group_num>=2}}
+                    <p class="aui-pull-left">
+                        <strong class="aui-font-size-14 cart-section-prize color-pink">¥{{=item.group_price}}</strong>
+                        <em class="aui-font-size-10 text-line">¥{{=item.price}}</em>
+                    </p>
+                    {{??}}
+                    <p class="aui-pull-left">
+                        <strong class="aui-font-size-14 cart-section-prize color-pink">¥{{=item.price}}</strong>
+                        <em class="aui-font-size-10">&nbsp;</em>
+                    </p>
+                    {{?}}
+                    <p class="aui-pull-right aui-font-size-12"> 已售:{{=item.sell_num}}</p>
+                </div>
+            </li>
+            {{~}}
+            {{??}}
+            <div class="cont">
+                <div class="tu">
+                    <img src="../../image/icon-zw.png">
+                </div>
+            </div>
+            {{?}}
+        </script>
+    </div>
+</div>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../script/aui/aui-slide.js"></script>
+<script src="../../script/aui/iScroll-lite.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script>
+    var shop_id;
+    var categoryId;
+    var page = totalpages = 1;
+    apiready = function () {
+        shop_id = api.pageParam.shopId;
+        categoryId = api.pageParam.typeId;
+        getTypes();
+        api.addEventListener({
+            name: 'scrolltobottom'
+        }, function(ret) {
+            if (page <= totalpages) {
+                getGoods();
+            }
+        })
+    }
+    function openGoodsDetail(id) {
+        $a.openWin('../goods/goods_win', {id: id});
+    }
+    function getTypes() {
+        api.ajax({
+            url: PHP_SERVE_URL + "/sg/entityShopGoodsType",
+            method: "post",
+            data: {
+                values: {
+                    shopId: shop_id
+                }
+            }
+        }, function (ret) {
+            if (ret.code == 0) {
+                if (ret.data.length > 0) {
+                    var strHtml = '';
+                    for (var i = 0; i < ret.data.length; i++) {
+                        if (categoryId == ret.data[i].id) {
+                            strHtml += '<li data-id="' + ret.data[i].id + '" class="con-item active" tapmode="hover">' + ret.data[i].gtname + '</li>';
+                        } else {
+                            strHtml += '<li data-id="' + ret.data[i].id + '" class="con-item" tapmode="hover">' + ret.data[i].gtname + '</li>';
+                        }
+                    }
+                    <!-- 导航条底部的滑块 -->
+                    strHtml += '<div class="run-line" id="line" style="background-color: #FF5192"></div>';
+                    $api.html($api.dom('#iscroll ul'), strHtml);
+                    /*nav 导航切换 点击切换后的回调函数 回调函数接收当前点击的对象 */
+                    var myScroll=initNavScroll('#iscroll', function (target) {
+                        if($(target).hasClass("active")) {
+                            $("#content").empty();
+                            categoryId = $(target).data('id');
+                            page = totalpages = 1;
+                            getGoods();
+                        }
+                    });
+                    var active = $api.dom('#iscroll .con-item.active');
+                    myScroll.scrollToElement(active, 300, true);
+                    getGoods();
+                }
+            }
+        });
+    }
+    function getGoods() {
+        api.ajax({
+            url: PHP_SERVE_URL + "/sg/entityShopTypeGoods",
+            method: "post",
+            data: {
+                values: {
+                    shopId: shop_id,
+                    typeId: categoryId,
+                    pernum: 12,
+                    page: page
+                }
+            }
+        }, function (ret) {
+            page++;
+            if (ret.code == 0) {
+                var interText = doT.template($api.text($api.byId('goods_tmpl')));
+                $api.append($api.byId('content'), interText(ret.data));
+                totalpages = ret.pages;
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>退款/售后详情</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mobileSelect.css"/>
+    <style>
+      .pt25{
+        padding-top: 1.25rem;
+      }
+      .pb30{
+        padding-bottom:1.5rem;
+      }
+      .bg-white{
+        background: white;
+      }
+      .fl{
+        float: left;
+      }
+      .fr{
+        float: right;
+      }
+      .color-141414{
+        color:#141414;
+      }
+      .line-height-20{
+        line-height: 1rem;
+      }
+      .bold{
+        font-weight: bold;
+      }
+      .mt8{
+        margin-top: .4rem;
+      }
+      .flex{
+        display: flex;
+      }
+      .flex1{
+        flex: 1;
+      }
+      .color-404040{
+        color:#404040;
+      }
+      .color-a4a4a4{
+        color:#a4a4a4;
+      }
+      .border-radius-4{
+        border-radius:.2rem;
+      }
+      .dashed-border{
+        border: 1px dashed #dfdfdf;
+      }
+      .color-white{
+        color: white;
+      }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write border-bot header-nav" style="background:#fe5095!important;color:#fff">
+        <a class="aui-pull-left aui-btn" onclick="history.back()">
+            <span class="aui-iconfont aui-icon-left aui-font-size-20"></span>
+        </a>
+        <div class="aui-title">退款/售后详情</div>
+    </header>
+    <div class="header-nav-top" id="main" style="overflow:hidden;">
+      <div class="aui-padded-l-10 aui-padded-t-15 aui-padded-b-15 aui-margin-t-10 aui-padded-r-10 bg-white">
+        <p class="flex color-404040">
+          <span class="aui-margin-r-10 aui-font-size-16">请选择快递公司</span>
+          <span class="flex1 aui-font-size-16" id="trigger1"></span>
+          <span class="aui-iconfont aui-icon-down aui-font-size-16"></span>
+        </p>
+    </div>
+    <div class="aui-padded-l-10 aui-padded-t-15 mt8 aui-padded-r-10 bg-white">
+      <p class="clearfix color-404040">
+        <span class="fl aui-margin-r-10 aui-font-size-16">快递单号</span>
+        <span class="fr aui-font-size-14"><span class="aui-iconfont aui-icon-info bold aui-margin-r-5"></span>查看实例</span>
+      </p>
+      <div>
+        <input class="aui-font-size-20" type="text" placeholder="请填写准确的快递单号">
+      </div>
+    </div>
+    <div class="aui-padded-l-10 aui-padded-t-15 aui-padded-b-15 mt8 aui-padded-r-10 bg-white">
+      <p class="aui-font-size-14 color-404040">退货留言 <span class="fr color-a4a4a4 aui-font-size-10" id="count-right">您还可以输入170字</span></p>
+      <div class="aui-margin-t-10 clearfix">
+        <textarea class="aui-font-size-14" oninput="this.value=this.value.slice(0,170);$('#count-right').text('您还可以输入'+(170-this.value.length)+'字');" style="height:6rem;" name="" id="" cols="30" rows="10" placeholder="请输入退货留言（最多170字）"></textarea>
+      </div>
+    </div>
+    <div class="aui-padded-l-10 aui-padded-t-15 aui-padded-b-15 mt8 aui-padded-r-10 bg-white">
+      <p class="aui-font-size-14 color-404040">上传凭证 <span class="color-a4a4a4 aui-font-size-10">（最多3张，建议上传快递单照片）</span></p>
+      <div class="pt25 clearfix">
+        <div class="fl" id="img-show">
+        </div>
+        <div id="photo_sel" class="dashed-border fl aui-padded-t-15 aui-text-center" style="width:4rem;height:4rem;box-sizing:border-box;">
+          <img class="inline-block" src="../../image/orderSale/camera.png" style="width:1.5rem;" alt="">
+          <p class="aui-font-size-12">上传图片</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:2rem;" class="aui-margin-l-10 aui-margin-r-10 border-radius-4 aui-padded-t-10 aui-padded-b-10 aui-text-center aui-font-size-16 color-white back-pink">确认提交</div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<script type="text/javascript" src="../../script/aui/aui-actionsheet.js"></script>
+<script type="text/javascript" src="../../script/mobileSelect.min.js"></script>
+<script type="text/javascript">
+var mobileSelect1 = new MobileSelect({
+    trigger: '#trigger1',
+    title: '请选择',
+    wheels: [
+                {data:[{id:0,value:'圆通快递'},{id:1,value:'中通快递'},{id:2,value:'顺丰快递'},{id:3,value:'邮政快递'},{id:4,value:'韵达快递'},{id:5,value:'德邦物流'}]}
+            ],
+    position:[0],
+    callback:function(indexArr, data){
+        console.log(data); //返回选中的json数据
+    }
+});
+apiready=function () {
+
+}
+$("#photo_sel").click(function () {
+  openActionsheet()
+})
+var actionsheet = new auiActionsheet();
+//打开相册或拍照
+function openActionsheet(pnum) {
+    actionsheet.init({
+        frameBounces: true,  //当前页面是否弹动，（主要针对安卓端）
+        cancelTitle: '取消',
+        buttons: ['拍摄', '从手机相册选择']
+    }, function (ret) {
+        if (ret.buttonIndex == 1) {
+            //获取一张图片
+            api.getPicture({
+                sourceType: 'camera',
+                encodingType: 'png',
+                mediaValue: 'pic',
+                allowEdit: false,
+                quality: 100,
+                saveToPhotoAlbum: false
+            }, function (ret, err) {
+                if (ret) {
+                    var imgSrc = ret.data;
+                    if (imgSrc != "") {
+                        // $a.openWin('my_frm-clip', 'element_id:avatarUrl,img_url:' + imgSrc+',w:300,h:210');
+                        //ajaxOcrIdcard(pnum, imgSrc);
+                        pendimg(imgSrc);
+                    }
+                }
+            });
+        } else if (ret.buttonIndex == 2) {
+            api.getPicture({
+                sourceType: 'album',
+                encodingType: 'png',
+                mediaValue: 'pic',
+                allowEdit: false,
+                quality: 80,
+                saveToPhotoAlbum: false
+            }, function (ret, err) {
+                if (ret) {
+                    var imgSrc = ret.data;
+                    if (imgSrc != "") {
+                        // $a.openWin('my_frm-clip', 'element_id:avatarUrl,img_url:' +imgSrc+',w:300,h:210');
+                        //ajaxOcrIdcard(pnum, imgSrc);
+                        pendimg(imgSrc);
+                    }
+                }
+            });
+        }
+    })
+}
+function pendimg(url){
+  $("#img-show").prepend('<img class="aui-margin-r-10 inline-block" src="'+url+'" style="width:4rem;height:4rem;" alt="">');
+}
+</script>
+
+</html>

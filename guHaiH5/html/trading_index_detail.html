@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>历史交易</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/normalize3.0.2.min.css"/>
+    <link rel="stylesheet" href="../css/data-style.css?v=7"/>
+    <link href="../css/mobiscroll.css" rel="stylesheet"/>
+    <link href="../css/mobiscroll_date.css" rel="stylesheet"/>
+    <style>
+        body {
+            background-color: #171b24;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            padding-top: 0rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #1c2029;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inner {
+            padding: 0rem;
+        }
+
+        .back {
+            background: url("../image/index/home_zk1_icon.png") no-repeat;
+            background-position: right;
+            background-size: 0.4rem;
+        }
+
+        .aui-list .aui-list-item-title {
+            font-size: 0.7rem;
+        }
+
+        .aui-list .aui-list-item-inner, .aui-list .aui-list-item {
+            min-height: 1.5rem;
+        }
+
+        input[placeholder] {
+            color: #fff !important;
+        }
+
+        .aui-list-item:active {
+            background-color: inherit !important;
+            background: inherit;
+        }
+
+        .history-span {
+            padding: 3%;
+        }
+
+        .trad-data-block {
+            display: flex;
+            display: -webkit-flex;
+            align-items: center;
+            -webkit-align-items: center;
+            height: 2rem;
+        }
+
+        .trad-data-left {
+            width: 80%;
+            color: #727682;
+        }
+
+        .trad-data-left input {
+            width: 40%;
+            display: inline;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">历史交易</div>
+</header>
+<div id="historyInfo">
+    <div class="aui-content bg bg-color ">
+        <div class="aui-list bg-color ">
+            <div class="trad-data-block">
+                <div class="trad-data-left">
+                    <input type="text" name="USER_AGE" id="USER_AGE" readonly class="input" placeholder="交易开始日期"/>
+                    至
+                    <input type="text" name="USER_AGE" id="USER_BGE" readonly class="input" placeholder="交易结束日期"/>
+                </div>
+                <div class="aui-list-item-right">
+                    <div class="aui-btn aui-btn-danger aui-padded-l-15 aui-padded-r-15" @click="query">确定</div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-hr" style="opacity:0.1;filter:Alpha(opacity=10)"></div>
+        <div class="font-colo-gy aui-padded-t-15">
+            <span class="aui-font-size-12" style="line-height: 1rem;">
+            沽海APP的宗旨：为经济为人民打下结实的知识、实战等基础。
+                只要你来玩耍娱乐，就可以让你脱离金融小白。
+            </span>
+        </div>
+    </div>
+    <div class="content aui-content bg-color bg" v-for="trans in transArray">
+        <div class="aui-list bg-color">
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title">
+                        <span class="aui-font-size-16" style="color: #ffffff">{{trans.sname}}</span>
+                        <span class=" aui-margin-l-15 aui-font-size-12 font-colo-gy">{{trans.sno}}</span>
+                    </div>
+                    <div class="aui-list-item-right font-colo-gy">盈亏
+                        <span class="aui-margin-l-15 font-colo-r" v-if="trans.chMoney>=0">{{(trans.chMoney).toFixed(2)}}</span>
+                        <span class="aui-margin-l-15 font-colo-g" v-else="">{{(trans.chMoney).toFixed(2)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-hr" style="opacity:0.1;filter:Alpha(opacity=10)"></div>
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title font-colo-gy">
+                        {{trans.sdate}}
+                        <span class=" aui-padded-l-15 aui-padded-r-15 ">至</span>
+                        {{trans.edate}}
+                    </div>
+                </div>
+            </div>
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title font-colo-gy">
+                        盈亏金额（元）
+                        <span class=" aui-padded-l-15 aui-padded-r-15 " v-if="trans.chMoney>=0">+{{(trans.chMoney).toFixed(2)}}</span>
+                        <span class=" aui-padded-l-15 aui-padded-r-15 " v-else="">{{(trans.chMoney).toFixed(2)}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title font-colo-gy">
+                        交易数量（股）
+                        <span class=" aui-padded-l-15 aui-padded-r-15 ">{{trans.dealNum}}</span>
+                    </div>
+                    <div class=" back aui-list-item-right font-colo-gy aui-padded-r-15"
+                         @click="goPage(trans.sdate,trans.edate,trans.sid)">明细
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../script/yltcrypt.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/mobiscroll_date.js" charset="gb2312"></script>
+<script src="../script/mobiscroll.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+  var user;
+  apiready = function () {
+    fix_status_bar();
+    user = $api.getStorage('user');
+  };
+  new Vue({
+    el: '#historyInfo',
+    data: {
+      transArray: [],
+    },
+    methods: {
+      query: function () {
+        var startTime = $("#USER_AGE").val();
+        var endTime = $("#USER_BGE").val();
+        var _this = this;
+        apiAjax(PHP_SERVE_URL + '/trade/history', {
+          openId: user.openId,
+          token: yltcrypt.cpt(user.openId),
+          sdate: startTime,
+          edate: endTime
+        }, function (res) {
+          if(res.data==""){
+            toast("没有历史交易记录");
+          }else{
+            _this.transArray = res.data;
+          }
+        });
+      },
+      goPage: function (start, end, sid) {
+        openWinPro("trading_index_record", {
+          sdate: start,
+          edate: end,
+          sid: sid
+        })
+      }
+    },
+    mounted: function () {
+
+    }
+  })
+  var currYear = (new Date()).getFullYear();
+  var opt = {};
+  opt.date = {preset: 'date'};
+  opt.datetime = {preset: 'datetime'};
+  opt.time = {preset: 'time'};
+  opt.default = {
+    theme: 'android-ics light', //皮肤样式
+    display: 'modal', //显示方式
+    mode: 'scroller', //日期选择模式
+    dateFormat: 'yyyy-mm-dd',
+    lang: 'zh',
+    showNow: true,
+    nowText: "今天",
+    startYear: currYear - 50, //开始年份
+    endYear: currYear + 10 //结束年份
+  };
+  $("#USER_AGE").mobiscroll($.extend(opt['date'], opt['default']));
+  $("#USER_BGE").mobiscroll($.extend(opt['date'], opt['default']));
+</script>
+</body>
+</html>

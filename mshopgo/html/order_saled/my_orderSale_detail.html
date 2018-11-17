@@ -1,0 +1,327 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>申请退款</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mobileSelect.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <style>
+     #income-detail{
+       background: #fff;
+     }
+     #income-detail li{
+       padding:0.7rem 0 0.7rem 0.6rem;
+       border-bottom:1px solid #EEEEEE;
+     }
+     .apply-type{
+       display:flex;
+       justify-content: space-between;
+       align-items: center;
+       padding-right:0.6rem;
+     }
+     .apply-type p{
+       display: flex;
+       color:#333;
+       justify-content: space-between;
+       align-items: center;
+       width:80%;
+     }
+     .apply-type p span{
+       width:30%;
+       font-size:0.8rem;
+       margin-right:0.8rem;
+     }
+     .apply-type p em{
+       font-size:0.7rem;
+       color:#333;
+       display:block;
+       width:70%;
+     }
+     .apply-reason{
+       display:flex;
+       justify-content: space-between;
+       align-items: center;
+       padding-right:0.6rem;
+     }
+     .apply-reason p{
+       display: flex;
+       color:#333;
+       justify-content: space-between;
+       align-items: center;
+       width:80%;
+     }
+     .apply-reason p span{
+       width:30%;
+       font-size:0.8rem;
+       margin-right:0.8rem;
+     }
+     .apply-reason p em{
+       font-size:0.7rem;
+       color:#333;
+       display:block;
+       width:70%;
+     }
+     .apply-money{
+       display:flex;
+       justify-content: space-between;
+       align-items: center;
+       padding-right:0.6rem;
+     }
+     .apply-money p{
+       display: flex;
+       color:#333;
+       justify-content: space-between;
+       align-items: center;
+       width:80%;
+     }
+     .apply-money p span{
+       width:30%;
+       font-size:0.8rem;
+       margin-right:0.8rem;
+     }
+     .apply-money p em{
+       font-size:0.7rem;
+       color:#333;
+       display:block;
+       width:70%;
+     }
+     .apply-number{
+       display:flex;
+       justify-content: space-between;
+       align-items: center;
+       padding-right:0.6rem;
+     }
+     .apply-number p{
+       display: flex;
+       color:#333;
+       justify-content: space-between;
+       align-items: center;
+       width:100%;
+     }
+     .apply-number p span{
+       width:30%;
+       font-size:0.8rem;
+       margin-right:0.8rem;
+     }
+     .apply-explain{
+       background: #F3F3F3;
+     }
+     .details-explain-title{
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       padding-right:0.7rem;
+     }
+     .details-explain-title span{
+       color:#999999;
+       font-size:0.7rem;
+     }
+     .apply-voucher{
+       background: #fff;
+     }
+     .apply-voucher{
+       padding:0.7rem;
+     }
+     .voucher-img{
+       margin:0.8rem 0;
+     }
+     .voucher-img a{
+       display:flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       width:33.33%;
+       padding:0.8rem;
+       border:1px dashed #DADADA;
+       box-sizing: border-box;
+       color:#8E8E8E;
+     }
+     .voucher-img a img{
+       max-width:none;
+       width:3.1rem;
+       height:3.1rem;
+     }
+     .pt25{
+       padding-top: 1.25rem;
+     }
+     .fl{
+         float: left;
+       }
+      .mt8{
+         margin-top: .4rem;
+       }
+       .dashed-border{
+         border: 1px dashed #dfdfdf;
+       }
+       .bg-white{
+         background: white;
+       }
+       .footer-btn{
+         width:100%;
+         display:flex;
+         justify-content: center;
+         margin:0.8rem 0;
+       }
+       .footer-btn p{
+         width:80%;
+         background: #fe5095;
+         color:#fff;
+         font-size:0.7rem;
+         padding:0.5rem;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         border-radius:5px;
+       }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write border-bot header-nav" style="background:#fe5095!important;color:#fff">
+        <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+            <span class="aui-iconfont aui-icon-left aui-font-size-20"></span>
+        </a>
+        <div class="aui-title">申请退款</div>
+    </header>
+    <div class="header-nav-top" id="main" style="overflow:hidden;">
+        <ul class="aui-list aui-media-list aui-margin-b-10 msg-list back-none" id="income-detail">
+            <li>
+              <div class="apply-type"><p><span>申请类型</span> <em id="apply-type">我要退款(无需退货)</em></p><span class="aui-iconfont aui-icon-down" id="trigger1"></span></div>
+            </li>
+            <li>
+              <div class="apply-reason"><p><span>申请原因</span><em id="apply-reason">点击选择申请原因</em></p> <span class="aui-iconfont aui-icon-down" id='trigger2'></span></div>
+            </li>
+            <li>
+              <div class="apply-money"><p><span>退款金额</span><em>￥55</em></p> </div>
+            </li>
+            <li class="apply-explain">
+              <p>若退款成功，将退还给您￥<span>35.00</span>(实付金额)和￥<span>20.00无门槛现金券</span></p>
+            </li>
+            <li class="apply-details-explain">
+              <div class="details-explain-title">
+                <h3>申请说明</h3>
+                <span>您还可以输入<em id="size">170</em>字</span>
+              </div>
+              <div class="details-explain-content">
+                <textarea name="name" rows="8" cols="80" placeholder="请详细填写申请说明。(最多170字)" id="text-content" maxlength="170" style="font-size:0.7rem;"></textarea>
+              </div>
+            </li>
+            <li>
+              <div class="apply-number"><p><span>联系电话</span><input type="text" placeholder="￥55" value="17620135606"></p> </div>
+            </li>
+        </ul>
+        <div class="aui-padded-l-10 aui-padded-t-15 aui-padded-b-15 mt8 aui-padded-r-10 bg-white">
+          <p class="aui-font-size-14 color-404040">上传凭证 <span class="color-a4a4a4 aui-font-size-10">（最多3张，建议上传快递单照片）</span></p>
+          <div class="pt25 clearfix">
+            <div class="fl" id="img-show">
+            </div>
+            <div id="photo_sel" class="dashed-border fl aui-padded-t-15 aui-text-center" style="width:4rem;height:4rem;box-sizing:border-box;">
+              <img class="inline-block" src="../../image/orderSale/camera.png" style="width:1.5rem;" alt="">
+              <p class="aui-font-size-12">上传图片</p>
+            </div>
+          </div>
+        </div>
+        <div class="footer-btn"><p>确认提交</p></div>
+    </div>
+</div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/aui/aui-actionsheet.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/mobileSelect.min.js"></script>
+<script>
+var mobileSelect1 = new MobileSelect({
+    trigger: '#apply-type',
+    title: '请选择',
+    wheels: [
+                {data:[{id:0,value:'我要退款'},{id:0,value:'退货退款'}]}
+            ],
+    position:[0],
+    callback:function(indexArr, data){
+        console.log(data); //返回选中的json数据
+    }
+});
+
+var mobileSelect2 = new MobileSelect({
+    trigger: '#apply-reason',
+    title: '请选择',
+    wheels: [
+                {data:[{id:0,value:'其他'},{id:0,value:'不满意'}]}
+            ],
+    position:[0],
+    callback:function(indexArr, data){
+        console.log(data); //返回选中的json数据
+    }
+});
+apiready = function () {
+
+  $("#photo_sel").click(function () {
+    openActionsheet()
+  })
+  var actionsheet = new auiActionsheet();
+  //打开相册或拍照
+  function openActionsheet(pnum) {
+      actionsheet.init({
+          frameBounces: true,  //当前页面是否弹动，（主要针对安卓端）
+          cancelTitle: '取消',
+          buttons: ['拍摄', '从手机相册选择']
+      }, function (ret) {
+          if (ret.buttonIndex == 1) {
+              //获取一张图片
+              api.getPicture({
+                  sourceType: 'camera',
+                  encodingType: 'png',
+                  mediaValue: 'pic',
+                  allowEdit: false,
+                  quality: 100,
+                  saveToPhotoAlbum: false
+              }, function (ret, err) {
+                  if (ret) {
+                      var imgSrc = ret.data;
+                      if (imgSrc != "") {
+                          // $a.openWin('my_frm-clip', 'element_id:avatarUrl,img_url:' + imgSrc+',w:300,h:210');
+                          //ajaxOcrIdcard(pnum, imgSrc);
+                          pendimg(imgSrc);
+                      }
+                  }
+              });
+          } else if (ret.buttonIndex == 2) {
+              api.getPicture({
+                  sourceType: 'album',
+                  encodingType: 'png',
+                  mediaValue: 'pic',
+                  allowEdit: false,
+                  quality: 80,
+                  saveToPhotoAlbum: false
+              }, function (ret, err) {
+                  if (ret) {
+                      var imgSrc = ret.data;
+                      if (imgSrc != "") {
+                          // $a.openWin('my_frm-clip', 'element_id:avatarUrl,img_url:' +imgSrc+',w:300,h:210');
+                          //ajaxOcrIdcard(pnum, imgSrc);
+                          pendimg(imgSrc);
+                      }
+                  }
+              });
+          }
+      })
+  }
+  function pendimg(url){
+    $("#img-show").prepend('<img class="aui-margin-r-10 inline-block" src="'+url+'" style="width:4rem;height:4rem;" alt="">');
+  }
+}
+
+</script>
+
+</html>

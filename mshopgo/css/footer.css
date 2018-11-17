@@ -1,0 +1,10 @@
+#footer .aui-iconfont{
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+#footer.aui-bar-tab .aui-active{
+    color: #ff5096;
+}

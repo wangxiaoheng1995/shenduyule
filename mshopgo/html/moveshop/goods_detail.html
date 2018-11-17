@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        html,
+        body,
+        #content {
+            width: 100% !important;
+            height: 100% !important;
+            background-color: #fff;
+        }
+
+        #content {
+            overflow-x: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+
+        .aui-tab-item.aui-active {
+            color: #ff5096;
+            border-bottom: 0;
+        }
+
+        .detail-img {
+            width: 100%;
+        }
+
+        .detail-img img {
+            width: 100% !important;
+            height: auto;
+            padding: 0;
+            margin: 0;
+        }
+
+        .aui-tab {
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .aui-tab .aui-tab-item:after {
+            content: ' ';
+            display: inline-block;
+            width: 1px;
+            height: 50%;
+            background-color: #E6E6E6;
+            position: absolute;
+            top: 25%;
+            right: 0;
+        }
+
+        .aui-tab .aui-tab-item:last-child:after {
+            display: none;
+        }
+
+        #detail-info {
+            padding: 0.2rem 0.5rem;
+        }
+
+        #detail-info .aui-grid {
+            border: 1px solid #e6e6e6;
+            border-bottom: 0;
+        }
+
+        #detail-info .aui-grid .aui-row {
+            border-bottom: 1px solid #e6e6e6;
+            position: relative;
+        }
+
+        #detail-info .aui-grid .aui-row>div {
+            padding: 0.6rem 0.2rem;
+            margin: 0;
+            text-align: center;
+            position: static;
+        }
+
+        #detail-info .aui-grid .aui-content>div:first-child:after {
+            position: absolute;
+            left: 33.33333333%;
+            top: 0;
+            content: ' ';
+            width: 1px;
+            height: 100%;
+            background-color: #e6e6e6;
+        }
+
+        #detail-info .aui-grid .aui-row>div:last-child {
+            border-right: 0;
+            text-align: left;
+            padding-left: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+<div id="content" v-cloak>
+    <!-- tab 切换按钮 -->
+    <div class="aui-tab aui-margin-b-5 border-no" id="tab">
+        <div class="aui-tab-item tapmode aui-active" data-type='detail-img' onclick="toggleC(this)">商品介绍</div>
+        <div class="aui-tab-item tapmode " data-type='detail-info' onclick="toggleC(this)">规格参数</div>
+    </div>
+    <!-- tab 切换显示 -->
+    <div id="tab-view">
+        <!--商品描述图片列表-->
+        <div class="aui-card-list aui-margin-b-0" id="detail-img">
+            <div class="detail-img" v-for="item in gpicbRes">
+                <img :src="item.pic" />
+            </div>
+        </div>
+        <!--商品详情参数列表-->
+        <div class="aui-hide" id="detail-info">
+            <section class="aui-grid">
+                <div class="group" v-for="itemm in goodsParam">
+                    <div class="aui-row color-gray9 aui-ellipsis-1">
+                        <div class="aui-padded-l-15 color-gray3">{{itemm.typename}}</div>
+                    </div>
+                    <div class="aui-row color-gray9 aui-content" v-for="itemj in itemm.plist">
+                        <div class="aui-col-xs-4">{{itemj.tkey}}</div>
+                        <div class="aui-col-xs-8">{{itemj.tval}}</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/vue.js"></script>
+
+<script>
+    apiready = function() {
+        var param = $a.getParam();
+        showGoodsparam(param.goodsParam, param.gpicbRes);
+    }
+
+    function toggleC(k) {
+        var hList = $api.domAll('#tab .aui-tab-item');
+        if (k == $api.dom('#tab .aui-active')) {
+            return;
+        }
+        var stype = 'detail-img';
+        for (var i = 0; i < hList.length; i++) {
+            if (hList[i] == k) {
+                stype = $(hList[i]).data('type');
+                $api.addCls(hList[i], 'aui-active');
+            } else {
+                $api.removeCls(hList[i], 'aui-active');
+            }
+        }
+        if (stype == "detail-img") {
+            $api.addCls($api.byId('detail-info'), 'aui-hide');
+            $api.removeCls($api.byId('detail-img'), 'aui-hide');
+        } else {
+            $api.addCls($api.byId('detail-img'), 'aui-hide');
+            $api.removeCls($api.byId('detail-info'), 'aui-hide');
+        }
+    }
+
+    function showGoodsparam(goodsParam, gpicbRes) {
+        new Vue({
+            el: '#content',
+            data: {
+                goodsParam: goodsParam,
+                gpicbRes: gpicbRes
+            },
+            methods: {
+
+            },
+            mounted: function() {
+
+            }
+        })
+    }
+</script>
+</body>
+
+</html>

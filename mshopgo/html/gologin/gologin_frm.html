@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+    content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>新品</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-slide.css"/>
+    <link rel="stylesheet" href="../../css/swiper-3.2.5.min.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <!--    <link rel="stylesheet" type="text/css" href="../../css/base.css" />-->
+    <style type="text/css">
+       header{
+         color:#333!important;
+       }
+       #content{
+         display:flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         padding:10% 0;
+       }
+       .logingImg img{
+         width:100%;
+         height:100%;
+       }
+       .logingText{
+         margin:1rem 0;
+       }
+       .logingButton{
+        margin-top:1.5rem;
+        width:80%;
+        padding:0.4rem;
+        background: #fe5095;
+        color:#fff;
+        font-size:0.7rem;
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        border-radius:5px;
+       }
+    </style>
+    <style type="text/css">
+        body {
+            width: 100%;
+            height: auto;
+            padding-bottom: 3rem;
+            overflow-x: hidden;
+        }
+        .wrap {
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+            background: #ffffff;
+            padding: 0rem 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .free-item{
+            padding: 0.25rem;
+        }
+        .free-item img{
+            display: block;
+            width: 100%;
+            height: 4rem;
+        }
+        .free-item .aui-text-center{
+            font-size: 0.7rem;
+            color: red;
+        }
+        img.icon {
+            display: block;
+            margin: 0 auto;
+            width: 60%;
+        }
+
+        .goods-item {
+            text-align: center;
+            height: 14rem;
+            background: #fff;
+        }
+
+        .goods-item img {
+            display: block;
+            width: 100%;
+            height: 9.25rem;
+        }
+
+
+        .title {
+            color: #666;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .title p {
+            font-size: 0.6rem;
+            color: #ccc;
+        }
+
+        .goods-title {
+            font-size: 0.7rem;
+            color: #333 !important;
+            padding: 0 .5rem;
+            text-align: left;
+        }
+
+        .hot img {
+            width: 3rem;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .goods-item .aui-info .header-img {
+            height: 1.2rem;
+            width: 1.2rem;
+            border-radius: 50%;
+            border: 1px solid #ffffff;
+        }
+
+        .bg-white {
+            background: #ffffff;
+        }
+
+        .color-black {
+            color: #333333;
+        }
+        .aui-bar-tab .aui-bar-tab-item {
+            height: 3rem;
+        }
+        .aui-bar-tab .aui-bar-tab-item a,
+        .aui-bar-tab .aui-bar-tab-item a:visited,
+        .aui-bar-tab .aui-bar-tab-item a:hover{
+            color: inherit;
+            font-size: inherit;
+        }
+
+
+        .aui-row-padded [class*=aui-col-xs-]{
+            padding-bottom:0.25rem;
+            padding-top:0;
+        }
+        .aui-card-list{
+            background: #f6f6f6;
+        }
+        .fixed{
+            position:fixed;
+        }
+    </style>
+</head>
+<body>
+  <div id="main">
+    <header class="aui-bar aui-bar-nav aui-bar-light  wui-bg-pink" id="head-nav" style="background: #FE5095;">
+        <div class="aui-text-center" style="color:#fff;">销拼购</div>
+    </header>
+      <div id="content">
+        <div class="logingImg"><img src="../../image/logingUser.png" alt=""></div>
+        <div class="logingText">您还没有登录哦</div>
+        <div class="logingButton" onclick="location.href='../login_win.html'">登录</div>
+      </div>
+  </div>
+  <footer class="aui-bar aui-bar-tab" id="footer">
+      <div class="aui-bar-tab-item" tapmode>
+          <a href="../index/index_frm.html">
+              <i class="aui-iconfont" style="background-image: url('../../image/footer/f1-2.png')"></i>
+              <div class="aui-bar-tab-label">首页</div>
+          </a>
+      </div>
+      <div class="aui-bar-tab-item" tapmode>
+          <a href="../newgood/newgood_frm.html">
+              <i class="aui-iconfont " style="background-image: url('../../image/footer/f2-2.png')"></i>
+              <div class="aui-bar-tab-label">新品</div>
+          </a>
+      </div>
+      <div class="aui-bar-tab-item" tapmode>
+          <a href="../partner/partner_frm_app_download.html">
+              <i class="aui-iconfont " style="background-image: url('../../image/footer/f3-2.png')"></i>
+              <div class="aui-bar-tab-label">掌柜</div>
+          </a>
+      </div>
+      <!-- <div class="aui-bar-tab-item" tapmode>
+          <a href="../msg/msg_frm.html">
+              <i class="aui-iconfont" style="background-image: url('../../image/footer/f4-2.png')"></i>
+              <div class="aui-bar-tab-label">消息</div>
+              <div class="aui-dot chat-message-tip" style="display: none"></div>
+          </a>
+      </div> -->
+      <div class="aui-bar-tab-item" tapmode>
+          <a href="javascript:typeof user.openId == 'undefined'?location.href='../gologin/gologin_frm.html':location.href='../my/my_frm.html'">
+              <i class="aui-iconfont " style="background-image: url('../../image/footer/f5-2.png')"></i>
+              <div class="aui-bar-tab-label">我的</div>
+          </a>
+      </div>
+  </footer>
+  <script src="../../script/api.js"></script>
+  <script src="../../script/vue.js"></script>
+  <script src="../../script/base.js"></script>
+  <script src="../../script/api.js"></script>
+  <script src="../../script/config.js"></script>
+  <script src="../../script/swiper.min.js"></script>
+  <script src="../../script/doT.min.js"></script>
+  <script>
+      var user=$api.getStorage("user");
+  </script>
+  </body>
+  </html>

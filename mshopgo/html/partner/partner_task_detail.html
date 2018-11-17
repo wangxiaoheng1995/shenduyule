@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>任务奖励明细</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        .aui-grid .aui-col-xs-4{
+            padding: 0;
+        }
+        .aui-grid .aui-grid-label{
+            margin-top: 0rem;
+        }
+        .aui-grid .list1{
+            width: 20%;
+        }
+        .aui-grid .list2{
+            width: 60%;
+            text-align: left;
+            opacity: 0.7;
+        }
+        .aui-grid .list3{
+                width: 20%;
+            }
+        .aui-list .aui-list-item{
+            padding-left: 0rem;
+        }
+        .aui-grid .aui-row{
+            border-top: 1px solid rgba(204,204,204,0.4);
+            padding-top: 1rem;
+        }
+
+
+    </style>
+</head>
+<body>
+<!-- header -->
+<header class="aui-bar aui-bar-nav tit-bar-black back-write color-black">
+    <a class="aui-pull-left aui-btn" onclick="history.back();">
+        <span class="aui-iconfont aui-icon-left color-black"></span>
+    </a>
+    <div class="aui-title">任务奖励明细</div>
+</header>
+<!-- main -->
+<div id="main">
+    <div class="aui-info aui-padded-l-10 aui-padded-r-10 back-write">
+        <div class="aui-info-item">
+          <span class="aui-margin-l-5 color-gray9 ">当前共获得加速时间：</span>
+            <span class="color-black aui-font-size-20">34天</span>
+        </div>
+        <div class="aui-info-item cart-section-go ">去使用</div>
+    </div>
+
+    <div class="aui-card-list margin-top aui-padded-b-5">
+        <div class="aui-card-list-header">
+            <div class="aui-info">
+                <div class="aui-info-item">
+                    <span class="color-gray9 aui-margin-l-10">2017年7月</span>
+                </div>
+            </div>
+        </div>
+        <div class="aui-card-list-content">
+            <ul class="aui-list aui-media-list">
+                <li class="aui-list-item aui-list-item-middle">
+                    <div class="aui-grid aui-margin-b-15">
+                        <div class="aui-row">
+                            <div class="aui-col-xs-4 list1">
+                                <div class="aui-grid-label">昨天</div>
+                                <div class="aui-grid-label color-gray9">18:30</div>
+                            </div>
+                            <div class="aui-col-xs-4 list2">
+                                <div class="aui-grid-label aui-font-size-18 aui-ellipsis-1">完善个人信息获得 完善个人信息获得</div>
+                            </div>
+                            <div class="aui-col-xs-4 list3 color-gray9">
+                                <div class="aui-grid-label"><strong class="aui-font-size-20 color-black">7</strong>天</div>
+                                <div class="aui-grid-label">加速</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+<script src="../../script/api.js"></script>
+<script src="../../script/common.js"></script>
+</body>
+</html>

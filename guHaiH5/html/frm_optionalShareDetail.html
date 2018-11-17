@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-back">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>红涨</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        /*底背景*/
+
+        .bg2 {
+            background-color: #1c2029;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*黑色*/
+
+        .font-colo-b {
+            color: #212121 !important;
+        }
+
+        /*清除下划线*/
+
+        .aui-list,
+        .aui-list .aui-list-item-title,
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inner,
+        .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inne,
+        .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .aui-bar-btn.aui-bar-btn-round .aui-bar-btn-item:first-child {
+            border-radius: 1.5rem;
+        }
+
+        .aui-bar-nav .aui-bar-btn-item.aui-active {
+            color: #de3232;
+        }
+
+        .aui-bar-btn-item {
+            border-style: none;
+            width: 55%;
+            line-height: 2rem;
+            color: #de3232;
+        }
+
+        .aui-list .aui-list-item:active {
+            background-color: transparent;
+        }
+
+        .aui-bar-nav .aui-bar-btn-item {
+            line-height: 2rem;
+        }
+
+        .aui-tab-item.aui-active {
+            color: #de3232;
+            border-bottom: 2px solid #de3232;
+        }
+
+        .aui-tab-item {
+            color: #7e7e8e;
+        }
+
+        .aui-list .aui-list-item-media {
+            width: 1.5rem;
+        }
+
+        .aui-list .aui-list-item-media {
+            margin-top: 0.15rem;
+        }
+
+        .aui-list .aui-list-item-title,
+        .aui-list .aui-list-item-right {
+            margin: auto 0;
+        }
+
+        .aui-list .aui-list-item-title {
+            color: #7e7e8e;
+        }
+
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inner {
+            min-height: 1.5rem !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            position: relative;
+            padding: 0;
+        }
+
+        /*#detailstab .aui-tab-item.aui-active {*/
+        /*background-color: #1c2029;*/
+        /*}*/
+
+        .aui-progress {
+            width: 30%;
+            height: 0.25rem;
+            margin: 0 0.25rem;
+            /*background-color: transparent;*/
+        }
+
+        .aui-progress .aui-progress-bar {
+            background-color: #de3232;
+        }
+
+        .bg-red,
+        .bg-red .aui-bar-nav {
+            background-color: #de3232 !important;
+        }
+
+        .bg-green,
+        .bg-green .aui-bar-nav {
+            background-color: #43AC45 !important;
+        }
+
+        body, html {
+            height: inherit;
+            min-height: 100%;
+            min-height: 100%;
+
+        }
+
+        .bg-back {
+            background: #171b24
+        }
+
+        .tabcontent {
+            display: none;
+        }
+
+        #tabcontent .aui-active {
+            display: block !important;
+        }
+
+        .border-bot {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2)!important;
+        }
+
+        .info-pic img {
+            display: inline-block;
+        }
+
+        .vessel-chart p {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 3rem;
+            height: 1.4rem;
+            color: #7e7e8e;
+            margin-left: -1.5rem;
+            margin-top: -0.7rem;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden bg-back">
+<div id="content" class="bg1 " v-cloak="">
+    <div class="aui-content aui-padded-l-15 aui-padded-r-15 clearfix aui-padded-t-10">
+        <div class=" font-colo-w aui-padded-b-5 white aui-pull-left">
+            <div class="aui-info-item aui-font-size-14" >
+                {{handicap.new_price}}
+            </div>
+            <div class=" font-colo-w white aui-font-size-12 aui-padded-t-0">
+                <span class="aui-padded-r-15">{{handicap.ch_price}}</span><span>{{handicap.zd_rang}}</span>
+            </div>
+        </div>
+        <div class="aui-pull-right" @click="addItem(handicap)">
+            <!-- handicap.inSelf -->
+            <p class="info-pic aui-text-center">
+                <img src="../image/market/hq_4icon.png" v-if="handicap.inSelf==0" style="width: .8rem">
+                <img src="../image/market/hq_3icon.png" v-else style="width: .8rem">
+            </p>
+            <div class="font-colo-w aui-font-size-12">
+                <span v-if="handicap.inSelf==0">加自选</span>
+                <span v-else>删自选</span>
+            </div>
+        </div>
+    </div>
+    <div class="aui-tab aui-padded-l-15 aui-padded-r-15 bg2 back-bg2" id="timetab">
+        <div class="aui-tab-item" :class="{'aui-active':navType== 1}" tapmode @click="toggleNav(1)">分时</div>
+        <div class="aui-tab-item" :class="{'aui-active': navType==10}" tapmode @click="toggleNav(10)">五日</div>
+        <div class="aui-tab-item" :class="{'aui-active': navType== 2}" tapmode @click="toggleNav(2)">日</div>
+        <div class="aui-tab-item" :class="{'aui-active': navType== 3}" tapmode @click="toggleNav(3)">周</div>
+        <div class="aui-tab-item" :class="{'aui-active': navType== 4}" tapmode @click="toggleNav(4)">月</div>
+        <div class="aui-tab-item" :class="{'aui-active': navType== 5}" tapmode @click="toggleNav(5)">年</div>
+    </div>
+    <div style="height: 8rem;width: 100%;position:relative;" class="vessel-chart">
+        <div style="height: 8rem;" id="main"></div>
+        <div style="height: 8rem; display:none;" id="maink"></div>
+        <p v-show="isShow">暂无消息</p>
+    </div>
+    <div class="aui-content aui-margin-t-15 aui-margin-b-15 aui-padded-l-10 aui-padded-r-10">
+        <div class="aui-pull-left" style="width: 50%;border-right: 1px solid rgba(126,126,142,0.2)">
+            <ul class="aui-list" style="background-color: inherit">
+                <li class="aui-list-item" v-for="list in sale">
+                    <div class="aui-list-item-inner ">
+                        <div class="aui-list-item-title aui-font-size-12 aui-col-xs-5 aui-ellipsis-1">{{list.name}}
+                            <span class="aui-padded-l-5">{{list.price}}</span></div>
+                        <div class="aui-progress aui-progress-xxs aui-col-xs-4" style="height: 0.2rem">
+                            <div class="aui-progress-bar" :style="'width:'+list.percent"></div>
+                        </div>
+                        <div class="aui-list-item-right font-colo-gy aui-col-xs-3 aui-ellipsis-1 aui-padded-l-5">
+                            {{list.num}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="aui-pull-right" style="width: 50%;">
+            <ul class="aui-list" style="background-color: inherit">
+                <li class="aui-list-item" v-for="list in buy">
+                    <div class="aui-list-item-inner aui-padded-r-0 aui-padded-l-10">
+                        <div class="aui-list-item-title aui-font-size-12 aui-col-xs-5 aui-ellipsis-1">
+                            {{list.name}}<span class="aui-padded-l-5">{{list.price}}</span>
+                        </div>
+                        <div class="aui-progress aui-progress-xxs aui-col-xs-4 aui-ellipsis-1"
+                             style="height: 0.2rem">
+                            <div class="aui-progress-bar" :style="'width:'+list.percent"></div>
+                        </div>
+                        <div class="aui-list-item-right font-colo-gy aui-col-xs-3 aui-ellipsis-1 aui-padded-l-5">
+                            {{list.num}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="aui-content aui-margin-t-15 aui-margin-b-15">
+        <div class="aui-tab aui-margin-b-15 bg2 back-bg2" id="detailstab">
+            <div class="aui-tab-item aui-active" @click="tabCls(0)">盘口</div>
+            <div class="aui-tab-item" @click="tabCls(1)">公告</div>
+            <div class="aui-tab-item" @click="tabCls(2)">股东</div>
+        </div>
+        <div id="tabcontent" class="aui-padded-l-15 aui-padded-r-15">
+            <div class="aui-content tabcontent aui-active">
+                <div class="aui-pull-left" style="width:50%; border-right: 1px solid rgba(126,126,142,0.2)">
+                    <ul class="aui-list aui-padded-r-15" style="background-color: inherit">
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">开盘价</div>
+                            <div class="aui-list-item-right font-colo-r">{{handicap.open_price}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">涨跌幅</div>
+                            <div class="aui-list-item-right font-colo-r">{{handicap.zd_rang}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">成交均价</div>
+                            <div class="aui-list-item-right font-colo-r">{{handicap.avg_price}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">成交数量</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.today_deal_num}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">成交总额</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.today_total_price}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">成交总手</div>
+                            <div class="aui-list-item-right font-colo-r">{{handicap.today_total_num}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">成交最低价</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.low_price}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">成交最高价</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.high_price}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">委托最低价</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.min_price}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">委托最高价</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.max_price}}</div>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="aui-pull-right" style="width: 50%;">
+                    <ul class="aui-list aui-padded-l-15" style="background-color: inherit">
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">最新价</div>
+                            <div class="aui-list-item-right font-colo-r">{{handicap.new_price}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">换手率</div>
+                            <div class="aui-list-item-right font-colo-r">{{handicap.change_percent}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">委比</div>
+                            <div class="aui-list-item-right font-colo-r">{{handicap.delegate_percent}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">委差</div>
+                            <div class="aui-list-item-right font-colo-r">{{handicap.delegate_gap}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">量比</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.volume_ratio}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">总股本</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.stock_num}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">振幅</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.rang}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">内盘</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.in_handicap}}</div>
+                        </li>
+                        <li class="aui-list-item">
+                            <div class="aui-list-item-title">外盘</div>
+                            <div class="aui-list-item-right font-colo-w white">{{handicap.out_handicap}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="aui-content tabcontent">
+                <ul class="">
+                    <li v-for="item in stockNotice" @click="noticeInfo(item.id)">
+                        <div style="height: 2rem;line-height: 2rem;" class="clearfix border-bot">
+                            <p class="font-colo-gy aui-ellipsis-2 aui-pull-left">{{item.title}}</p>
+                            <p class="font-colo-gy aui-pull-right">{{item.addtime}}</p>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="aui-content tabcontent">
+                <div class="aui-content">
+                    <div class="aui-list" style="background-color: inherit">
+                        <div class="aui-list-item border-bot aui-padded-t-5">
+                            <div class="aui-list-item-inner font-colo-w white aui-font-size-14">股本</div>
+                        </div>
+
+                        <div class="aui-list-item">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title font-colo-gy aui-font-size-12">总股本</div>
+                                <div class="aui-list-item-right font-colo-r">27.39亿</div>
+                            </div>
+                        </div>
+                        <div class="aui-list-item aui-margin-t-10 border-bot aui-padded-b-5">
+                            <div class="aui-list-item-inner">
+                                <div class="aui-list-item-title font-colo-w white aui-font-size-14">机构持股</div>
+                                <div class="aui-list-item-right ">2017-08-30</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="aui-content font-colo-gy">
+                    <ul>
+                        <li style="height: 1.5rem;line-height: 1.5rem">
+                            <div class="aui-pull-left aui-font-size-12">股东名称</div>
+                            <div class="aui-pull-right" style="width: 50%">
+                                <span style="display: inline-block; width: 48%;text-align: center" class="aui-font-size-12"> 占比</span>
+                                <span style="display: inline-block; width: 48%;text-align: right" class="aui-font-size-12">变动</span>
+                            </div>
+                        </li>
+                        <li style="height: 1.5rem;line-height: 1.5rem" v-for="list in stockCompany">
+                            <div class="aui-pull-left aui-font-size-12 aui-ellipsis-1"  style="width: 50%">{{list.name}}</div>
+                            <div class="aui-pull-right" style="width: 50%">
+                                <span style="display: inline-block; width: 48%;text-align: center;color:#de3232 " class="aui-font-size-12">{{list.percent}}</span>
+                                <span style="display: inline-block; width: 48%;text-align: right" class="aui-font-size-12">未变</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/echarts.min.js"></script>
+<script type="text/javascript" src="../script/yltcrypt.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+  apiready = function () {
+    api.parseTapmode();
+    initVue(api.pageParam.id);
+
+    if (!api.pageParam.bg) {
+      $('html').addClass("bg-back");
+      $('body').addClass("bg-back");
+      $('#content').addClass("bg1");
+      $(".white").addClass('font-colo-w');
+      $(".back-bg2").addClass("bg2")
+    } else {
+      $('html').removeClass("bg-back");
+      $('body').removeClass("bg-back");
+      $('#content').removeClass("bg1");
+      $(".white").removeClass('font-colo-w');
+      $(".back-bg2").removeClass("bg2")
+
+    }
+
+  };
+
+  function initVue(stockid) {
+    var vm = new Vue({
+      el: '#content',
+      data: {
+        timeShare: {},
+        kChart: [],
+        navType: 0,
+        user: {},
+        openId: '',
+        buy: [],
+        buyTotal: 0,
+        sale: [],
+        saleTotal: 0,
+        handicap: {},
+        stockNotice: [],
+        stockCompany: [],
+        isShow: false
+      },
+      methods: {
+        /*显示图表数据*/
+        showChart: function (time, price) {
+            var minPriceLine = parseInt(price.min())-20;
+            minPriceLine = minPriceLine>0 ? minPriceLine : 0;
+          $('#main').show(), $('#maink').hide();
+          var myChart = echarts.init(document.getElementById('main'));
+          var option = {
+            backgroundColor: "#171b24",
+            animation: true,
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: {
+                animation: true,
+                type: 'cross',
+                lineStyle: {
+                  color: '#376df4',
+                  width: 2,
+                  opacity: 1
+                }
+              },
+              formatter: function (params) {
+                var res = params[0].name;
+                for (var i = params.length - 1; i >= 0; i--) {
+                  res += '<br/>' + params[i].seriesName;
+                  res += ' : ' + params[i].value;
+                }
+                return res;
+              }
+            },
+            grid: [{
+              top: 2,
+              left: 1,
+              right: 1,
+              height: '98%'
+            },],
+            xAxis: [{
+              type: 'category',
+              boundaryGap: false,
+              data: time,
+              axisLine: {
+                lineStyle: {
+                  color: '#ddd',
+                  opacity: 0.2
+                }
+              },
+              axisTick: {
+                show: false
+              },
+              axisLabel: {
+                show: false
+              },
+              // 控制网格线是否显示
+              splitLine: {
+                show: true,
+                //  改变轴线颜色
+                lineStyle: {
+                  // 使用深浅的间隔色
+                  color: '#ddd',
+                  opacity: 0.2
+                }
+              },
+            }],
+            yAxis: [{
+              type: 'value',
+              min: minPriceLine,
+              axisLine: {
+                lineStyle: {
+                  color: '#ddd',
+                  opacity: 0.2
+                }
+              },
+              axisTick: {
+                show: false
+              },
+              axisLabel: {
+                show: false
+              },
+              // 控制网格线是否显示
+              splitLine: {
+                show: true,
+                //  改变轴线颜色
+                lineStyle: {
+                  // 使用深浅的间隔色
+                  color: '#ddd',
+                  opacity: 0.2
+                }
+              }
+            }],
+            color: ['#fff'],
+            series: [{
+              name: '价格',
+              type: 'line',
+              stack: '总量',
+              smooth: true,
+              lineStyle: {
+                normal: {
+                  color: "#fff"
+                }
+              },
+              areaStyle: {
+                normal: {
+                  color: "#2d3645"
+                }
+              },
+              data: price,
+            }]
+          }
+          myChart.setOption(option);
+          this.isShow = time.length == 0;
+        },
+        showKChart: function (ret) {
+          $('#maink').show(), $('#main').hide();
+          //  ret = [["2017-12-28","14.00","14.00","14.00","14.00","104"],["2017-12-29","14.00","14.00","14.00","14.00","104"],["2017-12-30","14.00","14.00","14.00","14.00","104"],["2017-12-31","14.00","14.00","14.00","14.00","104"],["2018-01-01","14.00","14.00","14.00","14.00","104"],["2018-01-02","14.00","14.00","14.00","14.00","104"],["2018-01-03","13.80","15.00","15.00","13.00","56"],["2018-01-04","14.00","14.00","14.00","14.00","148"],["2018-01-05","14.00","14.00","14.00","14.00","3"],["2018-01-06","14.00","14.00","14.00","14.00","3"],["2018-01-07","14.00","14.00","14.00","14.00","3"],["2018-01-08","14.00","14.00","14.00","14.00","11"],["2018-01-09","14.00","14.00","14.00","14.00","10"],["2018-01-10","14.00","15.00","15.00","14.00","202"],["2018-01-11","15.00","15.00","15.60","15.00","78"],["2018-01-12","15.00","15.50","15.50","14.00","323"],["2018-01-13","15.00","15.50","15.50","14.00","323"],["2018-01-14","15.00","15.50","15.50","14.00","323"],["2018-01-15","15.00","15.50","15.50","14.00","323"]];
+          var data = this.splitLData(ret);
+          // 基于准备好的dom，初始化echarts实例
+          var myChart = echarts.init(document.getElementById('maink'));
+          myChart.setOption(option = {
+            backgroundColor: '#000',
+            animation: true,
+            tooltip: {
+              trigger: 'axis',
+              confine: true,
+              axisPointer: {
+                type: 'cross',
+                animation: false,
+                lineStyle: {
+                  color: '#fff',
+                  width: 2,
+                  opacity: 1
+                }
+              },
+              formatter: function (params) {
+                var res = params[0].name;
+                for (var i = params.length - 1; i >= 0; i--) {
+                  if (params[i].value instanceof Array) {
+                    res += '<br/>  开盘 : ' + params[i].value[1] + '  收盘 : ' + params[i].value[2] + '<br/>  最高 : ' + params[i].value[3] + '  最低 : ' + params[i].value[4];
+                  } else {
+                    res += '<br/>' + params[i].seriesName;
+                    res += ' : ' + params[i].value;
+                  }
+                }
+                return res;
+              }
+            },
+            grid: [{
+              top: 10,
+              left: 2,
+              right: 5,
+              height: '70%'
+            }, {
+              left: 2,
+              right: 5,
+              bottom: 2,
+              height: '15%'
+            }],
+            xAxis: [{
+              type: 'category',
+              data: data.categoryData,
+              scale: true,
+              boundaryGap: true,
+              axisLine: {
+                onZero: false
+              },
+              splitLine: {
+                show: false
+              },
+              axisTick: {
+                show: false
+              },
+              // 控制网格线是否显示
+              splitLine: {
+                show: true,
+                //  改变轴线颜色
+                lineStyle: {
+                  // 使用深浅的间隔色
+                  color: '#333',
+                  opacity: 0.5,
+                  type: 'dashed'
+                }
+              },
+              axisLabel: {
+                show: false
+              },
+            }, {
+              type: 'category',
+              gridIndex: 1,
+              data: data.categoryData,
+              scale: true,
+              boundaryGap: true,
+              axisLine: {
+                onZero: false
+              },
+              axisTick: {
+                show: false
+              },
+              splitLine: {
+                show: false
+              },
+              axisLabel: {
+                show: false
+              },
+            }],
+            yAxis: [{
+              type: 'value',
+              scale: true,
+              splitArea: {
+                show: false
+              },
+              axisTick: {
+                show: true,
+                inside: true
+              },
+              axisLabel: {
+                show: true,
+                inside: true
+              },
+              // 控制网格线是否显示
+              splitLine: {
+                show: true,
+                //  改变轴线颜色
+                lineStyle: {
+                  // 使用深浅的间隔色
+                  color: '#333',
+                  opacity: 0.5,
+                  type: 'dashed'
+                }
+              },
+            }, {
+              scale: true,
+              gridIndex: 1,
+              splitNumber: 2,
+              axisLabel: {
+                show: false
+              },
+              axisLine: {
+                show: false
+              },
+              axisTick: {
+                show: false
+              },
+              splitLine: {
+                show: false
+              }
+            }],
+            dataZoom: [{
+              type: 'inside',
+              xAxisIndex: [0, 1],
+              start: 0,
+              end: 100
+            }],
+            series: [{
+              name: 'K线',
+              type: 'candlestick',
+              data: data.values,
+              itemStyle: {
+                normal: {
+                  color: "#c12e34",
+                  color0: "#2b821d",
+                  borderColor: "#c12e34",
+                  borderColor0: "#2b821d",
+                  borderWidth: 1
+                }
+              }
+            }, {
+              name: 'MA5',
+              type: 'line',
+              data: this.calculateMA(5, data.values),
+              smooth: true,
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              }
+            }, {
+              name: 'MA10',
+              type: 'line',
+              data: this.calculateMA(10, data.values),
+              smooth: true,
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              }
+            }, {
+              name: 'MA20',
+              type: 'line',
+              data: this.calculateMA(20, data.values),
+              smooth: true,
+              lineStyle: {
+                normal: {
+                  width: 1
+                }
+              }
+            }, {
+              name: '成交量',
+              type: 'bar',
+              xAxisIndex: 1,
+              yAxisIndex: 1,
+              data: data.volumns
+            }]
+          }, true);
+          this.isShow = ret.length == 0;
+        },
+        splitLData: function (rawData) {
+          var categoryData = [];
+          var values = [];
+          var volumns = [];
+          for (var i = 0; i < rawData.length; i++) {
+            categoryData.push(rawData[i].splice(0, 1)[0]);
+            values.push(rawData[i]);
+            volumns.push(rawData[i][4]);
+          }
+          return {
+            categoryData: categoryData,
+            values: values,
+            volumns: volumns
+          };
+        },
+        calculateMA: function (dayCount, data) {
+          var result = [];
+          for (var i = 0, len = data.length; i < len; i++) {
+            if (i < dayCount) {
+              result.push('-');
+              continue;
+            }
+            var sum = 0;
+            for (var j = 0; j < dayCount; j++) {
+              sum += data[i - j][1] * 1;
+            }
+            result.push((sum / dayCount).toFixed(2));
+          }
+          return result;
+        },
+        /*切换nav*/
+        toggleNav: function (type) {
+          var self = this;
+          if (self.navType == type) {
+            return;
+          }
+          self.navType = type;
+          /*K线图返回*/
+          if (type > 1 && type < 10) {
+            apiAjax(PHP_SERVE_URL + '/trade/stockKline', {
+              'sid': stockid,
+              'type': type
+            }, function (res) {
+              if (res.code == 0) {
+                self.kChart = res.data;
+                //展示K线图
+                self.showKChart(self.kChart);
+              } else {
+                toast(res.msg);
+              }
+            });
+          } else {
+            /*分时图返回*/
+            apiAjax(PHP_SERVE_URL + '/trade/stockKline', {
+              'sid': stockid,
+              'type': type
+            }, function (res) {
+              if (res.code == 0) {
+                self.timeShare = res.data;
+                //展示分时图
+                self.showChart(self.timeShare['times'], self.timeShare['prices']);
+              } else {
+                toast(res.msg);
+              }
+            });
+          }
+        },
+        /*公告详情*/
+        noticeInfo: function (id) {
+          openWin('trading_market_announcement', {
+            'id': id
+          });
+        },
+        /*添加自选*/
+        addItem: function (handicap) {
+          var self = this;
+          if (handicap.inSelf == 0) {
+            apiAjax(PHP_SERVE_URL + '/trade/addSelfStock', {
+              'sid': stockid,
+              'openId': self.openId,
+              'token': yltcrypt.cpt(self.openId)
+            }, function (res) {
+              if (res.code == 0) {
+                api.sendEvent({
+                  name: 'refresh-selfstock'
+                });
+                handicap.inSelf = 1;
+                toast('已添加自选');
+              } else {
+                toast(res.msg);
+              }
+            });
+          } else {
+            api.ajax({
+              url: PHP_SERVE_URL + '/trade/delSelfStock',
+              method: 'post',
+              traditional: true,
+              data: {
+                values: {
+                  sidArr: [stockid],
+                  openId: self.openId,
+                  token: yltcrypt.cpt(self.openId)
+                }
+              }
+            }, function (res, err) {
+              if (res.code == 0) {
+                api.sendEvent({
+                  name: 'refresh-selfstock'
+                });
+                handicap.inSelf = 0;
+                toast('已取消自选');
+              } else {
+                toast(res.msg);
+              }
+            });
+          }
+        },
+        /*tab切换*/
+        tabCls: function (tag) {
+          var eFootLis = $api.domAll('#detailstab>div'),
+            ctList = $api.domAll('#tabcontent>div'),
+            index = 0;
+          for (var i = 0, len = eFootLis.length; i < len; i++) {
+            if (tag == i) {
+              index = i;
+            } else {
+              $api.removeCls(eFootLis[i], 'aui-active');
+              $api.removeCls(ctList[i], 'aui-active');
+            }
+          }
+          $api.addCls(eFootLis[index], 'aui-active');
+          $api.addCls(ctList[index], 'aui-active');
+        }
+      },
+      mounted: function () {
+        var self = this;
+        self.user = $api.getStorage('user');
+        api.sendEvent({
+          name: 'stockCode',
+          extra: {
+            sid: stockid
+          }
+        });
+        //检测是否登录
+        if (typeof self.user == "undefined") {
+          self.openId = "";
+        } else {
+          self.openId = self.user.openId;
+        }
+        // self.showChart();
+        self.toggleNav(1);
+
+        /*五档数据*/
+        apiAjax(PHP_SERVE_URL + '/trade/stockFiveData', {
+          'sid': stockid
+        }, function (res) {
+          if (res.code == 0) {
+            self.buy = res.buy;
+            self.sale = res.sale;
+            var total1 = 0,
+              total2 = 0,
+              len1 = res.buy.length,
+              len2 = res.sale.length;
+            for (var i = 0; i < len1; i++) {
+              total1 += res.buy[i]['num'];
+            }
+            for (var j = 0; j < len2; j++) {
+              total2 += res.sale[j]['num'];
+            }
+            for (i = 0; i < len1; i++) {
+              self.buy[i]['percent'] = ((self.buy[i]['num'] / total1) * 100).toFixed(2) + '%';
+            }
+            for (j = 0; j < len2; j++) {
+              self.sale[j]['percent'] = ((self.sale[j]['num'] / total2) * 100).toFixed(2) + '%';
+            }
+            // echo(self.buy);
+          } else {
+            toast(res.msg);
+          }
+        });
+        /*盘口数据*/
+        apiAjax(PHP_SERVE_URL + '/trade/stockHandicap', {
+          'sid': stockid,
+          'openId': self.openId
+        }, function (res) {
+          if (res.code == 0) {
+            self.handicap = res.data;
+
+          } else {
+            toast(res.msg);
+          }
+        });
+
+        /*获取股东列表*/
+        apiAjax(PHP_SERVE_URL + '/trade/stockCompany', {
+          'sid': stockid
+        }, function (res) {
+          if (res.code == 0) {
+            self.stockCompany = res.data;
+          } else {
+            toast(res.msg);
+          }
+        });
+        /*获取股票公告*/
+        apiAjax(PHP_SERVE_URL + '/trade/stockNotice', {
+          'sid': stockid
+        }, function (res) {
+          if (res.code == 0) {
+            self.stockNotice = res.data;
+          } else {
+            toast(res.msg);
+          }
+        });
+
+      }
+    });
+  }
+</script>
+
+</html>

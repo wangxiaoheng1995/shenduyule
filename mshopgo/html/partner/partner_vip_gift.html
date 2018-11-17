@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+  <title>尊享礼包</title>
+  <link rel="stylesheet" href="../../css/aui/aui.css">
+  <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+  <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+  <link rel="stylesheet" href="../../css/base.css">
+</head>
+<style>
+  .color-white {
+    color: #fff;
+  }
+
+  .wui-bg-pink {
+    background: #FE5095;
+  }
+
+  .aui-bar-nav {
+    position: fixed;
+  }
+
+  .content {
+    padding-top: 2rem;
+  }
+
+  .vip-gift-list .aui-list-item-media {
+    width: 8.5rem;
+  }
+
+  .font-size-9 {
+    font-size: .45rem !important;
+  }
+
+  .cart-bg-fff {
+    background-color: #fff !important;
+  }
+
+  .relative {
+    position: relative;
+  }
+
+  .bottom-15 {
+    bottom: .15rem;
+  }
+
+  .btn-geted {
+    background: url("../../image/partner/btn_current_bg.png") no-repeat 0 0 / 100% 100%;
+    width: 3rem;
+    height: 1.25rem;
+    display: inline-block;
+    line-height: 1.25rem;
+  }
+
+  .btn-unget {
+    background: url("../../image/partner/btn_bg.png") no-repeat 0 0 / 100% 100%;
+    width: 3rem;
+    height: 1.25rem;
+    display: inline-block;
+    line-height: 1.25rem;
+  }
+  .btn-pink-to-bpink{
+    display: inline-block;
+    width: 4.7rem;
+    height: 1.75rem;
+    line-height: 1.75rem;
+    background: linear-gradient(to bottom,#D8085B 0,#FE5095 100%);
+    border-radius: 5px;
+    font-size:10px;
+    color: #fff!important;
+    margin-top: .7rem;
+  }
+  .wui-list .aui-list-item-media {
+    position: relative;
+    padding: 0.5rem 0;
+    padding-right: 0.75rem;
+    display: inherit;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-align: center;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+  }
+  .wui-list .aui-list-item{
+    margin:0 .75rem;
+    margin-top: .5rem;
+  }
+  .wui-list .aui-list-item .aui-list-item-inner{
+    padding-top: 1.25rem;
+    color:#666;
+  }
+  .wui-list .aui-list-item .aui-list-item-inner>div{
+    margin-top: .1rem;
+  }
+  [v-cloak]{
+    display:none;
+  }
+</style>
+
+<body class="cart-bg-fff">
+<div id="content" v-cloak>
+<!-- header -->
+<header class="aui-bar aui-bar-nav tit-bar-black wui-bg-pink color-white" id="header">
+  <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+    <span class="aui-iconfont aui-icon-left"></span>
+  </a>
+  <div class="aui-title">尊享礼包</div>
+</header>
+<div class="main back-write aui-padded-b-15">
+  <div class="content">
+    <!--顶部图片-->
+    <div>
+      <img src="../../image/partner/vip_gift_top.png" width="100%" alt="">
+    </div>
+    <div class="aui-text-center">
+      <p class="color-pink aui-font-size-12 aui-margin-t-10">每个账号只能领取一份</p>
+      <p class="color-pink aui-font-size-12 aui-margin-t-10">您的当前身份为{{userLevel}}</p>
+      <div  class="clearfix" style="margin:1rem 4.5rem;">
+        <span class="btn-geted aui-font-size-10 color-white aui-pull-left" id="receive" @click="receiveGo()">立即领取</span>
+        <a class="btn-unget aui-font-size-10 color-white aui-pull-right" onclick="window.location.href='./partner_upgrade.html'">升级掌柜</a>
+
+      </div>
+    </div>
+    <ul class="wui-list aui-media-list vip-gift-list border-no aui-margin-t-15">
+      <li class="aui-list-item border-no" onclick="window.location.href='./partner_vipGift_list.html'">
+        <p class="color-black aui-font-size-16">普通掌柜 <span class="color-pink font-size-9 relative bottom-15">（缴纳押金 1-3000元）</span>
+        </p>
+        <div class="aui-media-list-item-inner">
+          <div class="aui-list-item-media">
+            <img src="../../image/partner/vip_gift_level1.png">
+          </div>
+          <div class="aui-list-item-inner aui-margin-t-5">
+            <div class="aui-list-item-text font-size-9">1，赠送优酷会员三个月，海量电影免费看</div>
+            <div class="aui-list-item-text font-size-9">2，赠送移动流量1个G，逛网站无畅通！</div>
+            <div class="aui-list-item-text font-size-9">3，10元通用红包，随便买！！</div>
+          </div>
+        </div>
+      </li>
+      <li class="aui-list-item border-no" onclick="window.location.href='./partner_vipGift_list.html'">
+        <p class="color-black aui-font-size-16">白银掌柜 <span class="color-pink font-size-9 relative bottom-15">（缴纳押金 3000-5000元）</span>
+        </p>
+        <div class="aui-media-list-item-inner">
+          <div class="aui-list-item-media">
+            <img src="../../image/partner/vip_gift_level2.png">
+          </div>
+          <div class="aui-list-item-inner aui-margin-t-5">
+            <div class="aui-list-item-text font-size-9">1，赠送优酷会员三个月，海量电影免费看</div>
+            <div class="aui-list-item-text font-size-9">2，赠送移动流量1个G，逛网站无畅通！</div>
+            <div class="aui-list-item-text font-size-9">3，10元通用红包，随便买！！</div>
+          </div>
+        </div>
+      </li>
+      <li class="aui-list-item border-no" onclick="window.location.href='./partner_vipGift_list.html'">
+        <p class="color-black aui-font-size-16">黄金掌柜 <span class="color-pink font-size-9 relative bottom-15">（缴纳押金 5000-10000元）</span>
+        </p>
+        <div class="aui-media-list-item-inner">
+          <div class="aui-list-item-media">
+            <img src="../../image/partner/vip_gift_level3.png">
+          </div>
+          <div class="aui-list-item-inner aui-margin-t-5">
+            <div class="aui-list-item-text font-size-9">1，赠送优酷会员三个月，海量电影免费看</div>
+            <div class="aui-list-item-text font-size-9">2，赠送移动流量1个G，逛网站无畅通！</div>
+            <div class="aui-list-item-text font-size-9">3，10元通用红包，随便买！！</div>
+          </div>
+        </div>
+      </li>
+      <li class="aui-list-item border-no" onclick="window.location.href='./partner_vipGift_list.html'">
+        <p class="color-black aui-font-size-16">铂金掌柜 <span class="color-pink font-size-9 relative bottom-15">（缴纳押金 10000-50000元）</span>
+        </p>
+        <div class="aui-media-list-item-inner">
+          <div class="aui-list-item-media">
+            <img src="../../image/partner/vip_gift_level4.png">
+          </div>
+          <div class="aui-list-item-inner aui-margin-t-5">
+            <div class="aui-list-item-text font-size-9">1，赠送优酷会员三个月，海量电影免费看</div>
+            <div class="aui-list-item-text font-size-9">2，赠送移动流量1个G，逛网站无畅通！</div>
+            <div class="aui-list-item-text font-size-9">3，10元通用红包，随便买！！</div>
+          </div>
+        </div>
+      </li>
+      <li class="aui-list-item border-no" onclick="window.location.href='./partner_vipGift_list.html'">
+        <p class="color-black aui-font-size-16">黑金掌柜 <span class="color-pink font-size-9 relative bottom-15">（缴纳押金 50000-20000元）</span>
+        </p>
+        <div class="aui-media-list-item-inner">
+          <div class="aui-list-item-media">
+            <img src="../../image/partner/vip_gift_level5.png">
+          </div>
+          <div class="aui-list-item-inner aui-margin-t-5">
+            <div class="aui-list-item-text font-size-9">1，赠送优酷会员三个月，海量电影免费看</div>
+            <div class="aui-list-item-text font-size-9">2，赠送移动流量1个G，逛网站无畅通！</div>
+            <div class="aui-list-item-text font-size-9">3，10元通用红包，随便买！！</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <!--<p class="font-size-9 aui-text-center color-gray9 back-write aui-margin-t-15">更多优惠，等你来拿！</p>-->
+    <!--<div class="aui-text-center">-->
+      <!--<a class="btn-pink-to-bpink" href="###">我要当掌柜</a>-->
+    <!--</div>-->
+  </div>
+</div>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+var user,level
+var toast = new auiToast({
+    })
+  user = $api.getStorage('user');
+  new Vue({
+    el:'#content',
+    data:{
+      giftList:'',
+      userLevel:'',
+      bossLevel:'',
+    },
+    methods:{
+      getGifyList(){
+        var self = this
+        $.ajax({
+          url:PHP_SERVE_URL + '/Gift/getPrivilegeGiftByLevel',
+          type:'post',
+          data:{
+              level:user.partnerLevel,
+              openId:user.openId
+          },
+          success:function(ret,err){
+          if(ret.code==0){
+            self.giftList = ret.data
+          }else{
+          toast.success({
+            title:ret.msg,
+          });
+          }
+        }
+        })
+      },
+      receiveGo(){
+        var self = this
+        if($api.text($api.byId('receive'))=='立即领取'){
+          // $a.openWin('./partner_address',{
+          //   type:1
+          // })
+          window.location.href="./partner_address.html?type="+1
+
+          // api.ajax({
+          //   url:PHP_SERVE_URL + '/GiftController/birthdayGiftOrder',
+          //   type:1,
+          //   sku_userget_json:{
+          //
+          //   }
+          // },function(ret,err){
+          //
+          // })
+        }else{
+          toast.fail({
+            title:"您已经领取过礼包",
+          });
+        }
+      },
+      //boos是否领取
+      receiveGift(){
+        var self = this
+        $.ajax({
+          url:PHP_SERVE_URL + '/gift/getReceiveStatusAndLevel',
+          type:'post',
+          data:{
+              openId:user.openId
+          },
+          success:function(ret,err){
+           if(ret.code==0){
+             $api.text($api.byId('receive'),'立即领取')
+             toast.success({
+                title:ret.msg,
+              });
+             self.bossLevel = ret.level
+           }else{
+             $api.text($api.byId('receive'),'已领取')
+             toast.fail({
+              title:ret.msg,
+            });
+           }
+        }
+        })
+      }
+    },
+    mounted:function(){
+      var self = this
+      // self.getGifyList();
+      self.receiveGift()
+      if (user.partnerLevel>0) {
+          self.userLevel = "普通掌柜";
+          if (user.partnerLevel == 1) {
+          self.userLevel = "普通掌柜";
+        } else if (user.partnerLevel == 2) {
+          self.userLevel = "白银掌柜";
+        } else if (user.partnerLevel == 3) {
+          self.userLevel = "黄金掌柜";
+        } else if (user.partnerLevel == 4) {
+          self.userLevel = "铂金掌柜";
+        }else if (user.partnerLevel == 5) {
+          self.userLevel = "黑金掌柜";
+        }
+      }
+    }
+  })
+
+</script>
+</body>
+
+</html>

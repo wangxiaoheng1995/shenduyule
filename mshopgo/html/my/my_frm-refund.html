@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>退款/退货</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style type="text/css">
+        .aui-bar-nav {
+            position: fixed;
+        }
+
+        .aui-list .aui-list-item-right, .aui-list-item-title-row em {
+            max-width: 69%;
+            position: relative;
+            font-size: 0.6rem;
+            color: #757575;
+            margin-left: 0.25rem;
+        }
+
+        .aui-list-item-right {
+            width: 70% !important;
+        }
+
+        .back-color {
+            background: #ff5096;
+            width: 80%;
+            margin: 0 auto;
+            border-radius: 2rem;
+            color: #fff;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            font-size: 1rem;
+
+        }
+
+        .aui-bar {
+            border-bottom: 1px solid #ddd;
+        }
+
+        #refundBtn {
+            margin-top: 7rem !important;
+        }
+
+        .commentImg, #addImg {
+            margin: 0.5rem auto;
+            width: 3rem;
+            height: 3rem;
+            margin-right: 0.4rem;
+        }
+
+        .icon-close {
+            position: absolute;
+            right: -0.3rem;
+            top: 0;
+            width: 1rem;
+            z-index: 9999999;
+            padding: 0 !important;
+        }
+
+        .aui-col-5 {
+            margin-right: 5%;
+            width: 36%;
+        }
+
+        .aui-list .aui-list-item:active {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body id="body">
+<!--头部-->
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="api.closeWin();">
+        <i class="aui-iconfont aui-icon-left"></i>
+    </a>
+    <div class="aui-title">
+        退款/退货
+    </div>
+</header>
+<div style="height: 3rem;"></div>
+<div class="aui-content">
+    <div class="aui-list">
+        <div class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    退款类型
+                </div>
+                <div class="aui-list-item-right aui-text-left aui-font-size-16">
+                    <select class="aui-select-list" id="backtype">
+                        <option value="1">退款</option>
+                        <option value="2">退货退款</option>
+                        <!--<option value="3">换货</option>-->
+                        <!--<option value="4">维修</option>-->
+                        <!--<option value="5">客服介入</option>-->
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    退款原因
+                </div>
+                <div class="aui-list-item-right">
+                    <select class="aui-select-list" id="backreaseontype">
+                        <option value="1">拍多/拍错/不喜欢/不想要</option>
+                        <option value="2">卖家未发货</option>
+                        <option value="3">缺货</option>
+                        <option value="4">协商一致退款</option>
+                        <option value="5">其他原因</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    退货说明
+                </div>
+                <div class="aui-list-item-right">
+                    <input type="text" name="申请说明" class="redund-select" placeholder="退货说明" id="info">
+                </div>
+            </div>
+        </div>
+        <div class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    凭证
+                </div>
+                <div class="aui-list-item-right aui-padded-10">
+                    <div class="aui-row aui-row-padded imgs">
+                        <div class="aui-col-5" onclick="openactionsheet(this);">
+                            <img src="../../image/my/yjfk_ph.png" id="addImg"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="aui-content aui-margin-t-15">
+        <div class="aui-btn aui-btn-block back-color" id="refundBtn">提交</div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/res/layer/layer.js"></script>
+<script>
+    var oid;
+    var user;
+    var pic = [];
+    var values;
+    apiready = function () {
+        oid = api.pageParam.oid;
+        // user = $api.getStorage('user');
+        user = $api.getStorage('user')
+        $("#refundBtn").click(function () {
+            var backtype = $('#backtype').val();
+            var backreaseontype = $("#backreaseontype").val();
+            var info = $('#info').val();
+            if (info == "") {
+                $a.toast("请输入退货说明");
+                $("#info").focus();
+            } else {
+                values = {
+                    openId: user.openId,
+                    oid: oid,
+                    backtype: backtype,
+                    backreaseontype: backreaseontype,
+                    info: info,
+                    pic: []
+                };
+                var imgLen = $(".commentImg").length;
+                if (imgLen > 0) {
+                    uploadPic();
+                } else {
+                    submit();
+                }
+            }
+        })
+    }
+    //提交申请
+    function submit() {
+        api.showProgress({
+            msg:'',
+            modal:false
+        })
+        api.ajax({
+            url: PHP_SERVE_URL + "/order/applyService",
+            method: 'post',
+            data: {
+                values: values
+            },
+            success:function(res){
+                  api.hideProgress();
+                  if (res.code == 0) {
+                      api.sendEvent({
+                          name: 'reload-refundlist'
+                      });
+                      setTimeout(function () {
+                          api.closeWin();
+                      }, 1000);
+                  } else {
+                    toast.loading({
+                      title:ret.msg,
+                      duration:2000
+                  },function(ret){
+                      console.log(ret);
+                      setTimeout(function(){
+                          toast.hide();
+                      }, 3000)
+                    })
+                      // $a.toast(res.msg);
+                  }
+            }
+        })
+    }
+    //上传图片
+    function uploadPic() {
+        var imgs = [];
+        $(".commentImg").map(function () {
+            imgs.push($(this).attr("src"));
+        });
+        var compactPicture = api.require('compactPicture');
+        compactPicture.HittingPic({
+            picpatharray: imgs,
+            size: 10
+        }, function (res) {
+            if (res) {
+                var images = {};
+                $.each(res.states, function (index, item) {
+                    var key = 'file' + index;
+                    images[key] = item;
+                })
+                $.ajax({
+                    url: PHP_SERVE_URL + "/uploadImg/index",
+                    method: 'post',
+                    timeout: 120,//超时时间
+                    data: {
+                        files: images
+                    },
+                    success:function(ret,res){
+                       if (ret.code == 0) {
+                           if (imgs.length == ret.data.length) {
+                               values.pic = ret.data;
+                               submit();
+                           }else{
+                              toast.fail({title:"图片上传失败",duration:2000})
+                              //  $a.toast("图片上传失败");
+                           }
+                       }else{
+                           toast.fail({title:ret.msg,duration:2000})
+                          //  $a.toast(ret.msg);
+                       }
+                    }
+                })
+            }
+        });
+    }
+    //增加图片
+    function openactionsheet(that) {
+        var self = $(that);
+        api.actionSheet({
+            title: "",
+            cancelTitle: '取消',
+            buttons: ['拍摄', '从相册选择'],
+            style: {
+                fontNormalColor: '#484848',
+            }
+        }, function (ret) {
+            if (ret) {
+                if (ret.buttonIndex == 1) {
+                    //获取一张图片
+                    api.getPicture({
+                        sourceType: 'camera',
+                        encodingType: 'png',
+                        mediaValue: 'pic',
+                        allowEdit: false,
+                        quality: 100,
+                        saveToPhotoAlbum: true
+                    }, function (ret, err) {
+                        if (ret) {
+                            var imgSrc = ret.data;
+                            if (imgSrc != "") {
+                                self.before('<div class="aui-col-5"> <img class="commentImg" src="' + imgSrc + '"/><img src="../../image/my/icon-close.png" class="icon-close" onclick="removePhoto(this)"/></div>');
+                            }
+                        }
+                    });
+                }
+                if (ret.buttonIndex == 2) {
+                    // 从相机中选择
+                    //UIMediaScanner 是一个多媒体扫描器，可扫描系统的图片、视频等多媒体资源
+                    var obj = api.require('UIMediaScanner');
+                    obj.open({
+                        //返回的资源种类,picture（图片）,video（视频）,all（图片和视频）
+                        type: 'picture',
+                        //（可选项）图片显示的列数，须大于1
+                        column: 4,
+                        max: 4,
+                        //（可选项）图片排序方式,asc（旧->新）,desc（新->旧）
+                        sort: {
+                            key: 'time',
+                            order: 'desc'
+                        },
+                        //（可选项）模块各部分的文字内容
+                        texts: {
+                            stateText: '已选择*项',
+                            cancelText: '取消',
+                            finishText: '完成'
+                        },
+                        exchange: true,
+                        styles: {
+                            bg: '#fff',
+                            mark: {
+                                icon: '',
+                                position: 'bottom_right',
+                                size: 20
+                            },
+                            nav: {
+                                bg: '#eee',
+                                stateColor: '#000',
+                                stateSize: 18,
+                                cancleBg: 'rgba(0,0,0,0)',
+                                cancelColor: '#000',
+                                cancelSize: 18,
+                                finishBg: 'rgba(0,0,0,0)',
+                                finishColor: '#000',
+                                finishSize: 18
+                            }
+                        }
+                    }, function (ret) {
+                        if (ret) {
+                            if (getJsonObjLength(ret.list) != 0) {
+                                if (ret.list.length != 0) {
+                                    $.each(ret.list, function (index, item) {
+                                        self.before('<div class="aui-col-5"> <img class="commentImg" src="' + item.path + '"/><img src="../../image/my/icon-close.png" class="icon-close" onclick="removePhoto(this)"/></div>');
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    function getJsonObjLength(jsonObj) {
+        var Length = 0;
+        for (var item in jsonObj) {
+            Length++;
+        }
+        return Length;
+    }
+
+    //删除
+    function removePhoto(that) {
+        $(that).parent('.aui-col-5').remove();
+    }
+</script>
+</html>

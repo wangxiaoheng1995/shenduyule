@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>附近店铺</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/viewer.css" />
+</head>
+<style>
+    .aui-tab-item.aui-active {
+        color: deeppink;
+        border-bottom: 2px solid deeppink;
+    }
+    .shop-img img{
+        height: 5.5rem;
+    }
+    .disno{
+        display: none;
+    }
+</style>
+
+<body>
+  <div id="content">
+      <!-- 顶部 -->
+      <header class="header-nav aui-bar aui-bar-nav tit-bar-black back-write border-bot">
+          <a class="aui-pull-left aui-btn" onclick="history.back()">
+              <span class="aui-iconfont aui-icon-left color-gray9"></span>
+          </a>
+          <div class="aui-title color-black">{{shopName}}</div>
+      </header>
+      <section class="aui-content" style="padding-top:2rem;">
+          <div class="aui-tab" id="tab">
+              <div class="aui-tab-item aui-active">其他({{datas.length}})</div>
+              <div class="aui-tab-item">全部({{datas.length}})</div>
+          </div>
+      </section>
+      <div class="aui-grid aui-margin-b-15">
+          <div class="aui-row aui-padded-5 img-grid" id="imgs1">
+              <div class="aui-col-xs-4 aui-padded-5 shop-img" v-for="(v,i) in datas">
+                  <img :src="v.pic" alt="">
+              </div>
+          </div>
+          <div class="aui-row aui-padded-5 img-grid disno" id="imgs2">
+              <div class="aui-col-xs-4 aui-padded-5 shop-img" v-for="(v,i) in datas">
+                  <img :src="v.pic" alt="">
+              </div>
+          </div>
+      </div>
+  </div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/aui/aui-tab.js"></script>
+<script src="../../script/viewer.js"></script>
+<script src="../../script/H5_public.js"></script>
+<script>
+    var pageParam=H5.pageParam();
+    var vm = new Vue({
+        el: "#content",
+        data: {
+            datas: [],
+            shopName:""
+        },
+        methods: {
+            getImgDatas: function() {
+                var _self = this;
+                $.ajax({
+                    url: PHP_SERVE_URL + '/shop/getShopPic',
+                    type: 'post',
+                    data: {
+                        shop_id:pageParam.shop_id
+                    },
+                    success: function(ret, err) {
+                        console.log(ret)
+                        if (ret.code == 0) {
+                            _self.datas=ret.data;
+                            setTimeout(pageInit,300)
+                        } else {
+                            toast.fail({title:ret.msg,duration:2000});
+                        }
+                    }
+                });
+            },
+            getShopDatas: function() {
+                var _self = this;
+                $.ajax({
+                    url: PHP_SERVE_URL + '/shop/getGoodsListShopInfo',
+                    type: 'post',
+                    data: {
+                        shop_id:pageParam.shop_id
+                    },
+                    success: function(ret, err) {
+                        if (ret.code == 0) {
+                            _self.shopName=ret.data.shop_name;
+                        } else {
+                            toast.fail({title:ret.msg,duration:2000});
+                        }
+                    }
+                });
+            },
+        },
+        mounted: function() {
+            var _self = this;
+            //页面初始化时加载一次数据
+            _self.getImgDatas();
+            _self.getShopDatas();
+        }
+    });
+
+    function pageInit() {
+        var imgGrid=$(".img-grid");
+        var tab = new auiTab({
+            element:document.getElementById("tab"),
+            index:1,
+            repeatClick:false
+        },function(ret){
+            imgGrid.hide();
+            imgGrid.eq(ret.index-1).show();
+        });
+        $('#imgs1').viewer();
+        $('#imgs2').viewer();
+    }
+
+</script>
+</html>

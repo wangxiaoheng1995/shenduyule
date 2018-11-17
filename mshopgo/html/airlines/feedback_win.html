@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>评论反馈</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+    body,
+    html {
+        background: #f5f5f5 !important;
+    }
+
+    .aui-list .aui-list-item-label {
+        width: 10%;
+    }
+
+    .aui-list .aui-list-item-label img {
+        width: 1rem;
+    }
+    /*输入框预输入字体颜色*/
+
+    input::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #999;
+    }
+
+    input:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #999;
+    }
+
+    input::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #999;
+    }
+
+    input:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #999;
+    }
+    /*默认同意协议*/
+
+    header.aui-bar-nav {
+        background-color: #FFFFFF;
+        border-bottom: #F5F5F5 solid 1px;
+    }
+
+    footer {
+        background-color: #FFFFFF;
+        border-top: #F5F5F5 solid 1px;
+    }
+
+    .aui-title {
+        color: #333333;
+    }
+
+    .aui-bar-nav .aui-btn .aui-iconfont {
+        color: #999999;
+    }
+
+    .aui-bar-tab-item i {
+        background-size: 100% 100%;
+        width: 1rem;
+        height: 1rem;
+        display: inline-block;
+    }
+
+    .item-body {
+        background-color: #fff;
+    }
+
+    .item-list {
+        height: 4.5rem;
+        margin-left: 0.5rem;
+        padding: 0.8rem;
+    }
+
+    .item-list>i {
+        width: 3rem;
+        height: 3rem;
+        float: left;
+        margin-right: 0.5rem;
+        background-size: 100% 100%;
+    }
+
+    .item-list>p:nth-of-type(1) {
+        font-size: 0.8rem;
+        color: #333333;
+        margin-bottom: 0.2rem;
+        margin-top: 0.3rem;
+    }
+
+    .item-list>p:nth-of-type(2) {
+        font-size: 0.65rem;
+        color: #999999;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- header -->
+    <header class="aui-bar aui-bar-nav" id="header">
+        <div class="aui-pull-left aui-btn" onclick="api.closeWin()" tapmode>
+            <span class="aui-iconfont aui-icon-left"></span>
+        </div>
+        <div class="aui-title">评论反馈</div>
+    </header>
+    <!--
+            frame的打开位置
+        -->
+    <div>
+        <p style="color: #999999;margin: 0.5rem 1rem;font-size: 0.7rem;">想倾听您的声音</p>
+        <div class="item-body">
+            <div class="item-list" style="border-bottom: 1px solid #f5f5f5;">
+                <i style="background-image: url(../../image/airline/kf_08_icon.png);"></i>
+                <p>评论我们的服务</p>
+                <p>我们的服务让您满意吗？</p>
+            </div>
+            <div class="item-list" onclick="openOpinionWin()">
+                <i style="background-image: url(../../image/airline/kf_07_icon.png);"></i>
+                <p>意见反馈</p>
+                <p>您的建议是我们前进的动力</p>
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item" tapmode onclick="openQuesWin()">
+            <i style="background-image: url('../../image/airline/kf_04_icon.png');"></i>
+            <div class="aui-bar-tab-label">猜你想问</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode onclick="openConsultWin()">
+            <i style="background-image: url('../../image/airline/kf_05_icon.png');"></i>
+            <div class="aui-bar-tab-label">咨询客服</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode onclick="openFeedbackWin()">
+            <i style="background-image: url('../../image/airline/kf_03_icon.png');"></i>
+            <div class="aui-bar-tab-label">评论反馈</div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/zepto.min.js"></script>
+    <script src="../../script/sqlite_db.js"></script>
+    <script type="text/javascript">
+    apiready = function() {
+        var header = $api.byId('header');
+        var headerH = $api.offset(header).h;
+    };
+
+    function openQuesWin() {
+        api.openWin({
+            name: 'question_win',
+            url: './question_win.html'
+        });
+    }
+
+    function openConsultWin() {
+        api.openWin({
+            name: 'consult_win',
+            url: './consult_win.html'
+        });
+    }
+
+    function openFeedbackWin() {
+        api.openWin({
+            name: 'feedback_win',
+            url: './feedback_win.html'
+        });
+    }
+
+    function openOpinionWin() {
+        api.openWin({
+            name: 'opinion',
+            url: './opinion_win.html'
+        });
+    }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易-撤单</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        /*最底背景：黑色*/
+        .bg1 {
+            background-color: #171b24;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*买入*/
+        .aui-grid .aui-col-xs-3 {
+            color: #ffffff;
+        }
+
+        .aui-grid li {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-3, .aui-grid .aui-col-xs-3:active {
+            padding: 0;
+        }
+
+        .aui-grid .aui-col-xs-3:active {
+            background-color: #de3232;
+        }
+
+        .aui-grid .aui-col-xs-4 {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-4 p {
+            font-weight: 700;
+
+        }
+
+        /*撤单*/
+        #revoke .aui-grid .aui-col-xs-3 {
+            font-weight: inherit;
+        }
+
+        #revoke .aui-grid .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+        }
+
+        #revoke .aui-grid .aui-col-xs-3 .revoke {
+            border: 1px solid #de3232;
+            border-radius: 0.1rem;
+            color: #de3232;
+            margin: 0 auto;
+            width: 2.5rem;
+        }
+
+        #revoke ul li,
+        .aui-content .border{
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #revoke .aui-grid {
+            background-color: inherit;
+        }
+
+        .revoke-grid {
+            background-color: inherit;
+            color: #7e7e8e;
+            font-size: 0.1rem
+        }
+
+        .aui-content .back-active:active {
+            background-color: rgba(126, 126, 142, 0.2);
+        }
+
+        .aui-content .on-active:active {
+            background-color: inherit !important;
+        }
+
+        [v-cloak] {
+            display: none
+        }
+    </style>
+</head>
+<body class="bg1">
+<!--撤单-->
+<div class="aui-content tabcontent " id="revoke">
+    <div class="aui-grid revoke-grid border">
+        <div class="aui-row aui-font-size-14">
+            <div class="aui-col-xs-4 on-active" style="width: 30%">买卖方向</div>
+            <div class="aui-col-xs-4 on-active" style="width: 30%">股票名称</div>
+            <div class="aui-col-xs-4 on-active" style="width: 40%">委托价/委托数/成交数</div>
+        </div>
+    </div>
+
+    <ul class="aui-grid">
+        <li class="aui-row" v-for="item in list" v-cloak :sid="item.sid">
+            <div class="aui-col-xs-3 on-active">
+                <div class="aui-grid-label" v-if="item.type==1">买入</div>
+                <div class="aui-grid-label" v-else>卖出</div>
+                <p>{{item.addtime}}</p>
+            </div>
+            <div class="aui-col-xs-3 on-active">
+                <div class="aui-grid-label">{{item.sname}}</div>
+                <p>{{item.sno}}</p>
+            </div>
+            <div class="aui-col-xs-3 on-active">
+                <div class="aui-grid-label">{{item.delegatePrice}}</div>
+                <p>{{item.delegateNum}} | {{item.dealNum}}</p>
+            </div>
+            <div class="aui-col-xs-3 on-active">
+                <div class="aui-grid-label aui-font-size-12 font-colo-gy aui-margin-t-10 ">已报</div>
+            </div>
+        </li>
+
+    </ul>
+</div>
+<script src="../script/yltcrypt.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+  var user;
+  apiready = function () {
+    user = $api.getStorage('user');
+    //监听撤单
+    api.addEventListener({
+      name: 'refresh-revoke'
+    }, function(ret, err) {
+      location.reload();
+    });
+    vm = new Vue({
+      el: '#revoke',
+      data: {
+        list: '',
+      },
+      methods: {},
+      created: function () {
+        var self = this;
+        apiAjax(PHP_SERVE_URL + '/trade/cancleList',
+          {
+            openId: user.openId,
+            token: yltcrypt.cpt(user.openId)
+          },
+          function (ret, err) {
+            // console.log(JSON.stringify(ret));
+            if (!ret.code) {
+              self.list = ret.data;
+            }
+          }
+        )
+      }
+    })
+  }
+</script>
+</body>
+</html>

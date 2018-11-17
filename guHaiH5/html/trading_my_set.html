@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+        /*头部*/
+
+        .aui-bar {
+            background-color: #de3232;
+        }
+        /*内容*/
+
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+        /*清除下划线*/
+
+        .aui-list,
+        .aui-list .aui-list-item-title,
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inner,
+        .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+        /*清除内边距*/
+
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inne,
+        .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+        /* 点击按钮*/
+
+        .aui-btn-success,
+        .aui-btn-success.aui-active,
+        .aui-btn-success:active {
+            background: #de3232;
+        }
+
+        .aui-btn-block.aui-btn-sm {
+            font-size: 1rem;
+            height: 2.3rem;
+            line-height: 2.3rem;
+        }
+
+        .aui-list .aui-list-item {
+            padding-bottom: 0.2rem;
+            border-bottom: 1px solid #f6f6f6;
+        }
+
+        .aui-list .aui-list-item:last-child {
+            border: none;
+        }
+
+        .setting {
+            padding-right: 0.6rem;
+            position: relative;
+        }
+
+        .setting:before {
+            content: '';
+            width: 0.4rem;
+            height: 0.4rem;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -0.2rem;
+            background: transparent;
+            border: 1px solid #dddddd;
+            border-top: none;
+            border-right: none;
+            z-index: 2;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            -webkit-transform: rotate(-135deg);
+            transform: rotate(-135deg);
+        }
+        /*list-按下背景色*/
+
+        .aui-list .aui-list-item:active {
+            background-color: #ececec;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+    <header class="aui-bar aui-bar-nav">
+        <a class="aui-pull-left aui-btn" onclick="closeWin();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">设置</div>
+    </header>
+    <section style="padding-top: 0.01rem;">
+        <div class="aui-content aui-margin-t-15">
+            <ul class="aui-list ">
+                <li class="aui-list-item aui-padded-l-15 aui-padded-r-15" onclick="openWin('trading_set_avater')">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title"> 头像</div>
+                        <div class="aui-list-item-right">
+                            <img class="aui-img-round" style="width: 2rem;" src="../image/sz_tx_normal.png" id="s_headimg">
+                        </div>
+                    </div>
+                </li>
+
+                <li class="aui-list-item aui-padded-l-15 aui-padded-r-15" onclick="openWin('trading_set_nickname')">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title"> 昵称</div>
+                        <div class="aui-list-item-right" id="s_name"></div>
+                    </div>
+                </li>
+
+                <li class="aui-list-item aui-padded-l-15 aui-padded-r-15" onclick="openWin('trading_set_sex')">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title"> 性别</div>
+                        <div class="aui-list-item-right" id="s_gender"></div>
+                    </div>
+                </li>
+
+                <li class="aui-list-item aui-padded-l-15 aui-padded-r-15" 　>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title"> 手机</div>
+                        <div class="aui-list-item-right" id="tel">18818780342</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="aui-content aui-margin-t-15" 　>
+            <ul class="aui-list ">
+                <li class="aui-list-item aui-padded-l-15 aui-padded-r-15" onclick="openWin('trading_my_changePassword')">
+                    <div class="aui-list-item-inner aui-list-item-arrow">
+                        密码修改
+                    </div>
+                </li>
+                <li class="aui-list-item aui-padded-l-15 aui-padded-r-15" onclick="todoAuth();">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title"> 实名认证</div>
+                        <div class="aui-list-item-right" id="truename">未认证</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="aui-content aui-margin-t-15">
+            <div class="aui-list ">
+                <div class="aui-list-item aui-padded-l-15 aui-padded-r-15" onclick="openWin('trading_my_address')">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title"> 常住地址</div>
+                        <div class="aui-list-item-right setting">设置</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="aui-content-padded" style=" border-radius: 7rem;overflow: hidden;margin: 3rem 2.5rem;">
+            <div class="aui-btn aui-btn-success aui-btn-block aui-btn-sm aui-content-padded" onclick="exit()">退出登录</div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/config.js"></script>
+    <script type="text/javascript" src="../script/common.js"></script>
+    <script type="text/javascript" src="../script/aui-toast.js"></script>
+    <script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+    <script>
+        var user, avatar;
+        apiready = function() {
+            fix_status_bar();
+            user = $api.getStorage('user');
+            var sexstr = '未设置';
+            if (user.avatar) {
+                $("#s_headimg").attr("src", user.avatar);
+            }
+            if (user.nickName != null) {
+                $("#s_name").text(user.nickName);
+            } else {
+                $("#s_name").text('未设置');
+            }
+            if (user.tel != null) {
+                $("#tel").html(user.tel);
+            }
+            setSex(user.sex);
+            api.addEventListener({
+                name: 'refresh_sex',
+            }, function(ret) {
+                if (ret) {
+                    setSex(ret.value.sex);
+                }
+            });
+            if (user.realName) {
+                $("#truename").text(user.realName);
+            }
+            //监听名字
+            api.addEventListener({
+                name: 'refresh_user_nickname'
+            }, function(ret, err) {
+                $("#s_name").text(ret.value.nickName);
+            });
+
+            //监听头像
+            api.addEventListener({
+                name: 'refresh_user_avatar'
+            }, function(res) {
+                if (res) {
+                    $("#s_headimg").attr("src", res.value.headurl);
+                }
+            });
+
+            //监听密码
+            api.addEventListener({
+                name: 'refresh_user_password'
+            }, function(res) {
+
+            });
+        };
+        //性别赋值
+        function setSex(sex) {
+            var sexstr = '';
+            if (sex == 1) {
+                sexstr = '男';
+            }
+            if (sex == 2) {
+                sexstr = '女';
+            }
+            $("#s_gender").text(sexstr);
+        }
+        //点击实名认证
+        function todoAuth() {
+            var user = $api.getStorage('user');
+            api.ajax({
+                url: PHP_SERVE_URL + '/customer/getRealAuth',
+                method: 'post',
+                data: {
+                    values: {
+                        openId: user.openId
+                    }
+                }
+            }, function(json, err) {
+                if (!json.isAuth) {
+                    openWin('trading_certification'); //跳转到实名认证
+                } else {
+                    //                openWinPro('trading_authenadopt');
+                }
+            });
+
+        }
+
+        //    退出
+        function exit() {
+            api.actionSheet({
+                cancelTitle: '取消',
+                buttons: ['退出登录'],
+                style: {
+                    fontNormalColor: '#484848',
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    if (ret.buttonIndex == 1) {
+                        $api.rmStorage('user');
+                        var toast = new auiToast();
+                        toast.success({
+                            title: "退出成功",
+                            duration: 2000
+                        });
+
+                        api.sendEvent({
+                            name: 'loginout',
+                            extra: {
+                                msg: '登出成功'
+                            }
+                        });
+
+
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

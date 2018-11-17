@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            background-color: #171b24;
+        }
+
+        .aui-tab {
+            width: 100%;
+            background-color: #222933
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrap" class="flex-wrap flex-vertical">
+    <header class="aui-bar aui-bar-nav">
+        <div class="aui-tab">
+            <div class="aui-tab-item aui-active" onclick="randomSwitchBtn(this)">买入</div>
+            <div class="aui-tab-item" onclick="randomSwitchBtn(this)">卖出</div>
+            <div class="aui-tab-item" onclick="randomSwitchBtn(this)">撤单</div>
+            <div class="aui-tab-item" onclick="randomSwitchBtn(this)">委托</div>
+            <div class="aui-tab-item" onclick="randomSwitchBtn(this)">持仓</div>
+        </div>
+    </header>
+    <div id="main" class="flex-con"></div>
+</div>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script>
+  var actionType;
+  apiready = function () {
+    actionType = api.pageParam.actionType;
+    funIniGroup();
+    //根据用户点击的入口显示
+    if (actionType > 0) {
+      var eHeaderLis = $api.domAll('.aui-tab .aui-tab-item');
+      $api.removeCls(eHeaderLis[0], 'aui-active');
+      $api.addCls(eHeaderLis[actionType], 'aui-active');
+    }
+
+    /*监听交易选中的股票并相应的打开页面*/
+    api.addEventListener({
+      name: 'searchStock'
+    }, function (ret, err) {
+      api.setFrameGroupIndex({
+        name: 'buy',
+        index: ret.value.index
+      });
+    });
+    /*监听买入卖出的索引*/
+    api.addEventListener({
+      name: 'oldIndex'
+    }, function (ret, err) {
+      api.setFrameGroupIndex({
+        name: 'buy',
+        index: ret.value.oldIndex
+      });
+    });
+  };
+
+  //打开关闭frame
+  function funIniGroup() {
+    var eHeaderLis = $api.domAll('.aui-tab .aui-tab-item'),
+      frames = [],
+      frameName = [
+        'trading_frame_buy2',
+        'trading_frame_sale2',
+        'trading_frame_revoke',
+        'trading_frame_entrust',
+        "trading_frame_position",
+        "trading_frame_search"
+      ];
+    for (var i = 0, len = frameName.length; i < len; i++) {
+      frames.push({
+        name: frameName[i],
+        url: frameName[i] + '.html',
+        bounces: false,
+        pageParam: {
+          y: api.pageParam.y,
+          bg: api.pageParam.bg,
+          stockid: api.pageParam.stockid,
+          name: api.pageParam.name,
+          sno: api.pageParam.sno
+        }
+      })
+    }
+    api.openFrameGroup({
+      name: 'buy',
+      scrollEnabled: false,
+      rect: {
+        x: 0,
+        y: $api.dom('header').offsetHeight + api.pageParam.y,
+        w: api.winWidth,
+        h: $api.dom('#main').offsetHeight
+      },
+      index: actionType,
+      preload: 6,
+      frames: frames,
+    }, function (ret, err) {
+    });
+  }
+
+  // 随意切换按钮
+  function randomSwitchBtn(tag) {
+    if (tag == $api.dom('.aui-tab .aui-tab-item.aui-active')) return;
+    var eHeaderLis = $api.domAll('.aui-tab .aui-tab-item'),
+      index = 0;
+    for (var i = 0, len = eHeaderLis.length; i < len; i++) {
+      if (tag == eHeaderLis[i]) {
+        index = i;
+      } else {
+        $api.removeCls(eHeaderLis[i], 'aui-active');
+      }
+    }
+
+    $api.addCls(eHeaderLis[index], 'aui-active');
+    api.setFrameGroupIndex({
+      name: 'buy',
+      index: index
+    });
+
+  }
+</script>
+</body>
+
+</html>

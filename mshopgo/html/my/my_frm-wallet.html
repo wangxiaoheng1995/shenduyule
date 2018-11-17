@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>我的钱包</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+</head>
+
+<body>
+<header class="aui-bar aui-bar-nav tit-bar-black header-nav">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">我的钱包</div>
+    <!--     <span class="aui-pull-right aui-font-size-14">
+         银行卡
+     </span>-->
+</header>
+<div class="header-nav-top">
+    <!--<section class="cart-bg-fff">-->
+    <!--<ul class="aui-list aui-list-in">-->
+    <!--<li class="aui-list-item cart-bg-fff s-no-bgimg">-->
+    <!--<div class="aui-list-item-inner aui-list-item-arrow">-->
+    <!--<div class="aui-list-item-title order-top-img"><img src="../../image/my/wdqb_wdye_icon.png" class="aui-pull-left aui-margin-r-10" />我的余额</div>-->
+    <!--<div class="aui-list-item-right" onclick="$a.openWin('my_frm-balance')">红包明细</div>-->
+    <!--</div>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--<h2 class="wall-money color-pink"><span id="red">0.00</span> <small class="color-pink">元</small></h2>-->
+    <!--<div class="wall-cart-btn aui-padded-t-15 aui-padded-b-15 aui-margin-t-15">-->
+    <!--<span class="aui-font-size-16 cart-section-go s-color-black s-border-gray">提现</span>-->
+    <!--<span class="aui-font-size-16 cart-section-go">充值</span>-->
+    <!--</div>-->
+    <!--</section>-->
+    <section class="cart-bg-fff aui-margin-t-10">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item cart-bg-fff s-no-bgimg">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title order-top-img"><img src="../../image/my/wdqb_wdye_icon.png"
+                                                                        class="aui-pull-left aui-margin-r-10"/>我的赏金
+                    </div>
+                    <div class="aui-list-item-right" onclick="window.location.href='my_frm-gold.html'">赏金明细</div>
+                </div>
+            </li>
+        </ul>
+        <h2 class="wall-money color-pink"><span id="fee">0.00</span>
+            <small class="color-pink">元</small>
+            <p style="font-weight: 100;">购物可抵现金</p></h2>
+        <!--<div class="wall-cart-btn aui-padded-t-15 aui-padded-b-15 aui-margin-t-15">-->
+        <!--<span class="aui-font-size-16 cart-section-go s-color-black s-border-gray">转入余额</span>-->
+        <!--<span class="aui-font-size-16 cart-section-go">去赚赏金</span>-->
+        <!--</div>-->
+    </section>
+    <!-- <section class="cart-bg-fff aui-margin-t-10">
+    <ul class="aui-list aui-list-in">
+        <li class="aui-list-item cart-bg-fff s-no-bgimg">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-title order-top-img"><img src="../../image/my/wdqb_wdye_icon.png" class="aui-pull-left aui-margin-r-10"/>我的赏金</div>
+            </div>
+        </li>
+    </ul>
+    <div class="wall-dl-block">
+        <dl>
+            <dt>现金券  <span class="aui-margin-l-15">60000张</span></dt>
+            <dd class="aui-font-size-12 color-gray9">查看现金券往来>></dd>
+        </dl>
+        <dl>
+            <dt>优惠券  <span class="aui-margin-l-15">60000张</span></dt>
+            <dd class="aui-font-size-12 color-gray9">查看现金券往来>></dd>
+        </dl>
+    </div>
+</section> -->
+    <section class="cart-bg-fff aui-margin-t-10">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item cart-bg-fff s-no-bgimg">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title order-top-img">做任务赚赏金</div>
+                </div>
+            </li>
+        </ul>
+        <ul class="aui-list aui-media-list">
+            <li class="aui-list-item aui-list-item-middle">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3rem;">
+                        <img src="../../image/my/mrrw_fx_icon.png" class="aui-list-img-sm">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title aui-font-size-14">分享好物给好友</div>
+
+                        </div>
+                        <div class="aui-list-item-text">
+                            82%的用户已完成
+                            <div class="aui-list-item-right aui-font-size-14 cart-section-go wall-top-margin">去完成</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-middle">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3rem;">
+                        <img src="../../image/my/mrrw_wszl_icon.png" class="aui-list-img-sm">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title aui-font-size-14">完善个人资料</div>
+
+                        </div>
+                        <div class="aui-list-item-text">
+                            82%的用户已完成
+                            <div class="aui-list-item-right aui-font-size-14 cart-section-go wall-top-margin">去完成</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item aui-list-item-middle">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media" style="width: 3rem;">
+                        <img src="../../image/my/mrrw_wxgz_icon.png" class="aui-list-img-sm">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title aui-font-size-14">关注微信公众号</div>
+                        </div>
+                        <div class="aui-list-item-text">
+                            82%的用户已完成
+                            <div class="aui-list-item-right aui-font-size-14 cart-section-go wall-top-margin">去完成</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/aui/aui-actionsheet.js"></script>
+<script src="../../script/base.js"></script>
+<script type="text/javascript">
+    var user;
+    window.onload = function () {
+        user = $api.getStorage('user');
+        // user = localStorage.getItem('user');
+        if (!user) {
+            return;
+        }
+        $.ajax({
+            url: PHP_SERVE_URL + '/order/getUserAllMoney',
+            method: 'post',
+            data: {
+                // values: {
+                    openId: user.openId
+                // }
+            },
+            success:function (ret, err) {
+                if (ret.code == 0) {
+                    $api.text($api.byId('red'), ret.data.redPacket);
+                    $api.text($api.byId('fee'), ret.data.reWard);
+                }
+            }
+        });
+        //        $api.fixStatusBar($api.dom('header'));
+    }
+</script>
+
+</html>

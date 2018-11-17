@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>商品弹框</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3) !important;
+            overflow: hidden;
+        }
+
+        #layer {
+            position: relative;
+            background: #fff;
+        }
+
+        #more {}
+
+        #layer {
+            position: absolute;
+            width: 90%;
+            /*height: 60vh;*/
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            border-radius: 0.2rem;
+        }
+
+        #layer h2 {
+            height: 1.6rem;
+            line-height: 1.6rem;
+        }
+
+        #layer .aui-media-list {
+            overflow: hidden;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .aui-icon-close {
+            position: absolute;
+            right: -0.4rem;
+            top: -0.3rem;
+            width: 1.2rem;
+            z-index: 99;
+        }
+
+        .num-people {}
+            [v-cloak]{
+                display: none;
+            }
+    </style>
+</head>
+
+<body>
+    <!--弹框-->
+    <!--媒体列表-->
+    <div class="  back-write " id="layer" v-cloak>
+        <img src="../../image/airline/yjfk_close_icon.png" alt="" class="aui-icon-close" onclick="$a.closeFrm()">
+        <div class="layer-more " id="more">
+            <h2 class="aui-font-size-16  aui-text-center border-bot">正在拼单</h2>
+            <ul class="  aui-list aui-media-list" style="height: 60vh;">
+                <li class="aui-list-item aui-list-item-middle cart-bg-fff" v-for="item in groupOrders">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-list-left">
+                            <img :src="item.avatar" class="aui-img-round">
+                        </div>
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-text">
+                                <div class="aui-list-item-title  aui-font-size-14">
+                                    <span class="aui-margin-r-15"> {{item.nickname}}</span>
+                                    还差 <span class="color-pink">{{item.lessnum}}</span>单，继续努力中
+                                </div>
+                            </div>
+                            <div class="aui-font-size-12 color-gray9">
+                                <span class="aui-margin-l-5 color-pink lefttime" :groupendtime="item.groupendtime"></span>
+                            </div>
+                        </div>
+                        <div class="aui-list-item-right aui-font-size-14 cart-section-go aui-margin-r-15" @click="showGroup(item.id,item.oid,item.gid)" style="width: 7rem;text-align: center">去帮TA</div>
+                    </div>
+                </li>
+                <li class="num-people aui-text-center aui-font-size-12 color-gray9 aui-padded-t-5 aui-padded-b-5">仅显示10个人正在拼单</li>
+            </ul>
+        </div>
+    </div>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/doT.min.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+    <script src="../../script/vue.js"></script>
+    <script>
+        var param;
+        var user;
+        apiready = function() {
+            param = $a.getParam();
+            user=$api.getStorage("user");
+            var vm = new Vue({
+                el: '#layer',
+                data: {
+                    goodRes: {},
+                    groupOrders: []
+                },
+                methods: {
+                    showGroup: function(id,oid, gid) {
+                        api.ajax({
+                            url: PHP_SERVE_URL + '/order/getJoinGroupOrderInfo',
+                            method: 'post',
+                            data: {
+                                values: {
+                                    openId:user.openId,
+                                    goodsId: gid,
+                                    id:id,
+                                    oid: oid
+                                }
+                            }
+                        }, function(ret, err) {
+                            if (ret.code == 0) {
+                                // $a.openWin('../shop/shop_list-detail',ret.data); api.closeFrame({ name: 'layerlist' });
+                                ret.data.id=id;
+                                api.sendEvent({
+                                    name: 'helpgroup',
+                                    extra: ret.data
+                                });
+                                api.closeFrame({
+                                    name: 'layerlist'
+                                });
+
+                            }else{
+                                $a.toast(ret.msg)
+                            }
+                        });
+                    },
+                    showT:function() {
+                      $(".lefttime").map(function () {
+                          var self = $(this);
+                          var groupendtime = self.attr("groupendtime");
+                          var time = (new Date(groupendtime)).getTime();
+                          var nowtime = (new Date()).getTime();
+                          if (time > nowtime) {
+                              GetRTime(self, time);
+                              setInterval(function () {
+                                  GetRTime(self, time);
+                              }, 1000);
+                          }
+                          else{
+                            self.text("");
+                          }
+                      })
+                    }
+                },
+                mounted: function() {
+                    var self = this;
+                    api.ajax({
+                        url: PHP_SERVE_URL + '/order/getOriginNoSuccessOrder',
+                        method: 'post',
+                        data: {
+                            values: {
+                                goodsId: param.gid,
+                                oid: 0,
+                                pernum: 10,
+                                page: 1
+                            }
+                        }
+                    }, function(ret, err) {
+                        if (ret.code == 0) {
+                            self.groupOrders = ret.data.orderInfo;
+                            self.goodRes = ret.data.goodsInfo;
+                            setTimeout(function () {
+                              self.showT();
+                            }, 100);
+                        }
+                    });
+
+                }
+            });
+        }
+        function GetRTime(ele, endtime) {
+            //当前时间
+            var NowTime = (new Date()).getTime();
+            //结束时间减去当前时间剩余的毫秒数
+            var t = endtime - NowTime;
+            // console.log(endtime+"-"+NowTime+'='+t);
+            if(t<1000){
+                ele.text("");
+                return;
+            }
+            var d = Math.floor(t / 1000 / 60 / 60 /24 % 24);//天
+            var h = Math.floor(t / 1000 / 60 / 60 % 60);//时
+            var m = Math.floor(t / 1000 / 60 % 60);//分
+            var s = Math.floor(t / 1000 % 60);//秒
+            ele.text("剩余"+h + "小时" + m + "分" + s + "秒");
+        }
+    </script>
+</body>
+
+</html>

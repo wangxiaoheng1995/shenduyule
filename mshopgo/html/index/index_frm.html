@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>销拼购</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <style>
+          body {
+              width: 100%;
+              overflow-x: hidden;
+          }
+
+          .full {
+              width: 100%;
+              height: 100%;
+          }
+
+          .height-50 {
+              height: 50%;
+          }
+
+          /*特推广告*/
+
+          .poster-wrap {
+              width: 100%;
+              overflow: hidden;
+              position: relative;
+              margin: 0.5rem 0;
+          }
+
+          /*轮播图的分页器样式*/
+
+          .aui-slide-page-dot {
+              width: 0.4rem;
+              height: 0.4rem;
+          }
+
+          .aui-slide-page-active {
+              background-color: #fff;
+          }
+
+          /*每日精选*/
+
+          .today-sift {
+              position: relative;
+              width: 100%;
+          }
+
+          .sift-title {
+              width: 100%;
+              /*height: 7vh;*/
+              overflow-x: hidden;
+              overflow-y: scroll;
+          }
+
+          .today-sift #nav-scroll .arrows,
+          .today-sift #nav-scroll .con {
+              height: 8vh;
+              line-height: 8vh;
+          }
+
+          .today-sift #nav-view {
+              width: 100%;
+              overflow-x: hidden;
+          }
+
+          header.header-nav {
+              background-color: transparent;
+              position: fixed;
+              z-index: 1000;
+              height:2.55rem;
+              background:#fe6095;
+          }
+
+          .header-nav .scan-icon {
+              width: 1.2rem;
+              height: 1.2rem;
+              background: url('../../image/index/home_sm_icon.png') no-repeat;
+              background-size: 100% 100%;
+          }
+
+          #title-nav .aui-iconfont {
+              display: inline-block;
+              width: 2rem;
+              height: 2rem;
+              background-size: 100% 100%;
+              background-repeat: no-repeat;
+          }
+
+          /* 模块样式 */
+
+          .subject {
+              width: 100%;
+          }
+
+          .subject .subject-title {
+              width: 50%;
+              padding-left: 0.75rem;
+              background-repeat: no-repeat;
+              background-size: 100% 100%;
+              height: 1.8rem;
+              position: relative;
+          }
+
+          .subject .subject-title .subject-tips {
+              position: absolute;
+              width: 100%;
+              height: 1.5rem;
+              line-height: 1.5rem;
+              bottom: -1.5rem;
+              z-index: 10;
+          }
+
+          .subject .subject-row {
+              width: 100%;
+              /*height: 8rem;*/
+              overflow-x: hidden;
+          }
+
+          .subject .subject-row > div {
+              height: 100%;
+              display: inline-block;
+              font-size: 0;
+             -webkit-text-size-adjust:none;
+          }
+          .subject .subject-row img{
+             display: inline-block;
+          }
+
+          #bg-color {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              left: 0;
+              top: 0;
+              /*background-color: #FE5095;*/
+              opacity: 0;
+          }
+
+          #go-top {
+              position: fixed;
+              right: 0.75rem;
+              bottom: 4rem;
+              width: 2rem;
+              height: 2rem;
+              /*background-color: #000;*/
+              background-image: url("../../image/index/scroll-to-top-icon.png");
+              background-size: 100% 100%;
+              border-radius: 50%;
+              display: none;
+          }
+
+          #nav-scroll .con-item {
+              padding: 0 10px;
+              min-width: 48px;
+              text-align: center;
+              margin: 0 0.1rem!important;
+          }
+
+          .aui-col-xs-6 img {
+              border: 1px solid #F5F5F5;
+          }
+
+          .cart-section img {
+              margin: 0 auto;
+              width: auto;
+              border-radius: 0.3rem;
+          }
+
+          .aui-slide-page-wrap {
+              bottom: 0.1rem;
+          }
+
+          .cart-section-go {
+              display: inline-block;
+              padding: 0.2rem 0.6rem 0.2rem 0.7rem;
+              border: none;
+              background: url('../../image/index/ljp_btn.png');
+              background-size: 100% 100%;
+              color: #ffffff;
+              border-radius: 2rem;
+              margin-top: -0.4rem;
+          }
+
+          .aui-badge {
+              background-color: #FE5095;
+              border: 1px solid #fff;
+          }
+
+          .cart-section .headerIcon {
+              display: inline-block;
+              height:1.5rem;
+              vertical-align: bottom;
+          }
+          .silid-position {
+              position: absolute;
+              left: .6rem;
+              top: 2.6rem;
+              z-index: 999;
+              padding: 0px;
+              height: 1.2rem;
+              line-height: 1.2rem;
+          }
+          .silid-position > div {
+              background: rgba(0, 0, 0, 0.5);
+              -webkit-border-radius: 20px;
+              -moz-border-radius: 20px;
+              border-radius: 20px;
+          }
+
+          /*弹幕*/
+
+          #barrage{
+              pointer-events: none;
+          }
+          #barrage > ul {
+              position: fixed;
+              width: 100%;
+              height: 100px;
+              top: 2.5rem;
+              left: 0.75rem;
+              z-index: 100001;
+          }
+
+          #barrage .barrage-content {
+              position: absolute;
+              top:1rem;
+              font-size: 0.6rem;
+              white-space: nowrap;
+              border-radius: 0.25rem;
+              padding: 0.1rem 0.25rem 0.1rem 0.1rem;
+          }
+
+          #barrage img {
+              width: 1.8rem;
+              height: 1.8rem;
+              float: left;
+              border-radius: 0.25rem;
+          }
+
+          #barrage span {
+              color: #fff;
+              margin-left: 0.25rem;
+              padding-left: 0.25rem;
+              padding-right: 0.25rem;
+              margin-right: 0.5rem;
+              line-height: 1.8rem;
+
+          }
+          .slide-new{
+              z-index:10;
+              /*position:absolute;*/
+              margin-top:2.55rem;
+              margin-left:0.6rem;
+              margin-right:0.6rem;
+          }
+          .aui-grid-label.aui-margin-0.aui-ellipsis-1.aui-font-size-12{
+              color:#32353b;
+              font-size:0.7rem;
+              opacity:0.7;
+          }
+          .pro-skill-top{
+              height:49%;
+              margin-bottom:1%;
+              margin-right:1%;
+          }
+          .pro-skill-bottom{
+              display:flex;
+          }
+          .pro-skill-bottom img{
+              width:49%;
+          }
+          #special-tab {
+              margin: 0 -1px;
+          }
+          #special-tab img{
+              border:none;
+              height:3.9rem;
+              padding: 1px;
+              box-sizing: border-box;
+          }
+          .aui-col-xs-6.aui-padded-0 img{
+              margin-bottom:1%;
+          }
+          .aui-grid.subject{
+              background:#f6f6f6;
+          }
+          .bkzj-one{
+              margin-right:1%;
+          }
+          .shadow-box{
+              position: absolute;
+              width:100%;
+              height:1rem;
+              background:#FE6095;
+          }
+          .aui-row{
+              display:flex;
+          }
+          .aui-slide-node.aui-slide-node-middle.aui-slide-node-center{
+              flex:1;
+          }
+          .sift-title{
+              /*width:94%;*/
+              background:#fff;
+              overflow-x:scroll;
+              margin-bottom:0.3rem;
+              padding:0 3%;
+          }
+          .sift-title p{
+              display:flex;
+              align-items: center;
+              justify-content: center;
+              font-size:0.7rem;
+              color:#FE5095;
+              height:2.95rem;
+          }
+          .sift-title p img{
+              width:0.7rem;
+              height:0.65rem;
+          }
+          .sift-title p span{
+              display:block;
+              width:0.1rem;
+              height:0.1rem;
+              border-radius:50%;
+              background:#32353b;
+          }
+          .aui-tab{
+              display:flex;
+              overflow-x: auto;
+              width:100%;
+          }
+          .aui-tab .aui-tab-item{
+              font-size:0.7rem;
+              color:#32353b;
+              opacity:0.7;
+              width: 2.5rem;
+              /*margin-right:1.95rem;*/
+          }
+          .aui-tab .aui-tab-item.aui-active{
+              font-size:0.7rem;
+              color:#32353b;
+              border-bottom:2px solid #ff0000;
+              opacity:1;
+          }
+          .aui-margin-l-10.aui-font-size-16.cart-section-go{
+              width:5rem;
+              height:1.5rem;
+              border-radius:0.75rem;
+              display:flex;
+              justify-content: center;
+              align-items: center;
+          }
+          .aui-pull-right{
+              display:flex;
+              align-items: center;
+          }
+          .aui-pull-right p{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin-bottom:0.5rem;
+          }
+          .aui-pull-right p img{
+              width:1.7rem;
+              height:1.7rem;
+          }
+          .cart-section-go .aui-iconfont.aui-icon-right.color-gray9{
+              font-size:0.5rem;
+              color:#fff!important;
+              font-weight:700;
+          }
+          #collage-manger{
+              /*display:none;*/
+          }
+          #collage-manger img{
+              width:1.15rem;
+              height:1.15rem;
+          }
+          .con.aui-padded-l-5.aui-padded-r-5{
+              width:100%;
+              display:flex;
+              overflow-x: auto;
+          }
+          .con.aui-padded-l-5.aui-padded-r-5 li{
+              width:2.5rem;
+          }
+          .aui-row.subject-row{
+              display: box; /* OLD - Android 4.4- */
+              display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+              display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+              display: -ms-flexbox; /* TWEENER - IE 10 */
+              display: -webkit-flex; /* NEW - Chrome */
+              display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+              flex-direction:column;
+          }
+          .aui-row.subject-row .aui-col-xs-6.aui-padded-0{
+              display:flex;
+          }
+          .aui-row.subject-row .aui-col-xs-6.aui-padded-0 img{
+              margin-right:1%;
+              flex:1;
+          }
+          #two{
+              width:33%;
+          }
+          #three{
+              width:100%;
+          }
+      </style>
+      <style media="screen">
+        .nav_scroll{
+          width: 100%;
+          overflow-x: auto;
+        }
+        .nav-tab{
+          width:auto;
+          white-space: nowrap;
+        }
+        .nav-tab-item{
+           display: inline-block;
+           position: relative;
+           line-height: 2.15rem;
+           /*padding: 0 10px;*/
+           min-width: 48px;
+           text-align: center;
+           margin: 0 0.1rem!important;
+        }
+        .nav-tab-item.nav-active{
+          border-bottom: 0.1rem solid #FF5192;
+          color: #FF5192;
+        }
+        header{
+          width: 100%;
+          z-index: 1000;
+          position: fixed;
+          margin-top: -2.55rem;
+          background: #fff;
+        }
+        .aui-bar-tab-item a{
+            color:inherit;
+        }
+      </style>
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+</head>
+
+<body>
+<div id="content">
+    <!-- 头部 -->
+    <header>
+            <div id="bg-color"></div>
+            <!-- 每日精选 nav 导航切换 -->
+            <div class="nav_scroll">
+                  <div class="nav-tab"></div>
+            </div>
+    </header>
+    <!-- 轮播图 -->
+    <div id="slide" class="slide-new">
+      <!-- <div class="slide-new-box"></div> -->
+        <div class="aui-slide-wrap">
+            <div class="aui-slide-node aui-slide-node-middle aui-slide-node-center" v-for="(p,index) in slideArr.data" @click="opentopic(p.id)">
+               <img :src="p.pic">
+            </div>
+        </div>
+        <div class="aui-slide-page-wrap">
+            <!--分页容器-->
+        </div>
+    </div>
+
+    <!-- 秒杀专题 -->
+    <section class="aui-grid subject" style="background:#F6F6F6; margin-bottom:0.25rem;">
+         <div class="aui-row subject-row">
+           <div class="aui-padded-0">
+
+               <img style="height:50%;width:50%;background:red;" src="../../image/index/home-jxbk.png" tapmode onclick="openbkgoods()">
+               <img style="height:50%;width:50%;background:red;" src="../../image/index/home-9k9.png" tapmode onclick="open99goods()">
+           </div>
+         </div>
+     </section>
+
+    <!--每日精选 头部-->
+    <div class="sift-title daily-selection">
+      <p><img src="../../image/index/jxq@2x.png">每日精选<span></span>好货9点上新</p>
+    </div>
+
+    <!-- 每日精选商品 -->
+    <div class="today-sift" id="view">
+
+        <!--切换nav 的显示-->
+        <div id="nav-view">
+        </div>
+        <script type="text/html/x-dot-template" id="data_goods">
+            {{~it :value}}
+            <div class="aui-card-list cart-section aui-margin-b-10 aui-padded-b-10"
+                 onclick="openGoodsDetail('{{=value.gid}}')">
+                <div class="aui-card-list-content">
+                    <img src="{{=value.pic}}?x-oss-process=image/resize,m_fill,h_300,w_640"
+                         style="width: 100%;height: auto;"/>
+                </div>
+                <p class="aui-padded-l-15 aui-padded-r-15 aui-ellipsis-2 aui-font-size-14 aui-margin-b-5 aui-padded-t-15 color-gray3">
+                    {{=value.gname}}
+                </p>
+                <div class="aui-card-list-content-padded aui-font-size-12  cart-section-bottom ">
+                    <strong class="aui-font-size-16 cart-section-prize color-pink">￥{{=value.is_group==0?value.price:value.group_price}}</strong>
+                    &nbsp;{{=value.group_done_num+"人"+(value.is_group==0?"抢购成功":"拼团成功")}}
+                    <div class="aui-pull-right">
+                        <span class="aui-margin-l-10 aui-font-size-16 cart-section-go ">{{=value.is_group==0?"立即抢":"立即拼"}}<i class="aui-iconfont aui-icon-right color-gray9"></i></span>
+                    </div>
+                </div>
+            </div>
+            {{~}}
+        </script>
+    </div>
+    <!--回到顶部的按钮-->
+    <a id="go-top" onclick="window.scrollTo(0,0)"></a>
+    <div id="barrage">
+        <ul>
+        </ul>
+    </div>
+</div>
+<footer class="aui-bar aui-bar-tab" id="footer">
+    <div class="aui-bar-tab-item aui-active" tapmode>
+        <i class="aui-iconfont" style="background-image: url('../../image/footer/f1-1.png')"></i>
+        <div class="aui-bar-tab-label">首页</div>
+    </div>
+    <div class="aui-bar-tab-item" tapmode>
+        <a href="../newgood/newgood_frm.html">
+            <i class="aui-iconfont " style="background-image: url('../../image/footer/f2-2.png')"></i>
+            <div class="aui-bar-tab-label">新品</div>
+        </a>
+    </div>
+    <div class="aui-bar-tab-item" tapmode>
+        <a href="../partner/partner_frm_app_download.html">
+            <i class="aui-iconfont " style="background-image: url('../../image/footer/f3-2.png')"></i>
+            <div class="aui-bar-tab-label">掌柜</div>
+        </a>
+    </div>
+
+    <div class="aui-bar-tab-item" tapmode>
+        <a href="javascript:typeof user.openId == 'undefined'?location.href='../gologin/gologin_frm.html':location.href='../my/my_frm.html'">
+            <i class="aui-iconfont " style="background-image: url('../../image/footer/f5-2.png')"></i>
+            <div class="aui-bar-tab-label">我的</div>
+        </a>
+    </div>
+</footer>
+<script src="../../script/api.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/aui/aui-slide.js"></script>
+<script src="../../script/aui/aui-tab.js"></script>
+<script src="../../script/aui/iScroll-lite.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script>
+    var toast=new auiToast();
+    var i = 0, timer = null;
+    var uname = [];
+    var user=$api.getStorage('user')
+    if(typeof user == 'undefined'){
+        $api.setStorage('user', {});
+    }
+    /*测试数据*/
+    $(function () {
+        $.getJSON("../../virtualUser.json", function (result) {
+            uname = result;
+        });
+        var s=Math.floor(Math.random()*9+2);
+        setTimeout('barrage()', s*1000);
+
+        x=Math.floor(Math.random()*6+2);
+        v=Math.floor(Math.random()*9+2);
+    });
+    /*弹幕*/
+    function barrage() {
+        var content = $("<li class='barrage-content'>" +
+            " <img src=" + uname[i].avatar + ">" +
+            "<span>" + uname[i].uname +'1秒前发起了拼单'+"</span>" +
+            "</li>");
+        content.appendTo($("#barrage>ul")).addClass("list").siblings().removeClass("list");
+        $wid = $('.list').width();
+        $('.list').css({'width': $wid,'background':'rgba(0, 0, 0,0.7)'});
+        content.fadeIn(500);
+        setTimeout(function () {content.fadeOut(500);
+        },2000);
+        i++;
+        var s=Math.floor(Math.random()*9+2);
+        setTimeout('barrage()', s*1000+2000);
+    }
+
+    var categoryId = 0,
+        page = totalpage = 1,user;
+
+        loadCategory();
+        loadGoods();
+
+        /*头部渐变效果*/
+        var head = $api.byId('bg-color'),
+            nav = $api.byId('iscroll'),
+            topBtn = $api.byId('go-top');
+
+        new Vue({
+          el:"#slide",
+          data:{
+            slideArr:""
+          },
+        mounted: function () {
+            var self = this;
+            /*aui 轮播图初始化*/
+            $.ajax({
+                url: PHP_SERVE_URL + '/Default/plate_slider',
+                type: "post",
+                success: function (ret, err) {
+                    if (ret.code == 0) {
+                        self.slideArr = ret;
+                        setTimeout(function () {
+                            var slide2 = new auiSlide({
+                                container: document.getElementById("slide"),
+                                "height": 180,
+                                "speed": 300,
+                                "autoPlay": 3000, //自动播放
+                                "pageShow": true,
+                                "loop": true,
+                                "pageStyle": 'dot',
+                                'dotPosition': 'center'
+                            });
+                        }, 20)
+                    }
+                }
+            })
+        },
+          methods:{
+          opentopic(id){
+              window.location.href="../special/goods_list.html?topicId="+id
+            }
+          }
+        })
+
+
+
+    //获取分类
+    function loadCategory() {
+        $.ajax({
+            url: PHP_SERVE_URL + '/Sg/goodsTypeList',
+            type: 'post',
+            success: function (ret, err) {
+
+            if (ret.code == 0 && ret.data.length > 0) {
+                categoryId = ret.data[0].id;
+                var strHtml = '';
+                for (var i = 0; i < ret.data.length; i++) {
+                    strHtml += '<div class="nav-tab-item" data-id="' + ret.data[i].id + '">' + ret.data[i].gtname + '</div>';
+                }
+
+    <!-- 导航条底部的滑块 -->
+
+                $api.html($api.dom('.nav-tab'), strHtml);
+                /*nav 导航切换 点击切换后的回调函数 回调函数接收当前点击的对象 */
+
+                $('.nav-tab-item').click(function(){
+                  $(this).addClass('nav-active').siblings().removeClass('nav-active');
+                  categoryId = $(this).data('id');
+                  var level=2;
+
+                  if(!categoryId==""){
+                    window.location.href="../classify/classify_frm-goods.html?name="+$(this).html()+"&typePId="+categoryId+"&level="+level;
+                  }
+
+                });
+            }
+        }});
+    }
+
+        function openbkgoods(){
+           window.location.href="../newgood/bkgood_frm.html";
+     }
+
+     function open99goods(){
+            window.location.href="../newgood/99good_frm.html";
+      }
+    function loadGoods() {
+        $.ajax({
+            url: PHP_SERVE_URL + '/Sg/getRecTypeGoods',
+            type: 'post',
+            data: {
+                tid: 0,//接口变更不需要获取分类categoryId=0
+                sort: '1',
+                level: 1,
+                page: page
+            },
+            success: function (ret, err) {
+                if (ret.code == 0) {
+                    var interText = doT.template($api.text($api.byId('data_goods')));
+                    if (page == 1) {
+                        $api.html($api.byId('nav-view'), interText(ret.data));
+                    } else {
+                        $api.append($api.byId('nav-view'), interText(ret.data));
+                    }
+                    totalpage = ret.totalpage;
+                    page++;
+                }
+                setTimeout(function () {
+                    window.onscroll = function () {
+                        var top = this.pageYOffset || this.scrollY;
+                        var windowHeight = this.outerHeight || this.innerHeight;
+                        var bodyH=document.body.scrollHeight;
+                        if (top <= windowHeight -125) {
+                            $(topBtn).css({'display':'none'});
+                            // nav.style.cssText = 'position:relative;top:0;';
+                            $(head).css({'opacity':(top / windowHeight).toFixed(2)});
+                        } else {
+                            $(topBtn).css({'display':'block'});
+                            // nav.style.cssText = 'position:fixed;top:' + $api.byId('header-bar').offsetHeight + 'px;';
+                            $(head).css({'opacity':1});
+                        }
+                        if ((top+windowHeight) == (bodyH+51)) {
+                            if (page <= totalpage) {
+                                loadGoods();
+                            }
+                        }
+                    };
+                },200)
+            }
+        })
+    }
+
+    function openSign() {
+        typeof user.openId == 'undefined'?location.href='../gologin/gologin_back.html':location.href='../my/my_sign.html';
+    }
+
+    function openGoodsDetail(id) {
+        window.location.href='../goods/goods_win.html?originOId=0&id='+id;
+
+    }
+
+</script>
+</body>
+
+</html>

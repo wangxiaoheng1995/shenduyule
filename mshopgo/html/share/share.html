@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <title>分享</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <style>
+        /*html,*/
+        /*body {*/
+            /*background-color: transparent !important;*/
+        /*}*/
+
+        * {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        .share_popup {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5)
+        }
+
+        .share_popup ul {
+            z-index: 99999 !important;
+            position: absolute;
+            bottom: 0;
+            background: #f3f3f3;
+            opacity: 1;
+            left: 0;
+            width: 100%;
+            padding-left: 0 !important;
+            margin-bottom: 0;
+        }
+
+        .aui-col-5 {
+            float: left;
+            width: 20%;
+            overflow: hidden;
+            text-align: center;
+            padding: 0.8rem 0 0.6rem 0;
+        }
+
+        .aui-col-5 p {
+            font-size: 0.6rem !important;
+            padding: 0.2rem 0;
+        }
+
+        .aui-col-5 img {
+            width: 70%;
+            height: 100%;
+        }
+
+        .aui-icon-left:before {
+            vertical-align: -webkit-baseline-middle;
+            margin-right: 0.1rem;
+        }
+
+        .guide {
+            position: fixed;
+            top: 1.6rem;
+            left: 1rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: rgba(0, 0, 0, 0.05);
+            color: #fff;
+            font-size: 0.7rem;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 auto;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.51);
+        }
+        .share_more_mask{
+            width: 100%;
+            height:100%;
+        }
+    </style>
+</head>
+
+<body>
+<!--分享-->
+<div class="share_popup">
+    <div class="share_more_mask" onclick="api.closeFrame();"></div>
+    <ul>
+        <!--<li class="aui-col-5"><img src="../../image/share/icon-tips.png" onclick="sharewithData('qq', 'QZone');"/><p>消息</p></li>-->
+        <!--<li class="aui-col-5"><img src="../../image/share/icon-hy.png" onclick="sharewithData('qq', 'QZone');"/><p>发给好友</p></li>-->
+        <!--<li class="aui-col-5"><img src="../../image/share/icon-qq.png" onclick="sharewithData('qq', 'QFriend');"/><p>QQ</p></li>-->
+        <!--<li class="aui-col-5"><img src="../../image/share/icon-qzone.png" onclick="sharewithData('qq', 'QZone');"/><p>QQ空间</p></li>-->
+        <!--<li class="aui-col-5"><img src="../../image/share/icon-wb.png" onclick="sharewithData('sina');"/><p>微博</p></li>-->
+        <li class="aui-col-5"><img src="../../image/share/icon-wx.png" onclick="sharewithData('wx', 'session');"/><p>微信</p></li>
+        <li class="aui-col-5"><img src="../../image/share/icon-pyq.png" onclick="sharewithData('wx', 'timeline');"/><p>朋友圈</p></li>
+        <!--<li class="aui-col-5"><img src="../../image/share/icon-dd.png" onclick="sharewithData('wx', 'timeline');"/><p>钉钉</p></li>-->
+        <li class="aui-col-5"><img src="../../image/share/icon-dx.png" onclick="sharewithData('sms','');"/><p>短信</p></li>
+        <li class="aui-col-5"><img src="../../image/share/icon-update.png" onclick="sharewithData('reload','');"/><p>刷新</p></li>
+        <li class="aui-col-5"><img src="../../image/share/icon-link.png" onclick="sharewithData('copylink','');"/><p>复制链接</p></li>
+    </ul>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/share.js"></script>
+<script type="text/javascript">
+    var user = $api.getStorage('user');
+    var title;
+    var img = "widget://image/index/home_01_icon.png";
+    var desciption;
+    var contentUrl ;
+    apiready=function(){
+        title=api.pageParam.title;
+        desciption=api.pageParam.desciption;
+        api.imageCache({
+            url:api.pageParam.img
+        },function(ret){
+            img=ret.url;
+        });
+        contentUrl=PHP_SERVE_URL+'/r?tel='+user.openId+"&gid="+api.pageParam.gid;
+    }
+</script>
+
+</html>

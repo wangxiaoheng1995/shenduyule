@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>我的订单</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        .aui-list .cart-left-img img {
+            width: 4.5rem;
+            height: 4.5rem;
+        }
+        .vouch-f-box{
+            width: 0.9rem;
+            height: 0.9rem;
+            margin-right: 0.2rem;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">我的现金券</div>
+    <span class="aui-pull-right aui-font-size-14">
+        编辑
+    </span>
+</header>
+<div class="aui-tab aui-border-t coll-flex s-no-bgimg" id="tab">
+    <div class="aui-tab-item aui-active">未使用（8）</div>
+    <div class="aui-tab-item">
+        <div></div>
+        已使用（8）
+    </div>
+    <div class="aui-tab-item">
+        已过期（8）
+    </div>
+</div>
+<div>
+    <div class="">
+        <section class="aui-hide">
+            <ul class="aui-list aui-media-list vouch-nobg">
+                <li class="aui-list-item aui-padded-l-0 aui-margin-t-10 s-no-bgimg">
+                    <input class="aui-checkbox bd-radius50 vouch-left-input aui-hide" type="checkbox" name="demo1" checked="">
+                    <div class="aui-media-list-item-inner" style="width: 90%;margin: 0 auto; background: #fff;">
+                        <div class="aui-list-item-media cart-left-img aui-padded-0 aui-margin-r-10">
+                            <img src="../../image/my/wdyhq.png">
+                            <dl class="vouch-left-dl">
+                                <dt class="color-write"><em class="aui-font-size-12" style="margin-left: -0.3rem;">￥</em> <em class="voucher-money">10</em></dt>
+                                <dd class="aui-font-size-10 color-write">满200元可用</dd>
+                            </dl>
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-b-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 s-color-black aui-font-size-12"><img src="../../image/my/wdxjq_yhq2_image.png" class="aui-inline aui-margin-r-10" style="width: 1rem; vertical-align: middle"/>这里是内容区域，新版中的列表布局可以很轻松的帮助开发者完成常见列表样式。成常见列表样式。</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-10" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="">2017-07-19 09:16</span>
+                                </div>
+                                <span class="aui-font-size-16 aui-pull-right cart-section-go">立即使用</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item aui-padded-l-0 aui-margin-t-10 s-no-bgimg">
+                    <input class="aui-checkbox bd-radius50 aui-hide vouch-left-input" type="checkbox" name="demo1" checked="">
+                    <div class="aui-media-list-item-inner" style="width: 90%;margin: 0 auto; background: #fff;">
+                        <div class="aui-list-item-media cart-left-img aui-padded-0 aui-margin-r-10">
+                            <img src="../../image/my/wdyhq.png">
+                            <dl class="vouch-left-dl">
+                                <dt class="color-write"><em class="aui-font-size-12" style="margin-left: -0.3rem;">￥</em> <em class="voucher-money">10</em></dt>
+                                <dd class="aui-font-size-10 color-write">满200元可用</dd>
+                            </dl>
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-b-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 s-color-black aui-font-size-12"><img src="../../image/my/wdxjq_yhq2_image.png" class="aui-inline aui-margin-r-10" style="width: 1rem; vertical-align: middle"/>这里是内容区域，新版中的列表布局可以很轻松的帮助开发者完成常见列表样式。成常见列表样式。</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-10" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="">2017-07-19 09:16</span>
+                                </div>
+                                <span class="aui-font-size-16 aui-pull-right cart-section-go">立即使用</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <footer class="aui-bar aui-bar-tab">
+                <div class="aui-bar-tab-item aui-border-r s-no-bgimg" tapmode style="width: 6rem;">
+                    <div class="aui-bar-tab-label"><input class="aui-checkbox bd-radius50 vouch-f-box" type="checkbox" name="demo1" checked="">咨询</div>
+                </div>
+                <div class="aui-bar-tab-item" tapmode style="width: 6rem;">
+                    <div class="aui-bar-tab-label">收藏</div>
+                </div>
+                <div class="aui-bar-tab-item aui-bg-danger back-pink aui-text-white" tapmode style="width: auto;">批量删除</div>
+            </footer>
+        </section>
+        <section class="aui-hide">
+            <ul class="aui-list aui-media-list vouch-nobg">
+                <li class="aui-list-item aui-padded-l-0 aui-margin-t-10 s-no-bgimg">
+                    <input class="aui-checkbox bd-radius50 vouch-left-input aui-hide" type="checkbox" name="demo1" checked="">
+                    <div class="aui-media-list-item-inner" style="width: 90%;margin: 0 auto; background: #fff;">
+                        <div class="aui-list-item-media cart-left-img aui-padded-0 aui-margin-r-10">
+                            <img src="../../image/my/wdyhq.png">
+                            <dl class="vouch-left-dl">
+                                <dt class="color-write"><em class="aui-font-size-12" style="margin-left: -0.3rem;">￥</em> <em class="voucher-money">10</em></dt>
+                                <dd class="aui-font-size-10 color-write">满200元可用</dd>
+                            </dl>
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-b-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 s-color-black aui-font-size-12"><img src="../../image/my/wdxjq_yhq2_image.png" class="aui-inline aui-margin-r-10" style="width: 1rem; vertical-align: middle"/>这里是内容区域，新版中的列表布局可以很轻松的帮助开发者完成常见列表样式。成常见列表样式。</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-10" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="">2017-07-19 09:16</span>
+                                </div>
+                                <span class="aui-font-size-16 aui-pull-right cart-section-go">立即使用</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item aui-padded-l-0 aui-margin-t-10 s-no-bgimg">
+                    <input class="aui-checkbox bd-radius50 aui-hide vouch-left-input" type="checkbox" name="demo1" checked="">
+                    <div class="aui-media-list-item-inner" style="width: 90%;margin: 0 auto; background: #fff;">
+                        <div class="aui-list-item-media cart-left-img aui-padded-0 aui-margin-r-10">
+                            <img src="../../image/my/wdyhq.png">
+                            <dl class="vouch-left-dl">
+                                <dt class="color-write"><em class="aui-font-size-12" style="margin-left: -0.3rem;">￥</em> <em class="voucher-money">10</em></dt>
+                                <dd class="aui-font-size-10 color-write">满200元可用</dd>
+                            </dl>
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-b-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 s-color-black aui-font-size-12"><img src="../../image/my/wdxjq_yhq2_image.png" class="aui-inline aui-margin-r-10" style="width: 1rem; vertical-align: middle"/>这里是内容区域，新版中的列表布局可以很轻松的帮助开发者完成常见列表样式。成常见列表样式。</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-10" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="">2017-07-19 09:16</span>
+                                </div>
+                                <span class="aui-font-size-16 aui-pull-right cart-section-go">立即使用</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <footer class="aui-bar aui-bar-tab vouch-foot">
+                <span class="color-pink">去领券</span>
+            </footer>
+        </section>
+        <section class="">
+            <ul class="aui-list aui-media-list vouch-nobg">
+                <li class="aui-list-item aui-padded-l-0 aui-margin-t-10 s-no-bgimg">
+                    <input class="aui-checkbox bd-radius50 vouch-left-input aui-hide" type="checkbox" name="demo1" checked="">
+                    <div class="aui-media-list-item-inner" style="width: 90%;margin: 0 auto; background: #fff;">
+                        <div class="aui-list-item-media cart-left-img aui-padded-0 aui-margin-r-10">
+                            <img src="../../image/my/wdyhq.png">
+                            <dl class="vouch-left-dl">
+                                <dt class="color-write"><em class="aui-font-size-12" style="margin-left: -0.3rem;">￥</em> <em class="voucher-money">10</em></dt>
+                                <dd class="aui-font-size-10 color-write">满200元可用</dd>
+                            </dl>
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-b-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 s-color-black aui-font-size-12"><img src="../../image/my/wdxjq_yhq2_image.png" class="aui-inline aui-margin-r-10" style="width: 1rem; vertical-align: middle"/>这里是内容区域，新版中的列表布局可以很轻松的帮助开发者完成常见列表样式。成常见列表样式。</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-10" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="">2017-07-19 09:16</span>
+                                </div>
+                                <span class="aui-font-size-16 aui-pull-right cart-section-go">立即使用</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="aui-list-item aui-padded-l-0 aui-margin-t-10 s-no-bgimg">
+                    <input class="aui-checkbox bd-radius50 aui-hide vouch-left-input" type="checkbox" name="demo1" checked="">
+                    <div class="aui-media-list-item-inner" style="width: 90%;margin: 0 auto; background: #fff;position: relative;">
+                        <img src="../../image/my/wdyhq_ygq_icon.png" class="vouch-img-absolute"/>
+                        <div class="aui-list-item-media cart-left-img aui-padded-0 aui-margin-r-10">
+                            <img src="../../image/my/wdyhq.png">
+                            <dl class="vouch-left-dl">
+                                <dt class="color-write"><em class="aui-font-size-12" style="margin-left: -0.3rem;">￥</em> <em class="voucher-money">10</em></dt>
+                                <dd class="aui-font-size-10 color-write">满200元可用</dd>
+                            </dl>
+                        </div>
+                        <div class="aui-list-item-inner aui-padded-b-0">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 s-color-black aui-font-size-12"><img src="../../image/my/wdxjq_yhq2_image.png" class="aui-inline aui-margin-r-10" style="width: 1rem; vertical-align: middle"/>这里是内容区域，新版中的列表布局可以很轻松的帮助开发者完成常见列表样式。成常见列表样式。</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-10" style="padding:0">
+                                <div class="aui-info-item">
+                                    <span class="">2017-07-19 09:16</span>
+                                </div>
+                                <span class="aui-font-size-16 aui-pull-right cart-section-go">立即使用</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <footer class="aui-bar aui-bar-tab vouch-foot">
+                <span class="color-pink">去领券</span>
+            </footer>
+        </section>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script src="../../script/aui/aui-tab.js"></script>
+<script>
+    var tab = new auiTab({
+        index: 2,
+        element: document.getElementById('tab')
+    }, function (ret, err) {
+        console.log(ret);
+    });
+
+</script>
+</html>

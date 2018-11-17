@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>品牌清仓</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+</head>
+<body>
+<div id="wrap">
+    <header class="aui-bar aui-bar-nav aui-bar-light ">
+        <div class="aui-pull-left aui-btn ">
+            <span class="aui-iconfont aui-icon-left color-gray9"></span>
+        </div>
+        <div class="aui-title aui-font-size-16  color-black">品牌清仓</div>
+
+    </header>
+    <div id="main">
+        <div id="nav-scroll" class="flex-wrap  back-write">
+            <div id="iscroll" class="flex-con" style="line-height: 2rem">
+                <ul class="con aui-padded-l-5 aui-padded-r-5">
+                    <li class="con-item active" tapmode="hover" >测试1</li>
+                    <li class="con-item" tapmode="hover" >导航2</li>
+                    <li class="con-item" tapmode="hover" >测试导航3</li>
+                    <li class="con-item" tapmode="hover" >测试1</li>
+                    <li class="con-item" tapmode="hover" >导航2</li>
+                    <li class="con-item" tapmode="hover" >测试导航3</li>
+                    <!-- 导航条底部的滑块 -->
+                    <li class="run-line" id="line" style="background-color: #FF5192"></li>
+                </ul>
+            </div>
+            <div class="arrows" style="height: 2rem;"></div>
+        </div>
+        <div class="">
+            <div class="cart-bg-fff order-section-padd aui-margin-t-10 aui-padded-l-15 aui-padded-r-15">
+                <ul class="aui-list aui-media-list">
+                    <li class="aui-list-item aui-padded-l-0 cart-bg-fff">
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media cart-left-img">
+                                <img src="../../image/commen1/heng1.jpg">
+                            </div>
+                            <div class="aui-list-item-inner aui-padded-r-0">
+                                <div class="aui-list-item-text cart-text">
+                                    <p class="aui-ellipsis-2 s-color-black aui-font-size-14 line-height color-black">这里是内容区域，新版中的列表布局可以很轻松的帮助开发者完成常见列表样式。成常见列表样式。</p>
+                                </div>
+                                <div class="aui-list-item-text">
+                                    <p class=" s-color-black">
+                                        <span>颜色：军绿</span>
+                                        <span>尺码：L</span>
+                                    </p>
+                                </div>
+                                <div class="aui-info aui-margin-t-10 padding0">
+                                    <div class="aui-info-item">
+                                        <strong class="s-color-black color-pink">￥49.90</strong>
+                                    </div>
+                                    <div class="aui-info-item cart-info-item">
+                                        <div class=" aui-font-size-14 cart-section-go">立即抢</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="footer"></div>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/aui/iScroll-lite.js"></script>
+<script>
+  /*nav 导航切换*/
+  initNavScroll('#iscroll',function (tar) {
+      console.log(tar.nodeName.toLocaleLowerCase());
+  });
+
+  /*var myScroll = new IScroll('#iscroll', {
+    scrollX: true,
+    tap: true,
+    /!*初始化下划线位置*!/
+    init_line: function () {
+      var active = $api.dom('#iscroll .con-item.active');
+      $api.css($api.byId('line'), "left: " + active.offsetLeft + "px;width:" + active.offsetWidth + 'px;');
+    },
+      callBack:function (self,target) {
+          console.log('test');
+      }
+  });*/
+
+  /*nav 导航切换点击*/
+ /* function funActive(ele) {
+    var eLis = document.querySelectorAll('.con-item');
+    if (typeof ele == 'object') {
+      for (var i = 0, len = eLis.length; i < len; i++) {
+        if (eLis[i] == ele) {
+          ele = i;
+        }
+      }
+    }
+    document.querySelector('#line').style.cssText = 'left:' + eLis[ele].offsetLeft + 'px; width:' + eLis[ele].offsetWidth + 'px;';
+    myScroll.scrollToElement(eLis[ele], 300, true);
+  };*/
+
+</script>
+</body>
+</html>

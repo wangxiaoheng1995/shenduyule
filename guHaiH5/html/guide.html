@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/swiper.min.css"/>
+    <style>
+
+
+        .swiper-container, .swiper-slide img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .swiper-slide p {
+            position: absolute;
+            bottom: 10%;
+            left: 0;
+            width: 100%;
+            height: 2.4rem;
+            line-height: 2.4rem;
+            color: #fff;
+
+        }
+
+        .swiper-slide p span {
+            display: block;
+            margin: 0 24%;
+            background: #D4A362;
+            -webkit-border-radius: 80px;
+            -moz-border-radius: 80px;
+            border-radius: 80px;
+        }
+
+        .swiper-container-horizontal > .swiper-pagination-bullets,
+        .swiper-pagination-custom, .swiper-pagination-fraction {
+            bottom: 6%;
+        }
+
+        .swiper-pagination-bullet {
+            width: 10%;
+            height: 2px;
+            border-radius: inherit;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #806F54;
+        }
+    </style>
+</head>
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img src="../image/guide/4.png" alt="">
+        </div>
+        <div class="swiper-slide"><img src="../image/guide/5.png" alt=""></div>
+        <div class="swiper-slide"><img src="../image/guide/6.png" alt="">
+            <p class="aui-text-center ">
+                <span onclick="immediateExperience()">立即体验</span></p>
+        </div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script src="../script/swiper.min.js"></script>
+
+<script>
+  var user;
+
+
+  apiready = function () {
+    user = $api.getStorage('user');
+    var mySwiper = new Swiper('.swiper-container', {
+      direction: 'horizontal',
+      resistanceRatio: 0,
+      pagination: {
+        el: '.swiper-pagination',
+      },
+      onTouchStart: function (swiper, even) {
+      }
+    });
+  }
+
+  function immediateExperience() {
+    //检测是否登录
+    if (typeof user == "undefined") {
+      openWin('trading_login');
+      setTimeout('api.closeFrame({});', 1000);
+    } else {
+      api.sendEvent({
+        name: 'initIndex'
+      });
+      api.closeFrame({});
+    }
+  }
+</script>
+</html>

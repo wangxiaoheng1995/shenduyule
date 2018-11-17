@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>详情页</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/swiper-3.2.5.min.css">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body,html{
+            background: #fff;
+            height:100%;
+            width:100%;
+        }
+        #content{
+          display:flex;
+          justify-content: space-between;
+          flex-direction:column;
+          height:100%;
+          width:100%;
+        }
+       #header{
+           background: #28D94D;
+           display:flex;
+           justify-content: center;
+           align-items:center;
+           color:#fff;
+       }
+       .main{
+           flex:1;
+           overflow-x:hidden;
+           overflow-y: scroll;
+       }
+       .swiper-container {
+        width: 100%;
+        height: 10rem;
+        }
+        .swiper-slide{
+            height:100%;
+        }
+        .swiper-slide img{
+            height:100%;
+        }
+        .swiper-pagination-bullet{
+            background: orange;
+        }
+        .swiper-pagination-bullet-active{
+            background:#28D94D
+        }
+        .goods-text{
+            padding:0.4rem;
+            background:#fff;
+        }
+        .goods-price{
+            color:#ff0000;
+            margin:0.4rem 0;
+            font-size:0.8rem;
+        }
+        .goods-logo{
+            display:flex;
+            align-items: center;
+            padding:0.2rem;
+        }
+        .goods-logo img{
+            width:1rem;
+            height:1rem;
+        }
+        .goods-logo span{
+            color:#d1cfcf;
+            font-size:0.7rem;
+            margin-left:0.5rem;
+        }
+        .goods-content{
+            padding:0.4rem;
+            color:#333;
+            font-size:0.7rem;
+            font-weight:700;
+        }
+        .footer{
+            width:100%;
+            display: flex;
+            justify-content: center;
+            margin-top:1rem;
+        }
+        .footer span{
+            width:100%;
+            border-radius:5px;
+            background:#28D94D;
+            padding:0.5rem;
+            color:#fff;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+        [v-cloak]{
+          display:none;
+        }
+    </style>
+</head>
+<body>
+    <div id="content" v-cloak>
+        <header class="aui-bar aui-bar-nav back-write aui-border-b" style="background:#FE5095;">
+                <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+                    <i class="aui-iconfont aui-icon-left color-black"></i>
+                </a>
+                <div class="aui-title color-black">
+                    商品
+                </div>
+        </header>
+        <div class="main" v-for="item in goodsList">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img :src="item.head_pic" alt=""></div>
+                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="goods-text">
+                <div class="goods-price">
+                    ￥<span>{{item.price}}</span>
+                </div>
+                <div class="goods-logo">
+                    <img src="../../image/my/icon_server@2x.png" alt="">
+                    <span>购物狂的优享之选</span>
+                </div>
+                <div class="goods-content">
+                    {{item.gname}}
+                </div>
+            </div>
+            <div class="gr"><img :src="item.detail_pic" alt=""></div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/swiper.min.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/H5_public.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+    var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'horizontal',
+    loop: true,
+
+    // 如果需要分页器
+    pagination: {
+      el: '.swiper-pagination',
+    },
+  })
+
+  var user,param
+  var toast = new auiToast({
+    })
+  user =  $api.getStorage('user');
+  param = H5.pageParam();
+
+  new Vue({
+    el:'#content',
+    data:{
+      goodsList:''
+    },
+    methods:{
+      loadGoods(){
+        var self = this
+        $.ajax({
+          url:PHP_SERVE_URL + '/Gift/privilegeGiftInfo',
+          type:'post',
+          data:{
+              openId:user.openId,
+              gid:param.id
+          },
+          success:function(ret,err){
+          if(ret.code==0){
+            self.goodsList=ret.data;
+          }else{
+            toast.fail({
+                title:ret.msg,
+            });
+          }
+        }
+        })
+      }
+    },
+    mounted:function(){
+      this.loadGoods()
+    }
+  })
+  
+
+</script>

@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        .aui-bar {
+            background-color: #de3232;
+            position: fixed;
+        }
+
+        .aui-bar-nav {
+            color: #ffffff;
+        }
+
+        .aui-list .aui-list-item {
+            padding-left: 0rem;
+            margin-top: 1rem;
+        }
+
+        .aui-list .aui-list-item-label-icon {
+            width: 1.8rem;
+        }
+
+        .aui-list {
+            background-image: none;
+            padding: 0rem 1.5rem;
+        }
+
+        .aui-list-item-input input {
+            color: #999;
+            font-size: 0.7rem;
+        }
+
+        .aui-btn-danger {
+            background-color: #de3232 !important;
+        }
+
+        .aui-btn-block.aui-btn-sm {
+            height: 2rem;
+            line-height: 2rem;
+        }
+
+        .aui-data {
+            color: #999;
+            font-size: 0.5rem;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn">
+    </a>
+    <div class="aui-title">登录</div>
+</header>
+<section style="margin-top: 7rem">
+    <div class="aui-content aui-margin-b-15">
+        <ul class="aui-list aui-form-list">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label-icon">
+                        <img src="../icon/login_account_icon.png">
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="number" placeholder="手机号码" id="username">
+                    </div>
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label-icon">
+                        <img src="../icon/login_password_icon.png">
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="password" placeholder="密码" id="password">
+                    </div>
+                </div>
+            </li>
+            <div class="aui-content-padded"
+                 style=" border-radius: 7rem;overflow: hidden;margin-top:3rem;margin-bottom: 0rem ">
+                <div class="aui-btn aui-btn-danger aui-btn-block aui-btn-sm aui-content-padded" id="sub"
+                     onclick="pwdLogin();">登录
+                </div>
+            </div>
+            <div class="aui-info">
+                <div class="aui-info-item" onclick="openWin('trading_regsiter')">
+                    <span class="aui-margin-l-5">还没有注册？</span>
+                </div>
+                <div class="aui-info-item" onclick="openWin('trading_Password')">忘记密码？</div>
+            </div>
+        </ul>
+    </div>
+</section>
+<script src="../script/api.js"></script>
+<script src="../script/yltcrypt.js"></script>
+<script src="../script/aui-dialog.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script>
+    var type;
+    var dialog;
+    var historyNum = [];
+    var user;
+    var auiToast = new auiToast();
+
+        // type = api.pageParam.type;
+        dialog = new auiDialog({});
+        historyNum = $api.getStorage('hisNum');
+        user = $api.getStorage('user');
+    // 密码登录
+    function pwdLogin() {
+        //          var rong = api.require('rongCloud2');
+        // 之前调用 init 和 connect 的代码省略
+        /*          rong.disconnect({
+         isReceivePush: true
+         }, function (ret, err) {
+         if ('success' == ret.status) {
+         console.log('断开连接成功')
+         }
+         });*/ // 断开，且不再接收 Push
+        var username = $('#username').val();
+        var password = $('#password').val();
+        if ($.trim(username) == '') {
+            auiToast.fail({title:"用户名不能为空",duration:2000});
+            return false;
+        }
+        if ($.trim(password) == '') {
+            auiToast.fail({title:"密码不能为空",duration:2000});
+            $("#password").focus();
+            return false;
+        }
+        auiToast.fail({title:"登陆中...",duration:2000});
+
+        // 获取用户相关信息
+        $.ajax({
+            url: PHP_SERVE_URL + '/customer/login',
+            type: 'post',
+            data: {
+                    tel: username,
+                    passwd: password,
+                    token: yltcrypt.cpt(username)
+            },
+            success:function (json, err) {
+                // api.hideProgress();
+                if ($api.jsonToStr(err) != undefined) {
+                    auiToast.fail({title:err.msg,duration:2000});
+                } else {
+                    if (json.code == 0) {
+
+                        //          toast(json.msg);
+                        // 设置数据
+                        var arr = $api.getStorage('historyUser') || [];
+                        var data = setUserStorage(json);
+                        var a = 0;
+                        arr.forEach(function (item, index) {
+                            item.isShow = 0;
+                            if (item.login_name == data.login_name) {
+                                arr.splice(index, 1);
+                                setStorage(json, function () {
+                                    //发送登录成功事件
+                                    // loginSuccessd();
+                                    auiToast.success({title:json.msg,duration:2000});
+                                    // 页面跳转
+                                    // api.closeToWin({
+                                    //     name: 'root',
+                                    //     animation: {
+                                    //         type: "movein", //动画类型（详见动画类型常量）
+                                    //         duration: 3000 //动画过渡时间，默认300毫秒
+                                    //     }
+                                    // });
+                                    location.href="trading_index.html";
+
+                                });
+                                a = 1;
+                                return false;
+                            }
+                        });
+                        if (!a) {
+                            arr.push(data);
+                            $api.setStorage('historyUser', arr);
+                            var historyUser = $api.getStorage('historyUser');
+                            setStorage(json, function () {
+                                //发送登录成功事件
+                                // loginSuccessd();
+                                auiToast.success({title:json.msg,duration:2000});
+                                // 页面跳转
+                                // api.closeToWin({
+                                //     name: 'root',
+                                //     animation: {
+                                //         type: "movein", //动画类型（详见动画类型常量）
+                                //         duration: 3000 //动画过渡时间，默认300毫秒
+                                //     }
+                                // });
+                                location.href="trading_index.html";
+                            });
+                        }
+                    } else {
+                        auiToast.fail({title:json.msg,duration:2000});
+                    }
+                }
+
+            }
+        });
+    }
+
+    // function loginSuccessd() {
+    //     api.sendEvent({
+    //         name: 'customerLogined',
+    //         value: '1',
+    //     });
+    //     api.sendEvent({
+    //         name: 'initIndex'
+    //     });
+    // }
+
+    function setUserStorage(json, callback) {
+        var user = {};
+        user.openId = json.info.openId;
+        user.nickName = json.info.nickName;
+        user.tel = json.info.tel;
+        user.realName = json.info.realName;
+        user.avatar = json.info.avatar;
+        user.sex = json.info.sex;
+        user.isShow = 1;
+        return user;
+    }
+
+    function setStorage(json, callback) {
+        var user = {};
+        user.openId = json.info.openId;
+        user.nickName = json.info.nickName;
+        user.tel = json.info.tel;
+        user.realName = json.info.realName;
+        user.avatar = json.info.avatar;
+        user.sex = json.info.sex;
+        $api.setStorage('user', user);
+
+        //以當前登錄的用戶名綁定推送別名
+        //bindPushAlias(user.login_name);
+        if (callback)
+            callback();
+    }
+</script>
+</body>
+
+</html>

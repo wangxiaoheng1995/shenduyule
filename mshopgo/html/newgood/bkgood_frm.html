@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+    content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>爆品</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+
+    <script type="text/javascript" src="../../script/vue.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/config.js"></script>
+    <!--    <link rel="stylesheet" type="text/css" href="../../css/base.css" />-->
+    <style type="text/css">
+    body {
+        width: 100%;
+        height: auto;
+        overflow-x: hidden;
+    }
+.wrap {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    background: #ffffff;
+    padding: 0rem 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.free-item{
+    padding: 0.25rem;
+}
+.free-item img{
+    display: block;
+    width: 100%;
+    height: 4rem;
+}
+.free-item .aui-text-center{
+    font-size: 0.7rem;
+    color: red;
+}
+img.icon {
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+}
+
+.goods-item {
+    text-align: center;
+    height: 14rem;
+    background: #fff;
+}
+
+.goods-item img {
+    display: block;
+    width: 100%;
+    height: 9.25rem;
+}
+
+
+.title {
+    color: #666;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.title p {
+    font-size: 0.6rem;
+    color: #ccc;
+}
+
+.goods-title {
+    font-size: 0.7rem;
+    color: #333 !important;
+    padding: 0 .5rem;
+    text-align: left;
+}
+
+.hot img {
+    width: 3rem;
+    display: block;
+    margin: 0 auto;
+}
+
+.goods-item .aui-info .header-img {
+    height: 1.2rem;
+    width: 1.2rem;
+    border-radius: 50%;
+    border: 1px solid #ffffff;
+}
+
+.bg-white {
+    background: #ffffff;
+}
+
+.color-black {
+    color: #333333;
+}
+.aui-bar-tab .aui-bar-tab-item {
+    height: 3rem;
+}
+.aui-bar-tab .aui-bar-tab-item a,
+.aui-bar-tab .aui-bar-tab-item a:visited,
+.aui-bar-tab .aui-bar-tab-item a:hover{
+    color: inherit;
+    font-size: inherit;
+}
+
+
+.aui-row-padded [class*=aui-col-xs-]{
+    padding-bottom:0.095rem;
+    padding-top:0;
+}
+.aui-card-list{
+    background: #f6f6f6;
+}
+.color-white{
+  color:#fff!important;
+}
+.fixed{
+    position: fixed;
+}
+</style>
+</head>
+<body>
+    <header class="aui-bar aui-bar-nav bg-white aui-bar-light header-nav fixed" id="aui-header" style="background:#fe5095;color:#fff;">
+      <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+          <span class="aui-iconfont aui-icon-left color-white aui-margin-t-5"></span>
+      </a>
+        <div class="aui-title">
+            爆品
+        </div>
+    </header>
+
+    <div class="aui-content" style="padding-top:2.2rem;">
+        <div class="aui-card-list">
+            <div class="">
+                <div class="aui-row aui-row-padded" id="content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/html/x-dot-template" id="data_goods">
+        {{~it :value}}
+        <div class="aui-col-xs-6" onclick="openGoodsDetail('{{=value.gid}}')">
+            <div class="goods-item">
+                <img src="{{=value.pic}}">
+                <p class="aui-margin-t-10 goods-title aui-ellipsis-2">{{=value.gname}}</p>
+                <div class="aui-info aui-padded-l-10">
+                    <div class="aui-info-item" style="color: red;">¥<span style="font-size: .8rem;padding-left: .1rem;">{{=value.price}}</span></div>
+                    <!-- <div class="aui-info-item">
+                        <img src="../../image/demo2.png" class="header-img"/>
+                    </div> -->
+                    <div class="aui-list-item-text aui-font-size-12 aui-margin-r-15">
+                        已售:{{=value.group_done_num}}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {{~}}
+    </script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/doT.min.js"></script>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+    <script>
+        var mySwiper = new Swiper('.swiper-container', {
+            direction: 'horizontal',
+            loop: true,
+            slidesPerView: 3
+        });
+
+        var page = 1;
+        var totalpage = 0;
+        var datas = [];
+            loadGoods();
+            //下滑加载数据
+            window.onscroll = function () {
+                var top = this.pageYOffset || this.scrollY;
+                var windowHeight = this.outerHeight || this.innerHeight;
+                var bodyH=document.body.scrollHeight;
+                if ((top+windowHeight) == bodyH) {
+                    if (page <= totalpage) {
+                        loadGoods();
+                    }
+                }
+            };
+        function loadGoods() {
+            $.ajax({
+                url: PHP_SERVE_URL + '/sg/getBkGoods',
+                type:'post',
+                dataType: 'json',
+                data: {
+                    page: page
+                },
+                success:function (ret, err) {
+                    if (ret.code == 0) {
+                        var interText = doT.template($api.text($api.byId('data_goods')));
+                        if (page == 1) {
+                            $api.html($api.byId('content'), interText(ret.data));
+                        } else {
+                            $api.append($api.byId('content'), interText(ret.data));
+                        }
+                        totalpage = ret.totalpage;
+                        page++;
+                    }
+                }
+            });
+        }
+
+        function openGoodsDetail(id) {
+            window.location.href='../goods/goods_win.html?originOId=0&id='+id;
+        }
+        </script>
+    </body>
+    </html>

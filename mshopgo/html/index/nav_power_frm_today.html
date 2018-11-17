@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>助力抢免单</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+</head>
+<body>
+    <div id="main">
+        <img src="../../image/brand/icon-guide.png" alt="" class="header-pic">
+        <div class="">
+            <div class="cart-bg-fff order-section-padd aui-margin-t-10 aui-padded-l-15 aui-padded-r-15">
+                <ul class="aui-list aui-media-list">
+                    <li class="aui-list-item aui-padded-l-0 cart-bg-fff">
+                        <div class="aui-media-list-item-inner">
+                            <div class="aui-list-item-media cart-left-img">
+                                <img src="../../image/commen1/heng1.jpg">
+                            </div>
+                            <div class="aui-list-item-inner aui-padded-r-0">
+                                <div class="aui-list-item-text cart-text">
+                                    <p class="aui-ellipsis-2 s-color-black aui-font-size-14 line-height color-black">这里是内容区域，新版中的列表布局可以很轻松的帮助开发者完成常见列表样式。成常见列表样式。</p>
+                                </div>
+                                <div class="aui-list-item-text aui-margin-t-15">
+                                    <span class="aui-pull-left">需5人助力</span>
+                                    <span class="aui-pull-right">已领62件</span>
+                                </div>
+                                <div class="aui-info aui-margin-t-5 padding0">
+                                    <div class="aui-info-item">
+                                        <strong class="s-color-black  color-pink ">￥49.90</strong>
+                                    </div>
+                                    <div class="aui-info-item cart-info-item" onclick="$a.openWin('no-sigle-detail')">
+                                        <div class=" aui-font-size-14 cart-section-go">免费领</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/res/layer/layer.js"></script>
+<script>
+  apiready = function () {
+    $api.fixStatusBar($api.dom('header'));
+  };
+  $('.aui-mask').on('click',function () {
+
+      $('.layer').addClass('aui-hide')
+  });
+   function showlayer() {
+       $('.layer').removeClass('aui-hide')
+   }
+</script>
+
+</body>
+</html>

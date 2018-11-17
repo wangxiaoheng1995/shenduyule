@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>详情</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css">
+    <style type="text/css">
+        .aui-bar-nav{
+            background-color: #fff!important;
+            color: #222!important;
+        }
+        .aui-bar-nav .aui-iconfont{
+            color: #222!important;
+        }
+        .aui-bar-nav a{
+            color: #222!important;
+        }
+        .aui-bar-nav .aui-btn .aui-iconfont{
+            font-size: 0.7rem;
+        }
+        .aui-searchbar-input{
+            background-color: #f3f3f3;
+            border-radius: 1rem;
+        }
+        .aui-bar-nav .aui-btn{
+            width: 100%;
+
+        }
+        .send{
+            background-color: #fff;
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        .send_font_title{
+            font-size: 0.8rem;
+            color: #222;
+        }
+        .send_font_subtitle{
+            font-size: 0.6rem;
+        }
+    </style>
+</head>
+
+<body>
+<header class="aui-bar aui-bar-nav aui-margin-b-10">
+    <a class="aui-pull-left aui-btn" href="javascript:void(0);">
+        <div class="aui-searchbar-input aui-border-radius" tapmode>
+            <i class="aui-iconfont aui-icon-search"></i>
+            <input id="search_input" type="search" placeholder="搜索地址" id="search-input" style="margin-left: 0.3rem;">
+        </div>
+        <span id="sub" style="color:#43ac45; font-size: 0.7rem;" onclick="closeWin();">取消</span>
+    </a>
+</header>
+
+<div id="info_area"></div>
+
+<script id="info_tmpl" type="text/html/x-dot-template">
+    {{~ it:pval:pkey}}
+    <div class="send" data-lon="{{= pval.lon}}" data-lat="{{= pval.lat}}" onclick="sendAddress(this);">
+        <p class="send_font_title">{{= pval.name}}</p>
+        <p class="send_font_subtitle">{{= pval.address}}</p>
+    </div>
+    {{~}}
+</script>
+
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/doT.min.js"></script>
+<script type="text/javascript">
+    var aMap;
+    apiready = function () {
+        aMap = api.require('aMap');
+    }
+
+    $('#search_input').bind('keydown',function(event){
+        setTimeout("get_address()",700);
+    });
+
+    // 获取地址列表
+    function get_address() {
+        var key = $.trim($("#search_input").val());
+        aMap.searchInCity({
+            city: '',
+            keyword: key,
+            offset: 20,
+            page: 1,
+            sortrule: 0
+        }, function(ret) {
+            if (ret.status) {
+                var interText = doT.template($("#info_tmpl").text());
+                $("#info_area").html(interText(ret.pois));
+            }
+        });
+
+    }
+
+    // 发送地址
+    function sendAddress(that) {
+        var select_lon = $(that).data('lon');
+        var select_lat = $(that).data('lat');
+        // 发送回调事件，并关闭页面
+        api.sendEvent({
+            name: 'locationSearchEvent',
+            extra: {
+                select_lon:select_lon,
+                select_lat:select_lat
+            }
+        });
+        closeWin();
+    }
+
+</script>
+</body>
+</html>

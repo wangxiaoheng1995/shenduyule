@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易-委托</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        html {
+            height: 100%;
+        }
+
+        /*最底背景：黑色*/
+        .bg1 {
+            background-color: #171b24;
+
+        }
+
+        /*买入*/
+        .aui-grid .aui-col-xs-3 {
+            background-color: #1c2029;
+            color: #ffffff;
+        }
+
+        .aui-grid .aui-col-xs-3, .aui-grid .aui-col-xs-3:active {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-3:active {
+            background-color: #de3232;
+        }
+
+        .aui-grid .aui-col-xs-4 {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-4 p {
+            font-weight: 700;
+
+        }
+
+        /*委托*/
+        #entrust .aui-grid .aui-col-xs-6 {
+            color: #ffffff;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        #entrust .aui-grid .aui-col-xs-6.active {
+            color: #de3232;
+        }
+
+        #entrust ul li,
+        .aui-content .border {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #entrust .aui-grid {
+            background-color: inherit;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 {
+            font-weight: inherit;
+            background-color: inherit;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 p {
+            font-size: 0.1rem;
+            color: #7e7e8e;
+        }
+
+        #entrust .aui-grid .aui-col-xs-3 .entrust {
+            border: 1px solid #de3232;
+            border-radius: 0.1rem;
+            color: #de3232;
+            margin: 0 auto;
+            width: 2.5rem;
+            padding: 0.2rem 0;
+        }
+
+        .aui-content .back-active:active {
+            background-color: rgba(126, 126, 142, 0.2);
+        }
+
+        .aui-content .on-active:active {
+            background-color: inherit !important;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .aui-content .hide,
+        .entrust-btn ul {
+            display: none;
+        }
+
+        .aui-content .show {
+            display: block;
+        }
+
+        .entrust-border {
+            border-right: 1px solid rgba(126, 126, 142, 0.2)
+        }
+
+    </style>
+</head>
+<body class="bg1">
+<div class="aui-content tabcontent  " id="entrust" v-cloak="">
+    <div class="aui-grid aui-margin-t-15" id="Btn" style="background-color: #1c2029">
+        <div class="aui-col-xs-6 active on-active entrust-border" style="" @click="changeType(0)">当日委托</div>
+        <div class="aui-col-xs-6 on-active" @click="changeType(1)">当日成交</div>
+    </div>
+    <div class="aui-grid border" style="background-color: inherit;color:#7e7e8e;font-size: 0.1rem">
+        <div class="aui-row aui-font-size-14">
+            <div class="aui-col-xs-4 on-active" style="width: 30%">买卖方向</div>
+            <div class="aui-col-xs-4 on-active" style="width: 30%">股票名称</div>
+            <div class="aui-col-xs-4 on-active" style="width: 40%">委托价/委托数/成交数</div>
+        </div>
+    </div>
+    <div class="entrust-btn">
+        <!--委托-->
+        <ul class="aui-grid show">
+            <li class="aui-row" v-for="item in delegateList" v-cloak>
+                <div class="aui-col-xs-3">
+                    <div class="aui-grid-label" v-if="item.type==1">买入</div>
+                    <div class="aui-grid-label" v-else>卖出</div>
+                    <p>{{item.addtime}}</p>
+                </div>
+                <div class="aui-col-xs-3">
+                    <div class="aui-grid-label">{{item.sname}}</div>
+                    <p>{{item.sno}}</p>
+                </div>
+                <div class="aui-col-xs-3">
+                    <div class="aui-grid-label">{{item.delegateNum}}</div>
+                    <p>{{item.delegatePrice}} | {{item.dealNum}}</p>
+                </div>
+                <div class="aui-col-xs-3">
+                    <p class="entrust aui-margin-t-10" @click="cancle(item.did)">撤单</p>
+                </div>
+            </li>
+
+        </ul>
+        <!--成交-->
+        <ul class="aui-grid ">
+            <li class="aui-row" v-for="list in dealList" v-cloak @click="openwin('trading_deal_detail',{did:list.did,sid:list.sid})">
+                <div class="aui-col-xs-3">
+                    <div class="aui-grid-label" v-if="list.type==1">买入</div>
+                    <div class="aui-grid-label" v-else>卖出</div>
+                    <p>{{list.addtime}}</p>
+                </div>
+                <div class="aui-col-xs-3">
+                    <div class="aui-grid-label">{{list.sname}}</div>
+                    <p>{{list.sno}}</p>
+                </div>
+                <div class="aui-col-xs-3">
+                    <div class="aui-grid-label">{{list.dealPrice}}</div>
+                    <p>{{list.dealNum}}</p>
+                </div>
+                <div class="aui-col-xs-3">
+                    <img style="width:0.3rem;padding: 0.5rem 0;margin:0.2rem auto" src="../image/jy_jr_icon.png">
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<script src="../script/yltcrypt.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+  var user;
+  apiready = function () {
+    user = $api.getStorage('user');
+    //监听买入卖出事件
+    api.addEventListener({
+      name: 'refresh-entrust'
+    }, function (ret, err) {
+      location.reload();
+    });
+    vm = new Vue({
+      el: '#entrust',
+      data: {
+        delegateList: '',
+        dealList: '',
+      },
+      methods: {
+        //委托成交变更
+        changeType: function (tag) {
+          var items = $api.domAll('#Btn >div'),
+            itemsGrid = $api.domAll('.entrust-btn ul'),
+            index = 0;
+          for (var i = 0, len = items.length; i < len; i++) {
+            if (tag == i) {
+              index = i;
+            } else {
+              $api.removeCls(items[i], 'active');
+              $api.removeCls(itemsGrid[i], 'show');
+            }
+          }
+          $api.addCls(items[index], 'active');
+          $api.addCls(itemsGrid[index], 'show');
+
+        },
+        //撤单
+        cancle: function (did) {
+          var self = this;
+          data = {
+            openId: user.openId,
+            token: yltcrypt.cpt(user.openId),
+            did: did
+          };
+          apiAjax(PHP_SERVE_URL + '/trade/cancle', data, function (ret, err) {
+            if (!ret.code) {
+              toast("撤单成功");
+              self.delegateLists();
+              api.sendEvent({
+                name: 'refresh-revoke'
+              });
+
+            } else {
+              toast(ret.msg)
+            }
+          })
+        },
+        delegateLists: function () {
+          //委托列表
+          var self = this;
+          apiAjax(PHP_SERVE_URL + '/trade/delegateList',
+            {
+              openId: user.openId,
+              token: yltcrypt.cpt(user.openId)
+            },
+            function (ret, err) {
+              if (!ret.code) {
+                self.delegateList = ret.data;
+              }
+            }
+          );
+        },
+        openwin: function (name, data) {
+          api.openWin({
+            name: name,
+            url: name + '.html',
+            pageParam: data
+          });
+        }
+      },
+      created: function () {
+        var self = this;
+        this.delegateLists();
+
+        //成交列表
+        apiAjax(PHP_SERVE_URL + '/trade/dealList',
+          {
+            openId: user.openId,
+            token: yltcrypt.cpt(user.openId)
+          },
+          function (ret, err) {
+            if (!ret.code) {
+              self.dealList = ret.data;
+            }
+          }
+        )
+      }
+    })
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/loading.css">
+    <style>
+        html {
+            height: 100%;
+        }
+
+        /*浅白*/
+        /*最底背景：黑色*/
+
+        .bg1 {
+            background-color: #171b24;
+        }
+
+        /*底背景：半黑色*/
+
+        .bg2 {
+            background-color: #1c2029;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        /*白色背景*/
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        .white {
+            color: #757575 !important;
+        }
+
+        /*黑色*/
+
+        .font-colo-b {
+            color: #212121 !important;
+        }
+
+        /*头部*/
+
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list,
+        .aui-list .aui-list-item-title,
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inner,
+        .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inne,
+        .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        /*买入*/
+
+        .aui-grid .aui-col-xs-3,
+        .aui-grid .aui-col-xs-3.aui-active,
+        .aui-grid .aui-col-xs-3 {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-3.aui-active {
+            background-color: #de3232;
+            color: #fff;
+        }
+
+        .aui-bar-btn-item {
+            color: #7e7e8e;
+            border: none;
+        }
+
+        .aui-bar-btn-item.aui-active {
+            background-color: #7e7e8e;
+            color: #000000 !important;
+        }
+
+        .backcolor {
+            background-color: #1c2029;
+            color: #fff;
+        }
+
+        .aui-bar-btn.aui-bar-btn-round .aui-bar-btn-item:first-child,
+        .aui-bar-btn.aui-bar-btn-round .aui-bar-btn-item:last-child {
+            border-radius: 0.3rem;
+            border: none;
+        }
+
+        .aui-grid .aui-col-xs-4 {
+            padding: 0.5rem 0;
+        }
+
+        .aui-grid .aui-col-xs-4 p {
+            font-weight: 700;
+        }
+
+        /* 文本框预输入文字颜色：*/
+
+        :-moz-placeholder {
+            color: #757575;
+        }
+
+        ::-moz-placeholder {
+            color: #757575;
+        }
+
+        input:-ms-input-placeholder {
+            color: #757575;
+        }
+
+        input::-webkit-input-placeholder {
+            color: #757575;
+        }
+
+        .aui-content .back-active:active {
+            background-color: rgba(126, 126, 142, 0.2);
+        }
+
+        .aui-content .on-active:active {
+            background-color: inherit !important;
+        }
+
+        .aui-grid .back-red:active {
+            background-color: #2B2F39;
+            opacity: 0.2;
+        }
+
+        .indistinct_search {
+            position: absolute;
+            left: 0;
+            top: 3.1rem;
+            width: 100%;
+            text-align: center;
+            z-index: 99;
+            /*background: #fff;*/
+        }
+
+        .indistinct_search li {
+            line-height: 1.6rem;
+        }
+
+        input[type="text"] {
+            height: 2.1rem;
+        }
+
+        [v-cloak] {
+            display: none
+        }
+
+        #buy {
+            height: 100%;
+        }
+
+        .flex-con {
+            display: none;
+        }
+
+        .flex-con > div,
+        .aui-content .hide {
+            display: none;
+        }
+
+        .aui-content .show {
+            display: block;
+        }
+
+        .padding-lr {
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
+        }
+
+        #btnData {
+            width: 26%;
+            background-color: inherit;
+            border: 1px solid #7e7e8e;
+            border-radius: 0.3rem;
+            line-height: 1.6rem;
+            min-height: 1.6rem;
+        }
+
+        .aui-bar-btn-item {
+            line-height: 1.6rem;
+        }
+    </style>
+</head>
+
+<body class="bg1">
+<div class="aui-content tabcontent flex-wrap flex-vertical bg1" id="buy" :class="{bg1:isShow}">
+    <div class="frame_buy-ct">
+        <div class="aui-grid font-colo-gy " style="background-color: inherit">
+            <div class="aui-row aui-content-padded">
+                <!--<div class="aui-col-xs-4 on-active" style="width: 25%"></div>-->
+                <div class="aui-col-xs-12 back-active" style="display: inline-table;">
+                    <input type="text" id="input" placeholder="请输入股票代码" class="aui-text-center padding-lr"
+                           @click="inputClick()" v-model='search'
+                           :class="{white:isShow}"
+                    >
+                </div>
+                <!--<div class="aui-col-xs-4 on-active" style="width: 25%">-->
+                <!--</div>-->
+            </div>
+            <!--模糊查询-->
+            <div class="indistinct_search bg2" :class="{bg2:isShow}" v-show="isTrue" v-cloak>
+                <ul v-for="item in searchData" @click="selectStock(item.id,item.stock_no,item.stock_name)">
+                    <li>{{item.stock_no}}-{{item.stock_name}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="aui-grid font-colo-gy bg2" :class="{bg2:isShow}"
+             style="border-bottom: 1px solid rgba(126,126,142,0.2)">
+            <div class="aui-row">
+                <div class="aui-col-xs-4 back-active" style="width: 25%" @click="changeQuentity('top',-0.01,0)">
+                    <p>-</p>
+                    <p>0.01</p>
+                </div>
+                <div class="aui-col-xs-4  back-active bg1"
+                     style="width: 50%;border-left: 1px solid rgba(126,126,142,0.2);border-right: 1px solid rgba(126,126,142,0.2)"
+                     :class="{bg1:isShow}">
+                    <input type="number" placeholder="卖出价格" class="aui-text-center " v-model="quanlity"
+                           :class="{white:isShow}" pattern="[0-9]*"
+                    >
+                </div>
+                <div class="aui-col-xs-4 back-active" style="width: 25%" @click="changeQuentity('top',0.01,0)">
+                    <p>+</p>
+                    <p>0.01</p>
+                </div>
+            </div>
+        </div>
+        <div class="aui-grid font-colo-gy bg2" :class="{bg2:isShow}">
+            <div class="aui-row">
+                <div class="aui-col-xs-4 back-active" style="width: 25%;" @click="changeQuentity('bot',-100,1)">
+                    <p>-</p>
+                    <p>100</p>
+                </div>
+                <div class="aui-col-xs-4  back-active bg1"
+                     style="width: 50% ;border-left: 1px solid rgba(126,126,142,0.2);border-right: 1px solid rgba(126,126,142,0.2)"
+                     :class="{bg1:isShow}">
+                    <input type="number" placeholder="卖出数量" class="aui-text-center " v-model="price"
+                           :class="{white:isShow}" pattern="[0-9]*">
+                </div>
+                <div class="aui-col-xs-4 back-active" style="width: 25%" @click="changeQuentity('bot',100,1)">
+                    <p>+</p>
+                    <p>100</p>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="aui-content aui-margin-l-15 aui-margin-r-15 aui-margin-t-5 aui-margin-b-5">
+            <div class="aui-info">
+                <div class="aui-info-item">
+                        <span class="" :class="{white:isShow}">最高价
+                        <i class="aui-margin-l-5 aui-margin-r-5">:</i>
+                    </span>
+                    <span class="font-colo-r" v-if="max_price=='--'">--</span>
+                    <span class="font-colo-r" v-else="" v-cloak>{{max_price}}</span>
+                </div>
+                <div class="aui-info-item">
+                        <span class="" :class="{white:isShow}">最低价<i class="aui-margin-l-5 aui-margin-r-5">:</i>
+                    </span>
+                    <span class="font-colo-r" v-if="min_price=='--'">--</span>
+                    <span class="font-colo-r" v-else="" v-cloak>{{min_price}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="aui-grid">
+            <div class="aui-row backcolor" id="btnSwitch" :class="{backcolor:isShow}">
+                <div class="aui-col-xs-3 back-red aui-active " @click="tabsSwitch(0)"> 卖出</div>
+                <div class="aui-col-xs-3 back-red " @click="tabsSwitch(1)"> 刷新</div>
+                <div class="aui-col-xs-3 back-red " @click="tabsSwitch(2)"> 买/卖</div>
+                <div class="aui-col-xs-3 back-red " @click="tabsSwitch(3)"> 清空</div>
+            </div>
+        </div>
+        <div class="aui-bar aui-bar-btn aui-bar-btn-round aui-margin-l-15 aui-margin-t-15 "
+             id="btnData">
+            <div class="aui-bar-btn-item aui-active white" :class="{white:isShow}" tapmode="" data-item-order="0"
+                 @click="changeType(0);">五档
+            </div>
+            <div class="aui-bar-btn-item white" :class="{white:isShow}" tapmode="" data-item-order="1"
+                 @click="changeType(1);">分时
+            </div>
+        </div>
+    </div>
+    <div class="flex-con" :class="{show:isActive}" v-cloak>
+        <div class="flex-btn show">
+            <div class="aui-grid aui-margin-l-15 aui-margin-r-15" style="background-color: inherit">
+                <div class="aui-row ">
+                    <div class="aui-col-xs-6 aui-padded-b-0 on-active aui-text-left">
+                        <span class="white" :class="{white:isShow}">涨停<i
+                                class="aui-margin-l-5 aui-margin-r-5">:</i></span>
+                        <span class="font-colo-r">--</span>
+                    </div>
+                    <div class="aui-col-xs-6 aui-padded-b-0 on-active aui-text-left">
+                        <span class="white" :class="{white:isShow}">跌停<i
+                                class="aui-margin-l-5 aui-margin-r-5">:</i></span>
+                        <span class="font-colo-g">--</span>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-grid  bg1" :class="{bg1:isShow}" style="background-color: inherit">
+                <div class="aui-row">
+                    <!--buy-->
+                    <div class="aui-col-xs-6 aui-padded-t-0 on-active">
+                        <div class="aui-row" v-for="buy in fiveTradeData.buy" v-cloak @click="tradeList(buy.price)">
+                            <div class="clearfix aui-padded-l-15 aui-padded-r-15">
+                                <span class="aui-pull-left font-colo-gy aui-margin-r-15">{{buy.name}}</span>
+                                <span class="aui-pull-left aui-margin-r-10 font-colo-r">{{buy.price}}</span>
+                                <div class="aui-pull-right">
+                                    <span class="aui-pull-right font-colo-r" v-if="buy.num >=10000">{{(buy.num/10000).toFixed(2)}}万</span>
+                                    <span class="aui-pull-right font-colo-r" v-else="">{{buy.num}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--sale-->
+                    <div class="aui-col-xs-6 aui-padded-t-0 on-active">
+                        <div class="aui-row" v-for="sale in fiveTradeData.sale" v-cloak @click="tradeList(sale.price)">
+                            <div class="clearfix aui-padded-l-15 aui-padded-r-15">
+                                <span class="aui-pull-left font-colo-gy aui-margin-r-15">{{sale.name}}</span>
+                                <span class="aui-pull-left aui-margin-r-10 font-colo-r">{{sale.price}}</span>
+                                <div class="aui-pull-right">
+                                    <span class="aui-pull-right font-colo-r" v-if="sale.num >=10000">{{(sale.num/10000).toFixed(2)}}万</span>
+                                    <span class="aui-pull-right font-colo-r" v-else="">{{sale.num}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-btn  bg1 vessel-chart" style="height: 8rem;width: 100%" :class="{bg1:isShow}">
+            <div style="height: 8rem;width: 100%" id="main" class="bg4" v-show="!isKline"></div>
+            <p v-show="isKline">暂无消息</p>
+        </div>
+    </div>
+</div>
+<!--loading-->
+<div class="box" id="box">
+    <div class="loader">
+        <div class="loading_3">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/echarts.min.js"></script>
+<script src="../script/yltcrypt.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/vue.js"></script>
+<script>
+    //涉及接口：所有股票数据、数据监听
+    var user, openId, wsServer, websocket, pageParam;
+    apiready = function () {
+        user = $api.getStorage('user');
+        pageParam = api.pageParam;
+        //检测是否登录
+        if (typeof user == "undefined") {
+            openId = "";
+        } else {
+            openId = user.openId
+        }
+        example();
+    };
+    function example() {
+        vm = new Vue({
+            el: '#buy',
+            data: {
+                search: '',
+                isTrue: false,
+                allStock: "",
+                dataType: 'fiveTradeData',
+                sid: 0,
+                fiveTradeData: '',
+                tradeLine: '',
+                quanlity: '',
+                price: '',
+                chartLine2: '',
+                times: [],
+                prices: [],
+                isActive: true,
+                max_price: '--',
+                min_price: '--',
+                qNum: 0,
+                pNum: 0,
+                isShow: true,
+                isKline: false
+            },
+            methods: {
+                inputClick: function () {
+                    $("#input").select();
+                },
+                //选中股票，筛选股票并选中后调用此方法
+                selectStock: function (sid, stock_no, stock_name) {
+                    this.search = stock_no + "-" + stock_name;
+                    this.sid = sid;
+                    this.isActive = true;
+                    this.loadStock();
+                },
+                //数据监听
+                loadStock: function () {
+                    var self = this;
+                    if (self.sid > 0) {
+                        var templateServer = 'ws://39.108.195.205:8076?ct=' + self.dataType + '-' + self.sid;
+                        if (wsServer != templateServer) {
+                            wsServer = templateServer;
+                            if (websocket != undefined) {
+                                websocket.close();
+                            }
+                            websocket = new WebSocket(wsServer);
+                            //onopen监听连接打开
+                            websocket.onopen = function (evt) {
+
+                                //盘口数据
+                                api.ajax({
+                                    url: PHP_SERVE_URL + '/trade/stockHandicap',
+                                    method: 'post',
+                                    data: {
+                                        values: {
+                                            sid: self.sid,
+                                            openId: openId
+                                        }
+                                    }
+                                }, function (ret, err) {
+                                    if (!ret.code) {
+                                        self.max_price = ret.data.max_price;
+                                        self.min_price = ret.data.min_price;
+                                    } else {
+                                        toast(ret.msg);
+                                    }
+                                });
+                                if ("fiveTradeData" == self.dataType) {
+                                    //五档数据
+                                    apiAjax(PHP_SERVE_URL + '/trade/stockFiveData', {
+                                        sid: self.sid
+                                    }, function (ret, err) {
+                                        if (ret.code == 0) {
+                                            self.fiveTradeData = ret;
+                                        }
+                                    });
+                                } else {
+                                    //股票k线图
+                                    apiAjax(PHP_SERVE_URL + '/trade/stockKline', {
+                                        sid: self.sid,
+                                        type: 1
+                                    }, function (ret, err) {
+                                        if (ret.code == 0) {
+                                            if (ret.data.times.length == 0) {
+                                                self.isKline = true;
+                                            } else {
+                                                self.isKline = false;
+                                                self.times = ret.data.times;
+                                                self.prices = ret.data.prices;
+                                                self.stockKline();
+                                            }
+                                        }
+                                    });
+                                }
+                            };
+                            //onmessage 监听服务器数据推送
+                            websocket.onmessage = function (evt) {
+                                if (self.dataType = "fiveTradeData") {
+                                    self.fiveTradeData = JSON.parse(evt.data);
+                                } else {
+                                    self.tradeLine = JSON.parse(evt.data);
+                                }
+                                //数据显示，曲线图展示
+                            };
+                            //监听连接关闭
+                            websocket.onclose = function (evt) {
+                                // console.log("Disconnected");
+                            };
+                            //监听连接错误信息
+                            websocket.onerror = function (evt, e) {
+//                                console.log('Error occured: ' + evt.data);
+                            };
+                        }
+                    }
+                },
+                //变更数据类型
+                changeType: function (tag) {
+                    if (!this.search) return;
+                    var items = $api.domAll('.aui-bar-btn-round .aui-bar-btn-item'),
+                            itemsGrid = $api.domAll('.flex-con >div'),
+                            index = 0;
+                    for (var i = 0, len = items.length; i < len; i++) {
+                        if (tag == i) {
+                            index = i;
+                        } else {
+                            $api.removeCls(items[i], 'aui-active');
+                            $api.removeCls(itemsGrid[i], 'show');
+                        }
+                    }
+                    $api.addCls(items[index], 'aui-active');
+                    $api.addCls(itemsGrid[index], 'show');
+                    if (index == 0) {
+                        this.dataType = 'fiveTradeData';
+                    } else {
+                        this.dataType = 'tradeLine';
+                    }
+                    this.loadStock();
+                },
+                //选项卡四按钮
+                tabsSwitch: function (tag) {
+                    switch (tag) {
+                        case 0://卖出
+                            if (this.search == '') {
+                                toast("请输入股票代码");
+                                return;
+                            }
+                            if (this.quanlity == '') {
+                                toast("请输入卖出价格");
+                                return;
+                            }
+                            if (this.price == '') {
+                                toast("请输入卖出数量");
+                                return;
+                            }
+                            if (this.price <= 0) {
+                                toast("卖出数量不能小于0");
+                                return;
+                            }
+                            if (parseFloat(this.quanlity) > parseFloat(this.max_price)) {
+                                toast("卖出价格不能高于最高价格");
+                            } else {
+                                var data = {
+                                    openId: openId,
+                                    token: yltcrypt.cpt(openId),
+                                    sid: this.sid,
+                                    quanlity: this.price,
+                                    price: parseFloat(this.quanlity).toFixed(2)
+                                };
+                                apiAjax(PHP_SERVE_URL + '/trade/sale', data, function (ret, err) {
+                                    toast(ret.msg);
+                                    if (!ret.code) {
+                                        toast(ret.msg);
+                                        api.sendEvent({
+                                            name: 'refresh-entrust'
+                                        });
+                                    }
+                                });
+                                break;
+                            }
+                            break;
+                        case 1://刷新
+                            break;
+                        case 2://买卖
+                            break;
+                        case 3:
+                            this.search = "";
+                            this.quanlity = "";
+                            this.price = "";
+                            this.tradeLine = "";
+                            this.isActive = false;
+                            this.max_price = "--"
+                            this.min_price = "--"
+                            break;
+                    }
+                },
+                //k线图
+                stockKline: function () {
+                    var self = this;
+                    myChart = echarts.init(document.getElementById("main"));
+                    myChart.setOption({
+                        backgroundColor: "#171b24",
+                        animation: true,
+                        tooltip: {
+                            trigger: 'axis',
+                            confine: true,
+                            axisPointer: {
+                                animation: true,
+                                type: 'cross',
+                                lineStyle: {
+                                    color: '#376df4',
+                                    width: 2,
+                                    opacity: 1
+                                }
+                            },
+                            formatter: '时间：{b}<br/>价格：{c}'
+                        },
+                        grid: [
+                            {
+                                top: '5%',
+                                left: 1,
+                                right: 1,
+                                height: '92%'
+                            },
+
+                        ],
+                        xAxis: [
+                            {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: self.times,
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#ddd',
+                                        opacity: 0.5
+                                    }
+                                },
+                                axisTick: {
+                                    show: false
+                                },
+                                axisLabel: {
+                                    show: false
+                                },
+                                // 控制网格线是否显示
+                                splitLine: {
+                                    show: true,
+                                    //  改变轴线颜色
+                                    lineStyle: {
+                                        // 使用深浅的间隔色
+                                        color: '#ddd',
+                                        opacity: 0.2
+                                    }
+                                }
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#ddd',
+                                        opacity: 0.5
+                                    }
+                                },
+                                axisTick: {
+                                    show: false
+                                },
+                                axisLabel: {
+                                    show: true,
+                                    inside: true
+                                },
+                                // 控制网格线是否显示
+                                splitLine: {
+                                    show: true,
+                                    //  改变轴线颜色
+                                    lineStyle: {
+                                        // 使用深浅的间隔色
+                                        color: '#ddd',
+                                        opacity: 0.2
+                                    }
+                                }
+                            }
+                        ],
+                        color: ['#fff'],
+                        series: [
+                            {
+                                type: 'line',
+                                stack: '总量',
+                                smooth: true,
+                                lineStyle: {
+                                    normal: {
+                                        color: "#fff"
+                                    }
+                                },
+                                areaStyle: {
+                                    normal: {
+                                        color: "#2d3645"
+                                    }
+                                },
+                                data: self.prices,
+                            }
+                        ]
+                    });
+                },
+                //数量加减
+                changeQuentity: function (paramenter, val, mun) {
+                    if (mun == 0) {
+                        if (this.quanlity == "") {
+                            this.quanlity = 0;
+                        }
+                        if (paramenter == "top") {
+                            this.quanlity = (parseFloat(this.quanlity) + val).toFixed(2);
+                        } else {
+                            this.price = parseFloat(this.price) + val;
+                        }
+                        this.qNum = this.quanlity;
+                        if (this.qNum <= 0) {
+
+                            this.quanlity = 0
+                        }
+                    } else {
+                        if (this.price == "") {
+                            this.price = 0;
+                        }
+                        if (paramenter == "top") {
+                            this.quanlity = (parseFloat(this.quanlity) + val).toFixed(2);
+                        } else {
+                            this.price = parseFloat(this.price) + val;
+                        }
+                        this.pNum = this.price;
+                        if (this.pNum <= 100) {
+                            this.price = 100
+                        }
+                    }
+                },
+                tradeList: function (quanlity) {
+                    this.quanlity = quanlity;
+                }
+            },
+            mounted: function () {
+                var self = this;
+                //获取所有股票数据，输入股票后从allStock中筛选
+                api.ajax({
+                    url: PHP_SERVE_URL + '/trade/allStock',
+                    method: 'post'
+                }, function (ret, err) {
+                    if (ret.code == 0) {
+                        self.allStock = ret.data;
+                        $api.css($api.dom("#box"), "display:none");
+                        if (api.pageParam.bg == 0) {
+                            self.isShow = true;
+                        } else {
+                            self.isShow = false;
+                        }
+                        if (pageParam.name != "") {
+                            self.search = pageParam.sno + "-" + pageParam.name;
+                            self.sid = pageParam.stockid;
+                            self.loadStock();
+                        }
+                    } else {
+                        api.toast({
+                            msg: ret.msg,
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                    }
+                });
+                this.loadStock();
+            },
+            computed: {
+                searchData: function () {
+                    var search = this.search;
+                    var arr = [];
+                    if (search) {
+                        this.isKline = false;
+                        this.isTrue = true;
+
+                        searchVal = this.allStock.filter(function (product) {
+                            return Object.keys(product).some(function (key) {
+                                if (String(product['stock_name']).toLowerCase().indexOf(search) > -1) {
+                                    return true;
+                                }
+                                if (String(product['stock_no']).toLowerCase().indexOf(search) > -1) {
+                                    return true;
+                                }
+                            })
+                        })
+                        return searchVal;
+
+                    } else {
+                        this.isKline = true;
+                        this.isTrue = false;
+                        this.fiveTradeData = "";
+                        this.tradeLine = "";
+                    }
+                }
+            }
+        });
+    }
+
+</script>
+
+</html>

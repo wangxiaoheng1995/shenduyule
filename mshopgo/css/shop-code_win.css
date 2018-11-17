@@ -1,0 +1,16 @@
+body,html{
+    background:#ff6666!important; ;
+}
+section{
+    background: #ffffff;
+    margin: 1.5rem 1rem;
+    padding-top: 1rem;
+    padding-bottom: 4rem;
+    margin-bottom: 2rem;
+    border-radius: 0.2rem;
+}
+section img{
+    width: 10rem;
+    height: 10rem;
+    margin: 1rem auto;
+}

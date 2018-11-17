@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>设置</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+
+        .confirmimg {
+            float: left;
+            width: 1.8rem;
+            display: inline-block;
+            margin: 1rem;
+        }
+
+        .aui-toast {
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            border-radius: 0.25rem;
+            color: #ffffff;
+            position: fixed;
+            z-index: 3;
+            top: 42%;
+            left: 44%;
+            width: 10.5em;
+            min-height: 4.5em;
+            margin-left: -3.75em;
+            margin-top: -4rem;
+            display: none;
+        }
+
+        .aui-toast-content {
+            display: inline-block;
+            position: absolute;
+            left: 43%;
+            top: 35%;
+        }
+        .login-exit{
+          display:flex;
+          flex-direction: column;
+          justify-content: center;
+          width:11rem;
+          height:4rem;
+          border-radius:5px;
+          background:white;
+          border:1px solid skyblue;
+          position: fixed;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          margin:auto;
+          z-index:9999;
+          display:none;
+        }
+        .login-exit h3{
+          font-size:0.7rem;
+          padding:0 0.5rem;
+          height:2rem;
+          line-height: 2rem;
+        }
+        .login-exit p{
+          font-size:0.6rem;
+          color:skyblue;
+          width:50%;
+          border-right:1px solid #eee;
+          border-top:1px solid #eee;
+          text-align: center;
+        }
+        .login-exit .exitChange{
+          display:flex;
+          height:2rem;
+          line-height: 2rem;
+        }
+        .exit-shadowBox{
+          width:100%;
+          height:100%;
+          position: fixed;
+          top:0;
+          left:0;
+          display:none;
+          background: #000;
+          opacity:0.4;
+          z-index:8888;
+        }
+        .aui-toast{
+            display:flex!important;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .aui-toast-content{
+            position: relative;
+            left:0;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">设置</div>
+</header>
+<div class="aui-content aui-margin-t-10" id="myIndex" v-cloak>
+    <ul class="aui-list aui-list-in aui-margin-t-0">
+        <li class="aui-list-item cart-bg-fff" @click="openActionsheet()">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">头像</div>
+                <img :src="avatar" class="aui-list-item-right aui-img-round my-head-width"/>
+            </div>
+        </li>
+        <li class="aui-list-item cart-bg-fff" onclick="window.location.href='../my/my_frm-name.html'">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">昵称</div>
+                <div class="aui-list-item-right">{{nickname}}</div>
+            </div>
+        </li>
+        <li class="aui-list-item cart-bg-fff" onclick="window.location.href='../my/my_frm-gender.html'">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">性别</div>
+                <div class="aui-list-item-right">{{sex}}</div>
+            </div>
+        </li>
+        <li class="aui-list-item cart-bg-fff" onclick="codeToast()">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">我的二维码</div>
+            </div>
+        </li>
+    </ul>
+    <!-- <ul class="aui-list aui-list-in aui-margin-t-10">
+        <li class="aui-list-item cart-bg-fff">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">实名认证</div>
+                <div class="aui-list-item-right" v-if="isAuth==false">未认证</div>
+                <div class="aui-list-item-right" v-else>已认证</div>
+            </div>
+        </li>
+    </ul> -->
+    <!-- <ul class="aui-list aui-list-in aui-margin-t-10" @click="emptyCache()">
+        <li class="aui-list-item cart-bg-fff">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">清除缓存</div>
+                <div class="aui-list-item-right">{{size}}M</div>
+            </div>
+        </li>
+    </ul> -->
+    <!-- <ul class="aui-list aui-list-in aui-margin-t-10">
+        <li class="aui-list-item cart-bg-fff">
+            <div class="aui-list-item-inner aui-list-item-arrow">
+                <div class="aui-list-item-title">关于</div>
+                <div class="aui-list-item-right">当前版本{{version}}</div>
+            </div>
+        </li>
+    </ul> -->
+    <button class="aui-btn padding0 border-no bd-radius  aui-font-size-16 back-pinkm color-write my-margin-t logout" onclick="exit();">退出登录
+    </button>
+</div>
+<div class="login-exit">
+  <h3>系统提示，您是否确定退出登录</h3>
+  <div class="exitChange">
+    <p class="exit-cancle">取消</p>
+    <p class="exit-sure">确定</p>
+  </div>
+</div>
+<div class="exit-shadowBox"></div>
+</body>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/aui/aui-actionsheet.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/getData.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script type="text/javascript">
+    var user, getSize;
+    window.onload = function () {
+        user = $api.getStorage('user');
+
+        // getSize = api.getCacheSize({sync: true});
+        if (!user) {
+
+           window.location.href="../login_win.html"
+            // openWinPro('../login_win');
+            return;
+        }
+        
+        document.addEventListener({
+            name: 'customerLogined'
+        }, function () {
+            window.location.reload();
+        });
+        vm = new Vue({
+            el: '#myIndex',
+            data: {
+                assets: '',
+                nickname: user.nickName,
+                avatar: user.avatar,
+                size: (getSize / 1048576).toFixed(2),
+                sex: '男',
+                isAuth: false,
+                // version: api.appVersion,
+            },
+            methods: {
+                /*清除手机缓存*/
+                // emptyCache: function () {
+                //     var self = this;
+                //     api.clearCache(function() {
+                //         var toast = new auiToast();
+                //         toast.custom({
+                //             title: "清理成功",
+                //             html: '<img class="confirmimg" src="../../image/my/gw_zfcg_icon.png"></img>',
+                //             duration: 2000
+                //         });
+                //         self.size = '0.00';
+                //     });
+                // },
+                getAssets: function () {
+                    var self = this;
+                    //获取金币
+                    $.ajax({
+                        url:PHP_SERVE_URL + '/customer/getAssets',
+                        data:{
+                            openId: user.openId,
+                            assetsType: 1,
+                          },
+                        success:function (ret, err) {
+                          console.log(ret.msg)
+                            if (ret.totalBalance == null) {
+                                self.assets = 0.00
+                            } else if (ret.totalBalance < 10000) {
+                                self.assets = ret.totalBalance;
+                            } else {
+                                self.assets = (ret.totalBalance / 10000).toFixed(2) + '万'
+                            }
+                        }
+                    });
+                },
+                //点击实名认证
+                todoAuth: function () {
+                    $.ajax({
+                        url: PHP_SERVE_URL + '/customer/getRealAuth',
+                        method: 'post',
+                        data: {
+                            // values: {
+                                openId: user.openId
+                            // }
+                        },
+                        success:function (json, err) {
+                          console.log(json.msg)
+                            if(json.code==0){
+                                self.isAuth = json.data.isAuth;
+                            }
+                        }
+                    });
+                },
+                setSex:function(sex){
+                    var self=this;
+                    if (sex == 1) {
+                        self.sex = "男";
+                    }
+                    if (sex == 2) {
+                        self.sex = "女";
+                    }
+                },
+                openActionsheet:function(){
+                    var actionsheet = new auiActionsheet();
+                    actionsheet.init({
+                        frameBounces: true,//当前页面是否弹动，（主要针对安卓端）
+                        title: "更换头像",
+                        cancelTitle: '取消',
+                        buttons: ['拍一张', '从手机相册中选择']
+                    }, function (ret) {
+                        if (ret) {
+                            getPicture(ret.buttonIndex);
+                        }
+                    });
+                }
+            },
+            created: function () {
+                var self = this;
+                self.getAssets();
+//                self.todoAuth();
+                self.setSex(user.sex);
+                document.addEventListener({
+                    name: 'refresh_sex',
+                }, function(ret) {
+                    if (ret) {
+                        self.setSex(ret.value.sex);
+                    }
+                });
+                document.addEventListener({
+                    name: 'refresh-gold'
+                }, function () {
+                    self.getAssets();
+                });
+                //监听名字
+                document.addEventListener({
+                    name: 'refresh_user_nickname'
+                }, function (ret, err) {
+                    self.nickname = ret.value.nickName
+                });
+                //监听头像
+                document.addEventListener({
+                    name: 'refresh_user_avatar'
+                }, function (res) {
+                    if (res) {
+                        self.avatar = res.value.headurl;
+                    }
+                });
+                document.addEventListener({
+                    name: 'viewappear'
+                }, function () {
+                    self.size = (getSize / 1048576).toFixed(2);
+                })
+            }
+        });
+    };
+    function getPicture(sourceType){
+        if (sourceType == 1) { // 拍照
+            //获取一张图片
+            api.getPicture({
+                sourceType: 'camera',
+                encodingType: 'png',
+                mediaValue: 'pic',
+                allowEdit: false,
+                quality: 90,
+                saveToPhotoAlbum: true
+            }, function (ret, err) {
+                if (ret) {
+                    var imgSrc = ret.data;
+                    if (imgSrc != "") {
+                        openWinPro('my_frm-clip', 'type:avatar,img_url:' + imgSrc);
+                    }
+                }
+            });
+        }
+        else if (sourceType == 2) { // 从相机中选择
+            //UIMediaScanner 是一个多媒体扫描器，可扫描系统的图片、视频等多媒体资源
+            var UIMediaScanner = api.require('UIMediaScanner');
+            UIMediaScanner.open({
+                //返回的资源种类,picture（图片）,video（视频）,all（图片和视频）
+                type: 'picture',
+                //（可选项）图片显示的列数，须大于1
+                column: 4,
+                max: 1,
+                //（可选项）图片排序方式,asc（旧->新）,desc（新->旧）
+                sort: {
+                    key: 'time',
+                    order: 'desc'
+                },
+                //（可选项）模块各部分的文字内容
+                texts: {
+                    stateText: '已选择*项',
+                    cancelText: '取消',
+                    finishText: '完成'
+                },
+                styles: {
+                    bg: '#fff',
+                    mark: {
+                        icon: '',
+                        position: 'bottom_right',
+                        size: 20
+                    },
+                    nav: {
+                        bg: '#eee',
+                        stateColor: '#000',
+                        stateSize: 18,
+                        cancleBg: 'rgba(0,0,0,0)',
+                        cancelColor: '#000',
+                        cancelSize: 18,
+                        finishBg: 'rgba(0,0,0,0)',
+                        finishColor: '#000',
+                        finishSize: 18
+                    }
+                }
+            }, function (ret) {
+                if (ret) {
+                    if (getJsonObjLength(ret.list) != 0 && ret.list[0]) {
+                        var systemType = api.systemType;
+                        if (systemType == 'ios') {
+                            UIMediaScanner.transPath({
+                                path: ret.list[0].path
+                            }, function (transret, transerr) {
+                              window.location.href="my_frm-clip.html?"+"type="+avatar+"&"+"img_url="+transret.path
+                                // openWinPro('my_frm-clip', 'type:avatar,img_url:' + transret.path);
+                            });
+                        } else {
+                          window.location.href="my_frm-clip.html?"+"type="+avatar+"&"+"img_url="+ret.list[0].path
+                            // openWinPro('my_frm-clip', 'type:avatar,img_url:' + ret.list[0].path);
+                        }
+                    }
+                }
+            });
+        }
+    }
+    //    退出
+    function exit() {
+        // api.actionSheet({
+        //     cancelTitle: '取消',
+        //     buttons: ['退出登录'],
+        //     style: {
+        //         fontNormalColor: '#484848',
+        //     }
+        // }, function(ret, err) {
+        //     if (ret) {
+        //         if (ret.buttonIndex == 1) {
+        //             $api.rmStorage('user');
+        //             var toast = new auiToast();
+        //             toast.custom({
+        //                 title: "已退出",
+        //                 html: '<img class="confirmimg" src="../../image/my/gw_zfcg_icon.png"></img>',
+        //                 duration: 1000
+        //             });
+        //             api.sendEvent({
+        //                 name:'closeIndex'
+        //             })
+        //             setTimeout(function(){
+        //                 window.location.href='../login_win.html';
+        //                 setTimeout(function(){
+        //                     api.closeWin();
+        //                 },1000);
+        //             },1500);
+        //         }
+        //     }
+        // });0000
+        // session.invalidate();
+        //
+
+        $(".logout").click(function() {
+        // body.append("<span stlye='width:100px .........'></span>");
+        // if (confirm('系统提示，您确定要退出本次登录吗?')) {
+        //
+        //     localStorage.removeItem('user');
+        //     console.log(localStorage.getItem('user'));
+        //     window.location.href = '../login_win.html';
+        // }
+        $(".login-exit").css({"display":"block"});
+        $(".exit-shadowBox").css({"display":"block"});
+        $(".exit-sure").click(function(){
+          localStorage.removeItem('user');
+          console.log(localStorage.getItem('user'));
+          window.location.href = '../login_win.html';
+        })
+        $(".exit-cancle").click(function(){
+          $(".login-exit").css({"display":"none"});
+          $(".exit-shadowBox").css({"display":"none"});
+        })
+
+    });
+    }
+    function codeToast(){
+           var toast = new auiToast();
+           toast.custom({
+            title:"暂未开放",
+            html:'',
+            duration:100000
+        });
+        }
+</script>
+</html>

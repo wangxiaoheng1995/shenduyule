@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>主题</title>
+  <style>
+    .aui-tab.aui-border-t{
+      overflow-x: auto;
+      padding-bottom:2px;
+    }
+    .aui-tab.aui-border-t .aui-tab-item span{
+      white-space: nowrap;
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+  <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+  <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+  <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+  <style>
+    body,html{
+      height:100%;
+      width:100%;
+    }
+    #content{
+      width:100%;
+      height:100%;
+      display:flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    #main{
+      flex:1;
+      overflow-x:hidden;
+      overflow-y: auto;
+    }
+      .flex-con{
+        width:100%;
+      }
+      .flex-con .topic-shop{
+        display:flex;
+        flex-direction:column;
+        align-items: center;
+      }
+      .flex-con .topic-shop li {
+        width:100%;
+        display:flex;
+        /*justify-content: center;*/
+        align-items: center;
+      }
+        .flex-con .topic-shop li a{
+          display:block;
+          flex:1;
+
+          box-sizing: border-box;
+          /* max-width:50%; */
+        }
+        .flex-con .topic-shop li div img{
+          width:100%;
+        }
+  </style>
+</head>
+<body>
+       <div id="content" v-cloak>
+         <header class="aui-bar aui-bar-nav tit-bar-black back-write ">
+             <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+                 <span class="aui-iconfont aui-icon-left color-gray9"></span>
+             </a>
+             <div class="aui-title color-black">专题商城</div>
+         </header>
+         <div id="main" class="flex-con">
+           <ul class="topic-shop">
+             <li v-for=" value in ptidArr.ptlist">
+              <div v-for="(p,index) in value" width="50%" @click="openGoodsDetail(p.gid)"><img :src="p.pic" alt=""></div>
+             </li>
+           </ul>
+         </div>
+       </div>
+       <script src="../../script/api.js"></script>
+       <script src="../../script/base.js"></script>
+       <script src="../../script/zepto.min.js"></script>
+       <script src="../../script/config.js"></script>
+       <script src="../../script/vue.js"></script>
+       <script src="../../script/H5_public.js"></script>
+       <script>
+       //专题内容
+         var id=H5.pageParam().topicId;
+        //加载数据
+        new Vue({
+          el:"#main",
+          data:{
+            ptidArr:""
+          },
+          mounted:function(){
+            var self=this;
+            $.ajax({
+              url:PHP_SERVE_URL + '/Default/plateTopic',
+              type:"post",
+              data:{
+              "ptid":id
+              },
+            success: function (ret, err) {
+                  console.log(ret)
+                if (ret.code==0) {
+                    self.ptidArr = ret.data;
+                }
+            }
+            })
+          },
+          methods:{
+             openGoodsDetail:function(gid) {
+               if(gid>0){
+                window.location.href='../goods/goods_win.html?originOId=0&id='+gid;
+               }
+            }
+          }
+        })
+
+       </script>
+</body>
+</html>

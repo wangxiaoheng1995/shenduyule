@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的学堂</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .aui-list .aui-list-item-title {
+            font-size: 0.75rem;
+        }
+
+        .aui-list .aui-list-item-text {
+            font-size: 0.6rem;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        /*list-按下背景色*/
+        .aui-list .aui-list-item:active {
+            background-color: #ececec;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">我的学堂</div>
+</header>
+
+<div id="item">
+    <div class="aui-content"><img src="../image/wdxt_banner_image.png"></div>
+    <div class="aui-content ">
+        <ul class="aui-list aui-media-list   aui-margin-t-15">
+            <li class="aui-list-item aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-info aui-padded-t-15 ">
+                    <div class="aui-info-item"><img src="../image/wdxt_cj_icon.png" class="aui-img-round"
+                                                    style="width: 0.8rem;"> <span class="aui-margin-l-5 "
+                                                                                  style="color: rgb(0, 0, 0);">入门级课程</span>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+            <li onclick="location.href='http://localhost:63342/guhaiH5/html/trading_index_basics.html?id=82'"
+                class="aui-list-item aui-list-item-arrow aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">入门级课程第一步</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="aui-content ">
+        <ul class="aui-list aui-media-list   aui-margin-t-15">
+            <li class="aui-list-item aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-info aui-padded-t-15 ">
+                    <div class="aui-info-item"><img src="../image/wdxt_cj_icon.png" class="aui-img-round"
+                                                    style="width: 0.8rem;"> <span class="aui-margin-l-5 "
+                                                                                  style="color: rgb(0, 0, 0);">中级</span>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+            <li onclick="location.href='http://localhost:63342/guhaiH5/html/trading_index_basics.html?id=82'"
+                class="aui-list-item aui-list-item-arrow aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">中级教程</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="aui-content ">
+        <ul class="aui-list aui-media-list   aui-margin-t-15">
+            <li class="aui-list-item aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-info aui-padded-t-15 ">
+                    <div class="aui-info-item"><img src="../image/wdxt_cj_icon.png" class="aui-img-round"
+                                                    style="width: 0.8rem;"> <span class="aui-margin-l-5 "
+                                                                                  style="color: rgb(0, 0, 0);"></span>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+            <li onclick="location.href='http://localhost:63342/guhaiH5/html/trading_index_basics.html?id=82'"
+                class="aui-list-item aui-list-item-arrow aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">第一步了解什么是基金</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+            <li onclick="location.href='http://localhost:63342/guhaiH5/html/trading_index_basics.html?id=82'"
+                class="aui-list-item aui-list-item-arrow aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">第二步 了解基金的分类</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="aui-content ">
+        <ul class="aui-list aui-media-list   aui-margin-t-15">
+            <li class="aui-list-item aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-info aui-padded-t-15 ">
+                    <div class="aui-info-item"><img src="../image/wdxt_cj_icon.png" class="aui-img-round"
+                                                    style="width: 0.8rem;"> <span class="aui-margin-l-5 "
+                                                                                  style="color: rgb(0, 0, 0);"></span>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+            <li onclick="location.href='http://localhost:63342/guhaiH5/html/trading_index_basics.html?id=82'"
+                class="aui-list-item aui-list-item-arrow aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">第三步 了解基金的收益分配</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+        </ul>
+    </div>
+    <div class="aui-content ">
+        <ul class="aui-list aui-media-list   aui-margin-t-15">
+            <li class="aui-list-item aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-info aui-padded-t-15 ">
+                    <div class="aui-info-item"><img src="../image/wdxt_cj_icon.png" class="aui-img-round"
+                                                    style="width: 0.8rem;"> <span class="aui-margin-l-5 "
+                                                                                  style="color: rgb(0, 0, 0);"></span>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+            <li onclick="location.href='http://localhost:63342/guhaiH5/html/trading_index_basics.html?id=82'"
+                class="aui-list-item aui-list-item-arrow aui-padded-l-15 aui-padded-r-15">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text">
+                            <div class="aui-list-item-title">第二步 了解走势指标认知</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-hr" style="opacity: 0.5;"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/aui-toast.js"></script>
+<script src="../script/vue.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        html,body {
+            width:100%;
+            height:100%;
+            background: #f6f6f6;
+        }
+        #content{
+          height:100%;
+          display:flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        #header{
+          background:#de3232;
+        }
+        #main{
+          flex:1;
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+        .arrow-down {
+          width:0;
+          height:0;
+          border-right:0.35rem solid transparent;
+          border-left:0.35rem solid transparent;
+          border-top:0.35rem solid red;
+      }
+      .main-list-title{
+        display:flex;
+        padding:1rem;
+        align-items: center;
+        border-bottom:1px solid #B2B2B2;
+      }
+      .list-title-img img{
+        width:4.3rem;
+        height:4.3rem;
+      }
+      .list-title-text h2{
+        font-size:0.9rem;
+        color:#000;
+      }
+      .list-title-text p{
+        margin-top:0.2rem;
+        color:#de3232;
+      }
+      .list-content-level1{
+        /*padding:1rem;*/
+      }
+      .list-content-level1 .list-content-level1-p{
+        display:flex;
+        align-items: center;
+        padding:1rem;
+      }
+      .list-content-level2-title{
+        padding:0.5rem;
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom:1px solid #B2B2B2;
+      }
+      .list-content-level2-title p{
+        display:flex;
+        align-items: center;
+      }
+      .list-content-level2-title img{
+        width:1rem;
+        height:1rem;
+      }
+      .aui-margin-l-20{
+        margin-left:1rem!important;
+      }
+      .list-content-level3 li{
+        padding:0.5rem;
+        display:flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom:1px solid #B2B2B2;
+
+      }
+      .list-content-level3 li img{
+        width:1rem;
+        height:1rem;
+      }
+      /*复选框基本（未选中）的样式*/
+      input[type="checkbox"]{
+      	-webkit-appearance: none;
+      	-moz-appearance: none;
+      	appearance: none;
+      	outline: none;
+      	display: inline-block;
+      	vertical-align: middle;
+      	width: 18px;
+      	height: 18px;
+      	border-radius: 9px;
+      	background-image: url(../image/icon-checked.png);
+      	background-size: 100% auto;
+      	box-sizing:border-box;
+      	background-position: 0 0;
+      	background-color: white;
+      	border:solid 2px #bbb;
+      }
+      /*复选框选中后增加的样式*/
+      input[type="checkbox"]:checked{
+      	background-position: 0 -18px;
+      	background-color: #EE4643;
+      	border: 0;
+      }
+      /*复选框选中后增加的样式*/
+      input[type="checkbox"]:checked:active{
+      	background-color: rgb(100,100,100);
+      }
+      .list-active{
+        display:none;
+      }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+    <div id="content">
+        <header class="aui-bar aui-bar-nav" id="header">
+            <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+                <span class="aui-iconfont aui-icon-left"></span>
+            </a>
+            <div class="aui-title">章节练习</div>
+        </header>
+        <div class="main" id="main">
+          <div class="main-list">
+            <div class="main-list-title">
+              <div class="list-title-img aui-margin-r-15"><img src="../image/test_log.png" alt=""></div>
+              <div class="list-title-text">
+                <h2>金融市场基础知识</h2>
+                <p>￥<span>0.00</span></p>
+              </div>
+            </div>
+            <ul class="main-list-content">
+              <li class="list-content-level1">
+                <p class="list-content-level1-p"><span class="arrow-down aui-margin-r-10"></span><span>金融市场基础知识</span></p>
+                <ul class="list-content-level2">
+                  <li class="level2">
+                    <div class="list-content-level2-title">
+                      <p class="aui-margin-l-20"><span class="arrow-down aui-margin-r-10"></span>第一章 金融市场体系(<span>1256</span>题)</p>
+                      <img src="../image/test_go_icon.png" alt="">
+                    </div>
+                    <ul class="list-content-level3">
+                      <li>
+                        <p class="aui-margin-l-20"><input type="checkbox" class="aui-margin-r-5">第一节 全球金融体系(<span>1256</span>题)</p>
+                        <img src="../image/test_go_icon.png" alt="">
+                      </li>
+                      <li>
+                        <p class="aui-margin-l-20"><input type="checkbox" class="aui-margin-r-5">第二节 全球金融体系(<span>1256</span>题)</p>
+                        <img src="../image/test_go_icon.png" alt="">
+                      </li>
+                      <li>
+                        <p class="aui-margin-l-20"><input type="checkbox" class="aui-margin-r-5">第三节 全球金融体系(<span>1256</span>题)</p>
+                        <img src="../image/test_go_icon.png" alt="">
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="level2">
+                    <div class="list-content-level2-title">
+                      <p class="aui-margin-l-20"><span class="arrow-down aui-margin-r-10"></span>第一章 金融市场体系(<span>1256</span>题)</p>
+                      <img src="../image/test_go_icon.png" alt="">
+                    </div>
+                    <ul class="list-content-level3">
+                      <li>
+                        <p class="aui-margin-l-20"><input type="checkbox" class="aui-margin-r-5">第一节 全球金融体系(<span>1256</span>题)</p>
+                        <img src="../image/test_go_icon.png" alt="">
+                      </li>
+                      <li>
+                        <p class="aui-margin-l-20"><input type="checkbox" class="aui-margin-r-5">第二节 全球金融体系(<span>1256</span>题)</p>
+                        <img src="../image/test_go_icon.png" alt="">
+                      </li>
+                      <li>
+                        <p class="aui-margin-l-20"><input type="checkbox" class="aui-margin-r-5">第三节 全球金融体系(<span>1256</span>题)</p>
+                        <img src="../image/test_go_icon.png" alt="">
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/config.js"></script>
+    <script type="text/javascript" src="../script/common.js"></script>
+    <script type="text/javascript" src="../script/aui-toast.js"></script>
+    <script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+    <script>
+        var user, avatar;
+        $(".list-content-level1-p").click(function(){
+          // $(".list-content-level2").toggleClass("list-active")
+          $(".list-content-level2").slideToggle()
+        })
+
+        $(".level2").children(".list-content-level2-title").click(function(){
+          $(this).next(".list-content-level3").toggleClass("list-active")
+        })
+
+    </script>
+</body>
+
+</html>

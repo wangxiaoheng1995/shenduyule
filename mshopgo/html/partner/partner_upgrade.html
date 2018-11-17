@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>升级掌柜</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        /*40%透明*/
+
+        .color-lucency6 {
+            opacity: 0.4;
+        }
+
+        .bd-radius {
+            border-color: #ffffff;
+            opacity: 0.4;
+        }
+
+        .aui-label {
+            font-size: 1rem;
+            width: 2rem;
+        }
+
+        .label-text {
+            font-weight: bold;
+            padding: 0 1rem;
+            border-bottom: 1px solid #E6E6E6;
+            font-size: 1rem;
+        }
+        /* 选择掌柜等级选项卡样式——star */
+
+        #fixed-bg {
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            height: 100%;
+            width: 100%;
+            z-index: 9999;
+            display: none;
+        }
+
+        #chooseLevel {
+            position: absolute;
+            background-color: white;
+            border-radius: 5px;
+            width: 80%;
+            top: 22.5%;
+            left: 10%;
+        }
+
+        #chooseLevel .aui-row {
+            height: 3rem;
+            line-height: 2rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            font-size: 0.8rem;
+            color: #333333;
+            width: 100%;
+        }
+
+        #chooseLevel .aui-row input {
+            float: right;
+            margin-top: 0.6rem;
+            display: none;
+        }
+
+        #chooseLevel .aui-row i {
+            float: right;
+            margin-top: 0.6rem;
+        }
+
+        .radio-uncheck {
+            background-image: url('../../image/pay/icon-check.png');
+            width: 1rem;
+            height: 1rem;
+            background-size: 100% 100%;
+        }
+
+        .radio-check {
+            background-image: url('../../image/pay/icon-check1.png');
+        }
+
+        .handle {
+            text-align: center;
+            background-color: white;
+            margin-top: 0.5rem;
+        }
+        /* 选择掌柜等级选项卡样式——end */
+    </style>
+</head>
+
+<body>
+    <!-- header -->
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write color-black">
+        <a class="aui-pull-left aui-btn" onclick="window.history.back();">
+            <span class="aui-iconfont aui-icon-left color-black"></span>
+        </a>
+        <div class="aui-title" id="partnerHeader">升级掌柜</div>
+        <span class="aui-pull-right" onclick="window.location.href='partner_regulation.html'">升级规则</span>
+    </header>
+    <!-- main -->
+    <div id="main">
+        <div id="card" class="aui-card-list aui-margin-b-0 aui-padded-t-15 aui-padded-b-10" style="background-image:url('../../image/partner/hhr_bg01_image@3x_new.png');background-size:100% 100%;height:10rem;">
+            <div class="aui-card-list-header aui-card-list-user">
+                <div class="aui-card-list-user-name color-write">
+                    <div>&nbsp;</div>
+                    <div class="border bd-radius aui-padded-l-15 aui-padded-r-15" onclick="window.location.href='partner_deposit.html'">记录</div>
+                </div>
+            </div>
+            <div class="aui-card-list-content aui-text-center aui-margin-t-15 aui-padded-t-15">
+                <div class="color-write" style="font-size: 2rem" id="money">0.00</div>
+            </div>
+            <div class="aui-card-list-footer aui-text-center color-write color-lucency6" id="noConfirm">
+                你的押金未符合当前掌柜身份
+            </div>
+        </div>
+        <div class="aui-card-list aui-padded-b-15 back-write aui-margin-t-15">
+            <div class="aui-card-list-header aui-card-list-user border-bot" id="gotoup">
+                <div class="aui-card-list-user-name color-write">
+                    <div class="aui-card-list-content " style="margin: 0 auto">
+                        <div class="color-gray9" style="font-size:0.8rem">升级至<strong class="color-black aui-padded-l-10" id="partnerLevel">普通掌柜</strong></div>
+                    </div>
+                    <div class="aui-padded-l-15 aui-padded-r-15 color-gray9" onclick="higherLevel()">更高等级<i class="aui-iconfont aui-icon-down aui-margin-l-10"></i></div>
+                    <div id="fixed-bg">
+                        <div id="chooseLevel">
+                            <div class="aui-row" style="text-align: center;">选择掌柜等级</div>
+                            <form>
+                                <div class="aui-row" onclick="changeStatus(0)">
+                                    <label>普通掌柜</label>
+                                    <i class="radio-uncheck"></i>
+                                    <input type="radio" name="partner" id="platinum" value="普通掌柜">
+                                </div>
+                                <div class="aui-row" onclick="changeStatus(1)">
+                                    <label>白银掌柜</label>
+                                    <i class="radio-uncheck"></i>
+                                    <input type="radio" name="partner" id="silver" value="白银掌柜">
+                                </div>
+                                <div class="aui-row" onclick="changeStatus(2)">
+                                    <label>黄金掌柜</label>
+                                    <i class="radio-uncheck"></i>
+                                    <input type="radio" name="partner" id="gold" value="黄金掌柜">
+                                </div>
+                                <div class="aui-row" onclick="changeStatus(3)">
+                                    <label>铂金掌柜</label>
+                                    <i class="radio-uncheck"></i>
+                                    <input type="radio" name="partner" id="platinum" value="铂金掌柜">
+                                </div>
+
+                                <div class="aui-row" onclick="changeStatus(4)">
+                                    <label>黑金掌柜</label>
+                                    <i class="radio-uncheck"></i>
+                                    <input type="radio" name="partner" id="blackgold" value="黑金掌柜">
+                                </div>
+
+                                <div class="aui-row" style="border-top: 1px solid #f5f5f5;">
+                                    <div class="aui-col-xs-6 handle" style="border-right: 1px solid #f5f5f5;" onclick="cancel()">取消</div>
+                                    <div class="aui-col-xs-6 handle" onclick="copnfirm()">确定</div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="aui-card-list-content aui-text-center aui-padded-b-15" style="padding-top: 2rem">
+                <div class="color-gray9 aui-margin-b-15">需存入押金</div>
+                <div class="aui-label" id="downMoney" onclick="clickDownMoney()">-</div>
+                <input value="100" type="tel" id="inNum" maxlength="5" style="display:inline-block;width:30%;text-align:center;">
+                <div class="aui-label" id="upMoney" onclick="clickUpMoney()">+</div>
+            </div>
+            <div class="aui-card-list-footer aui-text-center ">
+                <p class="color-gray9" style="width: 80%" id="alreadymsg">*升级至当前掌柜需存入押金<span id="min">100</span>-<span id="max">10000</span>元，押金会从次月开始分24月返还</p>
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item  color-black" tapmode style="width: auto;" onclick="goUp();">立即升级</div>
+    </footer>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/aui/aui-toast.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/yltcrypt.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/H5_public.js"></script>
+    <script>
+        var mylevel, golevel, user, cardLevel;
+        //每次增加或减少的金额
+        var toast = new auiToast();
+        var stepMoney = 100,
+            minMoney = 0,
+            maxMoney = 10000;
+        var levelList = ['普通掌柜', '白银掌柜', '黄金掌柜', '铂金掌柜', '黑金掌柜'];
+            golevel = H5.pageParam().level;
+            cardLevel = H5.pageParam().level;
+            mylevel = H5.pageParam().mylevel;
+            user = $api.getStorage('user');
+            if (mylevel >= golevel && mylevel < 4) {
+                golevel = mylevel*1 + 1;
+            }else if (mylevel == 4) {
+              golevel = 4;
+            }
+            if (user) {
+                uplevel();
+            }
+
+        //关闭“选择掌柜等级”页面
+        function cancel() {
+            $api.css(chooseLevel_index, 'display:none;');
+            $api.text(partnerLevel, levelList[cardLevel-1]);
+        }
+
+        function uplevel() {
+            $.ajax({
+                url: PHP_SERVE_URL + '/partner/getNeedMoney',
+                type: 'post',
+                data: {
+                    openId: user.openId,
+                    hashToken: yltcrypt.cpt(user.openId),
+                    level: golevel
+                },
+                success:function(ret, err) {
+                    if (ret.code == 0) {
+                        $api.text($api.byId('money'), ret.data.totalLeft);
+                        if (mylevel == 5) {
+                            $api.text($api.byId('alreadymsg'), '您可继续存入押金');
+                            $api.val($api.byId('inNum'), 0);
+                            $api.text($api.byId('gotoup'), '您已经是最高等级');
+                            $api.text($api.byId('noConfirm'), '您已经是最高等级');
+                            $api.css($api.byId('gotoup'), 'text-align:center');
+                        }else{
+                            minMoney = ret.data.minNeedMoney - ret.data.totalLeft>0?ret.data.minNeedMoney - ret.data.totalLeft:0;
+                            $api.text($api.byId('min'), minMoney);
+                            $api.val($api.byId('inNum'), minMoney);
+                            if (ret.data.maxNeedMoney == 'max') {
+                                $api.text($api.byId('max'), 'max');
+                                $api.text($api.byId('partnerLevel'), levelList[ret.data.level-1]);
+                                maxMoney = ret.data.minNeedMoney;
+                            }else {
+                                maxMoney = ret.data.maxNeedMoney - ret.data.totalLeft;
+                                $api.text($api.byId('max'), maxMoney);
+                                $api.text($api.byId('partnerLevel'), levelList[ret.data.level-1]);
+                            }
+                        }
+                      golevel = ret.data.level;
+                      $api.text($api.byId('noConfirm'), (mylevel*1)<golevel?'你的押金未符合当前掌柜身份':'你的押金已符合当前掌柜身份');
+                      $api.css($api.dom('#card'), "background-image:url('../../image/partner/hhr_bg0"+golevel+"_image@3x_new.png');background-size:100% 100%;");
+                    }
+                }
+            });
+
+        }
+        function copnfirm() {
+          uplevel();
+            $api.css(chooseLevel_index, 'display:none;');
+        }
+        function goUp() {
+          $.ajax({
+              url:PHP_SERVE_URL+ '/partner/buildOrder',
+              type: 'post',
+              data: {
+                  openId: user.openId,
+                  hashToken:yltcrypt.cpt(user.openId),
+                  money:$api.val($api.byId('inNum'))
+              },
+              success:function(ret, err){
+                  if (ret.code==0) {
+                     window.location.href='../pay/pay_win.html?needPayMoney='+ret.data.needPayMoney+'&orderNo='+ret.data.orderNo+',isPartner=true';
+                  }
+              }
+          });
+
+        }
+        //获取“选择掌柜等级”页面元素
+        var chooseLevel_index = $api.byId('fixed-bg');
+        //获取等级元素
+        var partnerLevel = $api.byId('partnerLevel');
+        //获取“选择掌柜等级”页面所有等级元素
+        var levels = $api.domAll(chooseLevel_index, '.aui-row>input');
+        //获取“选择掌柜等级”页面所有单选框样式图片
+        var levels_style = $api.domAll(chooseLevel_index, '.aui-row>i');
+        //获取增加金钱元素
+        var upMoney = $api.byId('upMoney');
+        //获取减少金钱元素
+        var downMoney = $api.byId('downMoney');
+        //获取输入金钱元素
+        var inNum = $api.byId('inNum');
+        //当前金额
+        var inNumVal;
+
+
+        //打开“选择掌柜”等级页面,不显示比当前选择更低的等级，默认选择第一个
+        function higherLevel() {
+            dontShow();
+            $api.css(chooseLevel_index, 'display:block;');
+        }
+        //点击改变单选按钮选择状态
+        function changeStatus(index_) {
+        golevel=index_+1;
+            for (var i = 0; i < levels.length; i++) {
+                if (index_ === i) {
+                    $api.attr(levels[index_], 'checked', 'checked');
+                    $api.addCls(levels_style[index_], 'radio-check');
+                } else {
+                    $api.removeAttr(levels[i], 'checked');
+                    $api.removeCls(levels_style[i], 'radio-check');
+                }
+            }
+            $api.text(partnerLevel, $api.val(levels[golevel]));
+        }
+        //低于用户等级的选项卡不显示
+        function dontShow() {
+            for (var i = 0; i < levels.length; i++) {
+                if (mylevel > i) {
+                    //选择父元素
+                    var parent = $api.closest(levels[i], '.aui-row');
+                    $api.addCls(parent, 'aui-hide');
+                } else {
+                    changeStatus(i);
+                    return;
+                }
+            }
+        }
+
+
+        $('#inNum').on('keyup',function(){
+            if ($(this).val() > maxMoney) {
+                $api.val(inNum, maxMoney);
+                toast.fail({title:"最大付款额为"+maxMoney,duration:2000});
+            }
+        });
+        //点击减少金钱
+        function clickDownMoney() {
+            inNumVal = parseInt($api.val(inNum));
+          if(inNumVal>minMoney){
+            if (inNumVal - stepMoney >= stepMoney) {
+              $api.val(inNum, inNumVal - stepMoney);
+            } else {
+              $api.val(inNum, minMoney);
+            }
+          }
+        }
+        //点击增加金钱
+        function clickUpMoney() {
+            inNumVal = parseInt($api.val(inNum));
+            if (inNumVal + stepMoney < maxMoney) {
+                $api.val(inNum, inNumVal + stepMoney);
+            } else {
+                $api.val(inNum, maxMoney);
+                toast.fail({title:"最大付款额为"+maxMoney,duration:2000});
+            }
+        }
+    </script>
+</body>
+
+</html>

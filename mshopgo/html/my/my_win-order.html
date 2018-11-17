@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>我的订单</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+      iframe{
+        border:none;
+      }
+    </style>
+</head>
+<body>
+<div id="wrap" class="flex-wrap flex-vertical">
+    <header class="aui-bar aui-bar-nav tit-bar-black">
+        <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">我的订单</div>
+    </header>
+    <div class="aui-tab aui-border-t" id="tab" style="width:100%;">
+        <div class="aui-tab-item aui-active">全部</div>
+        <div class="aui-tab-item">待付款</div>
+        <div class="aui-tab-item">待成团</div>
+        <div class="aui-tab-item">待收货</div>
+        <div class="aui-tab-item">待评价</div>
+    </div>
+    <iframe id="main" class="flex-con"></iframe>
+
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/getData.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/aui/aui-tab.js"></script>
+<script>
+    var type;
+    window.onload = function () {
+
+      // type = pageParam.type;
+        type = pageParam().type;
+        // console.log(type)
+        var tab = new auiTab({
+            index: type,
+            element: document.getElementById('tab')
+        }, function (ret, err) {
+            // api.setFrameGroupIndex({
+            //     name: 'myOder',
+            //     index: ret.index - 1,
+            //     scorll: false
+            // });
+
+            // window.location.href="my-frm-orderAll.html?"+"status="+(ret.index-1);
+            // $("#main").attr({src:"my-frm-orderAll.html?"+'id='+ret.index})
+        });
+            $("#main").attr({src:"my-frm-orderAll.html?"+'id='+this.index})
+        // funInGroup();
+        var eHeaderLis = $api.domAll('#tab > div');
+
+        function funInGroup() {
+            var frames = [],
+             frameName = [
+                        'my-frm-orderAll',
+                        'my-frm-orderPayment',
+                        'my-frm-orderGroup',
+                        'my-frm-orderGoods',
+                        'my-frm-orderEvaluate'
+                    ];
+
+            for (var i = 0; i < eHeaderLis.length; i++) {
+                frames.push({
+                    name: 'myOder',
+                    url: frameName[i] + '.html',
+                    bounces: false,
+                })
+            }
+    };
+  }
+//         api.openFrameGroup({
+//             name: 'myOder',
+//             scrollEnabled: false,
+//             rect: {
+//                 x: 0,
+//                 y: $api.dom('header').offsetHeight + $api.dom('#tab').offsetHeight,
+//                 w: api.winWidth,
+//                 h: $api.dom("#main").offsetHeight,
+// //        marginTop: 10,
+//             },
+//             index: type - 1,
+//             frames: frames
+//         }, function (ret, err) {
+//         })
+
+
+
+
+
+
+</script>
+</html>

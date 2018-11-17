@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>填写发货单</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/express.css">
+    <style type="text/css">
+        body, html {
+            background: #F5F5F5 !important;
+        }
+
+        .aui-list.aui-list-in .aui-list-item:last-child{
+            background-image: none;
+        }
+        .back-color {
+            background: #ff5096;
+            width: 80%;
+            margin: 0 auto;
+            border-radius: 2rem;
+            color: #fff;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            font-size: 1rem;
+        }
+
+        #refundBtn {
+            margin-top: 7rem !important;
+        }
+
+        .aui-list .aui-list-item:active {
+            background-color: #fff;
+        }
+        .number{
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            background-image: url("../../image/aftersale/icon_scan.png");
+            background-size: 1rem;
+        }
+
+    </style>
+</head>
+<body id="body">
+<!--头部-->
+<div>
+    <div class="aui-content aui-margin-b-15">
+        <ul class="aui-list aui-list-in">
+            <li class="aui-list-item">
+                <div class="aui-list-item-label">
+                    物流信息
+                </div>
+            </li>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label color-gray9">物流公司：</div>
+                    <div class="aui-list-item-input ">
+                        <input type="text" placeholder="点击选择">
+                    </div>
+                </div>
+            </li>
+
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label color-gray9">物流单号：</div>
+                    <div class="aui-list-item-input">
+                        <input type="text" placeholder="请填写物流单号">
+                    </div>
+                    <div class="aui-list-item-right"><i class="aui-iconfont number "></i></div>
+                </div>
+            </li>
+        </ul>
+        <div class="aui-margin-t-15 aui-padded-l-15 aui-padded-r-15 aui-font-size-14 color-gray9">
+            温馨提示：如您购买的商品发生退货时，经平台判断为个人原因导致，将无法为您通过审核；商品回寄的运费，您可与商家确定，感谢您的理解和支持
+        </div>
+    </div>
+    <div class="aui-content aui-margin-t-15">
+        <div class="aui-btn aui-btn-block back-color" id="refundBtn">提交</div>
+    </div>
+</div>
+<div id="express">
+    <div class="express-title">
+        <span class="aui-pull-left">取消</span>
+        <span class="aui-pull-right color-green">确定</span>
+    </div>
+    <div class="express-box">
+        <ul class="express-container" style="transform: translate3d(0px, -160px, 0px);">
+            <li class="express">顺丰快递</li>
+            <li class="express">顺丰快递</li>
+            <li class="express">顺丰快递</li>
+            <li class="express">顺丰快递</li>
+            <li class="express">顺丰快递</li>
+            <li class="express">顺丰快递</li>
+            <li class="express">顺丰快递</li>
+            <li class="express">顺丰快递</li>
+        </ul>
+    </div>
+    <div class="express-choose"></div>
+    <div class="express-mask"></div>
+</div>
+</body>
+</html>

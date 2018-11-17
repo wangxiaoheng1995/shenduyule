@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>行情主页</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            background: #f6f6f6;
+        }
+
+        /*最底背景*/
+        .bg1 {
+            background-color: #171b24;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*清除下划线*/
+        .aui-bar-nav .aui-bar-btn-item.aui-active {
+            color: #de3232;
+            border-radius: 1.5rem;
+        }
+
+        .aui-bar-btn-item {
+            border-style: none;
+            line-height: 2rem;
+            color: #de3232;
+        }
+
+        .aui-bar-nav .aui-bar-btn-item {
+            line-height: 2rem;
+        }
+
+        p {
+            color: #757984;
+        }
+
+        .aui-bar-nav .aui-bar-btn-item {
+            line-height: 1.5rem;
+        }
+
+        .flex-wrap {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+        }
+
+        .flex-con {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+
+        .flex-vertical {
+            -webkit-box-orient: vertical;
+            -webkit-flex-flow: column;
+            flex-flow: column;
+        }
+
+        #wrap {
+            height: 100%;
+        }
+
+        #main {
+            overflow: auto;
+        }
+
+        .aui-bar {
+            display: inherit;
+        }
+
+        .border-bot {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05)
+        }
+
+        .border-top {
+            border-top: 1px solid rgba(255, 255, 255, 0.05)
+        }
+    </style>
+</head>
+<body class="bg1">
+<div class="flex-wrap flex-vertical " id="wrap">
+    <header class="aui-bar aui-bar-nav" id="headerTab">
+        <a class="aui-pull-left aui-btn" onclick="history.back();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">
+            <div id="tab-bar" class="aui-bar aui-bar-btn aui-bar-btn-round"
+                 style="background:#EF999A;border-radius: 1.5rem;margin-top: 0.4rem">
+                <div class="aui-bar-btn-item aui-active">金币</div>
+                <div class="aui-bar-btn-item">余额</div>
+            </div>
+        </div>
+    </header>
+    <div id="main" class="flex-con aui-margin-t-15">
+        <div id="golden">
+            <!--无信息-->
+            <img src="../image/icon-noMes.png" alt="" style="width: 60%;margin: auto;">
+            <div>
+                <div class="aui-margin-b-15 border-bot"><p class="aui-margin-b-10 aui-padded-l-15 ">2018年8月</p>
+                    <div class="aui-row aui-padded-15 border-top">
+                        <div class="aui-col-xs-4 aui-text-center" style="width: 20%;">
+                            <div class="aui-grid-label"><p class="font-colo-w aui-font-size-18">25</p>
+                                <p>周六</p></div>
+                        </div>
+                        <div class="aui-col-xs-4" style="width: 40%;">
+                            <div class="aui-grid-label"><p>签到奖励</p></div>
+                        </div>
+                        <div class="aui-col-xs-4 aui-text-center " style="width: 40%;">
+                            <div class="aui-grid-label aui-text-right"><p class="font-colo-r">5.00</p>
+                                <p class="font-12">剩余:10.00</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-margin-b-15 border-bot"><p class="aui-margin-b-10 aui-padded-l-15 ">2018年5月</p>
+                    <div class="aui-row aui-padded-15 border-top">
+                        <div class="aui-col-xs-4 aui-text-center" style="width: 20%;">
+                            <div class="aui-grid-label"><p class="font-colo-w aui-font-size-18">31</p>
+                                <p>周四</p></div>
+                        </div>
+                        <div class="aui-col-xs-4" style="width: 40%;">
+                            <div class="aui-grid-label"><p>签到奖励</p></div>
+                        </div>
+                        <div class="aui-col-xs-4 aui-text-center " style="width: 40%;">
+                            <div class="aui-grid-label aui-text-right"><p class="font-colo-r">5.00</p>
+                                <p class="font-12">剩余:5.00</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    $("#tab-bar").on("click",".aui-bar-btn-item",function () {
+        $(this).addClass("aui-active").siblings(".aui-bar-btn-item").removeClass("aui-active");
+    });
+</script>
+</html>

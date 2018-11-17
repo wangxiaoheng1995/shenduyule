@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/aui/aui.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <style>
+        .aui-bar-tab .aui-bar-tab-item {
+            height: 3rem;
+        }
+    </style>
+</head>
+
+<body style="margin-top: 1rem">
+<!-- header -->
+<header id="header"></header>
+<!-- main -->
+<div id="main"></div>
+<!-- footer -->
+
+<script src="../script/jquery-1.11.1.min.js"></script>
+<script src="../script/api.js"></script>
+<script src="../script/aui/aui-tab.js"></script>
+<script src="../script/base.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/sqlite_db.js"></script>
+<script src="../script/newMsgListen.js"></script>
+<script>
+    var oldTime,sqlite;
+        fix_status_bar();
+        var header = $api.byId('header'),
+            main = $api.byId('main'),
+            footer = $api.byId('footer');
+        // initFrames(header.offsetHeight, api.winHeight - footer.offsetHeight - header.offsetHeight);
+        // api.addEventListener({
+        //     name: 'refresh-itemFn'
+        // }, function () {
+        //     $("#footer>div").eq(2).find("i").css("background-image","url('../image/footer/f3-1.png')");
+        //     auiTabItem(3);
+        //     $("#footer>div").eq(4).find("i").css("background-image","url('../image/footer/f5-2.png')");
+        //     api.setFrameGroupIndex({
+        //         name: 'group',
+        //         index: 2,
+        //         scroll: false
+        //     });
+        // });
+        //
+        // $a.addEvt('index-show', function (ret) {
+        //     var activeIndex = $(".aui-active").index() + 1;
+        //     $(".aui-active").find("i").css("background-image", "url('../image/footer/f" + activeIndex + "-2.png')");
+        //     $(".aui-bar-tab-item").removeClass("aui-active");
+        //     $(".aui-bar-tab-item").eq(0).addClass("aui-active");
+        //     $(".aui-active").find("i").css("background-image", "url('../image/footer/f1-1.png')");
+        //     api.setFrameGroupIndex({
+        //         name: 'group',
+        //         index: 0,
+        //         scroll: false
+        //     });
+        // });
+        // $a.addEvt('closeIndex', function (ret) {
+        //     $a.closeWin();
+        // });
+        //监听新消息
+        NewMsgListen.receive();
+        //监听消息被读取
+        NewMsgListen.readMsg();
+        //查询是否有未读消息
+        sqlite = api.require('db');
+        NewMsgListen.getUnreadMsg();
+
+    /* 初始化frames 页面组 */
+    function initFrames(headerY, mainH) {
+        var frames = [],
+            frameName = ["index","newgood","partner","msg","my"];
+        for (var i = 0, len = frameName.length; i < len; i++) {
+            frames.push({
+                name: frameName[i],
+                url: './' + frameName[i] + '/' + frameName[i] + '_frm.html',
+                bounces: false,
+                pageParam: {
+                    index: i
+                }
+            })
+        }
+        api.openFrameGroup({
+            name: 'group',
+            scrollEnabled: false,
+            rect: {
+                x: 0,
+                y: headerY,
+                w: api.winWidth,
+                h: mainH
+            },
+            index: 0,
+            preload: 0, //预加载的 frame 个数，默认加载当前页后面一个
+            frames: frames
+        });
+    }
+
+    /* 底部 切换 frame 页面 */
+    auiTabItem(1);
+    function auiTabItem(i){
+        new auiTab({
+            element: $api.byId('footer'),
+            index:i
+        }, function (json) {
+//            console.log(JSON.stringify(json));
+            if (json.dom == $api.dom('#footer .aui-bar-tab-item.aui-active')) return;
+            var tabs = $api.domAll('#footer>div'),
+                icons = $api.domAll('#footer i.aui-iconfont');
+            for (var i = 0, len = tabs.length; i < len; i++) {
+                if (json.dom == tabs[i]) {
+                    icons[i].style.cssText = "background-image: url('../image/footer/f" + json.index + "-1.png')";
+                } else {
+                    icons[i].style.cssText = "background-image: url('../image/footer/f" + (i + 1) + "-2.png')";
+                }
+            }
+            api.setFrameGroupIndex({
+                name: 'group',
+                index: json.index - 1,
+                scroll: false
+            });
+        });
+    }
+
+</script>
+</body>
+
+</html>

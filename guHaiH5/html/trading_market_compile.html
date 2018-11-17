@@ -1,0 +1,437 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>编辑</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        /*最底背景*/
+        .bg1 {
+            background-color: #171b24;
+
+        }
+
+        /*底背景*/
+        .bg2 {
+            background-color: #1c2029;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .head {
+            background: url("../image/index/wdjb_bg.png");
+        }
+
+        .aui-list {
+        }
+
+        img.aui-img-round {
+            border-radius: 1rem;
+        }
+
+        .aui-grid .aui-col-xs-6 {
+            padding: 1rem;
+        }
+
+        .aui-radio, .aui-checkbox {
+            background-color: inherit;
+            border: 1px solid #7e7e8e;
+        }
+
+        .aui-radio:checked, .aui-radio.aui-checked, .aui-checkbox:checked, .aui-checkbox.aui-checked {
+            background-color: #43ac45;
+            color: #1c2029;
+        }
+
+        .aui-popup-contentMsg {
+            background-color: #ffffff;
+            border-radius: 0.2rem;
+            overflow: hidden;
+            min-height: 4.5rem;
+            width: 80%;
+            z-index: 100;
+            opacity: 1;
+            top: 12rem;
+            left: 2rem;
+        }
+
+        .aui-icon-close {
+            float: right;
+            margin: 0.5rem;
+            color: #7e7e8e;
+        }
+
+        .aui-list-item-middle {
+            color: #3e4142;
+        }
+
+        .btn {
+            height: 3rem;
+            text-align: center;
+            line-height: 3rem;
+            border-top: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        #cancel {
+            float: left;
+            border-right: 1px solid rgba(126, 126, 142, 0.2);
+            width: 50%;
+        }
+
+        #certain {
+            float: right;
+            color: #43ac45;
+            width: 50%;
+        }
+
+        .aui-list-item-middle {
+            margin: 2rem;
+            text-align: center;
+        }
+
+        .mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .synchronous a {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2);
+        }
+
+        .aui-list-item:active {
+            background: transparent !important;
+        }
+
+        .white {
+            color: #fff;
+        }
+
+        html, body,
+
+        #
+        {
+            width: 100%
+        ;
+            height: 100%
+        ;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .white{
+            overflow: hidden;text-overflow:ellipsis;white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden bg1 ">
+<div id="comple" :class="{bg1:isActive} "  v-cloak="">
+    <header class="aui-bar aui-bar-nav" style="padding-top:25px;">
+        <a class="aui-pull-left aui-btn" onclick="closeWin();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title">编辑</div>
+        <div class="aui-pull-right" onclick="closeWin();">完成</div>
+    </header>
+    <div class="" :class="{bg2:isActive}">
+        <div class="aui-content   aui-padded-l-15">
+            <ul class="aui-list aui-select-list" style="background-color: inherit">
+                <li class="aui-list-item" v-for="transArray in transArrays">
+                    <div class="aui-list-item-label">
+                        <input class="aui-radio" type="checkbox" @click="selected(transArray.sid)">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <ul class="aui-row aui-padded-t-5 aui-padded-b-5"
+                            style="text-align: center;border-bottom: 1px solid rgba(126,126,142,0.2); ">
+                            <li class="aui-col-xs-3"></li>
+                            <li class="aui-col-xs-3">
+                                <p class="white" :class="{white:isActive} ">
+                                    &nbsp;
+                                    {{transArray.sname}}
+                                </p>
+                                <p class="font-colo-gy aui-font-size-12">{{transArray.sno}}</p>
+                            </li>
+                            <li class="aui-col-xs-3 ">
+                                <p class="" :class="{white:isActive} ">
+                                    {{transArray.nowPrice}}
+                                </p>
+                            </li>
+                            <li class="aui-col-xs-3 font-colo-r">
+
+                                <span class=" font-colo-r" v-if="parseInt(transArray.zdPrice)>=0">{{transArray.zdPrice}}</span>
+                                <span class=" font-colo-g" v-else="">{{transArray.zdPrice}}</span>
+                            </li>
+                            <li class="aui-col-xs-3">
+                                <span class=" font-colo-r" v-if="parseInt(transArray.zdRang)>=0">{{transArray.zdRang}}</span>
+                                <span class=" font-colo-g" v-else="">{{transArray.zdRang}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <footer class="aui-bar aui-bar-tab aui-margin-b-0" style="background-color: #222933;z-index: 11" id="footer">
+            <!--<div class="footer">-->
+            <!--<a class="aui-bar-tab-item font-colo-gy aui-font-size-16 " style="width: 3rem"-->
+            <!--@click="selectAllVideo()">全选</a>-->
+
+            <!--<div class="aui-bar-tab-item aui-font-size-20 font-colo-w" @click="synchronous" style="width: 15rem">-->
+            <!--同步自选股-->
+            <!--</div>-->
+            <!--</div>-->
+            <div class="aui-content  aui-padding-t-15 aui-padded-t-10 aui-padded-b-10" :class="{bg2:isActive} " style="background-color: #15202b;border-top: 1px #333 solid;">
+                <div class="aui-list-item">
+                    <div class="aui-list-item-inner aui-list-item-center" style="text-align: center">
+                        <div class="aui-btn  aui-btn-outlined  font-colo-r" style="border: 1px solid #de3232;padding: 0rem 1.5rem;margin-right: 1.5rem" @click="delet">
+                            删除
+                        </div>
+                        <div class="aui-btn  aui-btn-outlined  font-colo-r"
+                             style="border: 1px solid #de3232;padding: 0rem 1.5rem;margin-left: 1.5rem">置顶
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="synchronous" style="display: none;">
+                <ul>
+                    <li>
+                        <a class="aui-bar-tab-item font-colo-w aui-font-size-14">
+                            上传至我的账号
+                        </a>
+                    </li>
+                    <li>
+                        <a class="aui-bar-tab-item font-colo-w aui-font-size-14">
+                            从我的账号下载
+                        </a>
+                    </li>
+                    <li>
+                        <a class="aui-bar-tab-item font-colo-w aui-font-size-14">
+                            合并手机和账号的自选股
+                        </a>
+                    </li>
+                    <li>
+                        <a class="aui-bar-tab-item font-colo-gy aui-font-size-14">
+                            取消
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+        <!--删除-->
+        <div class="aui-popup aui-popup-contentMsg" id="content" style="display: none">
+            <div class="aui-popup-content" style="background-color:#222933">
+                <i class="aui-iconfont aui-icon-close " @click="closeTips()"></i>
+
+                <div class="aui-list-item-inner aui-list-item-middle font-colo-w">
+                    确定删除吗？
+                </div>
+                <div class="btn">
+                    <div class="font-colo-gy" id="cancel" tapmode @click="closeTips()">取消</div>
+                    <div class="font-colo-r" id="certain" tapmode @click="deleteSelect()">删除</div>
+                </div>
+            </div>
+        </div>
+
+        <!--同步自选股-->
+
+        <!--遮罩-->
+        <div class="mask" style="display: none"></div>
+    </div>
+</div>
+</body>
+<script src="../script/api.js"></script>
+<script src="../script/yltcrypt.js"></script>
+<script type="text/javascript" src="../script/aui-popup.js"></script>
+<script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/vue.js"></script>
+
+<script type="text/javascript">
+  var user, openId;
+  apiready = function () {
+    user = $api.getStorage('user');
+    //检测是否登录
+    if (typeof user == "undefined") {
+      openId = "";
+    } else {
+      openId = user.openId
+    }
+
+
+    var vm = new Vue({
+      el: '#comple',
+      data: {
+        allChecked: false,
+        transArrays: [],
+        selectArray: [],
+        bg: api.pageParam.bg,
+        isActive: true,
+
+      },
+      methods: {
+        /* 同步自选股*/
+        synchronous: function () {
+          $('.footer').css('display', 'none');
+          $('.mask').css('display', 'block');
+          $('.synchronous').css('display', 'block');
+        },
+        //删除操作
+        delet: function () {
+          if (this.selectArray.length == 0) {
+            toast("请先选择数据");
+            return;
+          } else {
+            $('.mask').css('display', 'block');
+            $('#content').css('display', 'block');
+          }
+
+        },
+        // 全选操作
+        selectAllVideo: function () {
+          var _this = this;
+          $('input').each(function () {
+            if (_this.allChecked == 0) {
+              $(this).prop('checked', true);
+              for (var i = 0; i < _this.transArrays.length; i++) {
+                _this.selectArray.push(_this.transArrays[i].sid)
+              }
+            } else {
+              $(this).prop('checked', false);
+              _this.selectArray = []
+            }
+          });
+          _this.allChecked = _this.allChecked == false ? true : false;
+        },
+        //关闭弹框
+        closeTips: function () {
+          $("#content").hide();
+          $('.aui-mask').hide();
+          $('.mask').css('display', 'none');
+        },
+        //添加删除ID
+        selected: function (sid) {
+          var wz = this.selectArray.indexOf(sid);
+          if (wz >= 0) {
+            this.selectArray.splice(wz, 1)
+          } else {
+            this.selectArray.push(sid);
+          }
+        },
+        //确认删除
+        deleteSelect: function () {
+          var _this = this;
+          api.ajax({
+            url: PHP_SERVE_URL + '/trade/delSelfStock',
+            method: 'post',
+            traditional: true,
+            data: {
+              values: {
+                openId: openId,
+                token: yltcrypt.cpt(openId),
+                traditional: true,
+                sidArr: _this.selectArray
+              }
+            }
+          }, function (ret) {
+            if (ret.code == 0) {
+              api.sendEvent({
+                name: 'refresh-selfstock'
+              });
+              toast('删除成功');
+              _this.closeTips();
+              apiAjax(PHP_SERVE_URL + '/trade/selfStock', {
+                openId: openId
+              }, function (rea) {
+                _this.transArrays = rea.data;
+              });
+            } else {
+              toast('删除失败');
+            }
+          });
+        }
+      },
+      mounted: function () {
+        var popup = new auiPopup();
+        var _this = this;
+        apiAjax(PHP_SERVE_URL + '/trade/selfStock', {
+          openId: openId
+        }, function (res) {
+          _this.transArrays = res.data;
+          if (_this.bg == 0) {
+            _this.isActive = true;
+          } else {
+            _this.isActive = false;
+          }
+        });
+
+
+      }
+    })
+  };
+</script>
+
+</html>

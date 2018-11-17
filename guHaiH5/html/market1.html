@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>行情主页</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+
+
+
+        /*底背景*/
+        .bg2 {
+            background-color: #1c2029;
+        }
+
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+
+
+
+
+        /*清除下划线*/
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .aui-bar-nav .aui-bar-btn-item.aui-active {
+            color: #de3232;
+            border-radius: 1.5rem;
+        }
+
+        .aui-bar-btn-item {
+            border-style: none;
+            line-height: 2rem;
+            color: #de3232;
+        }
+
+        .aui-bar-nav .aui-bar-btn-item {
+            line-height: 1.5rem;
+        }
+
+        .aui-tab-item.aui-active {
+            color: #de3232;
+            border-bottom: 2px solid #de3232;
+        }
+
+        .aui-tab-item {
+            color: #7e7e8e;
+        }
+
+
+
+        .aui-col-xs-3 {
+            height: 2rem;
+            line-height: 2rem;
+        }
+
+        .aui-row p {
+            height: 1rem;
+            line-height: 1rem;
+        }
+
+        #footer.aui-bar-tab .aui-active {
+            color: #de3232;
+        }
+
+        #footer img {
+            width: 1rem;
+            margin: 0 auto;
+        }
+
+
+    </style>
+</head>
+<body>
+<!--自选股-->
+<div id="content2" >
+    <div class="aui-content aui-padded-l-15 aui-padded-r-15 aui-margin-t-15">
+        <div class="aui-list" style="background-color: initial">
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-title font-colo-r aui-font-size-20">11091.49</div>
+                    <div class="aui-list-item-right font-colo-gy">深证指数<span class="font-colo-r">+0.43%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 8rem;" id="main"></div>
+    <div class="aui-content">
+        <div class="aui-margin-t-15 bg2">
+            <div class="aui-tab aui-padded-l-15 aui-padded-r-15 bg2">
+                <div class="aui-tab-item aui-font-size-16">最新</div>
+                <div class="aui-tab-item aui-font-size-16">涨幅</div>
+                <div class="aui-tab-item aui-font-size-16">跌幅</div>
+                <div class="aui-tab-item aui-font-size-16">修改</div>
+            </div>
+        </div>
+        <div class="font-colo-gy aui-font-size-20 aui-padded-15 "
+             style="margin: 5rem 4rem;text-align: center;border: 1px dashed #7e7e8e">+添加自选股
+        </div>
+
+        <div class="aui-card-list-content">
+            <ul>
+                <li>
+                    <ul class="aui-row aui-padded-t-5 aui-padded-b-5"
+                        style="text-align: center;border-bottom: 1px solid rgba(126,126,142,0.2); ">
+                        <li class="aui-col-xs-3">
+                            <p class="font-colo-w">N电工</p>
+                            <p class="font-colo-gy aui-font-size-12">300697</p>
+                        </li>
+                        <li class="aui-col-xs-3 font-colo-w">10.99</li>
+                        <li class="aui-col-xs-3 font-colo-r">3.36</li>
+                        <li class="aui-col-xs-3 font-colo-r">44.04%</li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="aui-row aui-padded-t-5 aui-padded-b-5"
+                        style="text-align: center;border-bottom: 1px solid rgba(126,126,142,0.2); ">
+                        <li class="aui-col-xs-3">
+                            <p class="font-colo-w">N电工</p>
+                            <p class="font-colo-gy aui-font-size-12">300697</p>
+                        </li>
+                        <li class="aui-col-xs-3 font-colo-w">10.99</li>
+                        <li class="aui-col-xs-3 font-colo-r">3.36</li>
+                        <li class="aui-col-xs-3 font-colo-r">44.04%</li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="aui-row aui-padded-t-5 aui-padded-b-5"
+                        style="text-align: center;border-bottom: 1px solid rgba(126,126,142,0.2); ">
+                        <li class="aui-col-xs-3">
+                            <p class="font-colo-w">N电工</p>
+                            <p class="font-colo-gy aui-font-size-12">300697</p>
+                        </li>
+                        <li class="aui-col-xs-3 font-colo-w">10.99</li>
+                        <li class="aui-col-xs-3 font-colo-r">3.36</li>
+                        <li class="aui-col-xs-3 font-colo-r">44.04%</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

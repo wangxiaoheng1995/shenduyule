@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>申请退款</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <style>
+        .saled-nav{
+            display:flex;
+            border-top:1px solid #E7E7E7;
+            border-bottom:1px solid #E7E7E7;
+            box-sizing: border-box;
+            background: #fff;
+        }
+        .saled-nav a{
+            width:50%;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .saled-nav a span{
+            color:#333;
+            padding:0.6rem;
+        }
+        .saled-nav .span-active{
+            color:#FE5095;
+            border-bottom:2px solid #FE5095;
+            box-sizing: border-box;
+        }
+        #income-detail{
+            background: #EEEEEE;
+        }
+        #income-detail li{
+            margin-bottom:0.4rem;
+        }
+        .list-title{
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+            padding:0.5rem;
+            background: #fff;
+        }
+        .list-title-logo{
+            display:flex;
+        }
+        .list-title-logo span{
+            color:#333;
+            font-size:0.7rem;
+            /*margin-left:1rem;*/
+        }
+        .list-title-logo img{
+            width:1.2rem;
+            height:1.2rem;
+        }
+        .list-title-status{
+            font-size:0.7rem;
+            color:#FE5095;
+        }
+        .list-content{
+            display:flex;
+            padding:0.5rem;
+        }
+        .list-content a{
+            display:block;
+            margin-right:0.6rem;
+        }
+        .list-content a img{
+            max-width:none;
+            width:4.2rem;
+            height:4.2rem;
+        }
+        .list-price{
+            padding:0.5rem;
+            background: #fff;
+            width:100%;
+            display:flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .list-price p{
+            color:#333;
+        }
+        .list-price p:first-child{
+            margin-right:0.5rem;
+        }
+        .refund{
+            font-size:0.8rem!important;
+            color:#FE5095;
+        }
+        .saled-list-bottom{
+            padding:0.5rem;
+            background: #fff;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .saled-list-bottom span{
+            display: block;
+            padding:0.1rem;
+            border:1px solid #FE5095;
+            border-radius:5px;
+            color:#FE5095;
+            font-size:0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write border-bot header-nav" style="background:#fe5095!important;color:#fff">
+        <a class="aui-pull-left aui-btn" onclick="history.back()">
+            <span class="aui-iconfont aui-icon-left aui-font-size-20"></span>
+        </a>
+        <div class="aui-title">退款/售后列表</div>
+    </header>
+    <div class="header-nav-top" id="main">
+        <div class="saled-nav">
+            <a><span class="span-active">全部</span></a><a><span>待处理(<em>2</em>)</span></a>
+        </div>
+        <ul class="aui-list aui-media-list msg-list back-none" id="income-detail">
+            <li v-for="(v,i) in list">
+                <div class="saled-list-top">
+                    <div class="list-title">
+                        <div class="list-title-logo">
+                            <!--<img src="../../image/orderSale/shop-avatar.png" alt="">-->
+                            <span>{{v.shop_name}}</span>
+                        </div>
+                        <div class="list-title-status">
+                            {{v.status==0?"无退款":v.status==1?"待用户处理":v.status==2?"待商家处理":v.status==3?"待用户发货":v.status==4?"待商家提供收货地址":v.status==5?"待客服处理":v.status==6?"退款关闭":""}}
+                        </div>
+                    </div>
+                    <div class="list-content">
+                        <a><img :src="v.gpic" alt=""></a>
+                        <span>{{v.gname}}</span>
+                    </div>
+                    <div class="list-price">
+                        <p>实付:￥<span>{{v.pay_money}}</span></p>
+                        <p>退款金额:<span class="refund">￥{{v.back_money}}</span></p>
+                    </div>
+                </div>
+                <div class="saled-list-bottom">
+                    <span @click="goDetail(v.oid)">查看详情</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/mobileSelect.min.js"></script>
+<script type="text/javascript">
+    var user=$api.getStorage("user");
+    new Vue({
+        el:"#main",
+        data:{list:[]},
+        methods:{
+            getList:function () {
+                var self=this;
+                $.ajax({
+                    url:PHP_SERVE_URL + 'order/afterSaleList',
+                    type:'post',
+                    data:{openId:user.openId},
+                    success:function (res) {
+                        if(res.code==0){
+                            self.list=res.data;
+                        }else{
+                            self.getList();
+                        }
+                    }
+                })
+            },
+            goDetail:function (oid) {
+                location.href='./my_refund_detail.html?oid='+oid
+            }
+        },
+        mounted:function () {
+            this.getList();
+        }
+    })
+</script>
+</html>

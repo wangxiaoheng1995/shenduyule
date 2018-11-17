@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+    content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>新品</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui-flex.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui-slide.css"/>
+    <link rel="stylesheet" href="../../css/swiper-3.2.5.min.css">
+    <!--    <link rel="stylesheet" type="text/css" href="../../css/base.css" />-->
+    <style type="text/css">
+       header{
+         color:#333!important;
+       }
+       #content{
+         display:flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         padding:10% 0;
+       }
+       .logingImg img{
+         width:100%;
+         height:100%;
+       }
+       .logingText{
+         margin:1rem 0;
+       }
+       .logingButton{
+        margin-top:1.5rem;
+        width:80%;
+        padding:0.4rem;
+        background: #fe5095;
+        color:#fff;
+        font-size:0.7rem;
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        border-radius:5px;
+       }
+    </style>
+</head>
+<body>
+  <div id="main">
+    <header class="aui-bar aui-bar-nav aui-bar-light  wui-bg-pink" id="head-nav" style="background: #FE5095;padding-right:1.5rem;">
+      <a class="aui-pull-left aui-btn" onclick="history.back()" >
+        <span class="aui-iconfont aui-icon-left color-black" style="color:#fff;"></span>
+      </a>
+        <div class="aui-text-center" style="color:#fff;">销拼购</div>
+    </header>
+      <div id="content">
+        <div class="logingImg"><img src="../../image/logingUser.png" alt=""></div>
+        <div class="logingText">您还没有登录哦</div>
+        <div class="logingButton" onclick="location.href='../login_win.html'">登录</div>
+      </div>
+  </div>
+
+  <script src="../../script/api.js"></script>
+  <script src="../../script/vue.js"></script>
+  <script src="../../script/base.js"></script>
+  <script src="../../script/api.js"></script>
+  <script src="../../script/config.js"></script>
+  <script src="../../script/swiper.min.js"></script>
+  <script src="../../script/doT.min.js"></script>
+  </body>
+  </html>

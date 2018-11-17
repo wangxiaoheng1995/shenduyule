@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>确认订单</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        body {
+            color: #212121;
+        }
+
+        .border-bottom {
+            border-bottom: 0.1rem #ff5096 dashed !important;
+        }
+
+        .price {
+            font-size: 18px;
+            color: #ff5096;
+            font-weight: bold;
+        }
+
+        .display-block {
+            display: block !important;
+            text-align: right;
+        }
+
+        .color-tip {
+            font-size: 12px;
+            text-align: left;
+            line-height: 1rem;
+            padding: 0.2rem 0.5rem;
+            background: #ece3c7;
+        }
+
+        .aui-list .aui-list-item-text {
+            color: #333333;
+        }
+
+        .aui-list,
+        .aui-list .aui-list-item {
+            background-size: 100% 0px !important;
+        }
+
+        .aui-bar-nav {
+            position: fixed;
+        }
+
+        #footer {
+            height: 2.4rem;
+            line-height: 2.4rem;
+            background: #fff;
+        }
+
+        #main {
+            margin-top: 2rem;
+            padding-bottom: 4rem;
+        }
+
+        .back-color {
+            background: #f6f6f6;
+        }
+
+        .input-div {
+            width: 70%;
+            float: left;
+            height: 1.5rem;
+        }
+
+        .input {
+            height: 1.4rem !important;
+            font-size: 0.6rem !important;
+            padding-left: 0.3rem !important;
+        }
+
+        input::-webkit-input-placeholder {
+            line-height: 1.5rem;
+        }
+
+        .aui-list .aui-list-item-title {
+            font-size: 0.7rem;
+        }
+
+        .gongji {
+            text-align: right;
+            display: block !important;
+            padding-top: 0.5rem;
+        }
+
+        .aui-list-item-arrow:before {
+            width: 0;
+            height: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrap">
+    <header class="aui-bar aui-bar-nav back-write aui-border-b">
+        <a class="aui-pull-left aui-btn" onclick="window.history.back();">
+            <i class="aui-iconfont aui-icon-left color-black"></i>
+        </a>
+        <div class="aui-title color-black">
+            确认订单
+        </div>
+    </header>
+    <div id="main" class="aui-content">
+        <div id="addresstop" class="aui-list aui-media-list aui-margin-b-10">
+            <div class="aui-list-item border-bottom">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media aui-padded-r-10" style="width:1.5rem;">
+                        <i class="aui-iconfont aui-icon-location"></i>
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-arrow" id="address" onclick="editAddress();">
+                        请先添加收货地址
+                        <!-- 地址 -->
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/html/x-dot-template" id="data_address">
+                <div class="aui-list-item-title color-black aui-margin-b-5" style="font-weight: bold;">
+                    {{=it.uname}}&nbsp;{{=it.tel}}
+                </div>
+                <div class="aui-list-item-text">
+                    {{=it.province}}{{=it.city}}{{=it.district}}{{=it.detail}}
+                </div>
+            </script>
+        </div>
+        <!-- 店铺商品 -->
+        <!--<div class="aui-list aui-hide red-list">-->
+        <!--<div class="aui-list-item">-->
+        <!--<div class="aui-list-item-inner aui-list-item-arrow">-->
+        <!--<div class="aui-list-item-text">-->
+        <!--红包( <span class=" color-pink" id="red">¥0.00</span> )-->
+        <!--</div>-->
+        <!--<div class="aui-list-item-right color-pink">-->
+        <!--<i class="jw-item-select red" onclick="toggleCheck(this)" style="float:right;    margin-left: 10px;"></i>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="aui-list aui-hide fee-list">
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-text">
+                        赏金( <span class=" color-pink" id="fee">¥0.00</span> )
+                    </div>
+                    <div class="aui-list-item-right">
+                        <div class="discount"  style="float:left;">折扣<span id="discount">3</span>元</div>
+                        <i class="jw-item-select fee" onclick="toggleCheck()" id="sjradio"
+                           style="float:right;    margin-left: 10px;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-list aui-margin-b-10">
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-text">
+                        商品金额
+                    </div>
+                    <div class="aui-list-item-right color-pink totalPrice">
+                        ¥0.00
+                    </div>
+                </div>
+            </div>
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-text">
+                        运费（全场包邮)
+                    </div>
+                    <div class="aui-list-item-right color-pink">
+                        +¥0.00
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/html/x-dot-template" id="data_cart">
+        {{~it :value}} {{?value.num>0}}
+        <div class="aui-list aui-media-list">
+            <div class="aui-list-header aui-text-left" style=" display: -webkit-inline-box;background: #fff;">
+                <img src="../../image/cart/icon-shops.png" style="width: 0.8rem;height: 0.8rem;margin-right: 0.2rem;">
+                &nbsp;{{=value.shopName}}
+            </div>
+            {{~value.child:goods}} {{?goods.selected}}
+            <div class="aui-list-item" style="background: #fff">
+                <div class="aui-media-list-item-inner aui-border-b">
+                    <div class="aui-list-item-media">
+                        <img src="{{=goods.pic}}?x-oss-process=image/resize,m_fill,h_200,w_200">
+                    </div>
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-text" >
+                            {{=goods.gname}}
+                        </div>
+                        <div class="aui-list-item-text color-gray9" style="margin-bottom: 0.5rem;font-size: 12px; ">
+                            {{=goods.formatName}}
+                        </div>
+                        <div class="aui-list-item-text">
+                            <div class="aui-pull-left price">
+                                ¥{{=goods.postPrice}}
+                            </div>
+                            <div class="aui-pull-right">
+                                ×{{=goods.num}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{?}} {{~}}
+            <div class="aui-list-item">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media">
+                        <div class="aui-list-item-text">
+                            支付配送
+                        </div>
+                    </div>
+                    <div class="aui-list-item-inner aui-list-item-arrow ">
+                        <div class="aui-list-item-text display-block">
+                            在线支付
+                        </div>
+                        <div class="aui-list-item-text display-block">
+                            快递运输
+                        </div>
+                        <div class="aui-list-item-text display-block">
+                            <i class="aui-iconfont aui-icon-date color-pink"></i> 工作日、双休日与假日均可送货
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="aui-list aui-margin-b-10">
+            <div class="aui-list-item">
+                <div class="aui-list-item-inner aui-font-size-12 gongji">
+                    共{{=value.num}}件商品 小计：
+                    <font class="color-pink aui-font-size-16">¥{{=value.postPrice}}</font>
+                </div>
+            </div>
+        </div>
+        {{?}} {{~}}
+    </script>
+    <footer class="aui-bar aui-bar-tab  aui-margin-t-15" id="footer">
+        <div id="addressbottom" class="color-tip color-black aui-hide" style="font-size: 12px;">
+
+        </div>
+        <div class="aui-pull-left aui-font-size-14 settle-num aui-padded-l-15 ">
+            <font class="color-black">应付总额：</font><strong id="needP" class="color-pink price totalPrice">¥0.00</strong>
+        </div>
+        <div onclick="submitOrder();"
+             class="aui-pull-right btn-settle color-write back-pink aui-font-size-16 aui-text-center"
+             style="display: block !important;height: 2.5rem;"> 提交订单
+        </div>
+    </footer>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/H5_public.js"></script>
+<script>
+    var user, parms, carObj,
+            goods = [],
+            totalPrice = red = fee =totalfee=discount= 0,
+            address = {};
+    var payAddress=$api.getStorage("payAddress");
+        parms = H5.pageParam();
+        user = $api.getStorage('user');
+        // 监听地址变更
+        // api.addEventListener({
+        //     name: 'selectAddress'
+        // }, function (ret, err) {
+        //     changeAddress(ret.value);
+        // });
+
+        $.ajax({
+            url: PHP_SERVE_URL + '/customer/myAddress',
+            type: 'post',
+            data: {
+                openId: user.openId
+            },
+            success: function (ret, err) {
+                if (ret.code == 0) {
+                    if (ret.data.length > 0) {
+                        if(payAddress){
+                            changeAddress(payAddress);
+                        }else{
+                            changeAddress(ret.data[0]);
+                        }
+                    } else {
+                        $api.html($api.byId('address'), '<div class="aui-list-item-text" style="line-height: 30px;">未添加地址</div>');
+                        setTimeout(function(){
+                            window.location.href='../my/my_frm-address.html';
+                            // api.openWin({
+                            //     name: 'pay-select-address',
+                            //     url: './pay-select-address.html',
+                            // })
+                        },500)
+
+                    }
+                }
+            }
+        });
+
+        //ct:1 购物车购买  2：立即购买
+        if (parms.ct == 1) {
+            carObj = localStorage.getItem('carObjx') ? JSON.parse(localStorage.getItem('carObjx')) : [];
+        } else {
+            carObj = localStorage.getItem('carObjy') ? JSON.parse(localStorage.getItem('carObjy')) : [];
+        }
+        // console.log(JSON.stringify(carObj));
+
+        var interTextC = doT.template($api.text($api.byId('data_cart')));
+        $api.after($api.byId('addresstop'), interTextC(carObj));
+        for (var i = 0; i < carObj.length; i++) {
+            if (carObj[i].num > 0) {
+                for (var j = 0; j < carObj[i].child.length; j++) {
+                    if (carObj[i].child[j].selected) {
+                        if(carObj[i].child[j].isfee){
+                            totalfee+=carObj[i].child[j].postPrice*carObj[i].child[j].num;
+                        }
+                        goods.push({
+                            gid: carObj[i].child[j].gid,
+                            num: carObj[i].child[j].num,
+                            shopId: carObj[i].child[j].shopId,
+                            formatIds: carObj[i].child[j].formatIds,
+                            formatNames: carObj[i].child[j].formatNames
+                        });
+                    }
+                }
+                totalPrice += carObj[i].postPrice;
+            }
+        }
+        if(totalfee>0){
+            $.ajax({
+                url: PHP_SERVE_URL + '/order/getUserAllMoney',
+                type: 'post',
+                data: {
+                    openId: user.openId
+                },
+                success:function (ret, err) {
+                    if (ret.code == 0) {
+                        if (parms.group == 1) {
+//                        red = ret.data.redPacket;
+//                        $api.text($api.byId('red'), '¥' + ret.data.redPacket);
+//                        if (red > 0) {
+//                            $api.removeCls($api.dom('.red-list'), 'aui-hide');
+//                        }
+                            fee = ret.data.reWard;
+                            discount=(1-ret.data.rebate)*totalPrice
+                            //默认选中赏金
+                            toggleCheck();
+                            $api.text($api.byId('fee'), '¥' + ret.data.reWard);
+                            if(discount>=fee){
+                                $api.text($api.byId('discount'),fee);
+                            }else{
+                                $api.text($api.byId('discount'),discount.toFixed(2));
+                            }
+                            if (fee > 0) {
+                                $api.removeCls($api.dom('.fee-list'), 'aui-hide');
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        $('.totalPrice').text('¥' + totalPrice.toFixed(2));
+
+    function changeAddress(ad) {
+        address = ad;
+        var interText = doT.template($api.text($api.byId('data_address')));
+        $api.html($api.byId('address'), interText(ad));
+        $api.removeCls($api.byId('addressbottom'), 'aui-hide');
+        $api.html($api.byId('addressbottom'), ad.province + ad.city + ad.district  + ad.detail);
+    }
+
+    function submitOrder() {
+        if (goods.length == 0) {
+            return;
+        }
+        if (JSON.stringify(address) == "{}") {
+            $a.toast("请选择地址")
+            return;
+        }
+        var usefee = 1;
+        usefee = $api.hasCls($api.dom('.fee'), 'check-pic') ? 0 : 1
+        var url = parms.group == 2 ? '/order/groupbuild' : '/order/build';
+        $.ajax({
+            url: PHP_SERVE_URL + url,
+            type: 'post',
+            data: {
+                openId: user.openId,
+                hashToken: yltcrypt.cpt(user.openId),
+                originOId: parms.originOId,
+                id:parms.id,
+                useFee: usefee, //赏金
+                goods: JSON.stringify(goods),
+                orderType: parms.group,
+                receptUserInfo: JSON.stringify({
+                    name: address.uname,
+                    tel: address.tel,
+                    address: address.province + address.city + address.district + address.detail
+                })
+            },
+            success:function (ret, err) {
+                if (ret.code == 0) {
+                    removeCart();
+                    if (ret.needPayMoney == 0) { //需支付金额为0 直接修改支付状态，跳转到支付结果
+                        var no = ret.orderNo;
+                        $.ajax({
+                            url: PHP_SERVE_URL + '/order/dealUserZeroMoneyOrder',
+                            type: 'post',
+                            data: {
+                                orderNo: no
+                            },
+                            success:function (ret, err) {
+                                if (ret.code == 0) {
+                                    location.href='./payResult.html?orderNo='+no;
+                                    // setTimeout('api.closeWin({name:"pay-confirm"})',1000);
+                                    // api.openWin({
+                                    //     name: 'payResult',
+                                    //     url: './payResult.html',
+                                    //     pageParam: {
+                                    //         orderNo: no
+                                    //     }
+                                    // });
+                                }
+                            }
+                        });
+
+                    } else {
+                        location.href='./pay_win.html?orderNo='+ret.orderNo+'&needPayMoney='+ret.needPayMoney;
+                        // setTimeout('api.closeWin({name:"pay-confirm"})',1000);
+                        // api.openWin({
+                        //     name: 'cashier',
+                        //     url: './pay_win.html',
+                        //     pageParam: {
+                        //         orderNo: ret.orderNo,
+                        //         needPayMoney: ret.needPayMoney
+                        //     }
+                        // });
+                    }
+                }
+            }
+        });
+    }
+
+    //选择地址
+    function editAddress() {
+        window.location.href='./pay-select-address.html';
+        // api.openWin({
+        //     name: 'addressSelect',
+        //     url: './pay-select-address.html'
+        // });
+    }
+
+    //清除购物车中选中商品
+    function removeCart() {
+        for (var i = 0; i < carObj.length; i++) {
+            if (carObj[i].num > 0) {
+                for (var j = 0; j < carObj[i].child.length; j++) {
+                    if (carObj[i].child[j].selected) {
+                        carObj[i].child.splice(j, 1);
+                    }
+                }
+                if (carObj[i].child.length == 0) {
+                    carObj.splice(i, 1);
+                }
+            }
+        }
+        localStorage.setItem('carObjx', carObj);
+    }
+
+    function toggleCheck() {
+        $("#sjradio").toggleClass('check-pic');
+        var need = totalPrice;
+        if ($('.fee').hasClass('check-pic')) {
+            if(discount.toFixed(2)>=fee){
+              need-=fee
+            }else{
+              need-=discount.toFixed(2)
+            }
+        }
+        $api.text($api.byId('needP'), '¥' + need.toFixed(2));
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>设置</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">物流详情</div>
+</header>
+<div class="aui-border-t">
+    <div id="content" v-cloak>
+        <ul class="aui-list aui-media-list s-no-bgimg">
+            <li class="aui-list-item aui-list-item-middle aui-padded-t-10 aui-padded-b-10" style="overflow: hidden">
+                <p>
+                    <span class="aui-pull-left aui-margin-r-10" style="width: 20%">物流名称：</span><span class="color-black">{{epName}}</span>
+                </p>
+                <p class="aui-margin-t-10">
+                    <span class="aui-pull-left aui-margin-r-10" style="width: 20%">物流单号：</span><span class="color-black">{{epNo}}</span>
+                </p>
+            </li>
+        </ul>
+        <section class="aui-content aui-margin-t-15">
+            <div class="aui-timeline">
+                <div class="aui-timeline-item" v-for="item,index in data">
+                    <div class="">
+                        <img src="../../image/my/wddd_wl_1_icon.png" class="logi-label" v-if="index==lastIndex"/>
+                        <img src="../../image/my/wddd_wl_2_icon.png" class="logi-label" v-else />
+                    </div>
+                    <div class="logi-label-detail">
+                        <dl>
+                            <dt class="aui-font-size-14">{{item.context}}</dt>
+                            <dd class="aui-font-size-10 color-gray9">{{item.time}}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/vue.js"></script>
+<script>
+    window.onload=function(){
+        var pageParam=$api.pageParam;
+        var vue=new Vue({
+            ele:'#content',
+            data:{
+                data:'',
+                epName:'',
+                epNo:'',
+                lastIndex:0
+            },
+            mounted: function () {
+                var self=this;
+                $.ajax({
+                    url:PHP_SERVE_URL+'/order/expressInfo',
+                    method:'post',
+                    data:{
+                        // values:{
+                            expressNo:pageParam.express_no,
+                            expressType:pageParam.express_type
+                        // }
+                    },
+                    success:function(ret){
+                        if(ret.code==0){
+                            self.epName=ret.epName;
+                            self.epNo=ret.epNo;
+                            self.data=ret.data;
+                            self.lastIndex=ret.data.length-1;
+                        }
+                    }
+                })
+            }
+        })
+    }
+</script>
+</body>
+</html>

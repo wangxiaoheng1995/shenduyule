@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>收入明细</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mobileSelect.css">
+    <style>
+        .income-top{
+          display:flex;
+          justify-content: space-between;
+          align-items: center;
+          padding:0.7rem 0.8rem;
+          background: #F8F4F6;
+        }
+        .incom-top-title{
+          display:flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .incom-top-title span{
+          font-size:0.8rem;
+          color:#333;
+        }
+        .incom-top-title strong{
+          color:#FE5095;
+          font-size:0.6rem;
+          /*font-weight: 100;*/
+        }
+        .incom-top-title img{
+          width:0.95rem;
+          height:0.95rem;
+        }
+        .income-content{
+          padding:0.8rem;
+          display:flex;
+          align-items: center;
+          border-bottom:1px solid #E2E1E1;
+          box-sizing: border-box;
+        }
+        .income-content img{
+          width:1rem;
+          height:1rem;
+        }
+        .income-content-text{
+          width:100%;
+          height:100%;
+          margin-left:0.5rem;
+        }
+        .income-content-top{
+          display: flex;
+          justify-content: space-between;
+        }
+        .income-content-top p{
+          color:#FE5095;
+        }
+        [v-cloak]{
+          display:none;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" v-cloak>
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write border-bot header-nav" style="background:#fe5095!important;color:#fff">
+        <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+            <span class="aui-iconfont aui-icon-left aui-font-size-20"></span>
+            收入明细
+        </a>
+        <!-- <div class="aui-title">我的收入</div> -->
+    </header>
+    <div class="header-nav-top" id="main">
+      <div class="income-top">
+        <div class="incom-top-title">
+          <span>本月</span><strong>收入￥<em>{{masterTitle.sum_money}}</em></strong>
+        </div>
+        <div class="incom-top-title title-center" id="income-time"><img src="../../image/my/calendar@2x.png" alt=""></div>
+      </div>
+        <ul class="aui-list aui-media-list msg-list back-none" id="income-detail">
+          <li v-for="item in masterArr">
+            <div class="income-content">
+              <div class="income-content-img"><img src="../../image/my/icon_server@2x.png" alt=""></div>
+              <div class="income-content-text">
+                <div class="income-content-top">
+                  <h3>{{item.gname}}</h3>
+                  <p><span class="aui-margin-r-5">服务费用</span><em>{{item.emp_money}}</em></p>
+                </div>
+                <div class="income-content-bottom aui-margin-t-5">
+                  <!-- <p><span class="aui-margin-r-5">7月6号</span><span>9:50</span></p> -->
+                  <p>{{item.pay_time}}</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- <li>
+            <div class="income-content">
+              <div class="income-content-img"><img src="../../image/my/icon_Extension@2x.png" alt=""></div>
+              <div class="income-content-text">
+                <div class="income-content-top">
+                  <h3>按摩全套服务</h3>
+                  <p><span id="Extension" class="aui-margin-r-5" style='color:#005FC4;'>推广费用</span><em style="color:#333;">+300</em></p>
+                </div>
+                <div class="income-content-bottom aui-margin-t-5">
+                  <p><span class="aui-margin-r-5">7月6号</span><span>9:50</span></p>
+                </div>
+              </div>
+            </div>
+          </li> -->
+        </ul>
+    </div>
+    <!-- <div id="data"></div> -->
+</div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/H5_public.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/mobileSelect.min.js"></script>
+<script src="../../script/H5_public.js"></script>
+
+<script type="text/javascript">
+var user,param
+
+user = $api.getStorage('user');
+param = H5.pageParam();
+// alert(param.datetime)
+new Vue({
+  el:"#wrap",
+  data:{
+    masterTitle:'',
+    masterArr:'',
+    timeData:''
+  },
+  methods:{
+    loadIncomeDetail(){
+      var self = this
+      $.ajax({
+        url:PHP_SERVE_URL + '/employee/getIncomeDetail',
+        type:'post',
+        data:{
+            eid:user.eid,
+            datetime:param.datetime,
+        },
+        success:function(ret,err){
+           self.masterTitle=ret;
+           self.masterArr=ret.data;
+        }
+      })
+    },
+    loadTime(){
+      var self = this
+       $.getJSON("../../timeData.json", function (result) {
+           self.timeData = result;
+           var mobileSelect5 = new MobileSelect({
+               trigger: '#income-time',
+               title: '日期',
+               wheels: [{
+                   data: self.timeData
+               }],
+               position: [0, 0],
+               transitionEnd: function(indexArr, data) {
+                   //console.log(data)
+               },
+               callback: function(indexArr, data) {
+
+               }
+           });
+       });
+    }
+  },
+  mounted:function(){
+    this.loadTime()
+    this.loadIncomeDetail()
+  }
+})
+
+</script>
+
+</html>

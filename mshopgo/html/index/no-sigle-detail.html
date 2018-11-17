@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>助力抢免单</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+
+</head>
+<body>
+<div id="wrap " class="sigle-wrap">
+    <header class="aui-bar aui-bar-nav aui-bar-light ">
+        <div class="aui-pull-left aui-btn " onclick="api.closeWin();">
+            <span class="aui-iconfont aui-icon-left color-gray9"></span>
+        </div>
+        <div class="aui-title aui-font-size-16  color-black">助力抢免单</div>
+        <div class="aui-pull-right aui-btn aui-margin-r-10">
+        </div>
+
+    </header>
+    <div id="main">
+        <div class="aui-bar aui-bar-btn aui-bar-btn-full color-write sigle-detail">
+            <div class="aui-bar-btn-item border-no back-pink ">邀请好友助力</div>
+            <div class="aui-bar-btn-item border-no back-pinkm">每晚20：00开枪领取</div>
+        </div>
+        <div class="sigle-ct  aui-padded-t-15 aui-padded-b-15">
+            <div class="aui-text-center bd-radius12 sigle-ct-layer back-write  aui-margin-b-15 aui-margin-l-15 aui-margin-r-15 ">
+                <h3 class="aui-text-center color-pink aui-font-size-18 aui-margin-b-15 aui-padded-t-15">今日免单</h3>
+                <p class="sigle-time aui-text-center aui-margin-b-10">距助力结束
+                    <span class="back-pink color-write inline-block">02 </span> :
+                    <span class="back-pink color-write inline-block" >05</span> :
+                    <span class="back-pink color-write inline-block">00</span>
+                </p>
+                <img src="../../image/test.jpg" alt="" class="bd-radius12 sigle-layer-pic" >
+                <p class="aui-text-left aui-ellipsis-1 color-black aui-margin-b-10 aui-margin-t-10">内容内容呢金额内容内容呢金额内容内容呢金额内容内容呢金额</p>
+                <p class="aui-text-left"><strong class="color-pink">￥100</strong> <em class="text-line">$499</em></p>
+                <div class="team-people  aui-text-left clearfix sigle-people ">
+                    <div class="aui-pull-left">
+                        <span><img src="../../image/icon-people.png"></span>
+                        <span><img src="../../image/icon-people.png"></span>
+                        <span><img src="../../image/icon-people.png"></span>
+                        <span><img src="../../image/icon-people.png"></span>
+                        <span><img src="../../image/icon-people.png"></span>
+                    </div>
+                    <span class="aui-pull-right margin0 people-text aui-font-size-12 color-gray9">还差5人</span>
+                </div>
+                <button class="sigle-but aui-btn  padding0 border-no bd-radius  aui-font-size-16 back-pinkm color-write aui-margin-t-15 ">分享好友抢免单</button>
+                <span class="inline-block color-gray9 aui-font-size-14 aui-margin-t-5" onclick="showlayer()">规则说明</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!--规则-->
+<div class="layer aui-hide">
+    <span class="aui-mask z-index"></span>
+    <div class="layer-ct bd-radius4 back-write aui-padded-t-10 aui-padded-b-10 aui-padded-l-10 aui-padded-r-10">
+        <h4 class="aui-margin-t-5 aui-text-center aui-font-size-16 aui-margin-b-15">
+            <strong>助力享免单规则</strong>
+        </h4>
+        <p class="aui-margin-b-10"> •邀请好友助力，达到助力人数，即可享免单权利 </p>
+        <p class="aui-margin-b-10"> •每个新用户仅可助力一次。同一设备、微信号视为同一用户</p>
+        <p class="aui-margin-b-10"> •若发现用户存在刷单、虚假用户助力等违规行为，平台有权判定助力失败</p>
+        <p class="aui-margin-b-10"> •邀请到足够好友帮您助力成功之后，可前往我的订单查看发货与物流详情</p>
+        <p class="aui-margin-b-10"> •对物流、商品有疑问或者需要修改收货地址请联系商家客服处理</p>
+        <p class="aui-margin-b-10"> •销拼购可在法律法规允许范围内对本次活动规则解释并做适当修改</p>
+    </div>
+</div>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/res/layer/layer.js"></script>
+<script>
+    apiready = function () {
+        $api.fixStatusBar( $api.dom('header') );
+    }
+
+    $('.aui-mask').on('click',function () {
+
+        $('.layer').addClass('aui-hide')
+    });
+    function showlayer() {
+        $('.layer').removeClass('aui-hide')
+    }
+</script>
+</body>
+</html>

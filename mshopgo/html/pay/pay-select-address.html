@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>选择地址</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        .aui-bar-nav {
+            position: fixed;
+            z-index: 999;
+        }
+
+        .nodata {
+            width: 50%;
+            position: absolute;
+            top: 38%;
+            left: 25%;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <header class="aui-bar aui-bar-nav aui-bar-light color-black">
+            <a class="aui-pull-left aui-btn" onclick="window.history.back();">
+                <i class="aui-iconfont aui-icon-left color-black"></i>
+            </a>
+            <div class="aui-title aui-font-size-16">
+                选择地址
+            </div>
+            <div class="aui-pull-right aui-font-size-14" onclick="location.href='../my/my_frm-address.html'">
+                管理
+            </div>
+        </header>
+        <ul class="aui-content" style="padding-top: 3rem;" id="info_area">
+        </ul>
+    </div>
+    <script type="text/html/x-dot-template" id="info_tmpl">
+        {{?it.data.length>0}} {{~it.data:dval:dkey}}
+        <li class="aui-card-list" id="{{=dval.id}}" onclick="selectAddress({{=dval.id}});">
+            <div class="aui-card-list-header">
+                {{=dval.uname}} &nbsp;{{=dval.tel}}
+            </div>
+            <div class="aui-card-list-content-padded">
+                <div class="aui-list-item-text">
+                    {{?dval.select==1}}
+                    <span class="color-pink">[默认地址]</span> {{?}} {{=dval.province}} {{=dval.city}} {{=dval.district}} {{=dval.detail}}
+                </div>
+            </div>
+        </li>
+        {{~}} {{??}}
+        <div class="nodata">
+            <a href="javascript:;" class="aui-font-size-18 plus-btn aui-btn aui-btn-block aui-btn-outlined aui-btn-sm" onclick="openWin('../my/my_frm-address')">
+                <i class="aui-iconfont aui-icon-plus"></i> 新增收货地址
+            </a>
+        </div>
+        {{?}}
+    </script>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/doT.min.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/jquery-1.11.1.min.js"></script>
+    <script>
+        var user, address;
+          // api.addEventListener({
+          //     name: 'reloadAddressList'
+          // }, function(ret, err){
+          //     location.reload();
+          // });
+
+            user = $api.getStorage('user');
+            if (!user) {
+                location.href='../login_win.html';
+            }
+            $.ajax({
+                url: PHP_SERVE_URL + '/customer/myAddress',
+                type: 'post',
+                data: {
+                    openId: user.openId
+                },
+                success:function(ret, err) {
+                    if (ret.code == 0) {
+                        if (ret.data.length == 0) {
+                            window.location.href='../my/my_frm-address.html';
+                        }
+                        var innerText = doT.template($api.text($api.byId("info_tmpl")));
+                        $api.append($api.byId("info_area"), innerText(ret));
+                        address = ret.data;
+                    }
+                }
+            });
+
+        function selectAddress(id) {
+            for (var i = 0; i < address.length; i++) {
+                if (address[i].id == id) {
+                    //发送地址变更事件
+                    // api.sendEvent({
+                    //     name: 'selectAddress',
+                    //     extra: address[i]
+                    // });
+                    $api.setStorage('payAddress',address[i]);
+                    history.back();
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

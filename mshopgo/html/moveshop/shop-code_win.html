@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>移动店铺-二维码</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/shop-code_win.css"/>
+    <style>
+        .aui-bar-nav {
+            position: fixed;
+        }
+
+        section img {
+            width: 2.5rem;
+            height: 2.5rem;
+            position: absolute;
+            left: 44%;
+            top: 9.8rem;
+            border-radius: 0.3rem;
+            background: #fff;
+            padding: 0.1rem;
+        }
+
+        section .s_code {
+            width: 10rem;
+            height: 10rem;
+            margin: 1rem auto;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav aui-bar-light">
+    <a class=" aui-pull-left" tapmode onclick="api.closeWin()">
+        <i class="aui-iconfont aui-icon-left color-black"></i>
+    </a>
+    <div class="aui-title color-black">店铺二维码</div>
+</header>
+<div class="main">
+    <div style="height: 2rem;"></div>
+    <section class="aui-content" id="qrcode_card">
+        <p class="aui-text-center aui-margin-t-15" id="shop_name"></p>
+        <img src="" id="avatar">
+        <div id="qrcode_img" class="s_code"></div>
+        <p class="aui-text-center aui-margin-t-15">扫一扫，查看店铺商品</p>
+    </section>
+    <p class="aui-text-center aui-margin-t-15 color-write" onclick="setimg()">保存图片</p>
+</div>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript" src="../../script/jquery.qrcode.min.js"></script>
+<script type="text/javascript" src="../../script/html2canvas.js"></script>
+<script type="text/javascript" src="../../script/es6-promise.auto.js"></script>
+<script type="text/javascript">
+    var user;
+    apiready = function () {
+        user = $api.getStorage('user');
+        var pageParam=api.pageParam;
+        $("#shop_name").text(pageParam.shopname);
+        $("#avatar").attr("src", pageParam.shoplogo);
+        $("#qrcode_img").qrcode({
+            render: "canvas",
+            width: 200, //宽度
+            height: 200, //高度
+            text:'shopgo:url(/shop/shop_win)param({"shop_id":"'+pageParam.shopid+'"})',
+        });
+    };
+    function setimg() {
+        html2canvas($("#qrcode_card"), {
+            height: $("#qrcode_card").outerHeight() + 20,
+            onrendered: function (canvas) {
+                var url = canvas.toDataURL("image/png");
+                var base64str = url.substr(22);
+                var trans = api.require('trans');
+                trans.saveImage({
+                    base64Str: base64str,
+                    album: true,
+                    imgPath: "fs://"
+                }, function (ret, err) {
+                    if (ret.status) {
+                        $a.toast('图片已保存到系统相册');
+                    }
+                });
+            }, useCORS: true
+        });
+    }
+</script>
+</body>
+
+</html>

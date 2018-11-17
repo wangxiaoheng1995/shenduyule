@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>我的足迹</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        .aui-bar-nav{
+            position: fixed;
+        }
+        .aui-dialog-btn {
+            color: #ff5096;
+        }
+
+        .aui-dialog-body {
+            color: #212121;
+            font-size: 0.8rem;
+        }
+        .line-display{
+            display: inline-flex;
+        }
+        .icon{
+            width: 100%;
+            margin: 2rem auto;
+            display: none;
+        }
+        .icon img{
+            width: 80%;
+            margin: 2rem auto;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" class="cart">
+    <header class="aui-bar aui-bar-nav aui-bar-light color-black">
+        <div class="aui-pull-left aui-btn " onclick="window.history.back()">
+            <span class="aui-iconfont aui-icon-left color-gray9"></span>
+        </div>
+        <div class="aui-title aui-font-size-16  ">我的足迹</div>
+        <div class="aui-pull-right aui-btn aui-margin-r-10" onclick="editOrComplete(this);">
+            <span class="aui-iconfont aui-font-size-14 color-black"> 编辑</span>
+        </div>
+    </header>
+    <div id="main">
+        <div style="height: 2rem;"></div>
+        <div class="content">
+        </div>
+        <div class="icon">
+            <img src="../../image/my/wddd_kong_icon.png"/>
+        </div>
+    </div>
+    <script type="text/html-x-dot-template" id="time_tmpl">
+        <div class="cart-bg-fff order-section-padd aui-margin-t-10 aui-padded-l-15 aui-padded-r-15" id="{{=it.time}}">
+            <h4 class=" aui-padded-t-10 aui-padded-b-10 color-gray9">
+                {{=showTime(it.time)}}
+            </h4>
+            <ul class="aui-list aui-media-list" id="ul_{{=it.time}}">
+            </ul>
+        </div>
+    </script>
+    <script type="text/html-x-dot-template" id="goods_tmpl">
+        <li class="aui-list-item aui-padded-l-0 cart-bg-fff aui-list-noborder" id="li_{{=it.id}}">
+            <div class="aui-media-list-item-inner">
+                <div class="aui-list-item-media  btn-checkbox" style="display: none">
+                    <input class="aui-checkbox bd-radius50" type="checkbox" name="checkthis" id="{{=it.id}}">
+                </div>
+                <label class="aui-list-item-media cart-left-img" for="{{=it.id}}">
+                    <img src="{{=it.pic}}">
+                </label>
+                <div class="aui-list-item-inner aui-padded-r-0 aui-margin-l-10">
+                    <div class="aui-list-item-text cart-text">
+                        <p class="aui-ellipsis-2 s-color-black aui-font-size-14 line-height color-black">
+                            {{=it.name}}</p>
+                    </div>
+                    <div class="aui-list-item-text">
+                        <p class=" s-color-black">
+                            <span>{{=it.num}}人已团</span>
+                        </p>
+                    </div>
+                    <div class="aui-info aui-margin-t-10 padding0">
+                        <div class="aui-info-item">
+                            <span class="s-color-black color-pink">￥{{=it.price}}</span>
+                        </div>
+                        <div class="aui-font-size-14  clearfix" onclick="openGoodsDetail('{{=it.id}}')">
+                            <span class="color-pink footprint-btn span-bd bd-radius aui-margin-r-15 aui-pull-left">立即购</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </script>
+    <footer class="aui-bar aui-bar-tab cart-footer" style="display: none">
+        <div class="aui-bar  cart-footer-bar aui-row line-display">
+            <div class="aui-col-xs-4  aui-font-size-14 " onclick="isAllChecked()">
+                <label>
+                    <input class="aui-checkbox bd-radius50" type="checkbox" name="checkall">
+                    全选
+                </label>
+            </div>
+            <div class="aui-col-xs-4  aui-font-size-16  aui-padded-r-15" onclick="clearGoods()"><strong class="color-black">清空</strong></div>
+            <div class="aui-col-xs-4  btn-del color-write back-pink aui-font-size-16 " onclick="delGood()"> 删除</div>
+        </div>
+    </footer>
+</div>
+
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/aui/aui-dialog.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script>
+    var user;
+    var ids = [];
+    var toast = new auiToast();
+    window.onload = function () {
+        user = $api.getStorage("user");
+        // user = localStorage.getItem('user');
+        getData();
+        $("[name=checkall]").click(function(){
+            $("[name=checkthis]").attr("checked",$(this).attr("checked"));
+        })
+    };
+    //    获取数据
+    function getData() {
+        var data = $api.getStorage("footPrints");
+        // var data = localStorage.getItem('footPrints')
+        var isContains=false;
+        if(data){
+            $.each(data, function (index, item) {
+                if (item.openId == user.openId) {
+                    isContains=true;
+                    var goods = item.goods;
+                    if(goods.length>0){
+                      goods.sort(function(a,b){
+                          return a.timestamp - b.timestamp;//时间正序
+                      });
+                        for(var i=goods.length-1;i>=0;i--){
+                            if ($("#" + goods[i].time).length == 0) {
+                                var innerText = doT.template($("#time_tmpl").text());
+                                $(".content").append(innerText(goods[i]))
+                            }
+                            var goodText = doT.template($("#goods_tmpl").text());
+                            $("#ul_" + goods[i].time).append(goodText(goods[i]));
+                        }
+                    }else{
+                        $(".icon").show();
+                    }
+                }
+            })
+        }
+        if(!isContains){
+            $(".icon").show();
+        }
+        $("[name=checkthis]").click(function () {
+            var checkedLen = $("[name=checkthis]:checked").length;
+            var len = $("[name=checkthis]").length;
+            if (checkedLen == len) {
+                $("footer .aui-checkbox").prop("checked", true);
+            }
+            if (checkedLen == 0) {
+                $("footer .aui-checkbox").prop("checked", false);
+            }
+        });
+    }
+    //   是否是今天
+    function showTime(time) {
+        var now = formatTime(new Date());
+        if (time == now) {
+            return "今天";
+        }else{
+            return time;
+        }
+    }
+    function openGoodsDetail(id) {
+      window.location.href="../goods/goods_win?"+"id="+id+"&"+"originOId="+0
+        // $a.openWin('../goods/goods_win', {id: id, originOId: 0})
+    }
+
+    function isAllChecked() {
+        var checkedLen = $(".aui-checkbox").prop("checked");
+        if (checkedLen) {
+            $(".aui-checkbox").prop("checked", false);
+        } else {
+            $(".aui-checkbox").prop("checked", true);
+        }
+    }
+    function editOrComplete(that) {
+        var text = $(that).find("span").text();
+        if (text == "完成") {
+            text = "编辑";
+        } else {
+            text = "完成";
+        }
+        $(that).find("span").text(text);
+        $("footer").toggle();
+        $(".btn-checkbox").toggle();
+    }
+    //删除
+    function delGood() {
+        var dialog = new auiDialog();
+        $("[name=checkthis]:checked").map(function () {
+            ids.push($(this).attr("id"));
+        })
+        if (ids.length == 0) {
+          var toast = new auiToast({
+        })
+           toast.success({title:"请选择商品",duration:2000})
+            // $a.toast("请选择商品");
+            return;
+        }
+
+        dialog.alert({
+            msg: '确定删除所选商品吗？',
+            buttons: ['取消', '确定']
+        }, function (ret) {
+            if (ret) {
+                if (ret.buttonIndex == 2) {
+                    deleteFootPrint();
+                }
+            }
+        })
+    }
+    function clearGoods(){
+        var dialog=new auiDialog();
+        dialog.alert({
+            msg: '确定清空列表吗？',
+            buttons: ['取消', '确定']
+        }, function (ret) {
+            if (ret) {
+                if (ret.buttonIndex == 2) {
+                    $("[name=checkthis]").map(function () {
+                        ids.push($(this).attr("id"));
+                    })
+                    deleteFootPrint();
+                }
+            }
+        })
+    }
+    //    删除足迹
+    function deleteFootPrint() {
+        var data = $api.getStorage("footPrints");
+        var arr = [];
+        $.each(data, function (index, item) {
+            if (item.openId == user.openId) {
+                var idata = item;
+                var goods = item.goods;
+                idata.goods = [];
+                $.each(goods, function (index, gitem) {
+                    if (ids.indexOf(gitem.id) == -1) {
+                        idata.goods.push(gitem);
+                    }
+                })
+                arr.push(idata);
+            } else {
+                arr.push(item);
+            }
+        })
+        setStorage("footPrints", arr);
+        $.each(ids, function (index, item) {
+            $("#li_" + item).remove();
+        })
+        $("ul").map(function(){
+            if($(this).find("li").length==0){
+                $(this).parent().remove();
+            }
+        })
+        if($(".content").find("div").length==0){
+            $(".icon").show();
+        }
+    }
+</script>
+</body>
+</html>

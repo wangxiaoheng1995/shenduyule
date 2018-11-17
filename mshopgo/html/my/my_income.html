@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的收入</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <style>
+        .income-top{
+          display:flex;
+          align-items: center;
+          padding:0.8rem;
+          background: #EEEBED;
+          font-family: MicrosoftYaHei;
+        }
+        .incom-top-title{
+          color:#333;
+          font-size:0.8rem;
+          width:25%;
+        }
+        #income-detail{
+          margin:0!important;
+        }
+        .income-content{
+          display:flex;
+          align-items: center;
+          padding:0.8rem;
+        }
+        .income-content a{
+          flex:1;
+          color: #666;
+          font-size:0.7rem;
+        }
+        .title-center{
+          text-align: center;
+        }
+        #grant{
+          color:#028C02;
+        }
+        #granted{
+          color:#FE5095;
+        }
+        .title-center.income-content-last{
+          color:#FE5095;
+          border:1px solid #FE5095;
+          border-radius:8px;
+          padding:0.05rem;
+          box-sizing: border-box;
+        }
+        [v-cloak]{
+          display:none;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" v-cloak>
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write border-bot header-nav" style="background:#fe5095!important;color:#fff">
+        <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+            <span class="aui-iconfont aui-icon-left aui-font-size-20"></span>
+        </a>
+        <div class="aui-title">我的收入</div>
+    </header>
+    <div class="header-nav-top" id="main">
+      <div class="income-top">
+        <div class="incom-top-title">月份</div>
+        <div class="incom-top-title title-center">收入</div>
+        <div class="incom-top-title title-center">发放状态</div>
+        <div class="incom-top-title title-center">查看明细</div>
+      </div>
+        <ul class="aui-list aui-media-list aui-margin-t-10 msg-list back-none" id="income-detail">
+          <li v-for="item in incomeList">
+            <div class="income-content">
+              <a>{{item.month_date}}</a>
+              <a class="title-center">{{item.zmoney}}</a>
+              <a id="grant" class="title-center" v-if="item.is_pay==0">待发放</a>
+              <a id="granted" class="title-center" v-if="item.is_pay==1">已经发放</a>
+              <a class="title-center income-content-last" @click="openDetail(item.month_date)">查看明细</a>
+            </div>
+          </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/mobileSelect.min.js"></script>
+<script>
+  var user = $api.getStorage('user');
+  console.log(user)
+  new Vue({
+    el:"#wrap",
+    data:{
+      incomeList:''
+    },
+    methods:{
+      lodaIncome(){
+        var self = this
+        $.ajax({
+          url:PHP_SERVE_URL + '/employee/getEmployeeIncomeList',
+          type:'post',
+          data:{
+              eid:user.eid
+          },
+          success:function(ret,err){
+            // alert(ret.code)
+            self.incomeList=ret.data;
+          }
+        })
+      },
+      openDetail(datetime){
+        // api.openFrame({
+        //     name: 'incomeDetail',
+        //     url: './my_income-detail.html',
+        //     rect: {
+        //         x: 0,
+        //         y: 0,
+        //         w: 'auto',
+        //         h: 'auto'
+        //     },
+        //     pageParam: {
+        //         datetime:datetime
+        //     },
+        //     bounces: true,
+        // });
+       window.location.href="./my_income-detail.html?datetime="+datetime;
+      }
+    },
+    mounted:function(){
+      if(user.eid!='undifend'){
+        this.lodaIncome()
+      }
+    }
+  })
+
+
+
+</script>
+
+</html>

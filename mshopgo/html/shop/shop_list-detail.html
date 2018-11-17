@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" class="back-write">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>拼主商品详情</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+</head>
+
+<body class="back-write">
+    <div id="wrap">
+        <header class="aui-bar aui-bar-nav tit-bar-black back-write">
+            <a class="aui-pull-left aui-btn " onclick="api.closeWin();">
+                <span class="aui-iconfont aui-icon-left color-gray9"></span>
+            </a>
+            <div class="aui-title color-black">拼主商品详情</div>
+        </header>
+        <div id="main" class="back-write" v-cloak>
+            <!--媒体列表-->
+            <ul class="aui-list aui-media-list">
+                <li class="aui-list-item cart-bg-fff">
+                    <div class="aui-media-list-item-inner">
+                        <div class="aui-list-item-media cart-left-img">
+                            <img :src="orders.pic">
+                        </div>
+                        <div class="aui-list-item-inner aui-margin-l-15">
+                            <div class="aui-list-item-text">
+                                <p class="aui-ellipsis-2 color-black">{{orders.gname}}</p>
+                            </div>
+                            <div class="aui-info aui-margin-t-15 padding0 aui-font-size-12">
+                                <div class="aui-info-item">
+                                    <span>{{orders.groupnum}}人拼团</span>
+                                    <span class="aui-margin-l-5 cart-section-prize color-pink">￥{{orders.groupprice}}</span>
+                                </div>
+                            </div>
+                            <div class="aui-info aui-margin-t-10 padding0">
+                                <div class="aui-info-item aui-font-size-12">
+                                    <span>单买价</span>
+                                    <span class="aui-margin-l-5 ">￥{{orders.price}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="aui-padded-t-5 aui-padded-l-15 aui-padded-r-15 aui-text-center">
+                <p class="aui-padded-t-15 color-black">{{orders.groupnum}}人团，还差 <em class="color-pink">{{orders.lessnum}}</em>人拼团成功</p>
+                <p class="aui-padded-t-15 color-black sigle-time">剩余
+                    <span class="color-write back-pink bd-radius4" id="hour">22</span> :
+                    <span class="color-write back-pink bd-radius4" id="minute">50</span> :
+                    <span class="color-write back-pink bd-radius4" id="second">00</span> 后结束
+                </p>
+                <div class="team-people shop-list-people ">
+                    <span v-for="item,index in orders.userInfo"><img :src="item.avatar"/><em class="back-pink" v-show="index==0">拼主</em></span>
+                </div>
+            </div>
+            <button class="aui-btn  padding0 border-no bd-radius  aui-font-size-16 back-pinkm color-write my-margin-t" @click="goGroup(orders.gid,orders.userInfo[0].uid)">立即参团</button>
+            <div class="clearfix  color-gray9  notice ">
+                <span class="aui-pull-left ">拼单须知</span>
+                <span class="aui-pull-right">好友拼单 · 人满发货 · 人不满自动退款</span>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script src="../../script/vue.js"></script>
+<script>
+    var param;
+    apiready = function() {
+        param = $a.getParam();
+        var vm = new Vue({
+            el: '#main',
+            data: {
+                orders: {userInfo:[{avatar:''}]}
+            },
+            methods: {
+                goGroup: function(id, oid) {
+                    api.openWin({
+                        name: 'goods_win',
+                        url: '../goods/goods_win.html',
+                        pageParam: {
+                            id: id,
+                            originOId: oid
+                        },
+                        reload: true
+                    });
+
+                }
+            },
+            mounted: function() {
+                var self = this;
+                api.ajax({
+                    url: PHP_SERVE_URL + '/order/getJoinGroupOrderInfo',
+                    method: 'post',
+                    data: {
+                        values: {
+                            goodsId: param.gid,
+                            oid: param.oid
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret.code == 0) {
+                        self.orders = ret.data;
+                        setTimeout(function () {
+                                var time = (new Date(ret.data.groupendtime)).getTime();
+                                var nowtime = (new Date()).getTime();
+                                if (time > nowtime) {
+                                    GetRTime(time);
+                                    setInterval(function () {
+                                        GetRTime(time);
+                                    }, 1000);
+                                }
+                                else{
+                                  self.text("");
+                                }
+                        }, 100);
+                    }
+                });
+            }
+        });
+    }
+    function GetRTime(endtime) {
+        //当前时间
+        var NowTime = (new Date()).getTime();
+        //结束时间减去当前时间剩余的毫秒数
+        var t = endtime - NowTime;
+        if(t<1000){
+            ele.text("");
+            return;
+        }
+        // var d = Math.floor(t / 1000 / 60 / 60 /24 % 24);//天
+        var h = Math.floor(t / 1000 / 60 / 60 % 60);//时
+        var m = Math.floor(t / 1000 / 60 % 60);//分
+        var s = Math.floor(t / 1000 % 60);//秒
+        // ele.text(d+"天"+h + "小时" + m + "分" + s + "秒");
+        $api.text($api.byId('hour'), h>9?h:'0'+h);
+        $api.text($api.byId('minute'), m>9?m:'0'+m);
+        $api.text($api.byId('second'), s>9?s:'0'+s);
+
+    }
+</script>
+
+</html>

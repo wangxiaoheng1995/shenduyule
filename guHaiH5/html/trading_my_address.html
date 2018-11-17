@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>常住地址</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../css/sm.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/sm-extend.min.css">
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .picker-item {
+            font-size: 0.8rem;
+        }
+
+        .aui-btn-block.aui-btn-sm {
+            font-size: 1rem;
+            height: 2.3rem;
+            line-height: 2.3rem;
+            font-size: 0.8rem;
+        }
+
+        .aui-btn-success, .aui-btn-success.aui-active, .aui-btn-success:active {
+            background: #de3232;
+        }
+
+        .myswitch {
+            margin-top: -16px;
+            width: 60px;
+            right: .625em;
+            height: 40px;
+            top: 50%;
+            background: url("../image/new-address-pic.png") no-repeat;
+            background-size: 200px 200px;
+            background-position: -100px 0;
+            position: absolute
+        }
+
+        .myswitched {
+            margin-top: -16px;
+            background: url("../image/new-address-pic.png") no-repeat;
+            background-size: 200px 200px;
+            background-position: 0 0
+        }
+        .complete{
+            color: #fff !important;
+            background: red;
+            padding: 0.5rem !important;
+            line-height: 0.2rem !important;
+            height: 1.5rem !important;
+            margin-top: 0.3rem !important;
+        }
+        .cancle{
+            color:#fff !important;
+            float: left;
+        }
+    </style>
+
+</head>
+<body class="overflow-x-hidden">
+
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn" onclick="closeWin();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">常住地址</div>
+</header>
+
+<section>
+
+    <div class="aui-content aui-margin-t-15 aui-margin-b-15" id="content">
+        <ul class="aui-list aui-form-list aui-padded-l-15 aui-padded-r-15">
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        姓名
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" placeholder="姓名" id="username"  maxlength="25">
+                    </div>
+                </div>
+            </li>
+            <div style="margin: 0.2rem 0rem;">
+                <div class="aui-hr"></div>
+            </div>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        手机号码
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="tel" maxlength="11" placeholder="手机号码"  id="tel">
+                    </div>
+                </div>
+            </li>
+            <div style="margin: 0.2rem 0rem;">
+                <div class="aui-hr"></div>
+            </div>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        选择地区
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" placeholder="点击选择" id="city-picker" readonly="readonly">
+                    </div>
+                </div>
+            </li>
+            <div style="margin: 0.2rem 0rem;">
+                <div class="aui-hr"></div>
+            </div>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        详细地址
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="text" placeholder="街道门牌信息" id="info">
+                    </div>
+                </div>
+            </li>
+            <div style="margin: 0.2rem 0rem;">
+                <div class="aui-hr"></div>
+            </div>
+            <li class="aui-list-item">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label" style="width: 60%;">
+                        <div class="sattr change-fl">设为默认地址</div>
+                    </div>
+                    <div class="aui-list-item-input">
+                        <div class="myswitch" id="default" onclick="toggleClass(this);"></div>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+</section>
+
+<footer>
+    <p class="aui-padded-l-15 aui-padded-r-15 aui-font-size-12">温馨提示:完成实名认证后，实名信息及认证地址不可修改。</p>
+    <div class="aui-content-padded" style=" border-radius: 7rem;overflow: hidden;margin: 3rem 2.5rem;">
+        <div class="aui-btn aui-btn-success aui-btn-block aui-btn-sm aui-content-padded " id="submit">保存</div>
+    </div>
+</footer>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/config.js"></script>
+<script type="text/javascript" src="../script/zepto.min.js"></script>
+<script type='text/javascript' src='../script/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../script/sm-extend.min.js' charset='utf-8'></script>
+<script type="text/javascript" src="../script/sm-city-picker.js" charset="utf-8"></script>
+<script type="text/javascript" src="../script/yltcrypt.js"></script>
+<script>
+    $("#city-picker").cityPicker({
+        toolbarTemplate: '<header class="bar bar-nav" style="background-color: #999999;">\
+       <button class="button button-link pull-right close-picker cancle">取消</button>\
+    <button class="button button-link pull-right close-picker complete">完成</button>\
+    </header>'
+    });
+    var user;
+    var aid=0;
+    apiready = function () {
+        fix_status_bar();
+        user = $api.getStorage('user');
+        apiAjax(PHP_SERVE_URL + '/customer/myAddress', {
+            openId:user.openId
+        }, function (res) {
+            if(res.code==0){
+                if(res.data.length>0){
+                    var address=res.data[0];
+                    aid=address.id;
+                    $("#username").val(address.uname);
+                    $("#tel").val(address.tel);
+                    $("#city-picker").val(address.pname+" "+address.cname+" "+address.aname);
+                    $("#info").val(address.info);
+                    if(address.is_default==2){
+                        $("#default").addClass("myswitched");
+                    }
+                }
+            }
+        });
+        //确定提交
+        $("#submit").click(function () {
+            var cityStr = $("#city-picker").val();
+            var cityArr = cityStr.split(' ');
+            var tel=$("#tel").val();
+            var uname=$("#username").val();
+            var is_default=1;
+            if(uname==""){
+                toast("姓名不能为空");
+                $("#username").focus();
+                return;
+            }
+            var telPattern = /^1(3|4|5|7|8)\d{9}$/;
+            if (!telPattern.test(tel)) {
+                toast("手机号格式不正确");
+                $("#tel").focus();
+                return;
+            }
+            var info=$("#info").val();
+            if(info==""){
+                toast("详细地址不能为空");
+                $("#info").focus();
+                return;
+            }
+            if($("#default").hasClass("myswitched")){
+                is_default=2;
+            }
+            var values = {
+                openId: user.openId,
+                uname: uname,
+                aid:aid,
+                tel: tel,
+                default: is_default,
+                token: yltcrypt.cpt(user.openId),
+                info: info
+            }
+            $.each(cityArr, function (index, item) {
+                if (index == 0) {
+                    values.pname = item;
+                }
+                if (index == 1) {
+                    values.cname = item;
+                }
+                if (index == 2) {
+                    values.aname = item;
+                }
+            })
+            apiAjax(PHP_SERVE_URL + '/customer/setAddress', values, function (res) {
+                toast(res.msg);
+                if(res.code==0){
+                    setTimeout('closeWin()',1000);
+                }
+            });
+        });
+    }
+    function toggleClass(that){
+        $(that).toggleClass("myswitched");
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="257a95c5-0084-4845-8365-85c825ba1d36" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../guHaiH5/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../guHaiH5/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/active.html" beforeDir="false" afterPath="$PROJECT_DIR$/active.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_download.html" beforeDir="false" afterPath="$PROJECT_DIR$/app_download.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/public.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/public.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/public.scss" beforeDir="false" afterPath="$PROJECT_DIR$/css/public.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/enter.html" beforeDir="false" afterPath="$PROJECT_DIR$/enter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/enter_flow.html" beforeDir="false" afterPath="$PROJECT_DIR$/enter_flow.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/enter_question.html" beforeDir="false" afterPath="$PROJECT_DIR$/enter_question.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/help_center.html" beforeDir="false" afterPath="$PROJECT_DIR$/help_center.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news_center.html" beforeDir="false" afterPath="$PROJECT_DIR$/news_center.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vip.html" beforeDir="false" afterPath="$PROJECT_DIR$/vip.html" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app_download.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="67" column="22" selection-start-line="67" selection-start-column="22" selection-end-line="67" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>px</find>
+      <find>}px</find>
+      <find>clearf</find>
+      <find>f4</find>
+      <find>spac</find>
+      <find>#B80A0A</find>
+      <find>&lt;a href=&quot;index.htm&quot;&gt;首页&lt;/a&gt;</find>
+      <find>&lt;a href=&quot;###&quot;&gt;首页&lt;/a&gt;</find>
+      <find>&lt;a href=&quot;###&quot;&gt;商家入驻&lt;/a&gt;</find>
+      <find>&lt;a href=&quot;###&quot;&gt;购生活，购福利&lt;/a&gt;</find>
+      <find>&lt;a href=&quot;###&quot;&gt;热点资讯&lt;/a&gt;</find>
+      <find>&lt;a href=&quot;###&quot;&gt;下载APP&lt;/a&gt;</find>
+      <find>&lt;a href=&quot;###&quot;&gt;帮助中心&lt;/a</find>
+      <find>&lt;a href=&quot;./help_center.html&quot;&gt;帮助中心&lt;/a&gt;&gt;</find>
+      <find>&lt;a href=&quot;###&quot;&gt;招商首页&lt;/a&gt;</find>
+      <find>&lt;a href=&quot;###&quot;&gt;入驻流程&lt;/a&gt;</find>
+      <find>&lt;a href=&quot;###&quot;&gt;常见问题&lt;/a&gt;</find>
+      <find>&lt;div class=&quot;bg-D70546&quot;&gt;   &lt;div class=&quot;container&quot;&gt;     &lt;ul class=&quot;active-nav text-align-c clearfix&quot;&gt;       &lt;li class=&quot;color-white font-size-24 fl current&quot;&gt;&lt;a href=&quot;./enter.html&quot;&gt;招商首页&lt;/a&gt;&lt;/li&gt;       &lt;li class=&quot;color-white font-size-24 fl&quot;&gt;&lt;a href=&quot;./enter_flow.html&quot;&gt;入驻流程&lt;/a&gt;&lt;/li&gt;       &lt;li class=&quot;color-white font-size-24 fl&quot;&gt;&lt;a href=&quot;./enter_question.html&quot;&gt;常见问题&lt;/a&gt;&lt;/li&gt;     &lt;/ul&gt;   &lt;/div&gt; &lt;/div&gt;</find>
+      <find>&lt;a href=&quot;./enter.html&quot;&gt;招商首页&lt;/a&gt;</find>
+      <find>&lt;a class=&quot;block&quot; href=&quot;./enter.html&quot;&gt;招商首页&lt;/a</find>
+      <find>&lt;a href=&quot;./enter_flow.html&quot;&gt;入驻流程&lt;/a&gt;</find>
+      <find>&lt;a href=&quot;./enter_question.html&quot;&gt;常见问题&lt;/a&gt;</find>
+      <find>vip_arrow</find>
+      <find>../css</find>
+      <find>../</find>
+      <find>../image</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>&lt;a href=&quot;./index.html&quot;&gt;首页&lt;/a&gt;</replace>
+      <replace>&lt;a href=&quot;./enter.html&quot;&gt;商家入驻&lt;/a&gt;</replace>
+      <replace>&lt;a href=&quot;./vip.html&quot;&gt;购生活，购福利&lt;/a&gt;</replace>
+      <replace>&lt;a href=&quot;./news_center.html&quot;&gt;热点资讯&lt;/a&gt;</replace>
+      <replace>&lt;a href=&quot;./app_download.html&quot;&gt;下载APP&lt;/a&gt;</replace>
+      <replace>&lt;a href=&quot;./help_center.html&quot;&gt;帮助中心&lt;/a&gt;</replace>
+      <replace>&lt;a href=&quot;./enter.html&quot;&gt;招商首页&lt;/a&gt;</replace>
+      <replace>&lt;a href=&quot;./enter_flow.html&quot;&gt;入驻流程&lt;/a&gt;</replace>
+      <replace>&lt;a href=&quot;./enter_question.html&quot;&gt;常见问题&lt;/a&gt;</replace>
+      <replace>&lt;a class=&quot;block&quot; href=&quot;./enter.html&quot;&gt;招商首页&lt;/a&gt;</replace>
+      <replace>}rem</replace>
+      <replace>&lt;a class=&quot;block&quot; href=&quot;./enter_flow.html&quot;&gt;入驻流程&lt;/a&gt;</replace>
+      <replace>&lt;a class=&quot;block&quot; href=&quot;./enter_question.html&quot;&gt;常见问题&lt;/a</replace>
+      <replace>./css</replace>
+      <replace>./image</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/script/resize.js" />
+        <option value="$PROJECT_DIR$/active.html" />
+        <option value="$PROJECT_DIR$/vip.html" />
+        <option value="$PROJECT_DIR$/enter_question.html" />
+        <option value="$PROJECT_DIR$/news_center.html" />
+        <option value="$PROJECT_DIR$/help_center.html" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/enter.html" />
+        <option value="$PROJECT_DIR$/css/public.scss" />
+        <option value="$PROJECT_DIR$/enter_flow.html" />
+        <option value="$PROJECT_DIR$/app_download.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="805" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="tshopgo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tshopgo" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="NewWatcherDialog.advanced.open" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.uml" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/image" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/script" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="257a95c5-0084-4845-8365-85c825ba1d36" name="Default" comment="" />
+      <created>1530171277435</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1530171277435</updated>
+      <workItem from="1530171279028" duration="53728000" />
+      <workItem from="1530498952824" duration="218000" />
+      <workItem from="1534817017315" duration="42000" />
+      <workItem from="1542425772215" duration="162000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="54150000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1440" height="805" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21634954" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32909605" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997175" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/script/public.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/resize.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="86" selection-start-line="4" selection-start-column="86" selection-end-line="4" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/block.rnc" />
+    <entry file="file://$PROJECT_DIR$/image/haitao.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image/jdbanner.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image/partner.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image/footer_icon.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image/server_icon.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image/cheched.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/public.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret column="6273" selection-start-column="6273" selection-end-column="6273" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image/vip_arr.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/image/news_banner.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/news_center.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/help_center.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="30" column="80" selection-start-line="30" selection-start-column="80" selection-end-line="30" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="229" column="89" selection-start-line="229" selection-start-column="89" selection-end-line="229" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enter.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="41" column="100" selection-start-line="41" selection-start-column="100" selection-end-line="41" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vip.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="43" column="23" selection-start-line="43" selection-start-column="14" selection-end-line="43" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enter_question.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1282">
+          <caret line="221" column="8" selection-start-line="221" selection-start-column="8" selection-end-line="221" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enter_flow.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="40" column="30" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#div#1;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/public.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="595" column="27" selection-start-line="595" selection-start-column="27" selection-end-line="595" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/active.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app_download.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="67" column="22" selection-start-line="67" selection-start-column="22" selection-end-line="67" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

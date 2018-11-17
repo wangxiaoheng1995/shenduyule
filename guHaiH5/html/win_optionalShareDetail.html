@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>自选股明细</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body, html {
+            width: 100%;
+            height: 100%;
+            background: #171b24;
+        }
+
+        #main {
+            height: 82vh;
+        }
+
+        .bg-green,
+        .bg-green .aui-bar-nav {
+            background-color: #43AC45 !important;
+        }
+
+    </style>
+</head>
+
+<body class="overflow-x-hidden flex-vertical">
+
+<header class="aui-bar aui-bar-nav">
+    <div class="aui-bar aui-bar-nav">
+        <a class="aui-pull-left aui-btn" onclick="closeWin();">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="aui-title"><span id="name">自选股</span>
+            <span class="aui-font-size-12 aui-padded-l-15" id="sno"></span>
+        </div>
+    </div>
+</header>
+<div id="main" class="flex-con"></div>
+<footer class="aui-bar aui-bar-tab " id="footer" style="background-color: #1c2029 ;z-index: 100000">
+    <div class="aui-bar-tab-item aui-active" onclick="openWinNew(0)">
+        买
+    </div>
+    <div class="aui-bar-tab-item" onclick="openWinNew(1)">
+        卖
+    </div>
+    <div class="aui-bar-tab-item" onclick="openWinNew(2)">
+        撤
+    </div>
+    <div class="aui-bar-tab-item" onclick="openWinNew(4)">
+        持仓
+    </div>
+</footer>
+
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script>
+  var bg, stockid, pageParam;
+  apiready = function () {
+    pageParam = api.pageParam;
+    bg = api.pageParam.bg;
+    $api.fixStatusBar($api.dom('header'));
+    $api.text($api.byId('name'), api.pageParam.name);
+    $api.text($api.byId('sno'), api.pageParam.sno);
+    if (api.pageParam.state != 'up') {
+      $api.addCls($api.dom('header'), 'bg-green');
+    }
+    api.openFrame({
+      name: 'frm_optionalShareDetail',
+      url: './frm_optionalShareDetail.html',
+      rect: {
+        x: 0,
+        y: $api.dom('header').offsetHeight,
+        w: api.winWidth,
+        h: $api.dom('#main').offsetHeight,
+        marginBottom: 50,
+      },
+      pageParam: {
+        id: api.pageParam.id,
+        bg: api.pageParam.bg
+      },
+      bounces: false,
+      bgColor: 'rgba(0,0,0,0)',
+      vScrollBarEnabled: true,
+      hScrollBarEnabled: true
+    });
+
+    //监听股票代码
+    api.addEventListener({
+      name: 'stockCode'
+    }, function (ret, err) {
+      stockid = ret.value.sid;
+    });
+  };
+
+  function openWinNew(tag) {
+    openWin('win_trade', {
+      'actionType': tag,
+      'bg': bg,
+      stockid: stockid,
+      sno: pageParam.sno,
+      name: pageParam.name
+    });
+  }
+</script>
+</body>
+
+</html>

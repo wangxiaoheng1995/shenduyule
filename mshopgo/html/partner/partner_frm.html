@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>掌柜</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/swiper-3.2.5.min.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <style>
+           /*特推广告*/
+
+           .poster-wrap {
+               width: 95%;
+               overflow: hidden;
+               position: relative;
+               max-height: 6.5rem;
+               margin: 0.5rem auto;
+               border-radius: 0.3rem;
+           }
+           /*宫布局*/
+           .aui-grid [class*=aui-col-]{
+               padding: 0rem;
+               padding-bottom: 0.7rem;
+           }
+
+           .aui-grid .aui-col-xs-3 img {
+               width: 1.8rem;
+               height:1.8rem;
+               border-radius: 50%;
+               margin: 0 auto;
+           }
+           .aui-grid .aui-col-xs-3 .aui-grid-label {
+               font-size:.7rem;
+               color: #6f767d;
+           }
+
+           .aui-font-size-8 {
+               font-size: 0.4rem !important;
+           }
+
+           .nobg-size {
+               background-size: 0px !important;
+           }
+
+           .aui-progress {
+               width: 98%;
+               margin: 0.8rem auto;
+           }
+
+           .aui-progress-bar {
+               background-color: #c2a46b;
+           }
+
+           .aui-ellipsis-1 {
+               width: 7rem;
+           }
+
+           .aui-bar-nav {
+               position: fixed;
+           }
+
+           .swiper-slide {
+               width: 65%;
+           }
+           .swiper-slide .vip-img{
+               box-shadow: 0 0 8px rgba(0,0,0,.5);
+               border-radius:7px;
+           }
+           .swiper-slide .ex-bar-container{
+               position:absolute;
+               top:4.3rem;
+               width:100%;
+               text-align: center;
+           }
+           .swiper-slide .ex-bar-container .count-calc{
+               text-align: right;
+               padding-right: 7%;
+               font-size:.55rem;
+               color: rgba(255, 255, 255, 0.3);
+           }
+           .swiper-slide .ex-bar-container .ex-bar{
+               width: 85%;
+               height: 3px;
+               background: rgba(255, 255, 255, 0.3);
+               border-radius:5px;
+               margin:auto;
+           }
+           .swiper-slide .ex-bar-container .ex-bar .ex-bar-inner{
+               height: 100%;
+               width: 0;
+               background: rgba(251, 190, 61, 0.5);
+               position:relative;
+               max-width: 100%;
+           }
+           .swiper-slide .ex-bar-container .ex-bar .ex-bar-inner .point{
+               float: right;
+               height:15px;
+               width:15px;
+               border-radius:50%;
+               background: rgba(255,255,255,.5);
+               border:solid 3px rgba(156, 116, 40, 0.6);
+               position: absolute;
+               right:-6px;
+               top:-6px;
+           }
+           .swiper-slide .ex-bar-container .ex-bar .ex-bar-inner .point span{
+               font-size: .55rem;
+               display: inline-block;
+               width: 100px;
+               position:absolute;
+               top:-20px;
+               left:-45px;
+               color: rgba(251, 190, 61, 0.6);
+           }
+           .swiper-slide .group-up{
+               text-align: right;
+               position: absolute;
+               right:.4rem;
+               bottom:.2rem;
+               line-height: .65rem;
+           }
+           .swiper-slide .group-up img{
+               width: 1.2rem;
+               display: inline-block;
+           }
+           .swiper-slide .group-up p {
+               font-size:.55rem;
+               color:#fff;
+           }
+           .swiper-slide .group-up p span.num{
+               color:#fbbe3d;
+               margin-right: 2px;
+           }
+           .swiper-container {
+               background: #fff;
+               padding-top: 1rem;
+               overflow: initial;
+           }
+           body {
+               width: 100%;
+               height: auto;
+               padding-bottom: 3rem;
+               overflow-x: hidden;
+           }
+           html,body,.wrap{
+               width: 100%;
+               height: 100%;
+           }
+
+           .wrap {
+               overflow-x: hidden;
+               overflow-y: auto;
+               position: relative;
+           }
+           .lock{
+               position: absolute;
+               right: 6%;
+               top: 15%;
+               z-index: 999;
+               width: 1rem;
+               height: 1rem;
+           }
+           .card-list-title{
+               font-size:.8rem;color:#32353b;
+           }
+           .wui-gray{
+               color: #9f9f9f!important;
+           }
+           .wui-op-pink{
+               color: rgba(251, 68, 130, 0.5)!important;
+           }
+           .wui-pink{
+               color: rgba(251, 68, 130,1)!important;
+           }
+           .wui-bold{
+               font-weight: bold;
+           }
+           .wui-bg-oragin{
+               background: #FFAA18;
+           }
+           .wui-bg-pink{
+               background: #FE73AA;
+
+           }
+           .pink-radius-btn{
+               display: block;
+               background:#FE5095;
+               width: 5rem;
+               height:1.75rem;
+               color:#fff;
+               border-radius:50px;
+               line-height: 1.75rem;
+               font-size: .7rem;
+               text-align: center;
+               box-shadow:0 0 8px rgba(0, 0, 0, 0.2);
+           }
+           .aui-list-line-80{
+               width: 92%;
+               border-top:1px solid #e9e9e9;
+               margin: auto;
+           }
+           .btn-s{
+               width:3rem;
+               height:1.4rem;
+               position: absolute!important;
+               right:0;
+               top:.18rem;
+               line-height: 1.4rem;
+               color:#Fff!important;
+               font-size: .6rem!important;
+               z-index: 1;
+           }
+           .aui-list .cart-list-left img{
+               width:1.35rem;
+               height:1.35rem;
+           }
+            .color-white{
+                color:#fff;
+            }
+           .aui-bar-tab .aui-bar-tab-item {
+               height: 3rem;
+           }
+           .aui-bar-tab .aui-bar-tab-item a,
+           .aui-bar-tab .aui-bar-tab-item a:visited,
+           .aui-bar-tab .aui-bar-tab-item a:hover{
+               color: inherit;
+               font-size: inherit;
+           }
+           .modal{
+               display: none;
+               position:fixed;
+               top:0;
+               left:0;
+               right:0;
+               bottom:0;
+               z-index: 9;
+           }
+           .my_dialog{
+               background:rgba(0,0,0,.8);
+               margin-top: 10rem;
+               border-radius:10px;
+           }
+           .bold{
+               font-weight: bold;
+           }
+           .ml28{
+               margin-left: 1.4rem;
+           }
+           .mr28{
+               margin-right: 1.4rem;
+           }
+           .pb25{
+               padding-bottom: 1.4rem;
+           }
+           .border-white{
+               border: 1px solid white;
+               border-radius: 10px;
+           }
+       </style>
+</head>
+
+<body>
+    <header class="aui-bar aui-bar-nav aui-bar-light color-white wui-bg-pink">
+        <div class="aui-text-center">掌柜</div>
+    </header>
+    <div class="modal" id="my-dialog">
+        <div class="my_dialog ml28 mr28 aui-text-center pb25">
+            <p class="aui-text-right aui-padded-r-10 aui-padded-t-10"><i class="color-write close-dialog aui-iconfont aui-icon-close bold aui-font-size-18"></i></p>
+            <p class="aui-padded-b-15 color-write aui-font-size-16 aui-padded-t-10 dialog-text" style="line-height: 1.4rem;">您尚未缴纳保证金<br>暂无法开通店铺</p>
+            <p class="aui-margin-t-10"><span class="next_btn inline-block color-write aui-font-size-16 border-white aui-padded-t-10 aui-padded-10">缴纳保证金</span></p>
+        </div>
+    </div>
+    <div class="wrap">
+        <div id="content" style="margin-top: 2rem;">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <!--<div class="swiper-slide" onclick="openWinPro('partner_upgrade','index:1')">-->
+                        <!--<div class="lock">-->
+                            <!--<img src="../../image/partner/close_icon.png">-->
+                        <!--</div>-->
+                        <!--<img src="../../image/partner/hhr_bg01_image@3x.png" class="full">-->
+                        <!--<span class="text color-write">还需缴纳100-1万元押金升级</span>-->
+                    <!--</div>-->
+                    <!--<div class="swiper-slide" onclick="openWinPro('partner_upgrade','index:2')">-->
+                        <!--<img src="../../image/partner/hhr_bg02_image@3x.png" class="full">-->
+                        <!--<span class="text color-write">还需缴纳3.8万元押金升级至黄金掌柜</span>-->
+                    <!--</div>-->
+                    <!--<div class="swiper-slide" onclick="openWinPro('partner_upgrade','index:3')">-->
+                        <!--<img src="../../image/partner/hhr_bg03_image@3x.png" class="full">-->
+                        <!--<span class="text color-write">还需缴纳5-10万元押金升级</span>-->
+                    <!--</div>-->
+                    <!--<div class="swiper-slide" onclick="openWinPro('partner_upgrade','index:4')">-->
+                        <!--<img src="../../image/partner/hhr_bg04_image@3x.png" class="full">-->
+                        <!--<span class="text color-write">还需缴纳10-20万元押金升级</span>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="aui-card-list aui-margin-b-10">
+                <div class="aui-card-list-header">
+                    <div class="aui-info">
+                        <div class="aui-info-item">
+                            <img src="../../image/partner/hhr_tq_icon@3x_new.png" style="width:1rem">
+                            <span class="color-black aui-margin-l-5 card-list-title"><span id="identityName"></span>身份特权</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-card-list-content">
+                    <section class="aui-grid">
+                        <div class="aui-row-padded" id="partner_menu">
+                            <div class="aui-col-xs-3" onclick="openDialog()">
+                                <img src="../../image/partner/hhr_01_icon@3x_new2.png">
+                                <div class="aui-grid-label">立即开店</div>
+                                <!--<div class="aui-grid-label">我的店铺</div>-->
+                            </div>
+                            <div class="aui-col-xs-3" onclick="window.location.href='partner_shoping_free_freight.html'">
+                                <img src="../../image/partner/hhr_02_icon@3x_new2.png">
+                                <div class="aui-grid-label">购物免邮</div>
+                            </div>
+                            <div class="aui-col-xs-3" onclick="window.location.href='partner_shop_privilege.html'">
+                                <img src="../../image/partner/hhr_03_icon@3x_new2.png">
+                                <div class="aui-grid-label">门店特权</div>
+                            </div>
+                            <div class="aui-col-xs-3" onclick="window.location.href='partner_reward_shop.html'">
+                                <img src="../../image/partner/hhr_04_icon@3x_new2.png">
+                                <div class="aui-grid-label">赏金购物</div>
+                            </div>
+                            <div class="aui-col-xs-3 hide" onclick="window.location.href='partner_vip_gift.html'">
+                                <img src="../../image/partner/hhr_05_icon@3x_new2.png">
+                                <div class="aui-grid-label">尊享礼包</div>
+                            </div>
+                            <div class="aui-col-xs-3 hide" onclick="window.location.href='partner_marketing_res.html'">
+                                <img src="../../image/partner/hhr_06_icon@3x_new2.png">
+                                <div class="aui-grid-label">营销资源</div>
+                            </div>
+                            <div class="aui-col-xs-3 hide" onclick="window.location.href='partner_vip_birthday.html'">
+                                <img src="../../image/partner/hhr_07_icon@3x_new2.png">
+                                <div class="aui-grid-label">生日礼包</div>
+                            </div>
+                            <div class="aui-col-xs-3 hide" onclick="window.location.href='partner_private_product.html'">
+                                <img src="../../image/partner/hhr_08_icon@3x_new2.png">
+                                <div class="aui-grid-label">专属供货</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="aui-card-list-footer aui-text-center color-gray9 aui-padded-t-0" onclick="openOrClose(this);">
+                    <span id="text">收起</span>
+                    <i class="aui-iconfont aui-icon-top aui-font-size-8 aui-margin-l-10"></i>
+                </div>
+            </div>
+
+            <ul class="aui-list aui-media-list aui-padded-r-15 nobg-size aui-margin-t-10 aui-padded-b-15 ">
+                <li class="aui-padded-l-15 nobg-size" id="data_status-container">
+                    <div class="aui-content" onclick="window.location.href='partner_deposit.html';">
+                        <div class="aui-info">
+                            <div class="aui-info-item">
+                                <img src="../../image/partner/hhr_js_icon@3x_new.png" style="width:1rem">
+                                <span class="color-black aui-margin-l-5 card-list-title"> 押金状态</span>
+                            </div>
+                            <div class="aui-info-item wui-gray">有<span class="wui-op-pink aui-margin-l-5 aui-margin-r-5" id="waitReceiveCount">0</span>笔待退还押金
+                                <i class="aui-iconfont aui-icon-right aui-font-size-8"></i>
+                            </div>
+                        </div>
+                        <div class="aui-text-center">
+                            <span class="aui-font-size-14 wui-pink">当前存入押金<span id="totalPay">0</span></span>
+                        </div>
+                        <div class="aui-progress aui-progress-xs bd-radius wui-bg-oragin">
+                            <div class="aui-progress-bar bd-radius wui-bg-pink" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    <div class="" onclick="window.location.href='partner_return_list.html'">
+                      <div class="aui-info">
+                          <div class="aui-info-item color-black">
+                              <span class="pink-radius-btn">已退还押金</span>
+                          </div>
+                          <div class="aui-info-item pink-radius-btn">
+                              查看明细<i class="aui-iconfont aui-icon-right aui-font-size-12" style="display: inline-block;"></i>
+                          </div>
+                      </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="aui-card-list aui-margin-t-10 aui-margin-b-10">
+                <div class="aui-card-list-header">
+                    <div class="aui-info">
+                        <div class="aui-info-item">
+                            <img src="../../image/partner/renwu@3x.png" style="width:.8rem">
+                            <span class="color-black aui-margin-l-5 card-list-title"> 完成任务加速押金返还</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-card-list-content">
+                    <ul class="aui-list aui-media-list">
+                        <li class="aui-list-item aui-list-item-middle" onclick="window.location.href='../my/my_frm-set.html'">
+                            <div class="aui-media-list-item-inner">
+                                <div class="aui-list-item-media cart-list-left">
+                                    <img src="../../image/partner/hhr_09_icon@3x_new.png">
+                                </div>
+                                <div class="aui-list-item-inner">
+                                    <div class="aui-list-item-text">
+                                        <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1">完善个人信息完善个人信息完善个人信息
+                                        </div>
+                                        <div class="aui-list-item-right aui-font-size-14 btn-s pink-radius-btn">去完成</div>
+                                    </div>
+                                    <div class="aui-list-item-text aui-font-size-12 color-gray9">
+                                        +3天加速
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item aui-list-item-middle" onclick="window.location.href='../index/nav_money_win.html'">
+                            <div class="aui-media-list-item-inner">
+                                <div class="aui-list-item-media cart-list-left">
+                                    <img src="../../image/partner/hhr_10_icon@3x_new.png">
+                                </div>
+                                <div class="aui-list-item-inner">
+                                    <div class="aui-list-item-text">
+                                        <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1">分销平台商品1单</div>
+                                        <div class="aui-list-item-right aui-font-size-14 btn-s pink-radius-btn">去完成</div>
+                                    </div>
+                                    <div class="aui-list-item-text aui-font-size-12 color-gray9">
+                                        +3天加速
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item aui-list-item-middle">
+                            <div class="aui-media-list-item-inner">
+                                <div class="aui-list-item-media cart-list-left">
+                                    <img src="../../image/partner/hhr_11_icon@3x_new.png">
+                                </div>
+                                <div class="aui-list-item-inner">
+                                    <div class="aui-list-item-text">
+                                        <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1">邀请好友注册1名</div>
+                                        <div class="aui-list-item-right aui-font-size-14 btn-s pink-radius-btn">去完成</div>
+                                    </div>
+                                    <div class="aui-list-item-text aui-font-size-12 color-gray9">
+                                        +3天加速
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="aui-list-item aui-list-item-middle">
+                            <div class="aui-media-list-item-inner">
+                                <div class="aui-list-item-media cart-list-left">
+                                    <img src="../../image/partner/hhr_12_icon@3x_new.png">
+                                </div>
+                                <div class="aui-list-item-inner">
+                                    <div class="aui-list-item-text">
+                                        <div class="aui-list-item-title aui-font-size-14 aui-ellipsis-1">购物金额达到1000元</div>
+                                        <div class="aui-list-item-right aui-font-size-14 btn-s pink-radius-btn">去完成</div>
+                                    </div>
+                                    <div class="aui-list-item-text aui-font-size-12 color-gray9">
+                                        +3天加速
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="aui-card-list-footer aui-text-center color-gray9" onclick="location.href='./partner_task_list.html'">
+                    查看更多
+                    <i class="aui-iconfont aui-icon-right aui-font-size-8"></i>
+                </div>
+            </div>
+
+            <div class="poster-wrap">
+                <img src="../../image/partner/hhr_ad1@3x_new.png">
+            </div>
+        </div>
+    </div>
+    <footer class="aui-bar aui-bar-tab" id="footer">
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="../index/index_frm.html">
+                <i class="aui-iconfont" style="background-image: url('../../image/footer/f1-2.png')"></i>
+                <div class="aui-bar-tab-label">首页</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="../newgood/newgood_frm.html">
+                <i class="aui-iconfont " style="background-image: url('../../image/footer/f2-2.png')"></i>
+                <div class="aui-bar-tab-label">新品</div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item aui-active" tapmode>
+            <i class="aui-iconfont " style="background-image: url('../../image/footer/f3-1.png')"></i>
+            <div class="aui-bar-tab-label">掌柜</div>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="../msg/msg_frm.html">
+                <i class="aui-iconfont" style="background-image: url('../../image/footer/f4-2.png')"></i>
+                <div class="aui-bar-tab-label">消息</div>
+                <div class="aui-dot chat-message-tip" style="display: none"></div>
+            </a>
+        </div>
+        <div class="aui-bar-tab-item" tapmode>
+            <a href="../my/my_frm.html">
+                <i class="aui-iconfont " style="background-image: url('../../image/footer/f5-2.png')"></i>
+                <div class="aui-bar-tab-label">我的</div>
+            </a>
+        </div>
+    </footer>
+    <script type="text/html/x-dot-template" id="data_menu">
+        {{?it.status}}
+        <div class="aui-col-xs-3" onclick="openDialog()">
+            <img src="../../image/partner/hhr_01_icon@3x_new2.png">
+            <div class="aui-grid-label">立即开店</div>
+        </div>
+        {{??}}
+        <div class="aui-col-xs-3" onclick="location.href='./my_store.html'">
+            <img src="../../image/partner/hhr_01_icon@3x_new2.png">
+            <div class="aui-grid-label">我的店铺</div>
+        </div>
+        {{?}}
+        <div class="aui-col-xs-3" onclick="window.location.href='partner_shoping_free_freight.html'">
+            <img src="../../image/partner/hhr_02_icon@3x_new2.png">
+            <div class="aui-grid-label">购物免邮</div>
+        </div>
+        <div class="aui-col-xs-3" onclick="window.location.href='partner_shop_privilege.html'">
+            <img src="../../image/partner/hhr_03_icon@3x_new2.png">
+            <div class="aui-grid-label">门店特权</div>
+        </div>
+        <div class="aui-col-xs-3" onclick="window.location.href='partner_reward_shop.html'">
+            <img src="../../image/partner/hhr_04_icon@3x_new2.png">
+            <div class="aui-grid-label">赏金购物</div>
+        </div>
+        <div class="aui-col-xs-3 hide" onclick="window.location.href='partner_vip_gift.html'">
+            <img src="../../image/partner/hhr_05_icon@3x_new2.png">
+            <div class="aui-grid-label">尊享礼包</div>
+        </div>
+        <div class="aui-col-xs-3 hide" onclick="window.location.href='partner_marketing_res.html'">
+            <img src="../../image/partner/hhr_06_icon@3x_new2.png">
+            <div class="aui-grid-label">营销资源</div>
+        </div>
+        <div class="aui-col-xs-3 hide" onclick="window.location.href='partner_vip_birthday.html'">
+            <img src="../../image/partner/hhr_07_icon@3x_new2.png">
+            <div class="aui-grid-label">生日礼包</div>
+        </div>
+        <div class="aui-col-xs-3 hide" onclick="window.location.href='partner_private_product.html'">
+            <img src="../../image/partner/hhr_08_icon@3x_new2.png">
+            <div class="aui-grid-label">专属供货</div>
+        </div>
+</script>
+    <script type="text/html/x-dot-template" id="data_partner">
+        {{~it.partnerData :value}}
+        <div class="swiper-slide" onclick="window.location.href='partner_upgrade.html?mylevel={{=it.level}}&level={{=value.level}}'">
+            <div class="lock">
+                {{?it.level>=value.level}}
+                <img src="../../image/partner/open_icon.png">
+                {{??}}
+                <img src="../../image/partner/close_icon.png">
+                {{?}}
+            </div>
+            <img class="vip-img" src="../../image/partner/hhr_bg0{{=value.level}}_image@3x_new.png" style="height:7rem;width: 100%;">
+            <!-- <span class="text color-write">{{=value.msg}}</span> -->
+            <div class="ex-bar-container">
+                <div class="ex-bar">
+                    <div class="ex-bar-inner" style="width:{{=it.totalLeft/value.needMoney*100}}%;">
+                        {{?value.totalLeft < value.needMoney}}
+                        <p class="point">
+                            <span>{{=value.totalLeft}}</span>
+                        </p>
+                        {{?}}
+                    </div>
+                </div>
+                <p class="count-calc">{{=value.needMoney}}</p>
+            </div>
+            {{?value.totalLeft < value.needMoney}}
+            <div class="group-up">
+                <div class="pic">
+                    <img src="../../image/partner/ss-icon@3x.png" alt="">
+                </div>
+                <p><span class="num">+{{=value.msg}}</span>元</p>
+            </div>
+            {{?}}
+        </div>
+        {{~}}
+    </script>
+    <script type="text/html/x-dot-template" id="data_status">
+      <div class="aui-content" onclick="window.location.href='partner_deposit.html';">
+        <div class="aui-info">
+        <div class="aui-info-item">
+        <img src="../../image/partner/hhr_js_icon@3x_new.png" style="width:1rem">
+        <span class="color-black aui-margin-l-5 card-list-title"> 押金状态</span>
+        </div>
+        <div class="aui-info-item wui-gray">有<span class="wui-op-pink aui-margin-l-5 aui-margin-r-5" id="waitReceiveCount">{{=it.waitRC}}</span>笔待领取押金
+        <i class="aui-iconfont aui-icon-right aui-font-size-8"></i>
+        </div>
+        </div>
+        <div class="aui-text-center">
+        <span class="aui-font-size-14 wui-pink">当前存入押金<span id="totalPay">{{=it.totalPay}}</span></span>
+      </div>
+      <div class="aui-progress aui-progress-xs bd-radius wui-bg-oragin">
+        <div class="aui-progress-bar bd-radius wui-bg-pink" style="width: {{=it.totalBack/it.totalPay*100}}%;"></div>
+        </div>
+        </div>
+        <div class="" onclick="window.location.href='partner_return_list.html'">
+        <div class="aui-info">
+        <div class="aui-info-item color-black">
+        <span class="pink-radius-btn">已退还押金</span>
+        </div>
+        <div class="aui-info-item pink-radius-btn">
+        查看明细<i class="aui-iconfont aui-icon-right aui-font-size-12" style="display: inline-block;"></i>
+        </div>
+        </div>
+        </div>
+    </script>
+    <script src="../../script/jquery-1.11.1.min.js"></script>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/aui/aui-slide.js"></script>
+    <script src="../../script/aui/iScroll-lite.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/yltcrypt.js"></script>
+    <script src="../../script/swiper.min.js"></script>
+    <script src="../../script/doT.min.js"></script>
+    <script>
+        var hideLength = 4,
+            user, swiper, partnerLevel = 0;
+        var ManagerStatus=1;
+            hideLength = $(".hide").length;
+            user = $api.getStorage('user');
+            if (user) {
+                loadPartner();
+            }
+        function showSwiper() {
+            swiper = new Swiper('.swiper-container', {
+                slidesPerView: 'auto',
+                centeredSlides: true,
+                spaceBetween: 35,
+                height: 300,
+                effect: 'coverflow',
+                grabCursor: true,
+                coverflowEffect: {
+                  rotate: 0,
+                  stretch: 0,
+                  depth:200,
+                  modifier: 1,
+                  slideShadows : true,
+                },
+                loop:true,
+                on: {
+                    slideChangeTransitionEnd: function() {
+                        // $("#dd").text(this.activeIndex);
+                        changeIdentity(this.realIndex);
+                    }
+                }
+            });
+            swiper.slideToLoop(partnerLevel>0?partnerLevel-1:partnerLevel, 100);
+        }
+
+        function changeIdentity(index) {
+
+            var name = '';
+            switch (index) {
+                case 0:
+                    name = "普通";
+                    break;
+                case 1:
+                    name = "白银";
+                    break;
+                case 2:
+                    name = "黄金";
+                    break;
+                case 3:
+                    name = "铂金";
+                    break;
+                case 4:
+                    name = "黑金";
+                    break;
+                default:
+                    break;
+            }
+            $("#identityName").text(name);
+        }
+
+        function openOrClose(that) {
+            var text = $("#text").text();
+            if (text == "收起") {
+                $(that).find("i").removeClass("aui-icon-top").addClass("aui-icon-down");
+                $(".hide").hide();
+                text = "展开其他" + hideLength + "项特权";
+            } else {
+                $(that).find("i").removeClass("aui-icon-down").addClass("aui-icon-top");
+                $(".hide").show();
+                text = "收起";
+            }
+            $("#text").text(text);
+        }
+
+        function loadPartner() {
+            $.ajax({
+                url: PHP_SERVE_URL + '/partner/myInfo',
+                type: 'post',
+                data: {
+                    openId: user.openId,
+                    hashToken: yltcrypt.cpt(user.openId)
+                },
+                success:function(ret, err) {
+                    if (ret.code == 0) {
+                        $('#waitReceiveCount').text(ret.data.waitReceiveCount);
+                        $('#totalBack').text(ret.data.totalBack);
+                        $('#totalPay').text(ret.data.totalPay);
+
+                        partnerLevel = ret.data.partnerLevel;
+                        var interTextC = doT.template($api.text($api.byId('data_partner')));
+                        $api.html($api.dom('.swiper-wrapper'), interTextC({totalLeft:ret.data.totalLeft,level:partnerLevel,partnerData:ret.data.partnerData}));
+                        setTimeout(showSwiper, 200);
+                        var interTextC1 = doT.template($api.text($api.byId('data_status')));
+                        $api.html($api.dom('#data_status-container'), interTextC1({waitRC:ret.data.waitReceiveCount,totalPay:ret.data.totalPay,totalBack:ret.data.totalBack}));
+                    }
+                }
+            });
+        }
+        // 判断是否能开店
+        function openDialog() {
+            $(".dialog-text").html('您尚未缴纳保证金<br>暂无法开通店铺');
+            $(".next_btn").text('缴纳保证金');
+            $(".next_btn")[0].onclick = function () {
+                $("#my-dialog").hide();
+                $a.openWin('partner_upgrade');
+            };
+            $("#my-dialog").show();
+        }
+        // 判断是否是掌柜
+        function getManagerStatus() {
+            $.ajax({
+                url:PHP_SERVE_URL+'/shop/getUserLeftStatus',
+                method:"post",
+                data:{
+                    values:{
+                        openId:user.openId
+                    }
+                },
+                success: function (res) {
+                    switch (res.code){
+                        case 0:
+                            var interTextC = doT.template($api.text($api.byId('data_menu')));
+                            $api.html($api.dom('#partner_menu'), interTextC({status:false}));
+                            break;
+                    }
+                }
+            })
+        }
+        getManagerStatus();
+        $(".close-dialog").click(function () {
+            $(this).parents(".modal").hide();
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>设置</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <style>
+    html{
+      height:100%;
+    }
+        body {
+          height:100%;
+            background: #f6f6f6;
+        }
+        #content{
+          width:100%;
+          height:100%;
+          display: flex;
+          justify-content: space-between;
+          flex-direction: column;
+        }
+        .trans-content{
+          flex:1;
+          overflow-x:hidden;
+          overflow-y: auto;
+        }
+        /*头部*/
+
+        .aui-bar {
+            background-color: #de3232;
+        }
+        /*内容*/
+
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+        /*清除下划线*/
+
+        .aui-list,
+        .aui-list .aui-list-item-title,
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inner,
+        .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+        /*清除内边距*/
+
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inne,
+        .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+        /* 点击按钮*/
+
+        .aui-btn-success,
+        .aui-btn-success.aui-active,
+        .aui-btn-success:active {
+            background: #de3232;
+        }
+
+        .aui-btn-block.aui-btn-sm {
+            font-size: 1rem;
+            height: 2.3rem;
+            line-height: 2.3rem;
+        }
+
+        .aui-list .aui-list-item {
+            padding-bottom: 0.2rem;
+            border-bottom: 1px solid #f6f6f6;
+        }
+
+        .aui-list .aui-list-item:last-child {
+            border: none;
+        }
+
+        .setting {
+            padding-right: 0.6rem;
+            position: relative;
+        }
+
+        .setting:before {
+            content: '';
+            width: 0.4rem;
+            height: 0.4rem;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            margin-top: -0.2rem;
+            background: transparent;
+            border: 1px solid #dddddd;
+            border-top: none;
+            border-right: none;
+            z-index: 2;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            -webkit-transform: rotate(-135deg);
+            transform: rotate(-135deg);
+        }
+        /*list-按下背景色*/
+
+        .aui-list .aui-list-item:active {
+            background-color: #ececec;
+        }
+        .nav-list{
+          display:flex;
+        }
+        .nav-title{
+          flex:1;
+          padding:0.3rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color:#3F3F3F;
+          font-size:0.7rem;
+          border-right:1px solid #A8A8A8;
+          border-bottom:1px solid #A8A8A8;
+          background: #fff;
+        }
+        .t-hold-company h5{
+          font-size:1rem;
+          color:#000;
+        }
+        .t-hold-company h5 span{
+          color:#A3A3A3;
+          font-size:0.5rem;
+        }
+        .t-hold-company,.t-hold-loss{
+          padding:0.5rem;
+        }
+        .t-hold-loss{
+          display:flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .t-hold-loss p span{
+          color:red;
+        }
+        .t-hold-loss p i{
+          font-style:normal;
+          color: #000;
+        }
+        .t-hold-total li{
+          display:flex;
+          border-top:1px solid #EBEBEB;
+          border-bottom:1px solid #EBEBEB;
+        }
+        .t-hold-total{
+          background:#fff;
+        }
+        .t-hold-total li a{
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          color:#000;
+          flex:1;
+          text-align: center;
+          font-size:0.7rem;
+          padding:0.75rem 0;
+          border-right:1px solid #EBEBEB;
+
+        }
+        .t-hold-total li h3{
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          color:#5B5B5B;
+          flex:1;
+          text-align: center;
+          font-size:0.7rem;
+          border-right:1px solid #EBEBEB;
+        }
+        .t-hold-bottom{
+          background: #fff;
+          display:flex;
+          border-top:1px solid #BDBDBF;
+          border-bottom:1px solid #BDBDBF;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .t-hold-bottom .t-hold-change{
+          width:10%;
+          display:flex;
+          justify-content: center;
+        }
+        .t-hold-change img{
+          width:0.9rem;
+          height:1.45rem;
+        }
+        .hold-bottom-nav{
+          display:flex;
+          width:80%;
+          overflow-x: auto;
+          white-space: nowrap;
+        }
+        .hold-bottom-nav li{
+          width:33.33%;
+          /*flex:1;*/
+          border-left:1px solid #BDBDBF;
+          text-align: center;
+          padding:0.3rem 0;
+        }
+        .hold-bottom-nav :last-child{
+          /*flex:1;*/
+          width:33.33%;
+          border-right:1px solid #BDBDBF;
+          text-align: center;
+          padding:0.3rem 0;
+        }
+        .aui-bar{
+          min-height:0;
+        }
+        .t-deal-nav{
+          display:flex;
+          margin:0.5rem 0;
+          align-items: center;
+          justify-content: center;
+        }
+        .nav-detaily{
+          padding:0.1rem 0.5rem;
+          color:#666;
+          background: #FDF7F7;
+          font-size:0.6rem;
+          border-right:1px solid #CFC9C9;
+        }
+        .nav-btn :last-child{
+          border-right:none;
+        }
+        .nav-btn{
+          display:flex;
+          border:1px solid #CFC9C9;
+          border-radius:5px;
+        }
+        .t-deal-content{
+          background:#fff;
+        }
+        .deal-content-title{
+          padding:0.5rem 0;
+          display:flex;
+          justify-content: space-around;
+        }
+        .deal-content-title a{
+          display:flex;
+          justify-content: center;
+          color:#333;
+          font-size:0.7rem;
+        }
+        .t-deal-income-detail li{
+          display:flex;
+          padding:0.5rem;
+          border-top:1px solid #E7E7E7;
+          justify-content: space-around;
+          align-items: center;
+        }
+        .t-deal-income-detail li a{
+          display:flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          color:#1C1C1C;
+          font-size:0.75rem;
+        }
+        .t-deal-income-detail li a i{
+          font-style: normal;
+        }
+        .t-deal-income-detail li a span{
+          color:#A4A4A4;
+          font-size:0.7rem;
+        }
+        .t-deal-income-detail li p{
+          padding:0.1rem 0.5rem;
+          font-size:0.6rem;
+          color:#D53036;
+          border:1px solid #D53036;
+          border-radius:5px;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+  <div id="content">
+      <header class="aui-bar aui-bar-nav">
+          <a class="aui-pull-left aui-btn" onclick="closeWin();">
+              <span class="aui-iconfont aui-icon-left"></span>
+          </a>
+          <div class="aui-title">交易</div>
+      </header>
+      <div class="trans-content" >
+        <div class="nav-list">
+          <div class="nav-title">可撤与成交</div>
+          <div class="nav-title">持仓</div>
+        </div>
+        <div class="t-hold" style="display:none;">
+          <div class="t-hold-top"></div>
+          <div class="t-hold-content" style="flex:1;overflow-y:auto;">
+            <div class="t-hold-company">
+              <h5>神都餐饮 <span>0001</span></h5>
+            </div>
+            <div class="t-hold-loss">
+              <p>总盈亏 <span>+878777</span> <span>1500%</span></p>
+              <p>市直：<i>17220.00</i></p>
+            </div>
+            <ul id="t-hold-total" class="t-hold-total">
+              <li>
+                <h3>现金</h3>
+                <a>9999</a>
+                <h3>成本价</h3>
+                <a>8888</a>
+              </li>
+              <li>
+                <h3>持仓数</h3>
+                <a>2800</a>
+                <h3>可用数</h3>
+                <a>2800</a>
+              </li>
+            </ul>
+          </div>
+          <div class="t-hold-bottom aui-bar aui-bar-tab">
+            <div class="t-hold-change"><img src="../image/trans_l.png" alt=""></div>
+            <ul class="hold-bottom-nav">
+              <li>买入</li>
+              <li>卖出</li>
+              <li>行情</li>
+            </ul>
+            <div class="t-hold-change"><img src="../image/trans_r.png" alt=""></div>
+          </div>
+        </div>
+        <div class="t-deal">
+          <div class="t-deal-nav">
+            <div class="nav-btn">
+              <div class="nav-detaily">当日委托</div>
+              <div class="nav-detaily">当日成交</div>
+            </div>
+          </div>
+          <div class="t-deal-content">
+            <div class="deal-content-title">
+              <a>买卖方向</a>
+              <a>股票名称</a>
+              <a>委托价/委托数/成交数</a>
+            </div>
+            <ul class="t-deal-income-detail">
+              <li>
+                <a><i>买入</i><span>06:38:03</span></a>
+                <a><i>神都餐饮</i><span>0001</span></a>
+                <a><i>1000000</i><span>712220.00 | 25112</span></a>
+                <p>撤单</p>
+                <a class="aui-pull-right" style="display:none;">
+                    <span class="aui-iconfont aui-icon-right"></span>
+                </a>
+              </li>
+              <li>
+                <a><i>买入</i><span>06:38:03</span></a>
+                <a><i>神都餐饮</i><span>0001</span></a>
+                <a><i>1000000</i><span>712220.00 | 25112</span></a>
+                <p>撤单</p>
+              </li>
+              <li>
+                <a><i>买入</i><span>06:38:03</span></a>
+                <a><i>神都餐饮</i><span>0001</span></a>
+                <a><i>1000000</i><span>712220.00 | 25112</span></a>
+                <p>撤单</p>
+              </li><li>
+                <a><i>买入</i><span>06:38:03</span></a>
+                <a><i>神都餐饮</i><span>0001</span></a>
+                <a><i>1000000</i><span>712220.00 | 25112</span></a>
+                <p>撤单</p>
+              </li><li>
+                <a><i>买入</i><span>06:38:03</span></a>
+                <a><i>神都餐饮</i><span>0001</span></a>
+                <a><i>1000000</i><span>712220.00 | 25112</span></a>
+                <p>撤单</p>
+              </li><li>
+                <a><i>买入</i><span>06:38:03</span></a>
+                <a><i>神都餐饮</i><span>0001</span></a>
+                <a><i>1000000</i><span>712220.00 | 25112</span></a>
+                <p>撤单</p>
+              </li><li>
+                <a><i>买入</i><span>06:38:03</span></a>
+                <a><i>神都餐饮</i><span>0001</span></a>
+                <a><i>1000000</i><span>712220.00 | 25112</span></a>
+                <p>撤单</p>
+              </li><li>
+                <a><i>买入</i><span>06:38:03</span></a>
+                <a><i>神都餐饮</i><span>0001</span></a>
+                <a><i>1000000</i><span>712220.00 | 25112</span></a>
+                <p>撤单</p>
+              </li><li>
+                <a><i>买入</i><span>06:38:03</span></a>
+                <a><i>神都餐饮</i><span>0001</span></a>
+                <a><i>1000000</i><span>712220.00 | 25112</span></a>
+                <p>撤单</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  </div>
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/config.js"></script>
+    <script type="text/javascript" src="../script/common.js"></script>
+    <script type="text/javascript" src="../script/aui-toast.js"></script>
+    <script type="text/javascript" src="../script/jquery-3.2.1.min.js"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>我的押金</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        #banner {
+            margin-top: -2.5rem;
+            padding-top: 5rem;
+            background-image: url("../../image/partner/bg.png");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        #banner .aui-card-list-content {
+            padding-top: 1.5rem;
+            margin: 0 0.75rem;
+            border-radius: 0.5rem;
+            background: #ffffff;
+        }
+
+        #banner .aui-card-list-content .rule {
+            position: absolute;
+            right: 0rem;
+            top: 32%;
+            padding: 0.3rem 0.3rem 0.3rem 1rem;
+            color: #ffffff;
+            background: rgb(222, 194, 229);
+            border-radius: 10rem 0 0 10rem;
+        }
+
+        .aui-row .aui-col-xs-4 .cash-btn {
+            display: inline-block;
+            color: #ffffff;
+            width: 6rem;
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 0.3rem 0.5rem;
+            background: rgb(255, 107, 165);
+            border-radius: 10rem;
+            margin-top: 1rem;
+        }
+
+        .speed {
+            padding: 0.1rem 0;
+            margin: 0rem 0.3rem;
+            color: rgb(255, 107, 165);
+            border: 1px solid rgb(255, 107, 165);
+            border-radius: 0.3rem;
+        }
+
+        .margin-bot-20 {
+            margin-bottom: 2rem;
+        }
+
+        .confirmCard .aui-row input {
+            float: right;
+            margin-top: 0.6rem;
+            display: none;
+        }
+
+        /* 关闭图标样式 */
+
+        .confirmCard .aui-row i {
+            float: right;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+    </style>
+</head>
+
+<body>
+<!-- main -->
+<div id="main">
+    <div class="aui-card-list aui-padded-b-15" id="banner">
+        <div class="aui-card-list-content aui-text-center">
+            <div class="color-gray9">剩余总押金（元）</div>
+            <div class="color-black aui-padded-b-15" style="font-size: 2rem" id="totalPay">0.00</div>
+            <div class="aui-info aui-margin-t-10 aui-padded-l-10 aui-padded-r-10 border-top">
+                <div class="aui-info-item">
+                    <span class="aui-margin-l-5 color-gray9">累计退回（元）<strong>5555</strong></span>
+                </div>
+                <div class="aui-info-item color-gray9 ">查看记录></div>
+            </div>
+            <span class="rule">押金规则></span>
+        </div>
+    </div>
+    <div class="aui-content">
+        <div class="aui-grid aui-margin-b-15">
+            <div class="aui-row  aui-padded-r-15">
+                <div class="aui-col-xs-8 aui-padded-b-0 aui-padded-t-0">
+                    <div class="aui-col-xs-4">
+                        <p class="margin-bot-20">昨天</p>
+                        <p class=" aui-font-size-10">距第1/12期</p>
+                    </div>
+                    <div class="aui-col-xs-4">
+                        <p class="margin-bot-20 aui-font-size-18 color-black" style="margin-top: -0.25rem">100.00</p>
+                        <p class=" aui-font-size-10">14天13小时5分19秒</p>
+                    </div>
+                    <div class="aui-col-xs-4">
+                        <p class="margin-bot-20">第0/24期</p>
+                        <p class=" speed aui-font-size-10">使用加速</p>
+                    </div>
+                </div>
+                <div class="aui-col-xs-4">
+                    <div class="aui-badge" style="top: 1.5rem;left:81% ">8</div>
+                    <span class="cash-btn aui-ellipsis-1">取消解冻解冻解冻押金</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/zepto.min.js"></script>
+</body>
+
+</html>

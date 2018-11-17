@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>意见反馈</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+    body,
+    html {
+        background: #f5f5f5 !important;
+    }
+
+    .aui-list .aui-list-item-label {
+        width: 10%;
+    }
+
+    .aui-list .aui-list-item-label img {
+        width: 1rem;
+    }
+    /*输入框预输入字体颜色*/
+
+    input::-webkit-input-placeholder {
+        /* WebKit browsers */
+        color: #999;
+    }
+
+    input:-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        color: #999;
+    }
+
+    input::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        color: #999;
+    }
+
+    input:-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+        color: #999;
+    }
+    /*默认同意协议*/
+
+    header.aui-bar-nav {
+        background-color: #FFFFFF;
+        border-bottom: #F5F5F5 solid 1px;
+    }
+
+    footer {
+        background-color: #FFFFFF;
+        border-top: #F5F5F5 solid 1px;
+    }
+
+    .aui-title {
+        color: #333333;
+    }
+
+    .aui-bar-nav .aui-btn .aui-iconfont {
+        color: #999999;
+    }
+
+    .aui-bar-tab-item i {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 20px 20px;
+    }
+
+    .aui-content {
+        margin-top: 20px;
+        background-color: #fff;
+    }
+
+    .row {
+        margin: 0.5rem;
+    }
+
+    .row label {
+        font-size: 0.65rem;
+        color: #999999;
+    }
+
+    .row input {
+        float: left;
+        color: #999999;
+        border-color: #f5f5f5;
+        margin-bottom: 0.5rem;
+    }
+
+    .row textarea::placeholder {
+        color: #999999;
+        font-size: 0.65rem;
+    }
+
+    .row input:nth-of-type(n+1) {
+        margin-left: 0.2rem;
+    }
+
+    .select-active {
+        color: #ff5096 !important;
+        border-color: #ff5096 !important;
+    }
+
+    .picframe img{
+        margin-bottom: 0.5rem;
+    }
+
+    .close-icon {
+        position: absolute;
+        left: 3.5rem;
+        top: -0.5rem;
+        background-image: url('../../image/airline/yjfk_close_icon.png');
+        background-size: 100% 100%;
+        width: 1rem;
+        height: 1rem;
+    }
+
+    #label-style {
+        height: 4rem;
+        width: 4rem;
+        border: 1px dashed #999999;
+        float: left;
+        line-height: 4rem;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    #label-style i {
+        font-size: 2rem;
+        color: #999999;
+    }
+
+    #tel {
+        display: inline-block;
+        width: 60%;
+    }
+
+    .submit {
+        background-color: #ff5096;
+        position: relative;
+        top: 2rem;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- header -->
+    <header class="aui-bar aui-bar-nav" id="header">
+        <div class="aui-pull-left aui-btn">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </div>
+        <div class="aui-title">意见反馈</div>
+    </header>
+    <!--
+            frame的打开位置
+        -->
+    <form enctype="multipart/form-data" method="post">
+        <div class="aui-content">
+            <div class="row">
+                <h2 style="margin-left: 0.2rem;">反馈问题类型</h2>
+            </div>
+            <div class="row" style="height: 2rem;" id="inputs">
+                <input type="button" class="aui-btn aui-btn-outlined" value="功能异常" tapmode onclick="fnSetSelected(0)">
+                <input type="button" class="aui-btn aui-btn-outlined" value="体验问题" tapmode onclick="fnSetSelected(1)">
+                <input type="button" class="aui-btn aui-btn-outlined" value="新功能建议" tapmode onclick="fnSetSelected(2)">
+                <input type="button" class="aui-btn aui-btn-outlined" value="其他" tapmode onclick="fnSetSelected(3)">
+            </div>
+            <div class="row">
+                <hr style="width: 100%;height: 1px;background-color: #f5f5f5;margin:0.5rem auto;" />
+                <textarea maxlength="200" rows="5" cols="15" id="txt" style="padding: 0.5rem;height: 5rem;" placeholder="购物体验和软件使用遇到问题？上传相关页面截图能方便我们快速解决问题哦~"></textarea>
+                <div class="row" id="picMenus">
+                    <div class="picframe" style="display: none;float: left;position: relative;margin-right: 1rem;">
+                        <img src="" class="picture" style="width:4rem;height: 4rem;">
+                        <i class="close-icon" onclick="closePic(0)"></i>
+                    </div>
+                    <div class="picframe" style="display: none;float: left;position: relative;margin-right: 1rem;">
+                        <img src="" class="picture" style="width:4rem;height: 4rem;">
+                        <i class="close-icon" onclick="closePic(1)"></i>
+                    </div>
+                    <div class="picframe" style="display: none;float: left;position: relative;margin-right: 1rem;">
+                        <img src="" class="picture" style="width:4rem;height: 4rem;">
+                        <i class="close-icon" onclick="closePic(2)"></i>
+                    </div>
+                    <label for="upload" id="label-style"><i class="aui-iconfont aui-icon-camera"></i></label>
+                    <input type="file" id="upload" style="display: none;" accept="image/png, image/jpeg, image/gif, image/jpg" multiple="multiple">
+                </div>
+            </div>
+        </div>
+        <div class="aui-content">
+            <label for="tel" style="width: 20%;display: inline-block;margin-left: 5%;">手机号：</label>
+            <input type="text" placeholder="请输入手机号" id="tel" maxlength="11">
+        </div>
+        <button class="aui-btn  padding0 border-no bd-radius  aui-font-size-16 color-write submit">提交</button>
+    </form>
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/zepto.min.js"></script>
+    <script type="text/javascript">
+    var inputs = $api.byId('inputs');
+    var menus = $api.domAll(inputs, '.aui-btn');
+    //点击切换选择状态
+    function fnSetSelected(index_) {
+        for (var i = 0; i < menus.length; i++) {
+            if (index_ == i) {
+                $api.addCls(menus[i], 'select-active');
+            } else {
+                $api.removeCls(menus[i], 'select-active');
+            }
+        }
+    }
+
+    var upload = $api.byId('upload');
+    var picMenus = $api.byId('picMenus');
+    var picFrameList = $api.domAll(picMenus, '.picframe');
+    var everyPic = $api.domAll(picMenus, '.picture');
+
+    // //上传图片后在旁边显示（单张）
+    // $api.addEvt(upload, 'change', function() {
+    //     var imgFile = this.files[0];
+    //     var fr = new FileReader();
+    //     fr.onload = function() {
+    //         picture.src = fr.result;
+    //     };
+    //     fr.readAsDataURL(imgFile);
+    //     $api.css(picframe, 'display:inline-block');
+    // });
+
+
+    //上传图片后在旁边显示（多张）
+    $api.addEvt(upload, 'change', function() {
+        var imgFiles = this.files;
+        var counter = this.files.length;
+        var fr;
+        var i = 0;
+        //递归触发onload
+        function nextSrc() {
+            if(i < counter){
+            fr = new FileReader();
+            var imgFile = imgFiles[i];
+            fr.readAsDataURL(imgFile);
+            fr.onload = function() {
+                //设定上传张数，需配合添加对应的img数量
+                if(counter < 4){
+                everyPic[i].src = fr.result;
+                $api.css(picFrameList[i], 'display:inline-block');
+                i++;
+                nextSrc();
+            }else{$api.toast('最多上传三张图片');}
+            };
+        }else return;
+        }
+        nextSrc();
+    });
+
+    //关闭图片
+    function closePic(index_) {
+        $api.css(picFrameList[index_], 'display:none');
+    }
+    </script>
+</body>
+
+</html>

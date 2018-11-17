@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>申请售后服务</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+        .aui-list, .aui-list .aui-list-item {
+            background-image: none;
+            padding-left: 0rem;
+        }
+        .aui-list .aui-list-item:active{
+            background-color: inherit;
+        }
+        textarea {
+            height: 8rem;
+            background-color: #F5F5F5;
+            padding: 0.5rem;
+            color: #333333;
+        }
+        .cart-section-go{
+            margin-top: 0rem;
+            padding: 0.3rem 1.6rem;
+        }
+        .sub-btn {
+            background: #ff5096;
+            width: 80%;
+            margin: 3rem auto 2rem;
+            border-radius: 2rem;
+            color: #fff;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            font-size: 1rem;
+        }
+
+        .address {
+            background-image: url("../../image/aftersale/icon_site.png"),url("../../image/aftersale/xpg_zk_icon.png");
+            background-repeat: no-repeat;
+            background-position: left center,right center;
+            background-size: 1rem 1.2rem, 0.5rem 0.8rem;
+            padding:0 1.5rem;
+        }
+    </style>
+</head>
+<body>
+<div class="aui-content">
+    <section class=" aui-padded-l-10 aui-padded-r-10 back-write">
+        <ul class="aui-list aui-media-list">
+            <li class="aui-list-item aui-padded-l-0 cart-bg-fff">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media cart-left-img">
+                        <img src="">
+                    </div>
+                    <div class="aui-list-item-inner aui-padded-r-0">
+                        <div class="aui-list-item-text">
+                            <p class="aui-ellipsis-2 color-gray3">深圳深圳特产深圳深圳特产深圳深圳特产深圳深圳特产</p>
+                        </div>
+                        <div class="aui-info aui-margin-t-15" style="padding:0">
+                            <div class="aui-info-item">
+                                <span class="color-gray3">￥49.9<del class="color-gray9 aui-margin-l-5">￥50</del></span>
+                            </div>
+                            <div class="aui-info-item">X1</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section class="aui-margin-t-10 aui-padded-l-10 aui-padded-r-10 aui-padded-b-10 back-write">
+        <p class="aui-padded-t-10 aui-padded-b-10 color-gray3">
+            服务类型
+        </p>
+        <div class="aui-grid">
+            <div class="aui-row">
+                <div class="aui-col-xs-4 aui-padded-0">
+                    <span class="aui-font-size-16 cart-section-go ">退货</span>
+                </div>
+                <div class="aui-col-xs-4 aui-padded-0">
+                    <span class="aui-font-size-16 cart-section-go ">换货</span>
+                </div>
+                <div class="aui-col-xs-4 aui-padded-0">
+                    <span class="aui-font-size-16 cart-section-go ">维修</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section class="aui-margin-t-10 aui-padded-l-10 aui-padded-r-10 back-write">
+        <p class="aui-padded-t-10 aui-padded-b-10 color-gray3">问题描述</p>
+        <textarea placeholder="请您在此描述问题..."></textarea>
+        <div class="aui-info ">
+            <div class="aui-info-item">
+                <img src="../../image/aftersale/icon_camera.png" style="width:1.2rem" />
+                <span class="aui-margin-l-5">最多可以上传5张图片</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="aui-margin-t-10 aui-padded-10 aui-padded-t-0 back-write">
+        <div class="aui-content">
+            <ul class="aui-list">
+                <li class="aui-list-item border-bot">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title color-gray9">收货人：<em class="color-gray3">李小三</em></div>
+                    </div>
+                </li>
+                <li class="aui-list-item border-bot">
+                    <div class="aui-list-item-inner">
+                        <div class="aui-list-item-title color-gray9">手机号码：<em class="color-gray3">18818780342</em></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="aui-content">
+            <div class=" color-gray9 aui-padded-t-10 aui-font-size-14">收货地址（该地址是商品寄回给您的地址）</div>
+            <div class="address aui-margin-t-15 aui-margin-b-15">
+                广东省深圳市宝安区西乡商会大厦20楼云路通
+            </div>
+            <div class=" color-gray9 aui-font-size-14">商品寄回地址将在审核通过后将线上在服务单详情里面查询或商家以短信方式告知。</div>
+        </div>
+    </section>
+
+    <section class="aui-margin-t-15 aui-padded-l-10 aui-padded-r-10">
+        <div class="aui-content ">
+            <p class="color-gray9">提交服务单后，商家可能与您电话联系，请保持手机畅通</p>
+            <div class="aui-btn aui-btn-block sub-btn" id="refundBtn">申请退款</div>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

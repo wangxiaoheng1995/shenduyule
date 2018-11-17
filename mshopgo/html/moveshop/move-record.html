@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>销售记录</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        .aui-bar-nav {
+            position: fixed;
+        }
+        .cont {
+            padding: 1rem;
+            background: #f6f6f6;
+            display: none;
+        }
+
+        .tu img {
+            display: block;
+            width: 50%;
+            margin: 10px auto;
+            margin-top: 2rem;
+        }
+        .aui-dialog-btn{
+            color:#ff5096;
+        }
+        .aui-dialog-body{
+            color:#212121;
+            font-size:0.8rem;
+        }
+    </style>
+</head>
+
+<body v-cloak>
+<header class="aui-bar aui-bar-nav tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">销售记录</div>
+    <div class="aui-pull-right aui-btn" id="empty" onclick="openDialog(1,'')">
+        清空
+    </div>
+</header>
+<div style="height: 2rem;"></div>
+<div id="main">
+    <div class="detail-bt-more" id="content">
+    </div>
+    <div class="cont">
+        <div class="tu">
+            <img src="../../image/icon-zw.png">
+        </div>
+    </div>
+    <script type="text/html-x-dot-template" id="data_tmpl">
+    {{~it:dval:dkey}}
+    <section class="cart-bg-fff order-section-padd aui-margin-t-10" id="{{=dval.orderRes.oid}}">
+        <h4 class="aui-border-b aui-padded-t-10 aui-padded-b-10">
+            <span class="order-top-img color-gray9">{{=dval.orderRes.pay_time}}</span><span class="aui-pull-right"><em class="color-gray9 aui-padded-r-10">交易成功</em></span>
+        </h4>
+        <ul class="aui-list aui-media-list" onclick="$a.openWin('move-orderDetail','shopId:{{=dval.orderRes.shop_id}},oid:{{=dval.orderRes.oid}}')">
+            {{~dval.goodsRes:goods}}
+            <li class="aui-list-item aui-padded-l-0 cart-bg-fff">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media cart-left-img">
+                        <img src="{{=goods.skuGoodsJson.pic}}">
+                    </div>
+                    <div class="aui-list-item-inner aui-padded-r-0">
+                        <div class="aui-list-item-text">
+                            <p class="aui-ellipsis-2 s-color-black">{{=goods.skuGoodsJson.gname}}</p>
+                        </div>
+                        <div class="aui-info aui-margin-t-15" style="padding:0">
+                            <div class="aui-info-item">
+                                <span class="s-color-black">¥{{=goods.skuGoodsJson.price}}</span>
+                            </div>
+                            <div class="aui-info-item">×{{=goods.goods_count}}</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {{~}}
+        </ul>
+        <h4 class="aui-padded-t-10 aui-padded-b-10">
+            <span class="order-top-img">共{{=dval.orderRes.goods_count}}件商品  合计：¥{{=dval.orderRes.goods_money}}</span>
+                <span class="aui-pull-right">
+                <em class="aui-padded-r-10 color-blue" onclick="openDialog(2,'{{=dval.orderRes.oid}}')"> 删除订单</em></span>
+        </h4>
+    </section>
+        {{~}}
+</script>
+
+</div>
+</body>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/aui/aui-dialog.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script type="text/javascript">
+    var shopId;
+    var page=1;
+    var totalpages=1;
+    var user;
+  apiready = function () {
+      shopId=api.pageParam.shopId;
+      user=$api.getStorage("user");
+      api.addEventListener({
+          name:'scrolltobottom'
+      },function(ret){
+          if(page<=totalpages){
+              getTaxiSaleList();
+          }
+      })
+      getTaxiSaleList();
+  }
+    function getTaxiSaleList(){
+        api.ajax({
+            url:PHP_SERVE_URL+"/taxi/getTaxiSaleList",
+            method:'post',
+            data:{
+                values:{
+                    shopId:shopId,
+                    pernum:10,
+                    page:page
+                }
+            }
+        },function(ret){
+            if(ret.code==0){
+                totalpages=ret.pages;
+                if(page==1){
+                    if(ret.data.length==0){
+                        $(".cont").show();
+                        $("#empty").hide();
+                        return;
+                    }
+                }
+                page++;
+                var innerText=doT.template($("#data_tmpl").text());
+                $("#content").append(innerText(ret.data));
+            }
+        })
+    }
+  var dialog = new auiDialog();
+
+  function openDialog(type,id) {
+    var msg;
+      var oid;
+      var button2;
+      if(type==1){
+          msg="确定清空全部订单吗";
+          button2="清空";
+          oid=0;
+      }else{
+          msg="确定删除此订单吗";
+          button2="删除";
+          oid=id;
+      }
+    dialog.alert({
+      msg: msg,
+      buttons: ['取消', button2]
+    }, function (ret) {
+      if(ret.buttonIndex==2){
+          api.ajax({
+              url:PHP_SERVE_URL+"/taxi/deleteOrder",
+              method:'post',
+              data:{
+                  values:{
+                      openId:user.openId,
+                      shopId:shopId,
+                      oid:oid,
+                      token:yltcrypt.cpt(user.openId)
+                  }
+              }
+          },function(ret){
+              if(ret.code==0){
+                  $a.toast(button2+"成功");
+                  if(type==1){
+                      location.reload();
+                  }else{
+                      $("#"+oid).remove();
+                      if($("section").length==0){
+                          location.reload();
+                      }
+                  }
+              }else{
+                  $a.toast("删除失败");
+              }
+          })
+      }
+    });
+  }
+</script>
+</html>

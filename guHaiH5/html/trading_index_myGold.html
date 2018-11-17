@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的金币</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <script src="../script/common.js"></script>
+    <style>
+        body {
+            background: #f6f6f6;
+        }
+
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*头部*/
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        /*内容*/
+        .overflow-x-hidden {
+            overflow-x: hidden;
+        }
+
+        /*清除下划线*/
+
+        .aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+        .aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .head {
+            background: url("../image/index/wdjb_bg.png");
+        }
+
+        .aui-list {
+        }
+
+        img.aui-img-round {
+            border-radius:inherit;
+            width: 100%;
+            display: block;
+        }
+
+        .aui-grid .aui-col-xs-6 {
+            /*padding: 1rem;*/
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+    </style>
+</head>
+<body class="overflow-x-hidden">
+<header class="aui-bar aui-bar-nav">
+    <a class="aui-pull-left aui-btn" onclick="history.back();">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">我的金币</div>
+    <div class="aui-pull-right" onclick="location.href='trading_index_goldDetail.html'">明细</div>
+</header>
+<div id="content"><div class="head aui-content aui-padded-b-15"><div class="aui-list-item-text bg"><div class="aui-list-item-title font-colo-w">当前金币
+</div></div> <div class="aui-padded-t-5 aui-margin-b-15"><p id="totalBalance" class="font-colo-w aui-text-center" style="font-size: 2rem;"><span> 5.00</span></p></div></div> <div class="aui-grid aui-padded-l-15 aui-padded-r-15 aui-margin-t-15"><div class="aui-row"><div class="aui-col-xs-6"><div onclick="location.href='trading_index_signIn.html'" class="aui-list-item-middle"><div class="aui-media-list-item-inner"><div class="aui-list-item-media" style="width: 2.4rem;"><img src="../image/index/wdjb_zjb_icon.png" class="aui-img-round"></div> <div class="aui-list-item-inner aui-padded-l-10"><div class="aui-list-item-text"><div class="aui-list-item-title aui-font-size-16 " style="text-align: left;">赚金币</div></div> <div class="aui-list-item-text aui-font-size-12 aui-ellipsis-1 font-colo-gy " style="text-align: left;">
+    海量金币等你领
+</div></div></div></div></div> <div class="aui-col-xs-6"><div onclick="location.href='trading_index_gift.html'" class="aui-list-item-middle"><div class="aui-media-list-item-inner"><div class="aui-list-item-media" style="width: 2.4rem;"><img src="../image/index/wdjb_dhl_icon.png" class="aui-img-round"></div> <div class="aui-list-item-inner aui-padded-l-10"><div class="aui-list-item-text"><div class="aui-list-item-title aui-font-size-16 " style="text-align: left;">兑好礼</div></div> <div class="aui-list-item-text aui-font-size-12 aui-ellipsis-1 font-colo-gy " style="text-align: left;">
+    丰富好礼随你兑
+</div></div></div></div></div></div></div> <div style="background: rgb(255, 255, 255) none repeat scroll 0% 0%;"><div class="aui-content aui-margin-t-15 aui-padded-l-15 aui-padded-r-15"><ul class="aui-list aui-list-in"><li class="aui-list-item"><div class="aui-list-item-inner aui-list-item-arrow"><div class="aui-list-item-title"><span class="aui-padded-l-10" style="border-left: 0.2rem solid rgb(222, 50, 50);"></span>
+    金币商城
+</div></div></li></ul> <ul class="aui-grid "><li><ul class="aui-row"><li onclick="location.href='http://localhost:63342/guhaiH5/html/trading_index_giftDetails.html?gid=7&amp;gold=0&amp;pic=http://media1.yunlutong.com/YltmallRes/20180824/153509567930673.jpg'" class="aui-col-xs-6" style="border-bottom: 1px solid rgb(246, 246, 246);"><img src="http://media1.yunlutong.com/YltmallRes/20180824/153509567930673.jpg"> <div class="aui-grid-label"><h3>绿色无抗老母鸡</h3> <p>8888.00金币起</p></div></li></ul></li></ul></div></div></div>
+<script src="../script/api.js"></script>
+<script src="../script/jquery-3.2.1.min.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script src="../script/vue.js"></script>
+</body>
+</html>

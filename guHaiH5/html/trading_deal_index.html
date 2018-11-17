@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>交易</title>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" type="text/css" href="../css/frame2.css">
+    <style>
+
+    </style>
+
+</head>
+<body>
+<div>
+    <div class="aui-content">
+        <div class="aui-grid ">
+            <div class="aui-row aui-padded-t-10 aui-margin-b-5">
+                <div class="aui-col-xs-3 aui-padded-t-5 padd-0 aui-margin-b-10" onclick="openWin('win_trade',{'actionType':0,bg:0,name:''})">
+                    <img src="../image/deal/jy_mr_icon.png">
+                    <div class="aui-grid-label">买入</div>
+                </div>
+                <div class="aui-col-xs-3 aui-padded-t-5 padd-0 aui-margin-b-10" onclick="openWin('win_trade',{'actionType':1,bg:0,name:''})">
+                    <img src="../image/deal/jy_mc_icon.png">
+                    <div class="aui-grid-label">卖出</div>
+                </div>
+                <div class="aui-col-xs-3 aui-padded-t-5 padd-0 aui-margin-b-10" onclick="openWin('win_trade',{'actionType':2,bg:0,name:''})">
+                    <img src="../image/deal/jy_cd_icon.png">
+                    <div class="aui-grid-label">撤单</div>
+                </div>
+                <div class="aui-col-xs-3 aui-padded-t-5 padd-0 aui-margin-b-10" onclick="openWin('trading_deal_recharge')">
+                    <img src="../image/deal/jy_cz_icon.png">
+                    <div class="aui-grid-label">充值</div>
+                </div>
+                <div class="aui-col-xs-3 aui-padded-t-5 aui-padded-b-10" onclick="openWin('trading_deal_asset')">
+                    <img src="../image/deal/jy_wdzc_icon.png">
+                    <div class="aui-grid-label">我的资产</div>
+                </div>
+                <div class="aui-col-xs-3  aui-padded-t-5 aui-padded-b-10" onclick="openWin('trading_index_mySchool')">
+                    <img src="../image/deal/jy_wdxt_icon.png">
+                    <div class="aui-grid-label">我的学堂</div>
+                </div>
+                <div class="aui-col-xs-3 aui-padded-t-5  aui-padded-b-10" onclick="openWin('trading_deal_details')">
+                    <img src="../image/deal/jy_zjmx_icon.png">
+                    <div class="aui-grid-label">资金明细</div>
+                </div>
+                <div class="aui-col-xs-3 aui-padded-t-5  aui-padded-b-10" onclick="toast('暂未开放')">
+                    <img src="../image/deal/jy_more_icon.png">
+                    <div class="aui-grid-label">更多</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="aui-content aui-margin-t-15  bg-color">
+        <ul class="aui-list">
+            <li class="aui-list-item" onclick="toast('暂未开放')">
+                <div class="aui-list-item-inner aui-margin-l-15 aui-list-item-arrow border-bot">
+                    <div class="aui-list-item-title">场外基金交易</div>
+                </div>
+            </li>
+            <li class="aui-list-item " onclick="toast('暂未开放')">
+                <div class="aui-list-item-inner aui-padded-l-15  aui-list-item-arrow ">
+                    <div class="aui-list-item-title">其他交易</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--<div class="aui-content aui-margin-t-15 ">-->
+        <!--<div class="aui-list aui-media-list " onclick="openMarket()">-->
+            <!--<div class="aui-list-item">-->
+                <!--<div class="aui-media-list-item-inner aui-padded-l-15">-->
+                    <!--<div class="aui-list-item-media" style="width: 3.5rem">-->
+                        <!--<img src="../image/deal/jy_jinbi_icon.png">-->
+                    <!--</div>-->
+                    <!--<div class="aui-list-item-inner">-->
+                        <!--<div class="aui-list-item-text">-->
+                            <!--<div class="aui-list-item-title">-->
+                                <!--<h2 class="aui-font-size-18" style="margin-top: .2rem;"> 做问卷，领金币</h2>-->
+                                <!--<p class="font-colo-gy"> 更多惊喜等你发现</p>-->
+                            <!--</div>-->
+                            <!--<div class="aui-list-item-right font-colo-r aui-font-size-16" style="border: 1px solid #de3232;padding: 0.2rem 0.4rem;border-radius: 0.2rem">立即前往</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+
+<script src="../script/api.js"></script>
+<script src="../script/config.js"></script>
+<script src="../script/common.js"></script>
+<script>
+  apiready = function () {
+    api.addEventListener({
+      name: 'customerLogined'
+    }, function () {
+      location.reload();
+    })
+  };
+  function openMarket() {
+    api.sendEvent({
+      name: 'openMarket'
+    });
+  }
+</script>
+</body>
+</html>

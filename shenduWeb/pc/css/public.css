@@ -1,0 +1,205 @@
+@charset "utf-8";
+/*reset*/
+html {
+  -webkit-font-smoothing: antialiased;
+  -ms-text-size-adjust:100%;
+  -webkit-text-size-adjust: 100%; /* 2 */
+  margin: 0;
+  padding: 0;
+}
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,dd,form,span,samp,p,a{
+    font-size: 12px;
+    font-weight: normal;
+    margin:0;
+    font-family:  "Microsoft YaHei", Helvetica, STHeiTi,"Helvetica Neue","微软雅黑",SimSun,sans-serif;
+}
+
+html,body{
+  background: white;
+  min-height: 100%;
+}
+*{
+  padding: 0;margin: 0;
+}
+main{
+  overflow: hidden;
+}
+ul,ol{
+    padding-left:0;
+    list-style-type:none;
+}
+
+li{display: inline-block;}
+i{font-style: normal;}
+
+a {
+  cursor: pointer;
+  color:#333;
+  text-decoration: none;
+  /*消除ie10灰色背景*/
+  background-color: transparent;
+  /*消除火狐虚线*/
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+/*  cursor: pointer;*/
+  vertical-align: middle;
+  border: 0 none;
+}
+
+body,button,input,select,textarea {
+  font-size: 12px;
+  font-family:  "Microsoft YaHei", Helvetica, STHeiTi,"Helvetica Neue","微软雅黑",SimSun,sans-serif;
+  color:#3c3c3c;
+  outline: none;
+  resize: none;
+}
+button, input{
+  /* 让 input 和 button 一样高 */
+  line-height:normal;
+}
+figure{
+  margin: 0;
+  padding:0;
+}
+figure img{
+ width: 100%;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner{
+  padding:0;
+  border:0;
+}
+
+a,button,input{
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+strong {
+  font-weight: normal;
+}
+.l{
+  float: left;
+}
+
+.r{
+  float: right;
+}
+.w{
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.center {
+  text-align: center;
+}
+
+footer{
+    width: 100%;
+    height:300px;
+    background:rgba(60,92,98,1);
+  }
+  .footerborder{
+    width:100%;
+    height: 36px;
+    border-bottom: 1px solid rgba(204,204,204,1);
+    
+    
+  }
+  .footerul{
+    margin: 0 auto;
+    
+    height: 83px;
+    line-height: 83px;
+  }
+  .footerul li{
+    margin-right: 52px;
+  }
+  .footerul li:first-child{
+    margin-left: 390px;
+  }
+  .footerul li a {
+    font-size:12px;
+    font-family:MicrosoftYaHei;
+    color:rgba(255,255,255,1);
+  }
+  .footcharacter{
+    line-height: 24px;
+    font-size:12px;
+    font-family:MicrosoftYaHeiLight;
+    color:#fff;
+    text-align: center;
+  }
+  .footcharacter2{
+    font-size:12px;
+    font-family:MicrosoftYaHeiLight;
+    color:rgba(153,153,153,1);
+    margin-top: 44px;
+    text-align:center
+  }
+  .footcharacter3{
+    font-size:12px;
+    font-family:MicrosoftYaHeiLight;
+    color:rgba(153,153,153,1);
+    text-align:center;
+    line-height: 22px;
+    position: relative
+  }
+  .footcharacter3 i{
+    position: absolute;
+    width: 20px ;
+    height: 20px; 
+    background: url('../image/botomicon.png');
+    background-size: 100% auto;
+    left: 490px;  
+  }
+
+
+  header{
+    width:1920px;
+    height:80px;
+    background:rgba(78,112,119,1);
+  }
+  .h1logo{
+    padding-top: 11px
+  }
+  .h1ul{
+    height: 80px; 
+    line-height: 75px;
+  }
+  .h1ul li a {
+    font-size:18px;
+    font-family:MicrosoftYaHei;
+    color:rgba(255,255,255,1);
+    line-height:0px;
+  }
+  .h1ul li{
+    width: 100px;
+    float: left;
+    text-align: center;
+    transition: .6s all;
+  }
+  .active{
+    border-bottom: 5px solid #fff;
+  }
+  nav{
+    height: 580px; 
+    background: url('../image/banner.png');
+  }
+  nav button{
+    margin-left: 810px;
+    margin-top: 447px;
+    border: 1px solid ##FAFBFC;
+    width:200px;
+    height:60px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius:15px;
+    }
+  nav button a{
+    color: #fff;
+    font-size: 30px;
+    height: 59px; 
+    line-height: 59px;
+
+  }

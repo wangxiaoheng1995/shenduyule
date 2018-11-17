@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>图片裁剪</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css">
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css">
+    <style>
+        body {
+            background: #fff;
+        }
+        .aui-bar {
+            background-color: #de3232;
+        }
+
+        .aui-btn {
+            padding: 0.3rem 2rem;
+        }
+        .footer {
+            position: fixed;
+            z-index: 999;
+            bottom: 1rem;
+            left: 20%;
+        }
+        .aui-btn:active{
+            color: #000;
+        }
+        .use-btn{
+            display: inline-block;
+            height: 1.4rem;
+            line-height: 1.4rem;
+            padding:0 0.65rem;
+            border-radius: 0.2rem;
+            margin-top: 0.45rem;
+            background-color: #1AAC17;
+            color: #fff;
+            font-size: 0.65rem;
+        }
+    </style>
+
+</head>
+<body>
+<header class="aui-bar aui-bar-nav aui-margin-b-15 header">
+    <a class="aui-pull-left aui-btn" onclick="api.closeWin({});">
+        <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="aui-title">图片裁剪</div>
+    <a href="#none" class="aui-pull-right">
+        <span class="use-btn" onclick="fnSave();">使用</span>
+    </a>
+</header>
+
+
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+
+  var FNImageClip;
+  var element_id;
+  apiready = function () {
+    var header = $api.dom('header');
+    $api.fixStatusBar(header);
+
+    element_id = api.pageParam.element_id;
+    var img_url = api.pageParam.img_url;
+    var w = api.pageParam.w ? api.pageParam.w : '';
+    var h = api.pageParam.h ? api.pageParam.h : '';
+
+    FNImageClip = api.require('FNImageClip');
+    FNImageClip.open({
+      rect: {
+        x: 0,
+        y: document.querySelector('.header').offsetHeight,
+        w: api.winWidth,
+        h: api.winHeight
+      },
+      srcPath: img_url,
+      style: {
+        mask: '#000',
+        clip: {
+          w:api.winWidth-20,
+          h: api.winWidth-20,
+          x: 10,
+          y: 80,
+          borderColor: '#D4D3D1',
+          borderWidth: 1,
+          appearance: 'rectangle'
+        }
+      },
+      //mode:w?"all":"image"
+      mode:'image'
+    });
+  };
+
+  function fnSave() {
+    FNImageClip.save({
+      destPath: 'fs://image/temp' + new Date().getTime() + '.png',
+      copyToAlbum: false,
+      quality: 1
+    }, function (ret, err) {
+      if (ret) {
+        // 提示裁剪成功
+        toast("裁剪成功");
+        // 发送事件监听
+        api.sendEvent({
+          name: 'clip_success',
+          extra: {
+            element_id: element_id,
+            new_img_url: ret.destPath
+          }
+        });
+        // 关闭页面
+        setTimeout("api.closeWin({});", 1000);
+      } else {
+        alert('裁剪失败，请重试');
+      }
+    });
+  }
+  /*function fnReset() {
+    FNImageClip.reset();
+  }*/
+</script>
+</body>
+</html>

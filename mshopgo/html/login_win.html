@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>登录</title>
+    <link rel="stylesheet" href="../css/aui/aui.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <style>
+        body,
+        html {
+            background: #ffffff !important;
+            overflow: hidden;
+        }
+
+        .aui-list .aui-list-item-label {
+            width: 10%;
+        }
+
+        .aui-list .aui-list-item-label img {
+            width: 1rem;
+        }
+        /*输入框预输入字体颜色*/
+
+        input::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #999;
+        }
+
+        input:-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #999;
+        }
+
+        input::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #999;
+        }
+
+        input:-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            color: #999;
+        }
+        /*默认同意协议*/
+
+        .aui-checkbox:checked {
+            background-color: #36C43A;
+            border-color: #36C43A;
+        }
+
+        .aui-checkbox {
+            margin-top: 0.1rem;
+            width: 0.7rem;
+            height: 0.7rem;
+        }
+
+        .closeEye {
+            background: url('../image/login/login_eye2_icon.png') no-repeat center;
+            width: 1rem;
+            height: 1rem;
+            display: block;
+            background-size: 100%;
+        }
+
+        .openEye {
+            background-image: url('../image/login/login_eye1_icon.png');
+        }
+
+        .pullUp {
+            width: 1rem;
+            height: 1rem;
+            display: block;
+            background: url("../image/login/login_zk2_icon.png") no-repeat center;
+            background-size: 100%;
+        }
+
+        .pullDown {
+            background-image: url("../image/login/login_zk1_icon.png");
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- header -->
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write color-black">
+        <!--<a class="aui-pull-left aui-btn">-->
+        <!--<span class="aui-iconfont aui-icon-left color-black"></span>-->
+        <!--</a>-->
+        <div class="aui-text-center">登录</div>
+    </header>
+    <!-- 导航栏底线 -->
+    <div style="width: 100%;height:1px;background-color:#F5F5F5;"></div>
+    <!-- 占位框 -->
+    <div style="width: 100%;height:3rem;"></div>
+    <!-- main -->
+    <div id="main" class="back-write">
+        <ul class="aui-list aui-form-list aui-margin-l-15 aui-margin-r-15">
+            <li class="aui-list-item  cart-bg-fff border-bot aui-padded-l-0 aui-padded-t-15">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        <img src="../image/login/login_phone_icon.png">
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="tel" maxlength="11" placeholder="手机号码" id="tel" oninput="checkCanClick()">
+                    </div>
+                    <!-- 操作是否显示输入历史 -->
+                    <!--                     <div class="color-pink" style="width: 1rem" onclick="pullHandle()"><i class="pullUp" id="arrows"></i>
+                                    </div> -->
+                </div>
+            </li>
+            <!-- 输入历史列表 -->
+            <!--             <li class="aui-list-item  cart-bg-fff border-bot aui-padded-l-0 aui-padded-t-15" style="margin-left: 2rem;display: none;" id="telList">
+                        <div class="aui-list-item-inner">
+                            <div class="aui-list-item-title">
+                                1888188000
+                            </div>
+                        </div>
+                    </li> -->
+            <!-- 占位符 -->
+            <div style="width: 100%;height: 0.5rem"></div>
+            <li class="aui-list-item  cart-bg-fff border-bot aui-padded-l-0 aui-padded-t-15">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-label">
+                        <img src="../image/login/login_password2_icon.png">
+                    </div>
+                    <div class="aui-list-item-input">
+                        <input type="tel" maxlength="6" placeholder="输入验证码" id="code" oninput="checkCanClick()">
+                    </div>
+                    <div class="color-pink" style="width: 5rem" id="pwdVisibilityHandle">
+                        <!-- <i id="eye" class="closeEye"></i> -->
+                        <input type="button" class="aui-btn" value="发送验证码" style="background:#f53e8f;width: 5rem;text-align: center;color: white;right: 1.5rem" onclick="getCode()" id="sendCode">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div style="margin-top:30%">
+            <button class="aui-btn  padding0 border-no bd-radius  aui-font-size-16 color-write" id="loginButton" onclick="login()" style="background-color:#f79cc4;">登录
+        </button>
+        </div>
+        <!--         <div class="aui-font-size-14 aui-margin-t-15" style="text-align: center;width: 72%;margin: 0 auto">
+            <span class="aui-pull-left" onclick="gotoRegist()">还没注册</span>
+            <span class="aui-pull-right">忘记密码？</span>
+        </div> -->
+    </div>
+    <!-- footer -->
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/aui/aui-toast.js"></script>
+    <script type="text/javascript" src="../script/config.js"></script>
+    <script type="text/javascript" src="../script/zepto.min.js"></script>
+    <script type="text/javascript" src="../script/yltcrypt.js"></script>
+    <script type="text/javascript" src="../script/common.js"></script>
+    <script type="text/javascript" src="../script/sqlite_db.js"></script>
+    <script src="../../script/H5_public.js"></script>
+    <script>
+        var oldTime;
+        var time = 0,
+            user = {},
+            clertTime, rong, sqlite;
+            //监测手机号是否空和验证码是否6位
+        var loginButton = $api.byId('loginButton');
+        var toast = new auiToast();
+        var param = H5.pageParam();
+        var openId=param.openId?param.openId:0;
+        function checkCanClick() {
+            var tel_num = $("#tel").val().length;
+            var code_num = $("#code").val().length;
+            if (tel_num == 11 && code_num == 6) {
+                $api.removeAttr(loginButton, 'disabled');
+                $api.css(loginButton, 'background-color:#f53e8f;');
+            } else {
+                $api.attr(loginButton, 'disabled', 'disabled');
+                $api.css(loginButton, 'background-color:#f79cc4;');
+            }
+        }
+        /*获取短信认证码*/
+        function getCode() {
+            var tel = $('#tel').val(),
+                self = $('#sendCode');
+            if (self.hasClass('send')) {
+                toast.fail({
+                    title:"操作过于频繁，请稍后再试",
+                    duration:2000
+                });
+                return false;
+            }
+            if (checkNum(tel)) {
+                sendSmsValiceCode(tel, function() {
+                    toast.success({
+                        title:"验证码已发出，请查收",
+                        duration:2000
+                    });
+                    time = 60;
+                    self.addClass('send');
+                    timedown();
+                })
+            } else {
+                toast.fail({
+                    title:"手机号码格式不正确，请重新输入",
+                    duration:2000
+                });
+            }
+        }
+        /*倒计时*/
+        function timedown() {
+            var dom = $('#sendCode');
+            if (time <= 0) {
+                clearTimeout(clertTime);
+                dom.removeClass('send').val('发送验证码')
+            } else {
+                time--;
+                dom.val("重新发送(" + time + ")");
+                clertTime = setTimeout(timedown, 1000);
+            }
+        }
+        /*发送短信认证码*/
+        function sendSmsValiceCode(username, callback) {
+            var username = $api.trim(username);
+            if (!checkNum(username)) {
+                toast.fail({
+                    title:"手机号码格式不正确，请检查",
+                    duration:2000
+                });
+                return false;
+            }
+            $.ajax({
+                url: PHP_SERVE_URL + '/customer/smsCode',
+                type: 'post',
+                data: {
+                    tel: username,
+                    token: yltcrypt.cpt(username)
+                },
+                success: function (ret, err) {
+                    if (ret) {
+                        if (ret.code == 0) {
+                            $api.removeAttr(loginButton, 'disabled');
+                            $api.css(loginButton, 'background-color:#f53e8f;');
+                            $api.css($api.byId("sendCode"), 'background-color:gray');
+                            // $api.val($api.byId('code'), ret.msg);
+                            callback();
+                        }
+                        else
+                        toast.fail({
+                            title:ret.msg,
+                            duration:2000
+                        });
+                    } else {
+                        toast.fail({title:"短信发送失败，请稍后再试"});
+                    }
+                }
+            })
+        }
+        /*检查手机格式*/
+        function checkNum(num, reg) {
+            var reg = reg || /^1[345678]\d{9}$/;
+            return reg.test(num);
+        }
+
+        function login() {
+            var username = $.trim($('#tel').val());
+            var Code = $.trim($('#code').val());
+            if (!checkNum(username)) {
+                toast("您的手机号码不正确，请检查!");
+                return false;
+            }
+            if (!checkNum(Code, /^\d{6}$/)) {
+                toast("短信验证码格式不正确!");
+                return false;
+            }
+            $.ajax({
+                url: PHP_SERVE_URL + '/customer/login',
+                type: 'post',
+                data: {
+                    tel: username,
+                    smsCode: Code,
+                    openId: openId,
+                    token: yltcrypt.cpt(username)
+                },
+                success:function(json, err) {
+                    if (json.code == 0) {
+                        setStorage(json.info);
+                        if(openId){
+                            location.href = './qr_down.html';
+                        }else{
+                            setTimeout(function() {
+                                window.location.href="./index/index_frm.html";
+                            }, 1000);
+                        }
+                    } else {
+                        toast.fail({title:json.msg,duration:2000})
+                    }
+                }
+            })
+        }
+        /*本地存储用户数据*/
+        function setStorage(json) {
+            var user = $api.getStorage('user') || {};
+            // user.uid = json.uid;
+            // user.openId = json.openId;
+            // user.nickName = json.nickName;
+            // user.partnerLevel = json.partnerLevel;
+            // user.tel = json.tel;
+            // user.sex = json.sex;
+            // user.realName = json.realName;
+            // user.avatar = json.avatar;
+            // user.rongToken = json.rongToken;
+            json.connected = false;
+            $api.setStorage('user', json); // 存储json对象
+        }
+        //跳转到注册页面
+        //    function gotoRegist() {
+        //        api.openWin({
+        //            name: 'register_win',
+        //            url: './register_win.html'
+        //        });
+        //    }
+
+        // var eye = $api.byId('eye');
+        // $api.addEvt(pwdVH, 'click', function() {
+        //     $api.toggleCls(eye, 'openEye');
+        //     if ($api.attr(pwdV, 'type') == 'password') {
+        //         $api.attr(pwdV, 'type', 'text');
+        //     } else {
+        //         $api.attr(pwdV, 'type', 'password');
+        //     }
+        // });
+
+        //历史输入菜单上下拉
+        // var arrows = $api.byId('arrows');
+        // var telList = $api.byId('telList');
+
+        // function pullHandle() {
+        //     $api.toggleCls(arrows, 'pullDown');
+        //     if ($api.cssVal(telList, 'display') == 'none') {
+        //         $api.css(telList, 'display:block;');
+        //     } else {
+        //         $api.css(telList, 'display:none;');
+        //     }
+        // }
+    </script>
+</body>
+
+</html>

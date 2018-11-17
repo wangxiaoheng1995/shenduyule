@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>图片裁剪</title>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css">
+    <style>
+        body {
+            background: #fff;
+        }
+        .aui-bar {
+            background-color: #fff;
+        }
+
+        .aui-btn {
+            padding: 0.3rem 2rem;
+        }
+        .footer {
+            position: fixed;
+            z-index: 999;
+            bottom: 1rem;
+            left: 20%;
+        }
+        .aui-btn:active{
+            color: #000;
+        }
+        .use-btn{
+            display: inline-block;
+            height: 1.4rem;
+            line-height: 1.4rem;
+            padding:0 0.65rem;
+            border-radius: 0.2rem;
+            margin-top: 0.45rem;
+            background-color: #f53e8f;
+            color: #fff;
+            font-size: 0.65rem;
+        }
+        .tit-bar-black{
+            color: #000 !important;
+        }
+        .aui-title{
+            font-size: 0.9rem !important;
+        }
+    </style>
+
+</head>
+<body>
+<header class="aui-bar aui-bar-nav aui-margin-b-15 header tit-bar-black">
+    <a class="aui-pull-left aui-btn" onclick="api.closeWin({});">
+        <span class="aui-iconfont aui-icon-left tit-bar-black "></span>
+    </a>
+    <div class="aui-title">图片裁剪</div>
+    <a href="#none" class="aui-pull-right">
+        <span class="use-btn" onclick="fnSave();">使用</span>
+    </a>
+</header>
+
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/yltcrypt.js"></script>
+<script type="text/javascript" src="../../script/base.js"></script>
+<script type="text/javascript">
+
+    var FNImageClip;
+    var element_id;
+    var type
+    window.onload = function () {
+        element_id=api.pageParam.element_id;
+        type=api.pageParam.type;
+        var img_url = api.pageParam.img_url;
+        var w = api.pageParam.w ? api.pageParam.w : '';
+        var h = api.pageParam.h ? api.pageParam.h : '';
+
+        FNImageClip = api.require('FNImageClip');
+        FNImageClip.open({
+            rect: {
+                x: 0,
+                y: document.querySelector('.header').offsetHeight,
+                w: api.winWidth,
+                h: api.winHeight
+            },
+            srcPath: img_url,
+            style: {
+                mask: '#000',
+                clip: {
+                    w:api.winWidth-20,
+                    h: api.winWidth-20,
+                    x: 10,
+                    y: 80,
+                    borderColor: '#D4D3D1',
+                    borderWidth: 1,
+                    appearance: 'rectangle'
+                }
+            },
+            //mode:w?"all":"image"
+            mode:'image'
+        });
+    };
+
+    function fnSave() {
+        FNImageClip.save({
+            destPath: 'fs://image/temp' + new Date().getTime() + '.png',
+            copyToAlbum: false,
+            quality: 1
+        }, function (ret, err) {
+            if (ret) {
+                if(type=='avatar'){
+                    savePicture(ret.destPath);
+                }
+                if(type=='shoplogo'){
+                    saveShoplogo(ret.destPath);
+                }
+            } else {
+                $a.toast('裁剪失败，请重试');
+            }
+        });
+    }
+//    修改头像
+    function savePicture(path){
+        //压缩
+        var compactPicture = api.require('compactPicture');
+        compactPicture.HittingPic({
+            picpatharray: [path],
+            size: 10
+        }, function (res) {
+            if (res) {
+                if(res.states.length==1){
+                    var user = $api.getStorage('user');
+                    api.showProgress({
+                        title: '设置中...',
+                        modal: false
+                    });
+                    api.ajax({
+                        url: PHP_SERVE_URL + '/uploadImg/index',
+                        method: 'post',
+                        data: {
+                            files: {
+                                file: res.states[0],
+                            }
+                        }
+                    }, function (json, err) {
+                        if (json.code == 0) {
+                            var avatarUrl = json.data[0];
+                            api.ajax({
+                                url: PHP_SERVE_URL + '/customer/setAvatar',
+                                method: 'post',
+                                data: {
+                                    values: {
+                                        openId: user.openId,
+                                        avatar: avatarUrl,
+                                        token: yltcrypt.cpt(user.openId)
+                                    }
+                                }
+                            }, function (json, err) {
+                                api.hideProgress();
+                                if (json.code==0) {
+                                    user.avatar = avatarUrl;
+                                    $api.setStorage('user', user);
+                                    // 页面跳转
+                                    $a.toast("设置成功");
+                                    api.sendEvent({
+                                        name: 'refresh_user_avatar',
+                                        extra: {headurl: avatarUrl + '?x-oss-process=image/resize,m_pad,h_80,w_80'}
+                                    });
+                                    setTimeout(function(){
+                                        api.closeWin({})
+                                    }, 2000);
+                                } else {
+                                    $a.toast(json.msg);
+                                }
+                            });
+                        } else {
+                            api.hideProgress();
+                            $a.toast(json.msg);
+                        }
+                    });
+                }else{
+                    $a.toast("图片处理失败");
+                }
+            }else{
+                $a.toast("图片处理失败");
+            }
+        });
+
+    }
+//    修改店铺logo
+    function saveShoplogo(path){
+        //压缩
+        var compactPicture = api.require('compactPicture');
+        compactPicture.HittingPic({
+            picpatharray: [path],
+            size: 10
+        }, function (res) {
+            if (res) {
+                if(res.states.length==1) {
+                    var user = $api.getStorage('user');
+                    api.showProgress({
+                        title: '设置中...',
+                        modal: false
+                    });
+                    api.ajax({
+                        url: PHP_SERVE_URL + '/uploadImg/index',
+                        method: 'post',
+                        data: {
+                            files: {
+                                file: res.states[0],
+                            }
+                        }
+                    }, function (json, err) {
+                        if (json.code == 0) {
+                            var avatarUrl = json.data[0];
+                            api.ajax({
+                                url: PHP_SERVE_URL + '/taxi/setShopLogo',
+                                method: 'post',
+                                data: {
+                                    values: {
+                                        openId: user.openId,
+                                        shopId: element_id,
+                                        shopLogo: avatarUrl,
+                                        token: yltcrypt.cpt(user.openId)
+                                    }
+                                }
+                            }, function (json, err) {
+                                api.hideProgress();
+                                if (!json.code) {
+                                    user.avatar = avatarUrl;
+                                    $api.setStorage('user', user);
+                                    $a.toast("设置成功");
+                                    api.sendEvent({
+                                        name: 'refresh_moveshop_shoplogo',
+                                        extra: {shoplogo: avatarUrl + '?x-oss-process=image/resize,m_pad,h_80,w_80'}
+                                    });
+                                    setTimeout(function () {
+                                        api.closeWin({})
+                                    }, 2000);
+                                } else {
+                                    $a.toast(json.msg);
+                                }
+                            });
+                        } else {
+                            api.hideProgress();
+                            $a.toast(json.msg);
+                        }
+                    });
+                }else{
+                    $a.toast("图片处理失败");
+                }
+            }else{
+                $a.toast("图片处理失败");
+            }
+        });
+    }
+</script>
+</body>
+</html>

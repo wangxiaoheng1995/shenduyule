@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的订单-待评价</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/commen1.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/s-style.css">
+    <style>
+        .aui-dialog-btn{
+            color:#ff5096;
+        }
+        .aui-dialog-body{
+            color:#212121;
+            font-size:0.8rem;
+        }
+    </style>
+</head>
+<body>
+<!--暂无订单-->
+<div id="empty" class="aui-hide" style="width:100%;">
+    <!--暂无订单-->
+    <div class="order-if-noshop">
+        <img src="../../image/my/wddd_kong_icon.png"/>
+        <dl>
+            <dt>暂无订单</dt>
+            <dd class="aui-font-size-12 color-gray9">再忙也不能忘记买买买</dd>
+        </dl>
+        <span class="aui-font-size-20 cart-section-go my-noshop-btn aui-margin-t-15" onclick="openIndexWin()">去首页逛逛</span>
+    </div>
+    <!--好货推荐-->
+    <div class="order-recommend aui-hide">
+        <h4><span></span>好货推荐<span></span></h4>
+        <div class="shop-view aui-slide-node aui-slide-node-middle aui-slide-node-center">
+            <ul class="clearfix aui-padded-l-10 ">
+                <li class="aui-pull-left border cart-bg-fff aui-margin-r-10">
+                    <img src="../../image/test.jpg" alt="">
+
+                    <p class="aui-padded-l-5 aui-padded-r-5 aui-ellipsis-1">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</p>
+
+                    <div class="cart-section-bottom clearfix aui-padded-l-5 aui-padded-r-5 ">
+                        <p class="aui-pull-left">
+                            <strong class="aui-font-size-14 cart-section-prize color-pink">￥39.9</strong>
+                            <!--<em class="aui-font-size-10 text-line">￥599</em>-->
+                        </p>
+
+                        <p class="aui-pull-right aui-font-size-12"> 已售:68989</p>
+                    </div>
+                </li>
+                <li class="aui-pull-left border cart-bg-fff aui-margin-r-10">
+                    <img src="../../image/test.jpg" alt="">
+
+                    <p class="aui-padded-l-5 aui-padded-r-5 aui-ellipsis-1">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</p>
+
+                    <div class="cart-section-bottom clearfix aui-padded-l-5 aui-padded-r-5 ">
+                        <p class="aui-pull-left">
+                            <strong class="aui-font-size-14 cart-section-prize color-pink">￥39.9</strong>
+                            <!--<em class="aui-font-size-10 text-line">￥599</em>-->
+                        </p>
+
+                        <p class="aui-pull-right aui-font-size-12"> 已售:68989</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="orderlist">
+</div>
+<script type="text/html/x-dot-template" id="info_tmpl">
+    {{?it.data.length>0}} {{~it.data:dval:dkey}}
+    <section class="cart-bg-fff order-section-padd aui-margin-t-10" >
+        <h4 class="aui-border-b aui-padded-t-10 aui-padded-b-10">
+                  <span class="order-top-img">
+                    <img src="{{=dval.shopRes.logo}}" class="aui-pull-left aui-margin-r-10"/>{{=dval.shopRes.name}}></span>
+                    <span class="aui-pull-right">
+                      <em class="color-gray9 aui-padded-r-10"></em>
+                      <em class="color-pink">待评价</em>
+                    </span>
+        </h4>
+        <ul class="aui-list aui-media-list" onclick="showOrderDetails({{=dval.orderRes.oid}});">
+            {{~dval.goodsRes:goods}}
+            <li class="aui-list-item aui-padded-l-0 cart-bg-fff">
+                <div class="aui-media-list-item-inner">
+                    <div class="aui-list-item-media cart-left-img">
+                        <img src="{{=goods.skuGoodsJson.pic}}">
+                    </div>
+                    <div class="aui-list-item-inner aui-padded-r-0">
+                        <div class="aui-list-item-text">
+                            <p class="aui-ellipsis-2 s-color-black">{{=goods.skuGoodsJson.gname}}</p>
+                        </div>
+                        <div class="aui-info aui-margin-t-15" style="padding:0">
+                            <div class="aui-info-item">
+                                <span class="s-color-black">￥{{=goods.skuGoodsJson.price}}</span>
+                            </div>
+                            <div class="aui-info-item">
+                                {{?dval.orderRes.order_type==2}} {{=dval.orderRes.group_havenum}}人拼单 {{??}} ×{{=goods.goods_count}} {{?}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {{~}}
+        </ul>
+        <p class="aui-text-right s-color-black aui-padded-t-10 aui-padded-b-10">实付：￥{{=dval.orderRes.pay_money}}（免运费）</p>
+        <div class="aui-text-right aui-margin-t-15">
+                <span class="order-more-btn aui-margin-r-10" onclick="showOrHide(this);">
+                    更多
+                    <ul class="aui-hide">
+                        <li onclick="showExpress('{{=dval.orderRes.express_no}}','{{=dval.orderRes.express_type}}')">查看物流</li>
+                        <li onclick="deleteOrder('{{=dval.orderRes.oid}}');">删除订单</li>
+                    </ul>
+                </span>
+            <span class="aui-font-size-16 cart-section-go s-color-black s-border-gray aui-margin-r-10" onclick="showGoodsDetail('{{=dval.goodsRes[0].skuGoodsJson.gid}}')">再次购买</span>
+            <span class="aui-font-size-16 cart-section-go" onclick="$a.openWin('my_frm-comment','oid:{{=dval.orderRes.oid}}')">立即评价</span>
+        </div>
+    </section>
+    {{~}} {{?}}
+</script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/aui/aui-dialog.js"></script>
+<script>
+    var user, type = 5,
+            page = totalpage = 1;
+    window.onload = function() {
+        user = $api.getStorage('user');
+        loadOrder();
+        /* 底部加载数据 */
+        // $a.addEvt({
+        //     name: 'scrolltobottom',
+        //     extra: {
+        //         threshold: 50
+        //     }
+        // }, function(ret, err) {
+        //     if (page <= totalpage) {
+        //         loadOrder();
+        //     }
+        // });
+
+        $(window).scroll(function(){
+        　　var scrollTop = $(this).scrollTop();
+        　　var scrollHeight = $(document).height();
+        　　var windowHeight = $(this).height();
+        　　if(scrollTop + windowHeight == scrollHeight){
+        　　 loadOrder();//加载数据的函数
+        　　}
+        });
+        document.addEventListener({
+            name:'evaluateOrder-reload'
+        },function(ret){
+            window.location.reload();
+        })
+    }
+    //订单列表
+    function loadOrder() {
+        $.ajax({
+            url: PHP_SERVE_URL + '/order/my',
+            method: 'post',
+            data: {
+                // values: {
+                    openId: user.openId,
+                    type: type,
+                    page: page,
+                    orderType:1
+                // }
+            }
+        }, function(ret, err) {
+            page++;
+            if (ret.code == 0) {
+                totalpage = ret.total;
+                if (totalpage == 0) {
+                    if ($api.hasCls($api.byId('empty'), 'aui-hide')) {
+                        $api.removeCls($api.byId('empty'), 'aui-hide');
+                    }
+                    $api.addCls($api.byId('orderlist'), 'aui-hide');
+                } else {
+                    $api.addCls($api.byId('empty'), 'aui-hide');
+                    if ($api.hasCls($api.byId('orderlist'), 'aui-hide')) {
+                        $api.removeCls($api.byId('orderlist'), 'aui-hide');
+                    }
+                    var innerText = doT.template($api.text($api.byId("info_tmpl")));
+                    $api.append($api.byId("orderlist"), innerText(ret));
+                }
+            }
+        });
+    }
+
+    function showOrderDetails(oid) {
+      window.location.href="./my_frm-orderDetail.html?"+"oid="+oid
+        // api.openWin({
+        //     name: 'orderDetails',
+        //     url: './my_frm-orderDetail.html',
+        //     pageParam: {
+        //         oid: oid
+        //     }
+        // });
+    }
+    function openIndexWin() {
+        // $a.sendEvt('index-show');
+        // $a.openWin('../index_win');
+        window.location.href="../index_wid.html"
+    }
+//    更多
+    function showOrHide(that){
+        $(that).find("ul").toggleClass("aui-hide")
+    }
+//    删除订单
+    function deleteOrder(oid){
+        var dialog=new auiDialog();
+        dialog.alert({
+            msg:'确定删除此订单？',
+            buttons:['取消','确定']
+        },function(ret){
+            if(ret.buttonIndex==2){
+                $.ajax({
+                    url:PHP_SERVE_URL+'',
+                    type:'post',
+                    data:{
+                        values:{
+
+                        }
+                    }
+                },function(ret){
+                    if(ret.code==0){
+                      toast.loading({
+                        title:"删除订单成功",
+                        duration:2000
+                    },function(ret){
+                        // console.log(ret);
+                        setTimeout(function(){
+                            toast.hide();
+                        }, 3000)
+                      })
+                        // $a.toast("删除订单成功");
+                        $("#"+oid).remove();
+                        if($("section").length==0){
+                            location.reload();
+                        }
+                    }else{
+                        // $a.toast(ret.msg);
+                        toast.loading({
+                          title:ret.msg,
+                          duration:2000
+                      },function(ret){
+                          // console.log(ret);
+                          setTimeout(function(){
+                              toast.hide();
+                          }, 3000)
+                        })
+                    }
+                })
+            }
+        })
+    }
+    function showExpress(no,type){
+        if(no!="" && type!=""){
+          window.location.href="../my/my_frm-logistics?"+"express_no="+no+"&"+"express_type="+type
+            // $a.openWin('../my/my_frm-logistics','express_no:'+no+",express_type:"+type);
+        }else{
+          toast.loading({
+                   title:"暂无物流信息",
+                   duration:2000
+               },function(ret){
+                  //  console.log(ret);
+                   setTimeout(function(){
+                       toast.hide();
+                   }, 3000)
+               });
+            // $a.toast("暂无物流信息");
+        }
+    }
+    function showGoodsDetail(gid){
+      window.location.href="../goods/goods_win?"+"id="+gid;
+        // $a.openWin("../goods/goods_win",'id:'+gid);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+  <title>生日特权</title>
+  <link rel="stylesheet" href="../../css/aui/aui.css">
+  <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+  <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+  <link rel="stylesheet" href="../../css/base.css">
+  <style>
+    .color-white {
+      color: #fff;
+    }
+
+    .wui-bg-pink {
+      background: #FE5095;
+    }
+
+    .aui-bar-nav {
+      position: fixed;
+    }
+
+    .content {
+      padding-top: 2rem;
+    }
+
+    .vip-gift-list .aui-list-item-media {
+      width: 8.5rem;
+    }
+
+    .font-size-9 {
+      font-size: .45rem !important;
+    }
+
+    .cart-bg-fff {
+      background-color: #fff !important;
+    }
+
+    .relative {
+      position: relative;
+    }
+
+    .bottom-15 {
+      bottom: .15rem;
+    }
+
+    .btn-geted {
+      background: url("../../image/partner/btn_current_bg.png") no-repeat 0 0 / 100% 100%;
+      width: 3rem;
+      height: 1.25rem;
+      display: inline-block;
+      line-height: 1.25rem;
+      margin-top: 1.4rem;
+    }
+
+    .btn-unget {
+      background: url("../../image/partner/btn_bg.png") no-repeat 0 0 / 100% 100%;
+      width: 3rem;
+      height: 1.25rem;
+      display: inline-block;
+      line-height: 1.25rem;
+      margin-top: 1.4rem;
+    }
+    .btn-pink-to-bpink{
+      display: inline-block;
+      width: 4rem;
+      height: 1.75rem;
+      line-height: 1.75rem;
+      background: linear-gradient(to bottom,#D8085B 0,#FE5095 100%);
+      border-radius: 5px;
+      font-size:10px;
+      color: #fff!important;
+      margin-top: .7rem;
+    }
+    .color-666666{
+      color: #666;
+    }
+    .bg-00000080{
+      background: rgba(0,0,0,.8);
+    }
+  </style>
+</head>
+
+<body class="cart-bg-fff">
+<div id="content">
+<!-- header -->
+<header class="aui-bar aui-bar-nav tit-bar-black wui-bg-pink color-white" id="header">
+  <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+    <span class="aui-iconfont aui-icon-left"></span>
+  </a>
+  <div class="aui-title">生日特权</div>
+</header>
+<div class="main back-write aui-padded-b-15">
+  <div class="content">
+    <!--顶部图片-->
+    <div>
+      <img src="../../image/partner/vip_birthday_top.png" width="100%" alt="">
+    </div>
+    <div class="aui-text-center aui-margin-t-5" style="padding-bottom: .7rem;">
+      <p class="aui-font-size-12 color-pink aui-padded-b-15">一个礼物送给你，全部心意都到齐！</p>
+      <p class="aui-font-size-12 color-pink aui-padded-b-15">每个账号限领一份</p>
+      <p class="aui-font-size-12 color-pink aui-padded-b-15">您当前的身份是：{{birthdayArr.partner_level}}   生日：{{birthdayArr.birthday}}</p>
+      <p class="aui-font-size-10 color-pink" style="line-height: 1.4rem;">凡是成为销拼购掌柜， 每当您生日之际，我们都会准备惊喜大礼包<br>免费送给您！</p>
+    </div>
+    <div class="aui-text-center">
+      <span class="inline-block aui-padded-t-15">
+        <a class="btn-pink-to-bpink" href="###" id="receive">立即领取</a>
+      </span>
+    </div>
+    <div class="aui-text-center aui-margin-t-15" style="display:none" id="success">
+      <div class="inline-block aui-padded-l-15 aui-padded-r-15 aui-padded-b-15 aui-padded-t-15 bg-00000080 bd-radius4">
+        <p class="font-size-9 aui-margin-t-15 color-white">恭喜您已成功领取生日大礼包</p>
+        <p class="font-size-9 aui-margin-t-15 color-white">敬请期待神秘礼物吧！</p>
+        <img src="../../image/partner/smile_icon1@2x.png" class="inline-block aui-margin-t-10" style="width: 3.125rem;" alt="">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/config.js"></script>
+<script type="text/javascript" src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/yltcrypt.js"></script>
+<script src="../../script/zepto.min.js"></script>
+<script>
+var user,
+
+  user = $api.getStorage('user');
+  var toast = new auiToast({
+    })
+  new Vue({
+    el:'#content',
+    data:{
+      birthdayArr:''
+    },
+    methods:{
+      getGift(){
+        var self = this
+        $.ajax({
+          url:PHP_SERVE_URL + '/Gift/birthdayGift',
+          type:'post',
+          data:{
+              open_id:user.openId
+          },
+          success:function(ret,err){
+          if(ret.code==0){
+            self.birthdayArr=ret.data
+            if($api.text($api.byId('receive'))=='立即领取'){
+              // $a.openWin('./partner_address',{
+              //   type:1
+              // })
+              window.location.href="./partner_address.html?type"+1
+            }else{
+              $api.text($api.byId('receive'))=='已经领取'
+              toast.fail({
+                title:"您已经领取过礼包",
+              });
+            }
+            $api.attr($api.byId("success"),'display','block')
+          }else if(ret.code==1){
+            self.birthdayArr=ret.data
+            // alert(ret.code)
+            $api.attr($api.byId("success"),'display','none')
+            toast.fail({
+              title:"今天不是您的生日",
+            });
+          }else if(ret.code==2){
+            // api.toast(ret.msg)
+            toast.fail({
+              title:"您尚未实名认证",
+            });
+          }
+        }
+        })
+
+      }
+    },
+    mounted:function(){
+       this.getGift()
+    }
+  })
+
+
+</script>
+</body>
+
+</html>

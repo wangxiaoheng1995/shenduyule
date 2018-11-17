@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>我的押金</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/aui/aui-slide.css">
+    <link rel="stylesheet" href="../../css/aui/aui-nav-scroll.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <style>
+    /*掌柜图标边框*/
+
+    .border2 {
+        border: 2px solid #ccc;
+        width: 1.2rem;
+        height: 1.2rem;
+        display: inline-block;
+        text-align: center;
+    }
+    /*普通掌柜颜色*/
+
+    .font-color-1 {
+        color: #4f92f6;
+        border-color: #4f92f6;
+    }
+    /*白银掌柜颜色*/
+
+    .font-color-2 {
+        color: #ff5f5e;
+        border-color: #ff5f5e;
+    }
+    /*黄金掌柜颜色*/
+
+    .font-color-3 {
+        color: #ffa300;
+        border-color: #ffa300;
+    }
+    /*铂金掌柜颜色*/
+
+    .font-color-4 {
+        color: #13d2ca;
+        border-color: #13d2ca;
+    }
+    /*加速按钮和退押金按钮*/
+
+    .btn-border {
+        display: inline-block;
+        width: 3.7rem;
+        height: 1.2rem;
+        text-align: center;
+        line-height: 1.1rem;
+    }
+    /*加速按钮、退押金按钮、倒计时，位置调整*/
+
+    .aui-row {
+        width: 100%;
+    }
+
+    .left-layout {
+        float: left;
+        margin-top: 0.6rem;
+    }
+
+    .right-layout {
+        float: right;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    /* 使用加速和退押金页面样式————star */
+
+    #return-fixed-bg,
+    #fast-fixed-bg {
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        height: 100%;
+        width: 100%;
+        z-index: 9999;
+        display: none;
+    }
+    /* 选项卡样式 */
+
+    .confirmCard {
+        position: absolute;
+        background-color: white;
+        border-radius: 5px;
+        width: 80%;
+        top: 22.5%;
+        left: 10%;
+    }
+    /* 行样式 */
+
+    .confirmCard .aui-row {
+        height: 1.4rem;
+        line-height: 1.4rem;
+        color: #333333;
+        width: 100%;
+        text-align: center;
+    }
+
+    .confirmCard .aui-row input {
+        float: right;
+        margin-top: 0.6rem;
+        display: none;
+    }
+    /* 关闭图标样式 */
+
+    .confirmCard .aui-row i {
+        float: right;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-right: 0.5rem;
+    }
+    /* 确认栏样式 */
+
+    .confirmButtonLab {
+        border-top: 1px solid #f5f5f5;
+        height: 3rem !important;
+        line-height: 3rem !important;
+        margin-top: 0.5rem;
+    }
+    /* 加减图标样式 */
+
+    .aui-label {
+        font-size: 1rem;
+        width: 2rem;
+    }
+
+    .num-input {
+        display: inline-block !important;
+        width: 20% !important;
+        text-align: center;
+        border-bottom: 1px solid #f5f5f5 !important;
+        height: 1.6rem !important;
+    }
+    /* 使用加速和退押金样式————end */
+    </style>
+</head>
+
+<body>
+    <!-- header -->
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write color-black" id="header" style="border: 1px solid #f5f5f5;">
+        <a class="aui-pull-left aui-btn" onclick="window.history.back();">
+        <span class="aui-iconfont aui-icon-left color-black"></span>
+    </a>
+        <div class="aui-title">我的押金</div>
+    </header>
+    <!-- main -->
+        <!-- 退还押金 -->
+    <div id="return-fixed-bg">
+        <div class="confirmCard">
+            <div class="aui-row"><i class="aui-iconfont aui-icon-close" onclick="closeBg(returnFixedBg)"></i></div>
+            <form>
+                <div class="aui-row">
+                    <label style="font-size: 0.65rem;">您确定退回本次押金吗？</label>
+                </div>
+                <div class="aui-row">
+                    <label style="font-size: 0.9rem;" id="numOfReturnMoney">
+                        ￥0
+                        <!-- {{=it.data[index].wait_receive_money}} -->
+                    </label>
+                </div>
+                <div class="aui-row">
+                    <label style="font-size: 0.6rem;">退回方式：原路返回</label>
+                </div>
+                <div class="aui-row">
+                    <label style="font-size: 0.6rem;color:#FC3C3C;">*退还押金会导致掌柜身份降级</label>
+                </div>
+                <div class="aui-row confirmButtonLab">
+                    <div class="aui-col-xs-6" style="border-right: 1px solid #f5f5f5;" onclick="closeBg(returnFixedBg)">取消</div>
+                    <div class="aui-col-xs-6" id="confirmReturnButton">确定</div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- 使用加速 -->
+    <div id="fast-fixed-bg">
+        <div class="confirmCard">
+            <div class="aui-row"><i class="aui-iconfont aui-icon-close" onclick="closeBg(fastFixedBg)"></i></div>
+            <div class="aui-row">使用加速时间</div>
+            <form>
+                <div class="aui-card-list-content aui-text-center aui-padded-b-15">
+                    <div class="color-gray9 aui-margin-b-15">当前共获得加速时间有<span style="font-size: 0.7rem;color: #333333;" id="numOfFastDay">0</span>天</div>
+                    <div class="aui-label" id="downMoney" onclick="clickChangeFastDay('down')">-</div>
+                    <input value="0" type="tel" id="fastOfInputId" min="0" max="999" class="num-input" onkeyup="setInputFastDays()">
+                    <div class="aui-label" id="upMoney" onclick="clickChangeFastDay('up')">+</div>
+                </div>
+                <div class="aui-row confirmButtonLab">
+                    <div class="aui-col-xs-6" style="border-right: 1px solid #f5f5f5;" onclick="closeBg(fastFixedBg)">取消</div>
+                    <div class="aui-col-xs-6" id="confirmFastButton">确定</div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- main -->
+    <div id="main">
+        <div class="aui-card-list aui-padded-b-15 back-write" id="banner">
+            <div class="aui-card-list-content aui-text-center aui-padded-b-15" style="padding-top: 2rem">
+                <div class="color-gray9">剩余押金</div>
+                <div class="color-black" style="font-size: 2rem" id="totalLeft">0.00</div>
+                <!--<div class="color-gray9 aui-margin-b-15">累计退还+<span id="totalBack">0.00</span></div>-->
+                <div class="color-gray9 aui-margin-b-15 aui-font-size-12" id="totalItems">累计存入0，已领取0，待领取0</div>
+                <div class="cart-section-go color-black border" onclick="location.href='partner_return_list.html';">退还明细</div>
+            </div>
+        </div>
+        <div class="aui-content">
+            <ul class="aui-list aui-media-list back-lucency" id="partnerDepositListId">
+                <!-- 缴纳记录列表 -->
+            </ul>
+        </div>
+    </div>
+    <!-- footer -->
+    <script src="../../script/api.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/aui/aui-toast.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/doT.min.js"></script>
+    <script src="../../script/yltcrypt.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+    <script type="text/template" charset="utf-8" id="templateId">
+        {{~it:value}}
+        <li class="aui-list-item cart-bg-fff aui-margin-b-15">
+            <div class="aui-list-header back-lucency aui-padded-l-0 aui-padded-r-0 aui-margin-r-15">
+                <div class="aui-row" style="padding-top: 0.5rem;">
+                    <div class="aui-col-xs-3 list1 aui-padded-t-15">
+                        <div class="aui-grid-label">{{=value.add_time}}</div>
+                    </div>
+                    <div class="aui-col-xs-3 list3">
+                        <div class="aui-grid-label aui-font-size-14">
+                            {{=value.pay_money}}
+                            {{? value.islock==1}}
+                            <img style="width:.5rem;display:inline-block;" onclick="toggleLock({{=value.udid}})" src="../../image/partner/partner_lock@2x.png" alt="">
+                            {{??}}
+                            <img style="width:.7rem;display:inline-block;" onclick="toggleLock({{=value.udid}})" src="../../image/partner/partner_unlock@2x.png" alt="">
+                            {{?}}
+                        </div>
+                        <div class="aui-grid-label color-gray9">退还状态:<span class="color-black">{{=value.return_part}}</span>/{{=value.return_timelen}}</div>
+                    </div>
+                    <div class="aui-col-xs-6" style="text-align: right;">
+                        {{?value.wait_receive_money > 0}}
+                        <span class="btn-border color-black border bd-radius" onclick="openReturnCard({{=value.wait_receive_money}},{{=value.udid}})">退保证金</span>
+                        <div class="aui-font-size-12 color-gray9" style="margin-top: 0.2rem;text-align: right;">可退还{{=value.wait_receive_money}}</div>
+                    </div>
+                    {{??}}
+                    <span class="btn-border color-black border bd-radius" onclick="openFastCard({{=value.udid}})" class="useFastButton">使用加速</span>
+                    <span class="btn-border border bd-radius" style="color: #999999;">退保证金</span>
+                    <div style="margin-top: .2rem;">
+                        <img src="../../image/partner/hhr_time_icon.png" style="display: inline-block;width:0.4rem;" class="times">
+                        <span class="lefttime" style="color:#999;" islock="{{=value.islock}}" lasttime="{{=value.last_time}}"></span>
+                    </div>
+                </div>
+                <!--<div class="aui-list-item-right aui-font-size-12 color-gray9 right-layout" style="margin-top: 0.5rem;width: 5rem;text-align: right;">可退还0</div>-->
+                {{?}}
+            </div>
+            </div>
+        </li>
+        {{~}}
+    </script>
+    <script>
+    //获取本次退回的押金的显示元素id
+    var numOfReturnMoney = $api.byId('numOfReturnMoney');
+    //获取可以加速的天数的显示元素id
+    var numOfFastDay = $api.byId('numOfFastDay');
+    //获取输入加速天数元素
+    var fastOfInputId = $api.byId('fastOfInputId');
+    //当前输入框中的加速天数
+    var fastOfInputVal;
+    //获得退还押金页面id
+    var returnFixedBg = $api.byId('return-fixed-bg');
+    //获得加速页面id
+    var fastFixedBg = $api.byId('fast-fixed-bg');
+    //返回的数据列表
+    var list;
+    //加速天数
+    var fastDays;
+    //获取所有时间列表
+    var times = $api.domAll($api.byId('partnerDepositListId'),'times');
+    //获取退押金确认按钮
+    var confirmReturnButton = $api.byId('confirmReturnButton');
+    //获取使用加速确认按钮
+    var confirmFastButton = $api.byId('confirmFastButton');
+
+    var toast = new auiToast();
+    var user;
+        user = $api.getStorage('user');
+        if (user) {
+            loadMyDeposit();
+            loadMyDepositList();
+        }
+
+
+    function loadMyDeposit() {
+        $.ajax({
+            url: PHP_SERVE_URL + '/partner/myDeposit',
+            type: 'post',
+            data: {
+                openId: user.openId,
+                hashToken: yltcrypt.cpt(user.openId)
+            },
+            success:function(ret, err) {
+                if (ret.code == 0) {
+                    fastDays = ret.data.jsDays;
+                    $api.text($api.byId('totalLeft'), ret.data.totalLeft);
+                    // $api.text($api.byId('totalBack'), ret.data.totalBack);
+                    $api.text($api.byId('totalItems'), '累计存入'+ret.data.totalPay+'，已领取'+ret.data.totalReceive+'，待领取'+ret.data.totalWaitReceive);
+
+                    if (fastDays == 0 ) {
+                        $('.useFastButton').map(function(){
+                            myself = $(this);
+                            $api.removeAttr(myself, 'onclick');
+                            $api.css(myself, 'color:#999999');
+                        })
+                    }
+                }
+            }
+        });
+    }
+    function loadMyDepositList() {
+        $.ajax({
+            url: PHP_SERVE_URL + '/partner/depositList',
+            type: 'post',
+            data: {
+                openId: user.openId,
+                hashToken: yltcrypt.cpt(user.openId),
+                page:1,
+                pagenum:5
+            },
+            success:function(ret, err) {
+                if (ret.code == 0) {
+                    var interText = doT.template($api.text($api.byId('templateId')));
+                    $api.append($api.byId('partnerDepositListId'), interText(ret.data));
+                    $(".lefttime").map(function () {
+                        var self = $(this);
+                        var paytime = self.attr("lasttime");
+                        var time = (new Date(paytime)).getTime();
+                        var nowtime = (new Date()).getTime();
+                        if (time > nowtime) {
+                            GetRTime(self, time);
+                            setInterval(function () {
+                                GetRTime(self, time);
+                            }, 1000);
+                        }
+                    })
+                }
+            }
+        });
+    }
+
+    function GetRTime(ele, endtime) {
+        //当前时间
+        var NowTime = (new Date()).getTime();
+        //结束时间减去当前时间剩余的毫秒数
+        var t = endtime - NowTime;
+        if(t<1000){
+            ele.text("");
+            return;
+        }
+        var d = Math.floor(t / 1000 / 60 / 60 / 24);//天
+        var h = Math.floor(t / 1000 / 60 / 60 % 24);//时
+        var m = Math.floor(t / 1000 / 60 % 60);//分
+        var s = Math.floor(t / 1000 % 60);//秒
+        ele.text(d+"天"+h + "小时" + m + "分" + s + "秒");
+    }
+
+    //监听能输入的最大加速天数
+    function setInputFastDays(){
+        if (parseInt($api.val(fastOfInputId)) > fastDays) {
+            $api.val(fastOfInputId,fastDays);
+        }else {
+            return;
+        }
+    }
+
+    //打开“退押金”选项卡页面,参数1：退还的押金数值，参数2：对应的记录id
+    function openReturnCard(arg,udidVal){
+        $api.css(returnFixedBg, 'display:block');
+        $api.text(numOfReturnMoney,arg);
+        //确认领取押金
+        $api.addEvt(confirmReturnButton, 'click', function(){
+            $.ajax({
+                url: PHP_SERVE_URL + '/partner/getBackDeposit',
+                type: 'post',
+                data: {
+                    openId: user.openId,
+                    hashToken: yltcrypt.cpt(user.openId),
+                    udid:udidVal
+                },
+                success:function(ret, err){
+                    closeBg(returnFixedBg);
+                    refreshThisPage(ret.msg);
+                }
+            });
+        });
+
+    }
+    //打开“使用加速”选项卡页面,参数1：udid
+    function openFastCard(udidVal){
+        $api.css(fastFixedBg, 'display:block');
+        $api.text(numOfFastDay, fastDays);
+        $api.attr(fastOfInputId, 'max', fastDays);
+        //确认加速
+        $api.addEvt(confirmFastButton, 'click', function(){
+            $.ajax({
+                url: PHP_SERVE_URL + '/partner/speedUpBackDeposit',
+                type: 'post',
+                data: {
+                    openId: user.openId,
+                    hashToken: yltcrypt.cpt(user.openId),
+                    udid:udidVal,
+                    days:parseInt($api.val(fastOfInputId))
+                },
+                success:function(ret, err){
+                    closeBg(fastFixedBg);
+                    refreshThisPage(ret.msg);
+                }
+            });
+        });
+    }
+    //关闭“使用加速”或“退押金”选项卡页面
+    function closeBg(arg) {
+        $api.css(arg, 'display:none');
+    }
+
+    //点击增加或减少天数,最小0，最大999,setUpDays为每次操作间隔天数
+    var setUpDays = 1;
+    function clickChangeFastDay(arg) {
+        var argStr = new String(arg);
+        fastOfInputVal = parseInt($api.val(fastOfInputId));
+        if (argStr == 'down') {
+            (fastOfInputVal - setUpDays) >= 0 ? $api.val(fastOfInputId, fastOfInputVal - setUpDays) : $api.val(fastOfInputId, 0);
+        } else if (argStr == 'up') {
+            (fastOfInputVal + setUpDays) < 999 ? $api.val(fastOfInputId, fastOfInputVal + setUpDays) : $api.val(fastOfInputId, 999);
+        }else {
+            console.log('加减操作无效');
+        }
+    }
+
+    //刷新当前页面
+
+    function refreshThisPage(str){
+        toast.loading({title:str,duration:2000},function () {
+            setTimeout(function () {
+                window.location.reload();
+            },2000)
+        });
+    }
+    function toggleLock(udid) {
+        $.ajax({
+            url:PHP_SERVE_URL+"/partner/depositLockStatus",
+            type:"post",
+            data:{
+                openId:user.openId,
+                udid:udid,
+                hashToken:yltcrypt.cpt(user.openId)
+            },
+            success:function(ret,err){
+                if(ret.code==0){
+                    $("#partnerDepositListId").html("");
+                    loadMyDepositList();
+                }else{
+                    $a.toast(ret.msg);
+                }
+            }
+        })
+    }
+    </script>
+</body>
+
+</html>

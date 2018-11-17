@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>自选股明细</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/aui.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: #f6f6f6;
+            min-height: 100%;
+            min-height: 100%;
+        }
+        #box{
+          height:100%;
+          display:flex;
+          justify-content: space-between;
+          flex-direction: column;
+        }
+        #main {
+            /*height: 82vh;*/
+            flex: 1;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .bg-green,
+        .bg-green .aui-bar-nav {
+            background-color: #43AC45 !important;
+        }
+        /*body {
+
+        }*/
+
+        /*底背景*/
+
+        .bg2 {
+            background-color: #F8F8F8;
+            border-top:1px solid #AEAEAE;
+            margin-bottom:0.3rem;
+            box-sizing: border-box;
+        }
+        .bg1{
+          background:none;
+        }
+        /*小背景*/
+
+        .bg {
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .bg-color {
+            background: #ffffff;
+        }
+
+        /*红色*/
+
+        .font-colo-r {
+            color: #de3232 !important;
+        }
+
+        /*绿色*/
+
+        .font-colo-g {
+            color: #43ac45 !important;
+        }
+
+        /*灰色*/
+
+        .font-colo-gy {
+            color: #7e7e8e !important;
+        }
+
+        /*白色*/
+
+        .font-colo-w {
+            color: #ffffff !important;
+        }
+
+        /*黑色*/
+
+        .font-colo-b {
+            color: #212121 !important;
+        }
+
+        /*清除下划线*/
+
+        .aui-list,
+        .aui-list .aui-list-item-title,
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inner,
+        .aui-list.aui-list-in .aui-list-item {
+            background-image: none;
+        }
+
+        /*清除内边距*/
+
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inne,
+        .aui-list .aui-list-header {
+            padding: 0rem;
+        }
+
+        .aui-bar-btn.aui-bar-btn-round .aui-bar-btn-item:first-child {
+            border-radius: 1.5rem;
+        }
+
+        .aui-bar-nav .aui-bar-btn-item.aui-active {
+            color: #de3232;
+        }
+
+        .aui-bar-btn-item {
+            border-style: none;
+            width: 55%;
+            line-height: 2rem;
+            color: #de3232;
+        }
+
+        .aui-list .aui-list-item:active {
+            background-color: transparent;
+        }
+
+        .aui-bar-nav .aui-bar-btn-item {
+            line-height: 2rem;
+        }
+
+        .aui-tab-item.aui-active {
+            color: #de3232;
+            border-bottom: 2px solid #de3232;
+        }
+
+        .aui-tab-item {
+            color: #7e7e8e;
+        }
+
+        .aui-list .aui-list-item-media {
+            width: 1.5rem;
+        }
+
+        .aui-list .aui-list-item-media {
+            margin-top: 0.15rem;
+        }
+
+        .aui-list .aui-list-item-title,
+        .aui-list .aui-list-item-right {
+            margin: auto 0;
+        }
+
+        .aui-list .aui-list-item-title {
+            color: #7e7e8e;
+        }
+
+        .aui-list .aui-list-item,
+        .aui-list .aui-list-item-inner {
+            min-height: 1.5rem !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            position: relative;
+            padding: 0;
+        }
+
+        /*#detailstab .aui-tab-item.aui-active {*/
+        /*background-color: #1c2029;*/
+        /*}*/
+
+        .aui-progress {
+            width: 30%;
+            height: 0.25rem;
+            margin: 0 0.25rem;
+            /*background-color: transparent;*/
+        }
+
+        .aui-progress .aui-progress-bar {
+            background-color: #de3232;
+        }
+
+        .bg-red,
+        .bg-red .aui-bar-nav {
+            background-color: #de3232 !important;
+        }
+
+        .bg-green,
+        .bg-green .aui-bar-nav {
+            background-color: #43AC45 !important;
+        }
+
+
+        .bg-back {
+            background: #171b24
+        }
+
+        .tabcontent {
+            display: none;
+        }
+
+        #tabcontent .aui-active {
+            display: block !important;
+        }
+
+        .border-bot {
+            border-bottom: 1px solid rgba(126, 126, 142, 0.2)!important;
+        }
+
+        .info-pic img {
+            display: inline-block;
+        }
+        .vessel-chart{
+          /*background:#fff;*/
+          border-top:1px solid #AEAEAE;
+          border-bottom:1px solid #AEAEAE;
+        }
+        .vessel-chart p {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 3rem;
+            height: 1.4rem;
+            color: #7e7e8e;
+            margin-left: -1.5rem;
+            margin-top: -0.7rem;
+        }
+        [v-cloak]{
+            display: none;
+        }
+        .aui-bar{
+          display:block;
+        }
+        .new-nav{
+          display:flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .aui-bar-nav{
+          line-height:normal;
+        }
+        .aui-title{
+          display:flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        #sno{
+          color:#FFB0A7;
+        }
+        .aui-tab-item{
+          background-color: #fff;
+          border-right:1px solid #AEAEAE;
+          border-bottom:1px solid #AEAEAE;
+          box-sizing: border-box;
+          margin-left: 0px;
+        }
+        .shares-basic-infro{
+          display:flex;
+          flex-wrap: wrap;
+          padding:0.5rem;
+          background:#fefefe;
+        }
+        .shares-basic-infro li{
+          width:33.33%;
+          font-size:0.7rem;
+          color:#565656;
+        }
+        .shares-basic-infro li span{
+          margin-left:0.3rem;
+          color:#000;
+          font-size:0.5rem;
+        }
+        #timetab :last-child{
+          border-right:none;
+        }
+        #tabcontent .aui-content ul li{
+          background:#FEFEFE;
+          margin-bottom:0.3rem;
+          border-radius:3px;
+          padding:0.1rem 0.2rem;
+        }
+        #tabcontent .aui-content ul li .aui-list-item-title{
+          color:#000;
+          font-size:0.7rem;
+        }
+        .bg2 :last-child{
+          border-right:none;
+        }
+        .aui-tab-item.aui-active{
+          border-bottom:none;
+        }
+        .news-nav{
+          display:flex;
+          border:1px solid #E3E3E3;
+          width:80%;
+          background:#fff;
+          margin:0 auto;
+          margin-bottom:0.5rem;
+          box-sizing: border-box;
+        }
+        .news-nav .news-nav-title{
+          border-right:1px solid #E3E3E3;
+          padding:0.2rem 0.5rem;
+          font-size:0.6rem;
+          flex:1;
+          text-align: center;
+          box-sizing: border-box;
+        }
+        .news-nav-active{
+          color:#de3232;
+          background:#FDF7F7;
+        }
+        .news-nav :last-child{
+          border-right:none;
+        }
+        .news-nav-list{
+          display:none;
+        }
+        .news-nav-list-active{
+          display:block;
+        }
+        .summary-nav-list{
+          display:none;
+        }
+        #tabcontent #summary-nav-list li{
+          padding:1rem;
+          margin-bottom:0.75rem;
+        }
+        #tabcontent #summary-nav-list li:last-child{
+          margin-bottom:3rem;
+        }
+        #tabcontent #summary-nav-list li h5{
+          font-size:0.8rem;
+          color:#000;
+          margin-bottom:0.75rem;
+        }
+        #tabcontent #summary-nav-list li p{
+          display:flex;
+          justify-content: space-between;
+          color:#717171;
+        }
+        #tabcontent #summary-nav-list li p span{
+          color:#000;
+          /*width:66%;*/
+        }
+        #tabcontent #assets-nav-list li{
+          padding:1rem;
+          margin-bottom:0.75rem;
+        }
+        #tabcontent #assets-nav-list li:last-child{
+          margin-bottom:3rem;
+        }
+        #tabcontent #assets-nav-list li h5{
+          font-size:0.8rem;
+          color:#000;
+          margin-bottom:0.75rem;
+          display:flex;
+          justify-content: space-between;
+        }
+        #tabcontent #assets-nav-list li p{
+          display:flex;
+          justify-content: space-between;
+          color:#717171;
+        }
+        #tabcontent #assets-nav-list li p span{
+          color:#000;
+          width:66%;
+          text-align: center;
+        }
+        #tabcontent #assets-nav-list li p i{
+          color:#000;
+          font-style: normal;
+        }
+        #tabcontent #finance-nav-list li{
+          padding:1rem;
+          margin-bottom:0.75rem;
+        }
+        #tabcontent #finance-nav-list li:last-child{
+          margin-bottom:3rem;
+        }
+        #tabcontent #finance-nav-list li h5{
+          font-size:0.8rem;
+          color:#000;
+          margin-bottom:0.75rem;
+          display:flex;
+          /*justify-content: space-between;*/
+          align-items: center;
+        }
+        #tabcontent #finance-nav-list li h5 span{
+          color:#666;
+          font-size:0.6rem;
+          margin-left:0.5rem;
+        }
+        #tabcontent #finance-nav-list li p{
+          display:flex;
+          justify-content: space-between;
+          color:#717171;
+          margin-bottom:0.2rem;
+        }
+        #tabcontent #finance-nav-list li p span{
+          color:#000;
+          text-align: center;
+        }
+        #tabcontent #finance-nav-list li p i{
+          color:#000;
+          font-style: normal;
+        }
+        .summary-nav-list-active{
+          display:block;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden flex-vertical">
+    <div id="box">
+        <header class="aui-bar aui-bar-nav">
+            <div class="aui-bar new-nav">
+                <a class="aui-pull-left aui-btn" onclick="window.history.back();">
+                    <span class="aui-iconfont aui-icon-left"></span>
+                </a>
+                <div class="aui-title">
+                    <span id="name" style="line-height:none;">自选股</span>
+                    <span class="aui-font-size-12" id="sno">9001</span>
+                </div>
+                <a class="aui-pull-left aui-btn" onclick="closeWin();">
+                    <span class="aui-iconfont aui-icon-search"></span>
+                </a>
+            </div>
+        </header>
+        <div id="main" class="flex-con">
+          <div id="content" class="bg1 ">
+            <!-- v-cloak="" -->
+              <div class="aui-content aui-padded-l-15 aui-padded-r-15 clearfix aui-padded-t-10" style="background:#DF3132;">
+                  <div class=" font-colo-w aui-padded-b-5 white aui-pull-left">
+                      <div class="aui-info-item aui-font-size-32" >
+                          <!-- {{handicap.new_price}} -->
+                          58.20
+                      </div>
+                      <div class=" font-colo-w white aui-font-size-12 aui-padded-t-0">
+                        <!-- <span class="aui-padded-r-15">{{handicap.ch_price}}</span><span>{{handicap.zd_rang}}</span> -->
+                        <span class="aui-padded-r-15">+0.41</span><span>+0.71%</span><span style="margin:0 0.3rem;color:#FFAAA9">|</span><span style="color:#FFAAA9;">专用设备 -0.40%</span>
+                      </div>
+                  </div>
+                  <div class="aui-pull-right" @click="addItem(handicap)">
+                      <!-- handicap.inSelf -->
+                      <p class="info-pic aui-text-center">
+                          <img src="../image/market/hq_4icon.png" v-if="handicap.inSelf==0" style="width: .8rem">
+                          <img src="../image/market/hq_3icon.png" v-else style="width: .8rem">
+                      </p>
+                      <div class="font-colo-w aui-font-size-12">
+                          <span v-if="handicap.inSelf==0">加自选</span>
+                          <span v-else>删自选</span>
+                      </div>
+                  </div>
+              </div>
+              <ul class="shares-basic-infro">
+                  <li>
+                    今开<span style="color:#DF3132;">59.60</span>
+                  </li>
+                  <li>最高<span style="color:#DF3132;">59.66</span></li>
+                  <li>成交量<span>3885</span></li>
+                  <li>换手<span>0.18%</span></li>
+                  <li>最低<span style="color:#6A9C50;">57.21</span></li>
+                  <li>成交额<span>2264.88万</span></li>
+              </ul>
+              <div class="aui-tab  bg2 back-bg2" id="timetab">
+                  <div class="aui-tab-item" :class="{'aui-active':navType== 1}" tapmode @click="toggleNav(1)">分时</div>
+                  <div class="aui-tab-item" :class="{'aui-active': navType==10}" tapmode @click="toggleNav(10)">五日</div>
+                  <div class="aui-tab-item" :class="{'aui-active': navType== 2}" tapmode @click="toggleNav(2)">日K</div>
+                  <div class="aui-tab-item" :class="{'aui-active': navType== 3}" tapmode @click="toggleNav(3)">周K</div>
+                  <div class="aui-tab-item" :class="{'aui-active': navType== 4}" tapmode @click="toggleNav(4)">月K</div>
+                  <div class="aui-tab-item" :class="{'aui-active': navType== 5}" tapmode @click="toggleNav(5)">年</div>
+              </div>
+              <div style="height: 8rem;width: 100%;position:relative;" class="vessel-chart">
+                  <div style="height: 8rem;" id="main"></div>
+                  <div style="height: 8rem; display:none;" id="maink"></div>
+                  <p v-show="isShow">暂无消息</p>
+              </div>
+              <div class="aui-content aui-margin-t-15 aui-margin-b-15 aui-padded-l-10 aui-padded-r-10">
+                  <div class="aui-pull-left" style="width: 50%;border-right: 1px solid rgba(126,126,142,0.2)">
+                      <ul class="aui-list" style="background-color: inherit">
+                          <li class="aui-list-item" v-for="list in sale">
+                              <div class="aui-list-item-inner ">
+                                  <div class="aui-list-item-title aui-font-size-12 aui-col-xs-5 aui-ellipsis-1">{{list.name}}
+                                      <span class="aui-padded-l-5">{{list.price}}</span></div>
+                                  <div class="aui-progress aui-progress-xxs aui-col-xs-4" style="height: 0.2rem">
+                                      <div class="aui-progress-bar" :style="'width:'+list.percent"></div>
+                                  </div>
+                                  <div class="aui-list-item-right font-colo-gy aui-col-xs-3 aui-ellipsis-1 aui-padded-l-5">
+                                      {{list.num}}
+                                  </div>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+                  <div class="aui-pull-right" style="width: 50%;">
+                      <ul class="aui-list" style="background-color: inherit">
+                          <li class="aui-list-item" v-for="list in buy">
+                              <div class="aui-list-item-inner aui-padded-r-0 aui-padded-l-10">
+                                  <div class="aui-list-item-title aui-font-size-12 aui-col-xs-5 aui-ellipsis-1">
+                                      {{list.name}}<span class="aui-padded-l-5">{{list.price}}</span>
+                                  </div>
+                                  <div class="aui-progress aui-progress-xxs aui-col-xs-4 aui-ellipsis-1"
+                                       style="height: 0.2rem">
+                                      <div class="aui-progress-bar" :style="'width:'+list.percent"></div>
+                                  </div>
+                                  <div class="aui-list-item-right font-colo-gy aui-col-xs-3 aui-ellipsis-1 aui-padded-l-5">
+                                      {{list.num}}
+                                  </div>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="aui-content aui-margin-t-15 aui-margin-b-15">
+                  <div class="aui-tab aui-margin-b-15 bg2 back-bg2" id="detailstab">
+                      <div class="aui-tab-item aui-active" @click="tabCls(0)">盘口</div>
+                      <div class="aui-tab-item " @click="tabCls(1)">新闻/公告</div>
+                      <div class="aui-tab-item " @click="tabCls(2)">简况</div>
+                  </div>
+                  <div id="tabcontent" class="aui-padded-l-15 aui-padded-r-15">
+                      <div class="aui-content tabcontent aui-active">
+                          <div class="aui-pull-left" style="width:50%; border-right: 1px solid rgba(126,126,142,0.2)">
+                              <ul class="aui-list aui-padded-r-15" style="background-color: inherit">
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">开盘价</div>
+                                      <div class="aui-list-item-right font-colo-r">{{handicap.open_price}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">涨跌幅</div>
+                                      <div class="aui-list-item-right font-colo-r">{{handicap.zd_rang}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">成交均价</div>
+                                      <div class="aui-list-item-right font-colo-r">{{handicap.avg_price}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">成交数量</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.today_deal_num}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">成交总额</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.today_total_price}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">成交总手</div>
+                                      <div class="aui-list-item-right font-colo-r">{{handicap.today_total_num}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">成交最低价</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.low_price}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">成交最高价</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.high_price}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">委托最低价</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.min_price}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">委托最高价</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.max_price}}</div>
+                                  </li>
+
+                              </ul>
+                          </div>
+                          <div class="aui-pull-right" style="width: 50%;">
+                              <ul class="aui-list aui-padded-l-15" style="background-color: inherit">
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">最新价</div>
+                                      <div class="aui-list-item-right font-colo-r">{{handicap.new_price}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">换手率</div>
+                                      <div class="aui-list-item-right font-colo-r">{{handicap.change_percent}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">委比</div>
+                                      <div class="aui-list-item-right font-colo-r">{{handicap.delegate_percent}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">委差</div>
+                                      <div class="aui-list-item-right font-colo-r">{{handicap.delegate_gap}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">量比</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.volume_ratio}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">总股本</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.stock_num}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">振幅</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.rang}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">内盘</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.in_handicap}}</div>
+                                  </li>
+                                  <li class="aui-list-item">
+                                      <div class="aui-list-item-title">外盘</div>
+                                      <div class="aui-list-item-right font-colo-w white">{{handicap.out_handicap}}</div>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                      <div class="aui-content tabcontent">
+                        <div class="news-nav">
+                          <div class="news-nav-title news-nav-active">新闻</div>
+                          <div class="news-nav-title">公告</div>
+                          <div class="news-nav-title">研报</div>
+                        </div>
+                          <ul class="news-nav-list news-nav-list-active">
+                              <li v-for="item in stockNotice" @click="noticeInfo(item.id)">
+                                  <div style="height: 2rem;line-height: 2rem;" class="clearfix border-bot">
+                                      <p class="font-colo-gy aui-ellipsis-2 aui-pull-left">{{item.title}}</p>
+                                      <p class="font-colo-gy aui-pull-right">{{item.addtime}}</p>
+                                  </div>
+
+                              </li>
+                          </ul>
+                          <ul class="news-nav-list">
+                              <li v-for="item in stockNotice" @click="noticeInfo(item.id)">
+                                  <div style="height: 2rem;line-height: 2rem;" class="clearfix border-bot">
+                                      <p class="font-colo-gy aui-ellipsis-2 aui-pull-left">{{item.title}}</p>
+                                      <p class="font-colo-gy aui-pull-right">{{item.addtime}}</p>
+                                  </div>
+
+                              </li>
+                          </ul>
+                          <ul class="news-nav-list">
+                              <li v-for="item in stockNotice" @click="noticeInfo(item.id)">
+                                  <div style="height: 2rem;line-height: 2rem;" class="clearfix border-bot">
+                                      <p class="font-colo-gy aui-ellipsis-2 aui-pull-left">{{item.title}}</p>
+                                      <p class="font-colo-gy aui-pull-right">{{item.addtime}}</p>
+                                  </div>
+
+                              </li>
+                          </ul>
+                      </div>
+                      <div class="aui-content tabcontent">
+                          <div class="news-nav">
+                            <div class="news-nav-title news-nav-active">公司简况</div>
+                            <div class="news-nav-title">股东股本</div>
+                            <div class="news-nav-title">财务数据</div>
+                          </div>
+                          <ul class="summary-nav-list summary-nav-list-active" id="summary-nav-list">
+                            <li>
+                              <h5>公司简介</h5>
+                              <p>公司名称<span>成都法尔教育科技股份有限公司</span></p>
+                              <p>注册地址<span>四川省成都市武侯区武侯科二路188号(武侯新城管委会)</span></p>
+                              <p>实际控股人<span>构建，袁兵</span></p>
+                              <p>发行价<span>17.31元</span></p>
+                              <p>首日开盘价<span>25.42元</span></p>
+                              <p>所属行业<span>计算机应用</span></p>
+                            </li>
+                            <li>
+                              <h5>公司简介</h5>
+                              <p>公司名称<span>成都法尔教育科技股份有限公司</span></p>
+                              <p>注册地址<span>四川省成都市武侯区</span></p>
+                              <p>实际控股人<span>构建，袁兵</span></p>
+                              <p>发行价<span>17.31元</span></p>
+                              <p>首日开盘价<span>25.42元</span></p>
+                              <p>所属行业<span>计算机应用</span></p>
+                            </li>
+                          </ul>
+                          <ul class="summary-nav-list assets-nav-list" id="assets-nav-list">
+                            <li>
+                              <h5>股本结构</h5>
+                              <p>总股本<span>5.24亿股</span></p>
+                              <p>流通A股<span>4.24亿股</span></p>
+                              <p>股东人数<span>41337</span></p>
+                              <p>人均持股<span>1.02万股</span></p>
+                              <p>第一大股东<span>河南省华英禽业总公司</span></p>
+                              <p>前十大股东占比<span>44.66%</span></p>
+                              <p>机构投资者占比<span>28.24%(5家)</span></p>
+                              <p>筹码集中度<span>非常集中</span></p>
+                            </li>
+                            <li>
+                              <h5><span>前十大股东</span><span style="margin-right:1.5rem;">(流通)</span><span>(冻结)</span></h5>
+                              <p><i>周万国</i><i>50000</i><i>50000</i></p>
+                              <p><i>周万国</i><i>50000</i><i>50000</i></p>
+                              <p><i>周万国</i><i>50000</i><i>50000</i></p>
+                              <p><i>周万国</i><i>50000</i><i>50000</i></p>
+                              <p><i>周万国</i><i>50000</i><i>50000</i></p>
+                              <p><i>周万国</i><i>50000</i><i>50000</i></p>
+                            </li>
+                          </ul>
+                          <ul class="summary-nav-list finance-nav-list" id="finance-nav-list">
+                            <li>
+                              <h5>利润表<span>2018-季报</span></h5>
+                              <p>营业总收入<span>11.46%</span></p>
+                              <p>营业总收入增长率<span>65.63%</span></p>
+                              <p>营业利润<span>41337.99万</span></p>
+                              <p>营业利润增长率<span>174.45%</span></p>
+                              <p>净利润<span>2683.10万</span></p>
+                              <p>净利润增长率<span>99.86%</span></p>
+                            </li>
+                            <li>
+                              <h5>利润表<span>2018-季报</span></h5>
+                              <p>营业总收入<span>11.46%</span></p>
+                              <p>营业总收入增长率<span>65.63%</span></p>
+                              <p>营业利润<span>41337.99万</span></p>
+                              <p>营业利润增长率<span>174.45%</span></p>
+                              <p>净利润<span>2683.10万</span></p>
+                              <p>净利润增长率<span>99.86%</span></p>
+                            </li>
+                          </ul>
+                          <!-- <div class="aui-content">
+                              <div class="aui-list" style="background-color: inherit">
+                                  <div class="aui-list-item border-bot aui-padded-t-5">
+                                      <div class="aui-list-item-inner font-colo-w white aui-font-size-14">股本</div>
+                                  </div>
+
+                                  <div class="aui-list-item">
+                                      <div class="aui-list-item-inner">
+                                          <div class="aui-list-item-title font-colo-gy aui-font-size-12">总股本</div>
+                                          <div class="aui-list-item-right font-colo-r">27.39亿</div>
+                                      </div>
+                                  </div>
+                                  <div class="aui-list-item aui-margin-t-10 border-bot aui-padded-b-5">
+                                      <div class="aui-list-item-inner">
+                                          <div class="aui-list-item-title font-colo-w white aui-font-size-14">机构持股</div>
+                                          <div class="aui-list-item-right ">2017-08-30</div>
+                                      </div>
+                                  </div>
+
+                              </div>
+                          </div>
+                          <div class="aui-content font-colo-gy">
+                              <ul>
+                                  <li style="height: 1.5rem;line-height: 1.5rem">
+                                      <div class="aui-pull-left aui-font-size-12">股东名称</div>
+                                      <div class="aui-pull-right" style="width: 50%">
+                                          <span style="display: inline-block; width: 48%;text-align: center" class="aui-font-size-12"> 占比</span>
+                                          <span style="display: inline-block; width: 48%;text-align: right" class="aui-font-size-12">变动</span>
+                                      </div>
+                                  </li>
+                                  <li style="height: 1.5rem;line-height: 1.5rem" v-for="list in stockCompany">
+                                      <div class="aui-pull-left aui-font-size-12 aui-ellipsis-1"  style="width: 50%">{{list.name}}</div>
+                                      <div class="aui-pull-right" style="width: 50%">
+                                          <span style="display: inline-block; width: 48%;text-align: center;color:#de3232 " class="aui-font-size-12">{{list.percent}}</span>
+                                          <span style="display: inline-block; width: 48%;text-align: right" class="aui-font-size-12">未变</span>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </div> -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <footer class="aui-bar aui-bar-tab " id="footer" style="background-color: #fff;border-top:1px solid #D2D2D2;z-index: 100000">
+            <div class="aui-bar-tab-item aui-active" onclick="openWinNew(0)">
+                买
+            </div>
+            <div class="aui-bar-tab-item" onclick="openWinNew(1)" style="border-right:1px solid #D2D2D2;border-left:1px solid #D2D2D2;box-sizing:border-box;">
+                卖
+            </div>
+            <div class="aui-bar-tab-item" onclick="openWinNew(2)">
+                撤
+            </div>
+            <!-- <div class="aui-bar-tab-item" onclick="openWinNew(4)">
+                持仓
+            </div> -->
+        </footer>
+    </div>
+    <script src="../script/api.js"></script>
+    <script src="../script/aui-tab.js"></script>
+    <script src="../script/config.js"></script>
+    <script src="../script/jquery-3.2.1.min.js"></script>
+    <script src="../script/common.js"></script>
+    <script src="../script/echarts.min.js"></script>
+    <script src="../script/yltcrypt.js"></script>
+    <script>
+        var bg, stockid, pageParam;
+
+            pageParam = api.pageParam;
+            bg = api.pageParam.bg;
+            $api.fixStatusBar($api.dom('header'));
+            $api.text($api.byId('name'), api.pageParam.name);
+            $api.text($api.byId('sno'), api.pageParam.sno);
+            if (api.pageParam.state != 'up') {
+                $api.addCls($api.dom('header'), 'bg-green');
+            }
+            api.openFrame({
+                name: 'frm_optionalShareDetail',
+                url: './frm_optionalShareDetail.html',
+                rect: {
+                    x: 0,
+                    y: $api.dom('header').offsetHeight,
+                    w: api.winWidth,
+                    h: $api.dom('#main').offsetHeight,
+                    marginBottom: 50,
+                },
+                pageParam: {
+                    id: api.pageParam.id,
+                    bg: api.pageParam.bg
+                },
+                bounces: false,
+                bgColor: 'rgba(0,0,0,0)',
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: true
+            });
+
+            //监听股票代码
+            // api.addEventListener({
+            //   name: 'stockCode'
+            // }, function (ret, err) {
+            //   stockid = ret.value.sid;
+            // });
+
+        function openWinNew(tag) {
+            openWin('win_trade', {
+                'actionType': tag,
+                'bg': bg,
+                stockid: stockid,
+                sno: pageParam.sno,
+                name: pageParam.name
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+body,html{
+    background:#F5F5F5!important; ;
+}
+section{
+    background: #ffffff;
+}
+.city select{
+   display: inline-block;
+    width: 7rem;
+}
+.carNum select{
+    display: inline-block;
+    width: 1rem;
+}
+.carNum input{
+    display: inline-block;
+    width: 5rem;
+}
+.btn{
+    background:#ff6666 ;
+    font-size: 1rem;
+    margin: 3rem 2rem;
+    padding: 0.6rem;
+    border-radius: 5rem;
+}
+
+.aui-radio, .aui-checkbox,.aui-radio:checked{
+    border-color: #0bb20c;
+}
+.aui-radio:checked{
+    background-color: #0bb20c;
+}

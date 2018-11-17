@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <title>购物车</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        .aui-bar-nav {
+            position: fixed;
+            z-index: 999;
+        }
+        html,body,#wrap{
+            width:100%;
+            height:100%;
+        }
+        #wrap{
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .aui-list .aui-list-item:active {
+            background-color: #fff;
+        }
+
+        .cart-left-img img {
+            width: 3.5rem !important;
+            height: 3.5rem !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap" class="cart">
+        <header class="aui-bar aui-bar-nav aui-bar-light color-black">
+            <div class="aui-pull-left aui-btn" onclick="$a.closeWin();" id="back" style="display: none">
+                <span class="aui-iconfont aui-icon-left color-gray9"></span>
+            </div>
+            <div class="aui-title aui-font-size-16  ">购物车</div>
+            <div class="aui-pull-right aui-btn aui-margin-r-10" onclick="editOrComplete(this);">
+                <span class="aui-iconfont aui-font-size-14 color-black">编辑</span>
+            </div>
+        </header>
+        <div style="height: 2rem;"></div>
+        <div id="main" style="padding-bottom:3rem;">
+            <!-- 购物车商品 -->
+        </div>
+        <script type="text/html/x-dot-template" id="data_cart">
+            {{~it :value}}
+            <div class="cart-bg-fff order-section-padd aui-margin-t-10 aui-padded-l-15 aui-padded-r-15" id="shop_{{=value.shopId}}">
+                <h4 class="aui-border-b aui-padded-t-15">
+                <label>
+                    <input class="aui-radio inline-block" type="checkbox" {{=value.selected?'checked':''}} name="shop" value="{{=value.shopId}}">
+                    <p class="order-top-img inline-block aui-margin-l-10 color-black aui-margin-t-5">
+                        <img src="../../image/cart/icon-shops.png" class="aui-pull-left aui-margin-r-5 cart-name-pic"/>{{=value.shopName}}>
+                    </p>
+                </label>
+            </h4>
+                <ul class="aui-list aui-media-list" data-shopid="{{=value.shopId}}" data-shopname="{{=value.shopName}}">
+                    {{~value.child:goods}}
+                    <li class="aui-list-item aui-padded-l-0 cart-bg-fff" id="goods_{{=goods.gid}}">
+                        <div class="aui-media-list-item-inner">
+                            <label class="aui-list-item-media  btn-checkbox">
+                            <input class="aui-checkbox bd-radius50" type="checkbox" name="checkthis" {{=goods.selected?'checked':''}} value="{{=goods.gid}}"
+                                   data-postprice="{{=goods.postPrice}}" data-isfee="{{=goods.isfee}}" data-gid="{{=goods.gid}}" data-formatids="{{=goods.formatIds}}" data-formatname="{{=goods.formatName}}"
+                                   data-pic="{{=goods.pic}}" data-gname="{{=goods.gname}}" data-formatnames="{{=goods.formatNames}}">
+                        </label>
+                            <div class="aui-list-item-media cart-left-img">
+                                <img src="{{=goods.pic}}">
+                            </div>
+                            <div class="aui-list-item-inner aui-padded-r-0 aui-margin-l-10">
+                                <div class="aui-list-item-text cart-text">
+                                    <p class="aui-ellipsis-2 s-color-black aui-font-size-14 line-height color-black">{{=goods.gname}}</p>
+                                </div>
+                                <div class="aui-list-item-text">
+                                    <p class="s-color-black">
+                                        {{=goods.formatName}}
+                                    </p>
+                                </div>
+                                <div class="aui-info aui-margin-t-10 padding0">
+                                    <div class="aui-info-item">
+                                        <span class="s-color-black color-black">￥{{=goods.postPrice}}</span>
+                                    </div>
+                                    <div class="aui-info-item cart-info-item">
+                                        <div class="aui-bar aui-bar-btn" type="count">
+                                            <div class="aui-bar-btn-item " onclick="min(this);">
+                                                <i class="aui-iconfont aui-icon-minus color-black"></i>
+                                            </div>
+                                            <div class="aui-bar-btn-item">
+                                                <input type="tel" size="4" class="aui-input aui-text-center goodsnum" value="{{=goods.num}}">
+                                            </div>
+                                            <div class="aui-bar-btn-item " onclick="add(this);">
+                                                <i class="aui-iconfont aui-icon-plus color-black"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {{~}}
+                </ul>
+            </div>
+            {{~}}
+        </script>
+        <footer class="aui-bar aui-bar-tab cart-footer aui-margin-t-15">
+            <div class="aui-bar  cart-footer-bar">
+                <div class="aui-pull-left aui-font-size-14 aui-margin-l-15 aui-margin-r-15">
+                    <label>
+                    <input class="aui-checkbox bd-radius50" type="checkbox" name="checkAll">
+                    全选
+                </label>
+                </div>
+                <div class="aui-pull-left aui-font-size-14 settle-num aui-padded-l-15 sum">
+                    合计：<strong id="total">￥0.00</strong>
+                </div>
+                <div class="aui-pull-right btn-settle color-write back-pink aui-font-size-16 sum" id="pay" onclick="pay()"> 去结算（0）</div>
+                <div class=" aui-pull-right aui-font-size-16 btn-delete " hidden>
+                    <p class="inline-block aui-padded-l-15 ">
+                        <span class=" border-right ">收藏</span>
+                    </p>
+                    <p class="inline-block aui-padded-l-15" onclick="delCar();">
+                        <span class="color-pink ">删除</span>
+                    </p>
+                </div>
+            </div>
+        </footer>
+        <!--购物车空空如也-->
+        <div class="order-if-noshop aui-hide" style="height:100vh;">
+            <img src="../../image/zt_empty_image@3x.png" />
+            <dl>
+                <dd class="aui-font-size-12 color-gray9 aui-margin-t-15">购物车空空如也</dd>
+            </dl>
+            <span class="aui-font-size-20 cart-section-go my-noshop-btn" onclick="goShopping()">去逛逛</span>
+        </div>
+    </div>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/jquery-1.11.1.min.js"></script>
+    <script src="../../script/doT.min.js"></script>
+    <script>
+        var carObj;
+        apiready = function() {
+
+            //    购物车返回按键判断
+            if (api.pageParam.index == 1) {
+                $("#back").show();
+            } else {
+                $("#back").hide();
+            }
+            api.addEventListener({
+                name: 'changeCart'
+            }, function(ret) {
+                location.reload();
+            });
+            carObj = localStorage.getItem('carObjx') ? JSON.parse(localStorage.getItem('carObjx')) : [];
+            if (carObj instanceof Array) {
+                if (carObj.length == 0) {
+                    $api.removeCls($api.dom('.order-if-noshop'), 'aui-hide');
+                }
+            } else {
+                carObj = [];
+            }
+            var interTextC = doT.template($api.text($api.byId('data_cart')));
+            $api.html($api.byId('main'), interTextC(carObj));
+            isAllChecked();
+            $("[name=shop]").click(function() {
+                var shop_id = $(this).val();
+                var ischecked = $(this).is(":checked");
+                $("#shop_" + shop_id).find(":checkbox").prop("checked", ischecked);
+                isAllChecked();
+            });
+            $("[name=checkAll]").click(function() {
+                var ischecked = $(this).is(":checked");
+                $(":checkbox").prop("checked", ischecked);
+                sumPrice();
+            })
+            $("[name=checkthis]").click(function() {
+                var ul = $(this).closest('ul');
+                var checkedLen = ul.find(":checkbox:checked").length;
+                var len = ul.find("li").length;
+                if (checkedLen == len) {
+                    ul.prev().find(":checkbox").prop("checked", true);
+                } else {
+                    ul.prev().find(":checkbox").prop("checked", false);
+                }
+                isAllChecked();
+            })
+        };
+
+        function isAllChecked() {
+            var len = $(":checkbox").not("[name=checkAll]").length;
+            var checkedLen = $(":checkbox:checked").not("[name=checkAll]").length;
+            if (len == checkedLen) {
+                $("[name=checkAll]").prop("checked", true);
+            } else {
+                $("[name=checkAll]").prop("checked", false);
+            }
+            sumPrice();
+        }
+
+        function sumPrice() {
+            var num = 0,
+                money = 0.00;
+            $("[name=checkthis]").each(function() {
+                if ($(this).is(":checked")) {
+                    var n = $(this).closest('li').find('.goodsnum').val();
+                    var p = $(this).data('postprice');
+                    num++;
+                    money += parseFloat(n * p);
+                }
+            });
+            $('#pay').text(' 去结算（' + num + '）');
+            $('#total').text('￥' + money.toFixed(2));
+            binning();
+        }
+
+        function editOrComplete(that) {
+            var text = $(that).find("span").text();
+            if (text == "编辑") {
+                text = "完成";
+                $(".sum").attr("hidden", true);
+                $(".btn-delete").removeAttr("hidden");
+            } else {
+                text = "编辑";
+                $(".sum").removeAttr("hidden");
+                $(".btn-delete").attr("hidden", true);
+            }
+            $(that).find("span").text(text);
+        }
+
+        //前往支付
+        function pay() {
+            var checkedLen = $(":checkbox:checked").not("[name=checkAll]").length;
+            if (checkedLen == 0) {
+                return;
+            }
+            binning();
+            //进入确认订单页面
+            api.openWin({
+                name: 'pay-confirm',
+                url: '../pay/pay-confirm.html',
+                pageParam: {
+                    ct: 1,
+                    group: 1,
+                    originOId: 0
+                }
+            });
+        }
+
+        //删除
+        function delCar() {
+            var checkedLen = $(":checkbox:checked").not("[name=checkAll]").length;
+            if (checkedLen == 0) {
+                return;
+            }
+            $("[name=shop]:checked").each(function() {
+                $('#shop_' + $(this).val()).remove();
+            })
+            $("[name=checkthis]:checked").each(function() {
+                $(this).closest('li').remove();
+            });
+            sumPrice();
+            api.sendEvent({
+                name:'refresh-cart-num'
+            });
+        }
+
+        //重新装箱
+        function binning() {
+            var carObj = [];
+            $('.aui-media-list').each(function() {
+                var shopid = $(this).data('shopid');
+                var sobj = {};
+                sobj.shopId = shopid;
+                sobj.shopName = $(this).data('shopname');
+                sobj.num = 0;
+                sobj.postPrice = 0.00;
+                sobj.child = [];
+                sobj.selected = false;
+                var goods_num = 0;
+                var select_num = 0;
+                $(this).find('[name=checkthis]').each(function() {
+                    var gobj = {};
+                    goods_num++;
+                    var selected = $(this).is(":checked");
+                    gobj.gid = $(this).data('gid');
+                    gobj.gname = $(this).data('gname');
+                    gobj.pic = $(this).data('pic');
+                    gobj.shopId = shopid;
+                    gobj.num = $(this).closest('li').find('.goodsnum').val();
+                    gobj.postPrice = $(this).data('postprice');
+                    gobj.selected = selected;
+                    gobj.isfee=$(this).data('isfee');
+                    gobj.formatIds = $(this).data('formatids');
+                    gobj.formatName = $(this).data('formatname');
+                    gobj.formatNames = $(this).data('formatnames');
+                    if (selected) {
+                        sobj.num++;
+                        sobj.postPrice += parseFloat(gobj.postPrice * gobj.num);
+                        select_num++;
+                    }
+                    sobj.child.push(gobj);
+                })
+                if (goods_num == select_num) {
+                    sobj.selected = true;
+                }
+                carObj.push(sobj);
+            })
+            if (carObj.length == 0) {
+                $api.removeCls($api.dom('.order-if-noshop'), 'aui-hide');
+            } else {
+                $api.addCls($api.dom('.order-if-noshop'), 'aui-hide');
+            }
+            localStorage.setItem('carObjx', JSON.stringify(carObj));
+        }
+
+        function min(t) {
+            var n = $(t).closest('.aui-bar-btn').find('.goodsnum');
+            var num = $(n).val();
+            if (num > 1) {
+                $(n).val(--num);
+                sumPrice();
+            }
+        }
+
+        function add(t) {
+            var n = $(t).closest('.aui-bar-btn').find('.goodsnum');
+            var num = $(n).val();
+            $(n).val(++num);
+            sumPrice();
+        }
+
+        function goShopping() {
+            api.sendEvent({
+                name: 'index-show'
+            });
+        }
+    </script>
+</body>
+
+</html>

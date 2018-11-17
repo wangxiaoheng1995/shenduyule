@@ -1,0 +1,10 @@
+1.掌柜——首页 partner_index.html
+2.掌柜 partner_upgrade.html
+3.掌柜升级规则 partner_regulation.html
+4.任务列表 partner_task_list.html
+5.任务奖励明细 partner_task_deta.html
+6.身份特权详情 partner_prerogative.html
+7.我的押金 partner_deposit.html
+8.押金明细或者押金缴纳明细 partner_deposit_detail.html
+9.押金退还明细 partner_return_list.html
+9.押金退还明细详情 partner_return_detail.html

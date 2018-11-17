@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width"/>
+    <title>排行榜</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        .aui-bar-nav{
+            position: fixed;
+        }
+        #tab{
+            position: fixed;
+            width: 100%;
+            top:2.2rem;
+        }
+        html,body,#wrap{
+            width:100%;
+            height:100%;
+        }
+        #wrap{
+            overflow-x: hidden;
+            overflow-y: auto;
+            position: relative;
+        }
+        .cont {
+            padding: 1rem;
+            background: #f6f6f6;
+        }
+
+        .tu img {
+            display: block;
+            width: 50%;
+            margin: 10px auto;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrap" class="cart">
+    <header class="aui-bar aui-bar-nav tit-bar-black color-black border-bot back-write border-bot">
+        <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+            <span class="aui-iconfont aui-icon-left color-gray9"></span>
+        </a>
+        <div class="aui-title">排行榜</div>
+        <div class="aui-pull-right aui-btn" id="rule">
+            <span class="aui-iconfont aui-icon-question color-gray9"></span>
+        </div>
+    </header>
+    <div id="main" style="padding-bottom:3rem;">
+        <nav class="move-nav back-write" id="tab">
+            <span class="nav-red-bot color-palered" type="1">昨日</span>
+            <span class="" type="2">本周</span>
+            <span class="" type="3">本月</span>
+            <span class="" type="4">累计</span>
+        </nav>
+        <div class="aui-margin-t-10 back-write aui-font-size-14">
+            <div style="height: 4.5rem;background: #f5f5f5;"></div>
+            <nav class="move-nav back-write aui-border-b color-gray9" id="nav">
+                <span class="">排名</span>
+                <span class="">姓名</span>
+                <span class="">单数</span>
+                <span class="">销售金额</span>
+            </nav>
+        </div>
+    </div>
+    <script type="text/html-x-dot-template" id="data_tmpl">
+        {{?it.length>0}}
+        <ul class="aui-padded-l-10 aui-padded-r-10" id="content">
+        {{~it:dval:dkey}}
+        <li class="move-rank-flex aui-padded-t-10 aui-padded-b-10 aui-border-b aui-text-center">
+            <span class="move-rank1">
+                {{?dval.rowNo<4}}
+                <img src="../../image/moveshop/my/rank{{=dval.rowNo}}_icon.png"/>
+                {{??}}
+                {{=dval.rowNo}}
+                {{?}}
+            </span>
+            <span class="move-rank2"><img src="{{=dval.avatar}}"/>{{=dval.usename}}</span>
+            <span class="move-rank3">{{=dval.num}}单</span>
+            <span class="move-rank4 color-palered">¥{{=dval.totalmoney}}</span>
+        </li>
+        {{~}}
+        </ul>
+        {{??}}
+        <div class="cont">
+            <div class="tu">
+                <img src="../../image/icon-zw.png">
+            </div>
+        </div>
+        {{?}}
+</script>
+    <div class="layer" style="display: none">
+        <span class="aui-mask z-index"></span>
+        <div class="layer-ct bd-radius4 back-write aui-padded-t-10 aui-padded-b-10 aui-padded-l-10 aui-padded-r-10">
+            <h4 class="aui-margin-t-5 aui-text-center aui-font-size-16 aui-margin-b-15">
+                <span>规则说明</span>
+            </h4>
+            <p class="aui-margin-b-10"> 1 榜单排名规则：按照销售金额和单数综合排名。 </p>
+            <p class="aui-margin-b-10"> 2 排行榜列出前20名店主的排名；如果该店主不在此范围内，则单独显示出具体排名情况。</p>
+            <h4 class="aui-margin-t-5 aui-text-center aui-font-size-16 aui-margin-b-15 aui-border-t aui-padded-t-15">
+                <span id="close-rule">知道了</span>
+            </h4>
+        </div>
+    </div>
+</div>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/doT.min.js"></script>
+<script src="../../script/aui/aui-tab.js"></script>
+</body>
+<script>
+    var user;
+    var type=1;
+    apiready=function(){
+        user=$api.getStorage("user");
+        $("#tab span").click(function(){
+            var self=$(this);
+            type=self.attr("type");
+            self.siblings().removeClass("nav-red-bot color-palered");
+            self.addClass("nav-red-bot color-palered");
+            $("#content").empty();
+            $(".cont").hide();
+            getRankingList();
+        })
+        getRankingList();
+    }
+    function getRankingList(){
+        api.ajax({
+            url:PHP_SERVE_URL+"/taxi/getRankingList",
+            method:'post',
+            data:{
+                values:{
+                    uid:user.uid,
+                    type:type
+                }
+            }
+        },function(ret){
+            if(ret.code==0){
+                var innerText=doT.template($("#data_tmpl").text());
+                $("#nav").after(innerText(ret.data));
+            }
+        })
+    }
+    $("#rule").on("click",function(){
+        $(".layer").show();
+    })
+    $("#close-rule").on("click",function(){
+        $(".layer").hide();
+    })
+</script>
+</html>

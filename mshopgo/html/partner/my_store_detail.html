@@ -1,0 +1,282 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>收入明细</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/mobileSelect.css">
+    <style>
+    *{
+    cursor:pointer;
+    }
+        .income-top{
+          display:flex;
+          justify-content: space-between;
+          align-items: center;
+          padding:0.7rem 0.8rem;
+          background: #F8F4F6;
+        }
+        .incom-top-title{
+          display:flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .incom-top-title span{
+          font-size:0.8rem;
+          color:#333;
+        }
+        .incom-top-title strong{
+          color:#FE5095;
+          font-size:0.6rem;
+          /*font-weight: 100;*/
+        }
+        .incom-top-title img{
+          width:0.95rem;
+          height:0.95rem;
+        }
+        .income-content{
+          padding:0.5rem;
+          display:flex;
+          align-items: center;
+          border-bottom:1px solid #E2E1E1;
+          box-sizing: border-box;
+        }
+        #income-detail{
+          background: #F8F4F5;
+        }
+        .income-content img{
+          width:1.5rem;
+          height:1.5rem;
+        }
+        .income-content-text{
+          width:100%;
+          height:100%;
+          margin-left:0.5rem;
+        }
+        .income-content-top{
+          display: flex;
+          justify-content: space-between;
+        }
+        .income-content-top p{
+          color:#FE5095;
+          font-size:0.5rem;
+        }
+        .income-content-bottom{
+          display:flex;
+          justify-content: space-between;
+          margin-top:0.3rem;
+          align-items: center;
+        }
+        .income-content-bottom p{
+          font-size:0.5rem;
+        }
+        .income-content-bottom h3{
+          font-size:0.5rem;
+          color:#FE5095;
+          text-align: center;
+        }
+        .income-content-top p span{
+          /*margin-right:0.85rem;*/
+        }
+        .income-balance{
+          display:flex;
+          justify-content: center;
+          align-items: center;
+          background: #fff;
+          padding: 0 0.7rem;
+          border-top:1px solid #DCDCDC;
+          box-sizing: border-box;
+        }
+        .balance-nav{
+          margin:0 1.25rem;
+          padding:0.7rem 0;
+        }
+        .balance-nav.balance-active{
+          border-bottom:2px solid #FF5095;
+          color:#FF5095;
+        }
+        [v-cloak]{
+          display: none
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" v-cloak>
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write border-bot header-nav" style="background:#fe5095!important;color:#fff">
+        <a class="aui-pull-left aui-btn" onclick="window.history.back()">
+            <span class="aui-iconfont aui-icon-left aui-font-size-20"></span>
+            收入明细
+        </a>
+        <!-- <div class="aui-title">我的收入</div> -->
+    </header>
+    <div class="header-nav-top" id="main">
+      <div class="income-top">
+        <div class="incom-top-title">
+          <span>本月</span><strong>收入￥<em>2000</em></strong>
+        </div>
+        <div class="incom-top-title title-center" id="income-time"><img src="../../image/my/calendar@2x.png" alt=""></div>
+      </div>
+      <div class="income-balance">
+        <div class="balance-nav balance-active" data-id="1">店铺余额</div>
+        <div class="balance-nav" data-id="2">冻结余额</div>
+      </div>
+        <ul class="aui-list aui-media-list msg-list back-none" id="income-detail" v-if="!show">
+          <li v-for='item in dataArr'>
+            <div class="income-content">
+              <div class="income-content-img"><img src="../../image/partner/icon7@2x.png" alt="" v-if="item.change_type==1"></div>
+              <div class="income-content-img"><img src="../../image/partner/icon8@2x.png" alt="" v-if="item.change_type==2"></div>
+              <div class="income-content-img"><img src="../../image/partner/icon9@2x.png" alt="" v-if="item.change_type==3"></div>
+              <div class="income-content-img"><img src="../../image/partner/icon10@2x.png" alt="" v-if="item.change_type==4"></div>
+              <div class="income-content-img"><img src="../../image/partner/icon11@2x.png" alt="" v-if="item.change_type==5"></div>
+              <div class="income-content-text">
+                <div class="income-content-top">
+                  <h3>{{item.info}}</h3>
+                  <p><span>推广费用:</span><em>{{item.change_money}}</em></p>
+                </div>
+                <div class="income-content-bottom ">
+                  <p><span>订单编号:<em>{{item.order_no}}</em></span>{{item.edit_time}}</p>
+                  <!-- <span class="aui-margin-r-5 aui-margin-l-5">7月6号</span><span>9:50</span> -->
+                  <h3>店铺余额:<span>{{item.left_money}}</span></h3>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- <li>
+            <div class="income-content" v-show="type==2">
+              <div class="income-content-img"><img src="../../image/partner/icon8@2x.png" alt=""></div>
+              <div class="income-content-text">
+                <div class="income-content-top">
+                  <h3>按摩全套服务</h3>
+                  <p><span id="Extension">推广费用</span><em>+300</em></p>
+                </div>
+                <div class="income-content-bottom ">
+                  <p><span>订单编号:<em>4123456899899749</em></span><span class="aui-margin-r-5 aui-margin-l-5">7月6号</span><span>9:50</span></p>
+                  <h3>店铺余额:<span>2000元</span></h3>
+                </div>
+              </div>
+            </div>
+          </li> -->
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script src="../../script/jquery-1.11.1.min.js"></script>
+<script src="../../script/common.js"></script>
+<script src="../../script/aui/aui-toast.js"></script>
+<script src="../../script/config.js"></script>
+<script src="../../script/vue.js"></script>
+<script src="../../script/mobileSelect.min.js"></script>
+<script>
+        var user,
+        user = $api.getStorage('user');
+
+        new Vue({
+            el: "#wrap",
+            data: {
+                balanceArr: '',
+                frozenassets: '',
+                curPage: 1,
+                totalPage: 1,
+                type: 1,
+                dataArr: [],
+                typeArr: [],
+                show: false,
+                timeData: ''
+            },
+            methods: {
+                loadTime() {
+                  //获取数据
+                   var self = this
+                   $.getJSON("../../timeData.json", function (result) {
+                       self.timeData = result;
+                       var mobileSelect5 = new MobileSelect({
+                           trigger: '#income-time',
+                           title: '日期',
+                           wheels: [{
+                               data: self.timeData
+                           }],
+                           position: [0, 0],
+                           transitionEnd: function(indexArr, data) {
+                               //console.log(data)
+                           },
+                           callback: function(indexArr, data) {
+
+                           }
+                       });
+                   });
+                },
+                loadStoreDetail() {
+                    var self = this
+                    if (self.curPage > self.totalPage) {
+                        return;
+                    }
+                    self.curPage++;
+                    $.ajax({
+                        url: PHP_SERVE_URL + '/shop/getshopAssetsInfo',
+                        type: 'post',
+                        data: {
+                                openId: user.openId,
+                                type: self.type,
+                                page: self.curPage - 1
+                        },
+                        success:function(ret, err) {
+                          var toast = new auiToast()
+                            if (ret.code == 0) {
+                                self.totalPage = ret.total;
+                                for (var i = 0; i < ret.data.length; i++) {
+                                    self.dataArr.push(ret.data[i]);
+                                }
+                                // alert(self.dataArr)
+                            } else {
+                              toast.success({
+                                title:ret.msg,
+                              });
+                            }
+                        }
+                    })
+                }
+            },
+            mounted: function() {
+                var self = this
+                self.loadTime()
+                self.loadStoreDetail()
+
+                /* 底部加载数据 */
+                // $a.addEvt({
+                //     name: 'scrolltobottom',
+                //     extra: {
+                //         threshold: 50
+                //     }
+                // }, function(ret, err) {
+                //     self.loadStoreDetail();
+                // });
+
+                //切换显示评论
+                $('body').on('click', '.balance-nav', function() {
+                    // alert(1)
+                    if ($(this).hasClass('balance-active')) {
+                        return;
+                    }
+                    var id = $(this).data('id');
+                    $(this).addClass('balance-active');
+                    $(this).siblings().removeClass('balance-active');
+                    self.dataArr = [];
+                    self.type = id;
+                    self.curPage = 1;
+                    self.totalPage = 1;
+                    self.loadStoreDetail();
+                })
+            }
+        })
+
+</script>
+
+</html>

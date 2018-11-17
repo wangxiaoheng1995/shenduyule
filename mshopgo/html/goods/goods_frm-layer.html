@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>商品弹框</title>
+    <link rel="stylesheet" href="../../css/aui/aui.css">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/l_style.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3) !important;
+            overflow: hidden;
+        }
+
+        #layer {
+            position: relative;
+            background: #fff;
+        }
+
+        #more {}
+
+        #layer {
+            position: absolute;
+            width: 90%;
+            /*height: 60vh;*/
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            -webkit-transform: translate(-50%, -50%);
+            border-radius: 0.2rem;
+        }
+
+        #layer h2 {
+            height: 1.6rem;
+            line-height: 1.6rem;
+        }
+
+        #layer .aui-media-list {
+            overflow: hidden;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .aui-icon-close {
+            position: absolute;
+            right: -0.4rem;
+            top: -0.3rem;
+            width: 1.2rem;
+            z-index: 99;
+        }
+
+        .num-people {}
+            [v-cloak]{
+                display: none;
+            }
+    </style>
+</head>
+
+<body>
+    <!--弹框-->
+    <!--媒体列表-->
+    <div class="back-write " id="layer" v-cloak>
+        <img src="../../image/airline/yjfk_close_icon.png" alt="" class="aui-icon-close" onclick="$a.closeFrm()">
+        <div class="layer-num aui-padded-b-15" id="num">
+            <div class="aui-padded-t-5 aui-padded-l-15 aui-padded-r-15 aui-text-center">
+                <p class="aui-padded-t-15 color-black">{{orders.groupnum}}人团，还差
+                    <em class="color-pink">{{orders.lessnum}}</em>人拼团成功</p>
+                <p class="aui-padded-t-15 color-black sigle-time">剩余
+                    <span class="color-write back-pink bd-radius4" id="hour">00</span> :
+                    <span class="color-write back-pink bd-radius4" id="minute">00</span> :
+                    <span class="color-write back-pink bd-radius4" id="second">00</span> 结束
+                </p>
+                <div class="team-people shop-list-people ">
+                    <span v-for="item,index in orders.userInfo">
+                        <img :src="item.avatar"/><em class="back-pink" v-if="index==0">拼主</em>
+                    </span>
+                </div>
+            </div>
+            <button class="aui-btn  padding0 border-no bd-radius  aui-font-size-16 back-pinkm color-write my-margin-t" @click="goGroup(orders.oid,orders.userInfo[0].uid)">立即参团</button>
+        </div>
+    </div>
+    <script src="../../script/api.js"></script>
+    <script src="../../script/common.js"></script>
+    <script src="../../script/base.js"></script>
+    <script src="../../script/config.js"></script>
+    <script src="../../script/doT.min.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+    <script src="../../script/vue.js"></script>
+    <script>
+        var param;
+        var user;
+        apiready = function() {
+            param = $a.getParam();
+            user = $api.getStorage("user");
+            var vm = new Vue({
+                el: '#layer',
+                data: {
+                    orders: {
+                        userInfo: []
+                    }
+                },
+                methods: {
+                    goGroup: function(oid, uid) {
+                        api.sendEvent({
+                            name: 'helpselect',
+                            extra: {
+                                oid: oid,
+                                id:param.id
+                            }
+                        });
+                        api.closeFrame({
+                            name: 'layer'
+                        });
+
+                        // api.closeFrame({
+                        //     name: 'goods_group'
+                        // });
+                        // api.closeFrame({
+                        //     name: 'goods_group_frm'
+                        // });
+                    }
+                },
+                mounted: function() {
+                    var self = this;
+                    self.orders = param;
+                    setTimeout(function() {
+                        var time = (new Date(param.groupendtime)).getTime();
+                        var nowtime = (new Date()).getTime();
+                        if (time > nowtime) {
+                            GetRTime(time);
+                            setInterval(function() {
+                                GetRTime(time);
+                            }, 1000);
+                        } else {
+                            $api.text($api.byId('hour'), '00');
+                            $api.text($api.byId('minute'), '00');
+                            $api.text($api.byId('second'), '00');
+                        }
+                    }, 100);
+                }
+            });
+        }
+
+        function GetRTime(endtime) {
+            //当前时间
+            var NowTime = (new Date()).getTime();
+            //结束时间减去当前时间剩余的毫秒数
+            var t = endtime - NowTime;
+            if (t < 1000) {
+                $api.text($api.byId('hour'), '00');
+                $api.text($api.byId('minute'), '00');
+                $api.text($api.byId('second'), '00');
+                return;
+            }
+            // var d = Math.floor(t / 1000 / 60 / 60 /24 % 24);//天
+            var h = Math.floor(t / 1000 / 60 / 60 % 60); //时
+            var m = Math.floor(t / 1000 / 60 % 60); //分
+            var s = Math.floor(t / 1000 % 60); //秒
+            // ele.text(d+"天"+h + "小时" + m + "分" + s + "秒");
+            $api.text($api.byId('hour'), h > 9 ? h : '0' + h);
+            $api.text($api.byId('minute'), m > 9 ? m : '0' + m);
+            $api.text($api.byId('second'), s > 9 ? s : '0' + s);
+
+        }
+    </script>
+</body>
+
+</html>

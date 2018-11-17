@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>消息中心</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/l_style.css"/>
+    <style>
+        .aui-tab-item span {
+            line-height: 2rem;
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" class="flex-wrap flex-vertical">
+    <header class="aui-bar aui-bar-nav tit-bar-black back-write ">
+        <a class="aui-pull-left aui-btn" onclick="$a.closeWin()">
+            <span class="aui-iconfont aui-icon-left color-gray9"></span>
+        </a>
+        <div class="aui-title color-black">消息中心</div>
+    </header>
+    <div class="aui-tab aui-border-t " id="tab" style="width: 100%">
+        <div class="aui-tab-item " onclick="switchBtn(0)">
+            <span class="aui-padded-l-5  aui-padded-r-5  inline-block aui-active " style="    ">通知</span>
+        </div>
+        <div class="aui-tab-item " onclick="switchBtn(1)">
+            <span class="aui-padded-l-5  aui-padded-r-5  inline-block">交易物流</span>
+        </div>
+        <div class="aui-tab-item" onclick="switchBtn(2)">
+            <span class="aui-padded-l-5  aui-padded-r-5  inline-block">互动</span>
+        </div>
+        <div class="aui-tab-item" onclick="switchBtn(3)">
+            <span class="aui-padded-l-5  aui-padded-r-5  inline-block">优惠</span>
+        </div>
+    </div>
+    <div id="main" class="flex-con "></div>
+
+</div>
+<script src="../../script/api.js"></script>
+<script src="../../script/base.js"></script>
+<script>
+  apiready = function () {
+    funInGroup();
+    // alert(api.pageParam.index)
+    switchBtn(api.pageParam.index);
+  };
+  var eHeaderLis = $api.domAll('#tab > div');
+
+
+  function funInGroup() {
+    var frames = [],
+      frameName = [
+        'msg-frm-detail',
+        'msg-frm-logistics',
+        'msg-frm-interaction',
+        'msg-frm-discounts'
+      ];
+
+    for (var i = 0; i < eHeaderLis.length; i++) {
+      frames.push({
+        name: 'msg',
+        url: frameName[i] + '.html',
+        bounces: false,
+      })
+    }
+    api.openFrameGroup({
+      name: 'msg',
+      scrollEnabled: false,
+      rect: {
+        x: 0,
+        y: $api.dom('header').offsetHeight + $api.dom('#tab').offsetHeight,
+        w: api.winWidth,
+        h: $api.dom("#main").offsetHeight,
+
+      },
+      index: 0,
+      frames: frames
+    }, function (ret, err) {
+    })
+  }
+
+  //  导航
+  function switchBtn(tag) {
+    var index = 0;
+    for (var i = 0; i < eHeaderLis.length; i++) {
+      if (tag == i) {
+        index = i;
+      } else {
+        $api.removeCls($api.first(eHeaderLis[i], 'span'), 'aui-active');
+      }
+    }
+    $api.addCls($api.first(eHeaderLis[index], 'span'), 'aui-active');
+    api.setFrameGroupIndex({
+      name: 'msg',
+      index: index
+    });
+  }
+</script>
+</body>
+</html>

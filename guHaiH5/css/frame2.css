@@ -1,0 +1,108 @@
+
+html {
+    height: 100%;
+}
+
+/*浅白*/
+body {
+    background: #f6f6f6;
+    height: 100%;
+}
+
+/*最底背景：黑色*/
+.bg1 {
+    background-color: #171b24;
+}
+
+/*底背景：半黑色*/
+.bg2 {
+    background-color: #1c2029;
+}
+
+/*小背景*/
+.bg {
+    padding: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+/*白色背景*/
+.bg-color {
+    background: #ffffff;
+}
+
+/*红色*/
+.font-colo-r {
+    color: #de3232 !important;
+}
+
+/*绿色*/
+.font-colo-g {
+    color: #43ac45 !important;
+}
+
+/*灰色*/
+.font-colo-gy {
+    color: #7e7e8e !important;
+}
+
+/*白色*/
+
+.font-colo-w {
+    color: #ffffff !important;
+}
+
+/*黑色*/
+.font-colo-b {
+    color: #212121 !important;
+}
+
+/*头部*/
+.aui-bar {
+    background-color: #de3232;
+}
+
+/*内容*/
+.overflow-x-hidden {
+    overflow-x: hidden;
+}
+
+/*清除下划线*/
+
+.aui-list, .aui-list .aui-list-item-title, .aui-list .aui-list-item, .aui-list .aui-list-item-inner, .aui-list.aui-list-in .aui-list-item {
+    background-image: none;
+}
+
+/*清除内边距*/
+.aui-list .aui-list-item, .aui-list .aui-list-item-inne, .aui-list .aui-list-header {
+    padding: 0rem;
+}
+
+.aui-grid .aui-row .aui-col-xs-3 {
+    padding-top: 0px;
+}
+
+.aui-grid .aui-row .aui-col-xs-3 img {
+    width: 50%;
+    margin: 0 auto;
+}
+
+#footer.aui-bar-tab .aui-active {
+    color: #de3232;
+}
+
+#footer img {
+    width: 1rem;
+    margin: 0 auto;
+}
+
+.border-bot {
+    border-bottom: 1px solid #dddddd;
+}
+
+/*list-按下背景色*/
+.aui-list .aui-list-item:active {
+    background-color: #ececec;
+}
+.aui-grid  .padd-0{
+    padding: 0;
+}
